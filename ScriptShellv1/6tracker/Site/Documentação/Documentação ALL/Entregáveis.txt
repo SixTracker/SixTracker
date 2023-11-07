@@ -1,0 +1,25 @@
+ Entregáveis SP2: 
+✔: Finalizado;
+❌: Em processo;
+Pesquisa & Inovação
+• Cadastros e estrutura do Backend NodeJS funcionando ✔
+• Site + Cadastros + MVP do Dashboard (funcional) ✔
+• Diagrama de Solução Técnica (Arquitetura Técnica) ✔
+
+Linguagem de Programação
+• Jar inicial do Projeto Console conectado no DB com Listar informações usando a biblioteca Looca ✔
+
+Análise de Requisitos
+• Caso de uso ✔
+• Product backlog de rastreabilidade ✔
+
+Sistemas Operacionais
+• Listar Processos via API ✔
+• Assistente de Instalação do Client (Wizard) ✔
+• VM na Nuvem AWS ✔
+
+Cálculo Computacional
+• Captura de processos (ETL) ✔
+• Mineração dos dados (Modelos analíticos) - R ✔
+• Gráfico/Dashboard ✔
+• Definição de Alertas e Métricas ✔

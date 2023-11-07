@@ -1,0 +1,833 @@
+  
+/* COMEÇO HEADER */
+.banner {
+  width: 100%;
+  height: 105vh;
+  background-image: url(../img/bg-white.jpg);
+  background-size: cover;
+}
+
+/* COMEÇO TELA PARTE 1 */
+
+.imgContainer {
+  width: 37%;
+}
+
+.asideParteUm {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5%;
+}
+.button-inicial{
+  width: 30%;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 15px;
+  border: none;
+  margin-top: 5%;
+  box-shadow: 0.5px 0.5px 10px #ffffff;
+  cursor: pointer;
+  transition-duration: 0.4s;
+}
+
+.button-inicial:hover {
+  background-color: #b011c2;
+  color: white;
+
+}
+
+.container-banner-inicial {
+  height: auto;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+.container-banner-inicial h1 {
+  font-size: 60px;
+  color: rgb(0, 0, 0);
+  font-weight: 900;
+  text-shadow: rgb(255, 255, 255) 0.0em 0.0em 0.2em;
+}
+.color{
+  color: #c211a1;
+  font-weight: 700;
+}
+
+.container-banner-inicial span {
+  font-size: 20px;
+  color: rgb(99, 99, 99);
+}
+
+/* FIM DA TELA PARTE 1 */
+
+
+/* COMEÇO DA TELA OBJETIVOS E MÉTODO */
+
+.social {
+  background-image: linear-gradient(to bottom right, #3b065e, #b011c2);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.social aside {
+  height: 100vh;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.social article {
+  height: 100vh;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.txtImg {
+  color: #fff;
+  font-size: 60px;
+  width: 100%;
+  -webkit-text-stroke: white 2px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5%;
+}
+
+.txtArticle {
+  color: #ffffff;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+
+.txtObjMt {
+  width: 70%;
+  text-align: start;
+  margin-left: 5%;
+  font-size: 16px;
+}
+
+.txtTitulo {
+  width: 100%;
+  font-size: 25px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  display: flex;
+  text-align: start;
+}
+
+/* FIM OBJETIVOS E MÉTODO */
+
+
+/* COMEÇO SOBRE NÓS */
+
+.container-sobre-nos {
+  width: 100%;
+  height: 100vh;
+  background-color: #FFFFFF;
+  background-size: cover;
+  display: flex;
+}
+.container-sobre-nos p {
+  color: #c211a1;
+  font-size: 50px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  -webkit-text-stroke: #c211a1;
+  margin-bottom: 5%;
+}
+
+.textSobreNos {
+  display: flex;
+  width: 70%;
+  font-size: 20px;
+}
+
+.container-sobre-nos aside {
+  width: 50%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-left: 10%;
+}
+
+.container-sobre-nos article {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.linha-container-sobre-nos {
+  height: 5px;
+  width: 35%;
+  background-color: rgb(44, 197, 197);
+  margin-top: 15px;
+}
+
+.barra-container-sobre-nos {
+  width: 100%;
+  height: 100px;
+  background-color: black;
+}
+
+.text-container-sobre-nos {
+  width: 500px;
+  font-size: 40px;
+}
+.img-container-sobre-nos{
+  width: 450px;
+}
+
+/* FIM DO SOBRE NÓS */
+
+/* COMEÇO DESENVOLVEDORES */
+.banner-desenvolvedores{
+  width: 100%;
+  height: 160vh;
+  background-image: url(../img/bg-purple.jpg);
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content-cards{
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 5px;
+  
+}
+.content-cards h1{
+  color: white;
+  font-size: 50px;
+  text-align: center;
+  text-shadow: rgb(43, 43, 43) 0.1em 0.1em 0.8em;
+}
+
+/*Cards da equipe*/
+
+.card{
+  background-color: rgb(255, 255, 255);
+  margin: 30px;
+  width: 20%;
+  height: 61.4vh;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card img{
+  width: 150px;
+  height: 180px;
+  border-radius: 100px;
+}
+
+.hover2 {
+  background-color: #b011c2; /* Green */
+  border: none;
+  color: white;
+  padding: 5px 18px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 3px 3px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  background-color: white; 
+  color: whitesmoke; 
+  border: 2px solid #b011c2;
+  border-radius: 17px;
+}
+
+.hover2:hover {
+  background-color: #b011c2;
+  color: white;
+}
+
+.card a{ 
+  color: #000000;
+  text-decoration: none;
+}
+a:hover{
+  color: #ffffff;
+
+}
+.card h2, p{
+  color:#3B3538;
+  margin-top: 25px;
+  margin-bottom: 5px;
+}
+.part02, .part01{
+display: flex;
+justify-content: center;
+}
+
+/* FIM DOS DESENVOLVEDORES */
+
+/* COMEÇO DO FORMULÁRIO DE CONTATO */
+
+.contato {
+  background-color: #ffffff;
+  width: 100vw;
+  height: 90vh;
+}
+
+.container-contato {
+  width: 90%;
+  height: 90vh;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} 
+
+.container-cards{
+  box-shadow: 1px 1px 10px rgba(91, 91, 91, 0.77);
+  width: 85vw;
+  height: auto;
+  display: flex;
+  border-radius: 20px;
+}
+
+.card-contato{
+  width: 100%;
+  height: 60vh;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  /* margin-top: 2px; */
+  /* margin-bottom: 4px; */
+}
+
+.card-contato h1{
+  margin-top: 2vh;
+  margin-top: 2vh;
+}
+
+.card-imagem{
+  width: 100%;
+  height: 60vh;
+  background-image: url(../FotosGrupo6Tracker/FotoGrupo4.jpg);
+  background-size: cover;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  /* margin-top: 2px; */
+  /* margin-bottom: 4px; */
+  
+}
+
+.formulario{
+  width: 100%;
+  /* height: 50vh; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.intro-faleconosco{
+  font-size: 5vh;
+  margin-top: 2vh;
+}
+
+.campo {
+  position: relative;
+  width: 20rem;
+  text-align: start;
+  align-self: center;
+  margin: 0;
+  position: relative;
+  top: 1rem;
+}
+
+.campo input {
+  width: 335px;
+  padding: 0.5rem;
+  background: whitesmoke;
+  outline: none;
+  border: 1px solid black;
+  font-size: 1em;
+  border-radius: 0.6rem;
+}
+
+.input1 {
+  width: 100%;
+  height: 16vh;
+  padding: 0.3rem;
+  background: whitesmoke;
+  outline: none;
+  border: 1px solid black;
+  font-size: 1em;
+  border-radius: 0.6rem;
+  position: relative;
+  bottom: 1rem;
+}
+
+.campo span {
+  position: absolute;
+  left: 0;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 0.9rem;
+  color: black;
+  text-transform: uppercase;
+  transition: 0.5s;
+  position: relative;
+  bottom: 2rem;
+  z-index: 1;
+}
+.campo span2 {
+  position: absolute;
+  left: 0;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 0.9rem;
+  color: black;
+  text-transform: uppercase;
+  transition: 0.5s;
+  position: relative;
+  bottom: 1.5rem;
+  z-index: 1;
+}
+
+.campo .span1 {
+  position: absolute;
+  left: 0;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 0.9rem;
+  color: black;
+  text-transform: uppercase;
+  transition: 0.5s;
+  position: relative;
+  bottom: 8.2rem;
+  z-index: 1;
+}
+
+.campo input:valid~span,
+.campo input:focus~span {
+  color: whitesmoke;
+  background-color: #c211a1;
+  border-color: black;
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.85em;
+  padding: 0 10px;
+  position: relative;
+  bottom: 3.7rem;
+  left: 0.5rem;
+  border-radius: 0.3rem; 
+}
+
+.campo input:valid~span2,
+.campo input:focus~span2 {
+  color: whitesmoke;
+  background-color: #c211a1;
+  border-color: black;
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.85em;
+  padding: 0 10px;
+  position: relative;
+  bottom: 3.2rem;
+  left: 0.5rem;
+  border-radius: 0.3rem; 
+}
+
+.campo input:valid,
+.campo input:focus {
+  border-color: #8400a5;
+}
+
+.campo .input1:valid~.span1,
+.campo .input1:focus~.span1 {
+  color: whitesmoke;
+  background-color: #c211a1;
+  border-color: black;
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.85em;
+  padding: 0 10px;
+  position: relative;
+  bottom: 9.4rem;
+  left: 0.5rem;
+  border-radius: 0.3rem; 
+}
+
+.campo .input1:valid,
+.campo .input1:focus {
+  border-color: #8400a5;
+}
+
+.formulario textarea{
+  background-color: #f7f7f7;
+  width: 350px;
+  height: 90px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #cfcece;
+}
+::placeholder{
+  color: #979797;
+}
+
+.button-enviar{  
+  background-color: #c211a1;
+  color: #ffffff;
+  font-size: 15px;
+  width: 354px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  position: relative;
+  bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.button-enviar:hover{
+    background-color: #8400a5;
+    color: rgb(255, 255, 255);
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    transition: 0.5s;
+}
+
+#email_input{
+  position: relative;
+  bottom: 0.5rem;
+}
+
+
+/* FIM DO FORMULÁRIO DE CONTATO */
+
+
+/* COMEÇO CARDS FALE CONOSCO */
+
+.titulo-fale-conosco {
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  font-size: 7vh;
+}
+
+.container-fale-conosco {
+  background-image: linear-gradient(to bottom right, #b011c2, #004AAD);
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.textContainer-fale-conosco {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  flex-direction: column;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-bottom: 0%;
+}
+
+.containerCards {
+  width: 80%;
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+  background-color: #a2b0e0cd;
+  border-radius: 200px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.cards {
+  height: 30vh;
+  width: 40vh;
+  
+  display: flex;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
+  border-radius: 200px;
+}
+
+.imgCard {
+  height: 60px;
+  width: 60px;
+  border-radius: 100px;
+  border: solid 1px grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.imgCard img {
+  height: 35px;
+}
+
+/* FIM DOS CARDS FALE CONOSCO */
+
+.campo{
+margin-top: 10px;
+/*  background-color: #f7f7f7; */
+width: 350px;
+/* height: 28px; */
+border-radius: 5px; 
+/* border: 1px solid #cfcece; */
+}
+
+@media only screen and (max-width: 600px) {
+/*
+COMEÇO DO HEADER
+*/
+  .container-header {
+    flex-direction: line;
+    align-items: center; 
+  }
+
+  .navbar {
+    flex-direction: line; 
+    align-items: center; 
+  }
+
+  .header h1 {
+    margin: 10px 0; 
+  }
+
+  .header a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 15px;
+  }
+
+  .logo {
+    width: 100px;
+    margin: 2%;
+  }
+  /*
+FIM DO HEADER
+*/
+
+/* COMEÇO DA TELA OBJETIVOS E MÉTODO */
+
+.imgContainer {
+  width: 80%; 
+}
+
+.asideParteUm {
+  width: 100%; 
+  margin-top: 3%; 
+}
+
+.button-inicial {
+  width: 50%; 
+  margin-top: 3%; 
+}
+
+.container-banner-inicial {
+  margin: 1%;
+  flex-direction: column; 
+  align-items: center; 
+}
+
+.container-banner-inicial h1 {
+  font-size: 30px; 
+}
+
+.container-banner-inicial span {
+  font-size: 16px; 
+}
+/* FIM DA TELA PARTE 1 */
+
+/* COMEÇO DA TELA OBJETIVOS E MÉTODO */
+
+.social {
+  flex-direction: column; 
+  align-items: center; 
+}
+
+.social aside {
+  width: 20%; 
+  text-align: center; 
+  padding: 10px; 
+}
+
+.social article {
+  width: 100%; 
+  text-align: center; 
+  padding: -59px; 
+}
+
+.txtImg {
+  margin-top: 30%;
+  font-size: 30px; 
+  margin-bottom: 3%; 
+}
+
+.txtObjMt {
+  width: 80%; 
+  text-align: center; 
+  margin-left: 5%;
+  font-size: 15px; 
+}
+
+.txtTitulo {
+  font-size: 20px; 
+  text-align: center; 
+  margin-left: 5%;
+}
+/* FIM OBJETIVOS E MÉTODO */
+
+/* COMEÇO SOBRE NÓS */
+
+.container-sobre-nos {
+  flex-direction: column; 
+  align-items: center; 
+}
+
+.container-sobre-nos p {
+  font-size: 30px; 
+  text-align: center; 
+}
+
+.textSobreNos {
+  width: 90%; 
+  font-size: 16px; 
+  text-align: center; 
+}
+
+.container-sobre-nos aside {
+  width: 90%; 
+  margin-left: 0; 
+}
+
+.container-sobre-nos article {
+  width: 90%; 
+}
+
+.linha-container-sobre-nos {
+  width: 30%; 
+  margin-top: 10px; 
+}
+
+.text-container-sobre-nos {
+  width: 90%; 
+  font-size: 20px; 
+  text-align: center; 
+}
+
+.img-container-sobre-nos {
+  margin-top: 5%;
+  width: 100%; 
+  max-width: 300px; 
+}
+/* FIM DO SOBRE NÓS */
+
+/* COMEÇO DESENVOLVEDORES */
+
+.banner-desenvolvedores {
+  height: auto; 
+}
+
+.content-cards {
+  margin-top: 10px; 
+}
+
+.content-cards h1 {
+  font-size: 30px; 
+}
+
+.card {
+  width: 100%; 
+  margin: 10px; 
+}
+
+.card img {
+  width: 100px; 
+  height: 100px;
+}
+
+.card h2,
+.card p {
+  font-size: 16px; 
+}
+
+/* FIM DESENVOLVEDORES */
+
+/* COMEÇO DO FORMULÁRIO DE CONTATO */
+
+.container-cards {
+  width: 90%; /* Reduzir a largura em telas menores */
+}
+
+.formulario input{
+  width: 80%; 
+  margin-left: 9%;
+}
+
+.button-enviar {
+  width: 85%;
+}
+/* FIM DO FORMULÁRIO DE CONTATO */
+
+/* COMEÇO CARDS FALE CONOSCO */
+
+.cards {
+  width: 30%; 
+}
+
+.imgCard img {
+  width: 25px;
+  height: 25px;
+}
+
+.cards span{
+  font-size: 8px;
+}
+
+.textContainer-fale-conosco {
+  display: flex;
+  color: #FFFFFF;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-left: 5%
+}
+
+/* FIM DOS CARDS FALE CONOSCO */
+
+.footer-left img {
+  width: 130px;
+}
+
+.container-footer {
+  flex-direction: line; 
+}
+.footer-info {
+  width: 90%; 
+  margin: 10px; 
+}
+
+
+}
+

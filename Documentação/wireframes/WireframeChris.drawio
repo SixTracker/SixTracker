@@ -1,0 +1,109 @@
+<mxfile host="app.diagrams.net" modified="2023-10-22T22:08:41.135Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="KLtZb_85_Cl41jxF-2me" version="22.0.6" type="device">
+  <diagram name="Page-1" id="2cc2dc42-3aac-f2a9-1cec-7a8b7cbee084">
+    <mxGraphModel dx="2206" dy="1294" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="7026571954dc6520-1" value="" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.containers.browserWindow;rSize=0;strokeColor=#666666;mainText=,;recursiveResize=0;rounded=0;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12" parent="1" vertex="1">
+          <mxGeometry x="30" y="20" width="1050" height="1150" as="geometry" />
+        </mxCell>
+        <mxCell id="7026571954dc6520-2" value="Dashboard1" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.containers.anchor;fontSize=17;fontColor=#666666;align=left;" parent="7026571954dc6520-1" vertex="1">
+          <mxGeometry x="60" y="18" width="110" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="7026571954dc6520-3" value="port3000:public/Dashboard1" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.containers.anchor;rSize=0;fontSize=17;fontColor=#666666;align=left;" parent="7026571954dc6520-1" vertex="1">
+          <mxGeometry x="130" y="60" width="250" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="7026571954dc6520-4" value="Bem-vindo(a) Fernanda Caramico" style="text;html=1;points=[];align=center;verticalAlign=top;spacingTop=-4;fontSize=28;fontFamily=Verdana" parent="7026571954dc6520-1" vertex="1">
+          <mxGeometry x="15" y="140" width="510" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7026571954dc6520-6" value="RAM 1" style="text;html=1;points=[];align=left;verticalAlign=top;spacingTop=-4;fontSize=15;fontFamily=Verdana" parent="7026571954dc6520-1" vertex="1">
+          <mxGeometry x="540" y="140" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7026571954dc6520-7" value="Está segura sem nenhum problema! A RAM está operando em 40%" style="text;html=1;points=[];align=left;verticalAlign=top;spacingTop=-4;fontSize=12;fontFamily=Verdana;whiteSpace=wrap;" parent="7026571954dc6520-1" vertex="1">
+          <mxGeometry x="540" y="170" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="7026571954dc6520-8" value="RAM 2" style="text;html=1;points=[];align=left;verticalAlign=top;spacingTop=-4;fontSize=15;fontFamily=Verdana" parent="7026571954dc6520-1" vertex="1">
+          <mxGeometry x="540" y="230" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7026571954dc6520-10" value="RAM 3" style="text;html=1;points=[];align=left;verticalAlign=top;spacingTop=-4;fontSize=15;fontFamily=Verdana" parent="7026571954dc6520-1" vertex="1">
+          <mxGeometry x="800" y="140" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7026571954dc6520-12" value="Pesquisar" style="text;html=1;points=[];align=left;verticalAlign=top;spacingTop=-4;fontSize=15;fontFamily=Verdana" parent="7026571954dc6520-1" vertex="1">
+          <mxGeometry x="800" y="230" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7026571954dc6520-14" value="Filtro" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.forms.searchBox;strokeColor=#999999;mainText=;strokeColor2=#008cff;fontColor=#666666;fontSize=17;align=left;spacingLeft=3;rounded=0;labelBackgroundColor=none;" parent="7026571954dc6520-1" vertex="1">
+          <mxGeometry x="800" y="260" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7026571954dc6520-15" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.markup.line;strokeColor=#999999;rounded=0;labelBackgroundColor=none;fillColor=#ffffff;fontFamily=Verdana;fontSize=12;fontColor=#000000;" parent="7026571954dc6520-1" vertex="1">
+          <mxGeometry y="310" width="1050" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="7026571954dc6520-16" value="RAM 1" style="text;html=1;points=[];align=left;verticalAlign=top;spacingTop=-4;fontSize=15;fontFamily=Verdana" parent="7026571954dc6520-1" vertex="1">
+          <mxGeometry x="20" y="330" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7026571954dc6520-18" value="Uso (Gb)" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.buttons.button;strokeColor=#666666;mainText=;buttonStyle=round;fontSize=17;fontStyle=0;fillColor=none;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;" parent="7026571954dc6520-1" vertex="1">
+          <mxGeometry x="790" y="370" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7026571954dc6520-19" value="Swap (Gb)" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.buttons.button;strokeColor=#666666;mainText=;buttonStyle=round;fontSize=17;fontStyle=0;fillColor=none;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;" parent="7026571954dc6520-1" vertex="1">
+          <mxGeometry x="790" y="430" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="7026571954dc6520-20" value="*O gráfico vai ajudar o usuário a obserar picos e a base das memórias RAM*" style="text;html=1;points=[];align=left;verticalAlign=top;spacingTop=-4;fontSize=12;fontFamily=Verdana;whiteSpace=wrap;" parent="7026571954dc6520-1" vertex="1">
+          <mxGeometry x="790" y="480" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="7026571954dc6520-21" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.markup.line;strokeColor=#999999;rounded=0;labelBackgroundColor=none;fillColor=#ffffff;fontFamily=Verdana;fontSize=12;fontColor=#000000;" parent="7026571954dc6520-1" vertex="1">
+          <mxGeometry y="580" width="1050" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="7026571954dc6520-22" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.graphics.simpleIcon;strokeColor=#999999;fillColor=#ffffff;rounded=0;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;fontColor=#000000;" parent="7026571954dc6520-1" vertex="1">
+          <mxGeometry x="40" y="640" width="590" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="HF7k-KVLV0AlSYFSTfGA-2" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/png,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;" vertex="1" parent="7026571954dc6520-1">
+          <mxGeometry x="194.76000000000002" y="194.80999999999997" width="150.48" height="95.19" as="geometry" />
+        </mxCell>
+        <mxCell id="HF7k-KVLV0AlSYFSTfGA-3" value="Notificações" style="text;html=1;points=[];align=left;verticalAlign=top;spacingTop=-4;fontSize=15;fontFamily=Verdana" vertex="1" parent="7026571954dc6520-1">
+          <mxGeometry x="540" y="114" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HF7k-KVLV0AlSYFSTfGA-6" value="" style="shape=singleArrow;direction=south;whiteSpace=wrap;html=1;strokeWidth=1;fontSize=6;arrowWidth=0.9818181818182211;arrowSize=1;" vertex="1" parent="7026571954dc6520-1">
+          <mxGeometry x="640" y="119" width="10" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="HF7k-KVLV0AlSYFSTfGA-8" value="Está segura sem nenhum problema! A RAM está operando em 30%" style="text;html=1;points=[];align=left;verticalAlign=top;spacingTop=-4;fontSize=12;fontFamily=Verdana;whiteSpace=wrap;" vertex="1" parent="7026571954dc6520-1">
+          <mxGeometry x="540" y="255" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="HF7k-KVLV0AlSYFSTfGA-9" value="Está segura sem nenhum problema! A RAM está operando em 35%" style="text;html=1;points=[];align=left;verticalAlign=top;spacingTop=-4;fontSize=12;fontFamily=Verdana;whiteSpace=wrap;" vertex="1" parent="7026571954dc6520-1">
+          <mxGeometry x="800" y="170" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="HF7k-KVLV0AlSYFSTfGA-10" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.graphics.simpleIcon;strokeColor=#999999;fillColor=#ffffff;rounded=0;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;fontColor=#000000;" vertex="1" parent="7026571954dc6520-1">
+          <mxGeometry x="40" y="370" width="590" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="HF7k-KVLV0AlSYFSTfGA-11" value="RAM 2" style="text;html=1;points=[];align=left;verticalAlign=top;spacingTop=-4;fontSize=15;fontFamily=Verdana" vertex="1" parent="7026571954dc6520-1">
+          <mxGeometry x="20" y="600" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HF7k-KVLV0AlSYFSTfGA-12" value="Uso (Gb)" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.buttons.button;strokeColor=#666666;mainText=;buttonStyle=round;fontSize=17;fontStyle=0;fillColor=none;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;" vertex="1" parent="7026571954dc6520-1">
+          <mxGeometry x="790" y="640" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HF7k-KVLV0AlSYFSTfGA-13" value="Swap (Gb)" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.buttons.button;strokeColor=#666666;mainText=;buttonStyle=round;fontSize=17;fontStyle=0;fillColor=none;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;" vertex="1" parent="7026571954dc6520-1">
+          <mxGeometry x="790" y="700" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HF7k-KVLV0AlSYFSTfGA-14" value="*O gráfico vai ajudar o usuário a obserar picos e a base das memórias RAM*" style="text;html=1;points=[];align=left;verticalAlign=top;spacingTop=-4;fontSize=12;fontFamily=Verdana;whiteSpace=wrap;" vertex="1" parent="7026571954dc6520-1">
+          <mxGeometry x="790" y="760" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="HF7k-KVLV0AlSYFSTfGA-15" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.markup.line;strokeColor=#999999;rounded=0;labelBackgroundColor=none;fillColor=#ffffff;fontFamily=Verdana;fontSize=12;fontColor=#000000;" vertex="1" parent="7026571954dc6520-1">
+          <mxGeometry y="850" width="1050" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="HF7k-KVLV0AlSYFSTfGA-16" value="RAM 2" style="text;html=1;points=[];align=left;verticalAlign=top;spacingTop=-4;fontSize=15;fontFamily=Verdana" vertex="1" parent="7026571954dc6520-1">
+          <mxGeometry x="20" y="880" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HF7k-KVLV0AlSYFSTfGA-17" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.graphics.simpleIcon;strokeColor=#999999;fillColor=#ffffff;rounded=0;labelBackgroundColor=none;fontFamily=Verdana;fontSize=12;fontColor=#000000;" vertex="1" parent="7026571954dc6520-1">
+          <mxGeometry x="40" y="920" width="590" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="HF7k-KVLV0AlSYFSTfGA-18" value="Uso (Gb)" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.buttons.button;strokeColor=#666666;mainText=;buttonStyle=round;fontSize=17;fontStyle=0;fillColor=none;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;" vertex="1" parent="7026571954dc6520-1">
+          <mxGeometry x="790" y="930" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HF7k-KVLV0AlSYFSTfGA-19" value="Swap (Gb)" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.buttons.button;strokeColor=#666666;mainText=;buttonStyle=round;fontSize=17;fontStyle=0;fillColor=none;whiteSpace=wrap;rounded=0;labelBackgroundColor=none;" vertex="1" parent="7026571954dc6520-1">
+          <mxGeometry x="790" y="990" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="HF7k-KVLV0AlSYFSTfGA-20" value="*O gráfico vai ajudar o usuário a obserar picos e a base das memórias RAM*" style="text;html=1;points=[];align=left;verticalAlign=top;spacingTop=-4;fontSize=12;fontFamily=Verdana;whiteSpace=wrap;" vertex="1" parent="7026571954dc6520-1">
+          <mxGeometry x="790" y="1050" width="240" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

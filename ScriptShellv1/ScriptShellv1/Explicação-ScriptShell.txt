@@ -1,0 +1,42 @@
+Definição de Variáveis Iniciais:
+
+#!/bin/bash: Isso define o interpretador de script como Bash.
+NC='\033[0m': Define uma variável NC para redefinir todas as configurações de formatação de texto.
+VERSAO=18: Define a variável VERSAO com o valor 18.
+REPOSITORIO=home/ubuntu/Desktop: Define a variável REPOSITORIO com o caminho para o repositório no ambiente de trabalho.
+
+Mensagens de Boas-Vindas:
+
+echo ...: Imprime mensagens de boas-vindas e informações para o usuário, usando códigos de escape ANSI para definir cores de texto.
+sleep 1.5: Pausa a execução por 1,5 segundos após cada mensagem para dar ao usuário tempo para ler.
+
+Verificação e Atualização do Repositório:
+
+cd home/ubuntu/Desktop: Muda o diretório de trabalho para a pasta do repositório no ambiente de trabalho.
+if [ -f "$REPOSITORIO" ]: Verifica se o arquivo (repositório) existe no caminho especificado.
+git pull: Se o repositório existe, executa git pull para atualizá-lo. Caso contrário, clona o repositório a partir de um URL. A lógica aqui é verificar se o repositório já está no sistema e atualizá-lo se necessário.
+]
+Instalação do ODBC (Open Database Connectivity):
+
+odbcinst -q -d -n: Verifica se o ODBC (Open Database Community) está instalado no sistema.
+if [ $? -eq 0 ]: Verifica se o comando de verificação do ODBC foi bem-sucedido.
+Em caso de sucesso, informa ao usuário que o ODBC já está instalado. Caso contrário, oferece a opção de instalar o ODBC. Se o usuário concordar, o script realiza as etapas de instalação do ODBC.
+fi: Fecha a estrutura condicional.
+
+Instalação do Java:
+
+java -version: Verifica se o Java está instalado.
+A lógica é a mesma que para o ODBC, onde o script verifica se o Java está instalado e, se não estiver, oferece a opção de instalar.
+
+Instalação do Python11:
+
+python11 --version: Verifica se o Python11 está instalado.
+A lógica é a mesma que para o Java, onde o script verifica se o Python3 está instalado e, se não estiver, oferece a opção de instalar.
+Instalação do Pip (Python Package Installer):
+
+pip --version: Verifica se o Pip está instalado.
+A lógica é a mesma que para o Java e o Python3, onde o script verifica se o Pip está instalado e, se não estiver, oferece a opção de instalar, incluindo a instalação de bibliotecas Python comuns.
+O uso de sleep entre mensagens serve para dar ao usuário tempo para ler e responder às perguntas interativas.
+
+
+O script continua a verificar e instalar Java, Python3 e Pip, respectivamente, seguindo o mesmo padrão de verificação de instalação e instalação se necessário.

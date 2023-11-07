@@ -1,0 +1,116 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-color: rgb(255, 255, 255);
+  font-size: 15px;
+  overflow-x: hidden;
+}
+
+.container-header {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 5%;
+}
+
+
+
+.header a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 20px;
+}
+
+.header a:hover {
+  color: #c211a1;
+}
+
+.navbar {
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.header h1 {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.logo {
+  width: 200px;
+  margin: 2%
+}
+
+.botao {
+  margin-top: 10px;
+  height: 28px;
+  width: 120px;
+  border: 2px;
+  border-color: #393D46;
+  border-radius: 3px;
+}
+
+/* FIM DO HEADER */
+
+
+
+
+
+/* COMEÇO DO FOOTER */
+
+.footer {
+  width: 100%;
+  background-color: #ffffff;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  background-color: rgb(129, 111, 206);
+  height: auto;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container-footer {
+  display: flex;
+  width: 90%;
+  height: auto;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left img {
+  height: 150px;
+  width: 150px;
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+}
+
+.footer-info h1 {
+  color: #393D46;
+  font-size: 20px;
+}
+
+.footer-info a {
+  color: #393D46;
+  margin: 5px;
+  text-decoration: none;
+}
+
+.footer-nav:hover {
+  font-weight: 800;
+}
+
+/* FIM DO FOOTER */

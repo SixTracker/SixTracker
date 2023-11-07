@@ -1,0 +1,39 @@
+1. Definir variáveis (Versão = 18, Local do repositorio)
+
+2. Mudar o diretório para a área de trabalho, onde ficará o repositório (cd home/ubuntu/Desktop)
+
+3. Clonar/Atualizar o repositório dependendo se existe ou não (If, Git pull, Git clone)
+
+4. Checar ODBC para tomar decisão (odbcinst -q -d -n)
+
+4.1 Se tiver instalado, ir para etapa 4.3
+
+4.2 Se não tiver instalado, instalar com curl e ir para etapa 4.3
+
+4.3 Limpar terminal (clear)
+
+5. Checar Java para tomar decisão (java -version)
+
+5.1 Se tiver instalado, ir para etapa 5.3
+
+5.2 Se não tiver instalado, instalar com sudo add-apt/sudo apt e ir para etapa 5.3
+
+5.3 Limpar terminal (clear)
+
+6. Checar Python3 para tomar decisão (python3 --version)
+
+6.1 Se tiver instalado, ir para etapa 6.3
+
+6.2 Se não tiver instalado, instalar com sudo apt install e ir para etapa 6.3
+
+6.3 Limpar terminal (clear)
+
+7. Checar Pip para tomar decisão (pip --version)
+
+7.1 Se tiver instalado, ir para etapa 7.3
+
+7.2 Se não tiver instalado, instalar tanto o pip como as bibliotecas necessárias com sudo apt instal e pip install, e ir para etapa 7.3
+
+7.3 Limpar terminal (clear)
+
+8. Fim
