@@ -31,12 +31,7 @@ def mysql_connection(host, user, passwd, database=None):
     
     cursor = connection.cursor(dictionary=True)
 
-    componentes = {
-        10: "Porcentagem de Disco",
-        11: "Disco total",
-        12: "Disco Usado",
-        13: "Disco Tempo de Leitura",
-        14: "Disco Tempo de Escrita",
+    componentes = {       
         1: "Porcentagem de CPU",
         2: "Velocidade da CPU",
         4: "Número de Processos da CPU",
@@ -44,7 +39,12 @@ def mysql_connection(host, user, passwd, database=None):
         6: "Total de Memória",
         7: "Memória Usada",
         8: "Porcentagem de Memória Swap",
-        9: "Memória Swap Usada"
+        9: "Memória Swap Usada",
+        10: "Porcentagem de Disco",
+        11: "Disco total",
+        12: "Disco Usado",
+        13: "Disco Tempo de Leitura",
+        14: "Disco Tempo de Escrita"
     }
     
     c.setFont("Helvetica", 12)
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     hostname = socket.gethostname()
     print("Nome do host da máquina:", hostname)
 
-    connection = mysql_connection('localhost', 'root', 'Isabeol0609!', 'sixtracker')
+    connection = mysql_connection('localhost', 'root', '1234', 'sixtracker')
     cursor = connection.cursor()
 
 def generate_random_code(length):
@@ -113,7 +113,7 @@ def bytes_para_gb(bytes_value):
 def milissegundos_para_segundos(ms_value):
     return ms_value / 1000
 
-connection = mysql_connection('localhost', 'root', 'Isabeol0609!', 'sixtracker')
+connection = mysql_connection('localhost', 'root', '1234', 'sixtracker')
 
 #Disco
 
@@ -143,7 +143,7 @@ for i in range(len(ins)):
         
     componente = componentes[i]
 
-    
+    print(componentes)
     query = "INSERT INTO Registro (valorRegistro, dataRegistro, fkComponente) VALUES (%s, %s, %s)"
 
     
@@ -217,7 +217,7 @@ while True:
             requests.post(webhook, data=json.dumps(mensagem))
 
     if (memoriaPorcentagem >= 70):
-            memoria_formatado = "{:.2f}".format(mem_used)
+            memoria_formatado = "{:.2f}".format(memoriaPorcentagem)
             mensagem = {"text": f"O uso da MEMÓRIA RAM está em {memoria_formatado}% (CRÍTICO)"}
             requests.post(webhook, data=json.dumps(mensagem))
     
@@ -234,7 +234,7 @@ while True:
         cursor.execute(query, (valorRegistro, horarioFormatado, componente))
 
         query = "INSERT INTO Servidor (sistemaOperacional, fkSalas, ip, nome, codigo) VALUES (%s, %s, %s, %s, %s)"
-        data = [(SO, 1, ip, hostname, unique_code)]
+        data = [(SO, 3, ip, hostname, unique_code)]
 
         for record in data:
             cursor.execute(query, record)
