@@ -24,18 +24,16 @@ router.post("/publicar", function (req, res) {
     servidorController.publicar(req, res);
 });
 
-// router.put("/editar/:idAviso", function (req, res) {
-//     avisoController.editar(req, res);
-// });
+router.put("/editar/:idServidor", function (req, res) {
+    servidorController.editar(req, res);
+});
 
-// router.delete("/deletar/:idAviso", function (req, res) {
-//     avisoController.deletar(req, res);
-// });
-
-
+router.delete("/deletar/:idServidor", function (req, res) {
+    avisoController.deletar(req, res);
+});
 
 router.get("/buscar/", function (req, res) {
-    servidorController.buscar(req, res);
+    servidorController.buscarServidores(req, res);
 })
 
 

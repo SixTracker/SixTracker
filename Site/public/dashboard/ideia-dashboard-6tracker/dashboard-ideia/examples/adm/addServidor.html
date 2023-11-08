@@ -255,6 +255,24 @@ Coded by www.creative-tim.com
                         </div>
                       </div>
 
+                      <div class="table" style="margin-top: 8vh;">
+                        <table class="table">
+                          <thead class=" text-primary">
+      
+      
+                          </thead>
+                          <tbody id="tb_servidor">
+                            <tr>
+                              <th>
+                                Servidor
+                              </th>
+                              <th>
+                                Sala
+                              </th>
+                          </tbody>
+                        </table>
+                      </div>
+
                       <!-- <div class="row">
                         <div class="update ml-auto mr-auto">
                           <button onclick="publicar()" type="submit" class="btn btn-primary btn-round" style="background-color: #c211a1;">Exibir servidores</button>
@@ -350,7 +368,7 @@ Coded by www.creative-tim.com
       </footer>
     </div>
   </div>
-  <!--   Core JS Files   -->
+    <!-- Core JS Files   -->
   <!-- <script src="../../assets/js/core/jquery.min.js"></script>
   <script src="../../assets/js/core/popper.min.js"></script>
   <script src="../../assets/js/core/bootstrap.min.js"></script>
@@ -369,11 +387,60 @@ Coded by www.creative-tim.com
 </html>
 
 <script>
+
+fetch(`/servidor/buscar`)
+    .then(function (resposta) {
+      console.log("ESTOU NO THEN DO entrar()!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+
+          const dataSize = json.length;
+          const tbody = document.getElementById("tb_servidor");
+
+          for (let i = 0; i < dataSize; i++) {
+            var idServidor = json[i]["idServidor"]
+            var nomeServidor = json[i]["nomeServidor"]
+            var codigo = json[i]["codigo"]
+            var sistemaOperacional = json[i]["so"]
+            var usbDetectado = json[i]["usbDetectado"]
+            var fkSalas = json[i]["fkSalas"]
+
+            tbody.innerHTML += `
+                        <tr>
+                          <td>
+                            ${nomeServidor}
+                          </td>
+                          <td>
+                            ${salaServidor}
+                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal(${idServidor}, '${nomeServidor}', ${salaServidor})"></i>
+                              <i style="margin-left: 5vh; cursor:pointer" class="fa fa-trash" onclick="deletar(${idServidor})"></i>
+                          </td>
+
+                        </tr>
+                      `
+          }
+        });
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+      cardErro.style.display = "block"
+      mensagem_erro.innerHTML = "O Login está inválido";
+    })
+
+
+
+
+
   // function limparFormulario() {
   //       document.getElementById("form_postagem").reset();
   //   }
 
-  sessionStorage.ID_SALA = 1
+  sessionStorage.ID_SERVIDOR = 1
   var idSala = sessionStorage.getItem('ID_SALA')
     fetch(`http://localhost:3333/sala/buscar/`)
         .then(function (resposta) {
@@ -429,18 +496,20 @@ Coded by www.creative-tim.com
 
     function publicar() {
         // var idUsuario = 1
+
         var corpo = {
-            nome: nome.value,
-            codigo: codigo.value,
-            so: so.value,
-            usb: usb.value,
-            sala: salaSelect.value,
+            nome: inp_nome.value,
+            codigo: inp_codigo.value,
+            so: inp_so.value,
+            usb: inp_usb.value,
+            sala: inp_salaSelect.value
         }
 
         console.log(corpo)
 
-        fetch(`/servidor/publicar`, {
-            method: "post",
+        window.alert("publicando")
+        fetch(`/Servidor/publicar`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -468,27 +537,33 @@ Coded by www.creative-tim.com
 
     }
 
-    // function deletar(idServidor) {
-    //     console.log("Criar função de apagar servidor escolhido - ID" + idServidor);
-    //     fetch(`/servidor/deletar/${idServidor}`, {
-    //         method: "DELETE",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         }
-    //     }).then(function (resposta) {
+    function deletar(idServidor) {
+      var promptConfimacao = prompt('Digite "deletar" para apagar o servidor');
 
-    //         if (resposta.ok) {
-    //             window.alert("Servidor deletado com sucesso pelo usuario de ID: " + idUsuario + "!");
-    //             window.location = "/dashboard/mural.html"
-    //         } else if (resposta.status == 404) {
-    //             window.alert("Deu 404!");
-    //         } else {
-    //             throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-    //         }
-    //     }).catch(function (resposta) {
-    //         console.log(`#ERRO: ${resposta}`);
-    //     });
-    // }
+      if (promptConfimacao != "deletar") {
+      window.alert("Você não digitou deletar então a sala não sera apagada")
+      return
+    }
+
+        fetch(`/servidor/deletar/${idServidor}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("Servidor deletado com sucesso");
+                window.location = "addServidor.html"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    }
 
   function testar() {
         aguardar();

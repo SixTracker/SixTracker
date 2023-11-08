@@ -100,48 +100,49 @@ function publicar(req, res) {
     }
 }
 
-// function editar(req, res) {
-//     var novaDescricao = req.body.descricao;
-//     var idAviso = req.params.idAviso;
+function editar(req, res) {
+    var nome = req.body.nomeServidor;
+    var codigo = req.body.codigo;
+    var idServidor = req.params.codigo;
 
-//     avisoModel.editar(novaDescricao, idAviso)
-//         .then(
-//             function (resultado) {
-//                 res.json(resultado);
-//             }
-//         )
-//         .catch(
-//             function (erro) {
-//                 console.log(erro);
-//                 console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
-//                 res.status(500).json(erro.sqlMessage);
-//             }
-//         );
+    servidorModel.editar(nome, codigo, idServidor)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
 
-// }
+}
 
-// function deletar(req, res) {
-//     var idAviso = req.params.idAviso;
+function deletar(req, res) {
+    var idServidor = req.params.idServidor;
 
-//     avisoModel.deletar(idAviso)
-//         .then(
-//             function (resultado) {
-//                 res.json(resultado);
-//             }
-//         )
-//         .catch(
-//             function (erro) {
-//                 console.log(erro);
-//                 console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
-//                 res.status(500).json(erro.sqlMessage);
-//             }
-//         );
-// }
+    servidorModel.deletar(idServidor)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 
 
-function buscar(req, res){
+function buscarServidores(req, res){
 
-    console.log(`Recuperando medidas em tempo real`);
+    console.log(`Recuperando servidores em tempo real`);
 
     servidorModel.buscarServidores().then(function (resultado) {
         if (resultado.length > 0) {
@@ -158,12 +159,12 @@ function buscar(req, res){
 
 
 module.exports = {
-    buscar,
+    buscarServidores,
     testar,
     // listar,
     // listarPorUsuario,
     // pesquisarDescricao,
-    publicar
-    // editar,
-    // deletar
+    publicar,
+    editar,
+    deletar
 }

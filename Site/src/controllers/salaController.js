@@ -139,7 +139,7 @@ function deletar(req, res) {
 
 function buscarSalas(req, res){
 
-    console.log(`Recuperando medidas em tempo real`);
+    console.log(`Recuperando salas em tempo real`);
 
     salaModel.buscarSalas().then(function (resultado) {
         if (resultado.length > 0) {
@@ -163,5 +163,5 @@ module.exports = {
     // pesquisarDescricao,
     publicar,
     editar,
-     deletar
+    deletar
 }

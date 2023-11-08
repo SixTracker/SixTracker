@@ -33,7 +33,7 @@ router.delete("/deletar/:idSala", function (req, res) {
 
 router.get("/buscar/", function (req, res) {
     salaController.buscarSalas(req, res);
-})
+});
 
 
 module.exports = router;
