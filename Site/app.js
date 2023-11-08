@@ -15,7 +15,7 @@ var medidasRouter = require("./src/routes/medidas");
 var servidorRouter = require("./src/routes/servidor");
 var salaRouter = require("./src/routes/sala");
 var componenteRouter = require("./src/routes/componente");
-var graficosDiscoRouter = require("./src/routes/graficosDisco");
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -30,7 +30,7 @@ app.use("/medidas", medidasRouter)
 app.use("/servidor", servidorRouter)
 app.use("/sala", salaRouter)
 app.use("/componente", componenteRouter)
-app.use("/graficosDisco", graficosDiscoRouter)
+
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
