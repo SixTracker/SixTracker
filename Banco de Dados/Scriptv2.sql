@@ -16,6 +16,12 @@ cadastrar TINYINT,
 deletar TINYINT
 );
 
+insert into Permissao values (
+null, 1, 1, 1, 1
+);
+
+select * from Permissao;
+
 create table NivelAcesso (
 idNivelAcesso INT PRIMARY KEY auto_increment,
 nomeCargo varchar(45),
@@ -23,12 +29,24 @@ fkPermissao INT,
 FOREIGN KEY (fkPermissao) REFERENCES Permissao(idPermissao)
 );
 
+insert into NivelAcesso values(
+null, 'Admin', 1
+);
+
+select * from NivelAcesso;
+
 create table Empresa (
 idEmpresa INT PRIMARY KEY auto_increment,
 nome varchar(45),
 CNPJ char(18),
 telefone char(11)
 );
+
+insert into Empresa (nome, CNPJ) values(
+ 'Nubank', '123456789012345678'
+ );
+ 
+ select * from empresa;
 
 create table funcionario (
 idFuncionario INT PRIMARY KEY auto_increment,
@@ -43,6 +61,12 @@ FOREIGN KEY (fkNivelAcesso) REFERENCES NivelAcesso(idNivelAcesso),
 FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
 );
 
+insert into Funcionario values(
+null, 'Guilherme', '008.539.263-18', 'guilherme.gsantos@sptech.school', '11982206065','Guigon89!', 1, 1
+);
+
+select * from funcionario;
+
 create table Endereco(
 idEndereco int primary key auto_increment,
 CEP char(8), 
@@ -56,6 +80,12 @@ constraint FkEmpresaEndereco foreign key (fkEmpresa)
 	references Empresa(idEmpresa)
 );
 
+ insert into Endereco (CEP, estado, rua, numero, bairro, cidade) values (
+	'04742040', 'São Paulo', 'Santa Zoe', '243', 'Santo Amaro', 'São Paulo'
+	);
+    
+    select * from Endereco;
+
 create table Salas(
 idSalas int primary key auto_increment, 
 nomeSala varchar(45),
@@ -64,6 +94,14 @@ fkEmpresa int,
 constraint FkEmpresaSalas foreign key(fkEmpresa)
 	references Empresa(idEmpresa)
 );
+
+insert into Salas values (
+null, 'Sala A1', 1, 1
+),(
+null, 'Sala A2', 2, 1
+);
+
+select * from Salas;
 
 create table Servidor(
 idServidor int primary key auto_increment,
@@ -76,13 +114,19 @@ constraint FkSalasServidor foreign key (fkSalas)
 	references Salas(idSalas)
 );
 
+ insert into Servidor values(
+ null, 'Servidor Principal', '40345', 'Ubuntu 22.04.03', '22.138.22.92', 1
+ );
+ insert into Servidor values(
+ null, 'Servidor Secundário', '55757', 'Windows', '193.295.96.12', 1
+ );
+
 select * from Servidor;
 
 create table UnidadeMedida(
 idUnidadeMedida int primary key auto_increment,
 unidadeMedida varchar(45)
 );
-
 
  insert into UnidadeMedida values (
  null, '%'
@@ -95,6 +139,8 @@ unidadeMedida varchar(45)
  ),
  (null, 'GHz'
  );
+ 
+ select * from UnidadeMedida;
 
 create table TipoComponente(
 idTipoComponente int primary key auto_increment,
@@ -109,9 +155,7 @@ tipoComponente varchar(45)
  null, 'DISCO'
  ); 
  
-
- 
-
+ select * from TipoComponente;
 
 create table Metrica(
 idMetrica INT PRIMARY KEY auto_increment,
@@ -145,14 +189,6 @@ constraint fkTipoComponenteComponente foreign key (fkTipoComponente)
 	references Metrica(idMetrica)
 );
 
-create table Registro(
-idRegistro int primary key auto_increment, 
-valorRegistro double,
-dataRegistro datetime,
-fkComponente int,
-constraint FkComponenteRegistro foreign key (fkComponente) 
-	references Componente (idComponente)    
-); 
 
 INSERT INTO Componente (nome, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica) 
 VALUES 
@@ -182,7 +218,111 @@ VALUES
 
 select * from Componente;
 
-SELECT
+create table Registro(
+idRegistro int primary key auto_increment, 
+valorRegistro double,
+dataRegistro datetime,
+fkComponente int,
+constraint FkComponenteRegistro foreign key (fkComponente) 
+	references Componente (idComponente)    
+); 
+
+select * from Registro;
+
+            
+CREATE TABLE janelas (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            nomeJanelaJson VARCHAR(1000),
+            quantidade INT,
+            dataHora TIMESTAMP,
+            fkServidor int,
+            constraint fkServidor foreign key (fkServidor) 
+			references Servidor (idServidor)
+        );
+        
+        select * from janelas;
+
+            
+CREATE TABLE rede (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            nomeRede VARCHAR(50),
+            bytesEnviados LONG,
+            bytesRecebidos LONG,
+            dataHora TIMESTAMP,
+            fkServidor int,
+            constraint fkRedeServidor foreign key (fkServidor) 
+			references Servidor (idServidor)
+        );
+    
+    select * from rede;
+		
+CREATE TABLE usb (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    idExclusivo Int,
+                    qtdConectada INT,
+                    nomeUSB VARCHAR(50),
+                    dataHora TIMESTAMP,
+                    fkServidor int,
+                    constraint fkUsbServidor foreign key (fkServidor) 
+			        references Servidor (idServidor)
+                    );
+                    
+                    select * from usb;
+		
+
+desc Permissao;
+desc NivelAcesso;
+desc Funcionario;
+desc Empresa;
+desc Endereco;
+desc Salas;
+desc Servidor;
+desc Registro;
+desc UnidadeMedida;
+desc Componente;
+desc TipoComponente;
+
+-- Teste -- 
+ select * 
+	from Empresa join Endereco 
+    on fkEmpresa = idEmpresa;
+    
+-- Teste -- 
+select 
+	Funcionario.nome as Nome,
+	Funcionario.CPF as CPF,
+    Funcionario.telefone as Telefone,
+	Funcionario.email as Email,
+	Funcionario.senha as Senha,
+    Empresa.nome as NomeEmpresa,
+    Empresa.CNPJ as CNPJ,
+    Empresa.telefone as TelefoneEmpresa,
+    NivelAcesso.nomeCargo as Cargo,
+    Permissao.visualizar as Visualizar,
+    Permissao.editar as Editar,
+    Permissao.cadastrar as Cadastrar,
+    Permissao.deletar as Deletar
+		from Funcionario join Empresa
+		on fkEmpresa = idEmpresa
+		join NivelAcesso on fkNivelAcesso = idNivelAcesso
+		join Permissao on fkPermissao = idPermissao; 
+        
+
+-- Select para ver as salas disponiveis para adicionar um servidor -- 
+
+select 
+	Salas.nomeSala as NomeSala, 
+    Empresa.nome as NomeEmpresa,
+    Salas.andarSala as andarSala
+		from Salas join Empresa 
+        on fkEmpresa = idEmpresa;
+        
+
+ select tipoComponente from TipoComponente; 
+ select unidadeMedida from UnidadeMedida;
+ 
+ 
+ SELECT
     nome AS 'Nome do Componente',
     fkServidor AS 'Servidor do Componente',
     fkUnidadeMedida AS 'Unidade de Medida',
@@ -237,141 +377,6 @@ JOIN Metrica M ON C.fkMetrica = M.idMetrica
 WHERE R.valorRegistro > M.alerta;
 
 
-select * from Registro;
-            
-CREATE TABLE janelas (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            nomeJanelaJson VARCHAR(1000),
-            quantidade INT,
-            dataHora TIMESTAMP,
-            fkServidor int,
-            constraint fkServidor foreign key (fkServidor) 
-			references Servidor (idServidor)
-        );
-
-            
-CREATE TABLE rede (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            nomeRede VARCHAR(50),
-            bytesEnviados LONG,
-            bytesRecebidos LONG,
-            dataHora TIMESTAMP,
-            fkServidor int,
-            constraint fkRedeServidor foreign key (fkServidor) 
-			references Servidor (idServidor)
-        );
-    
-		
-CREATE TABLE usb (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    idExclusivo Int,
-                    qtdConectada INT,
-                    nomeUSB VARCHAR(50),
-                    dataHora TIMESTAMP,
-                    fkServidor int,
-                    constraint fkUsbServidor foreign key (fkServidor) 
-			        references Servidor (idServidor)
-                    );
-		
-
-desc Permissao;
-desc NivelAcesso;
-desc Funcionario;
-desc Empresa;
-desc Endereco;
-desc Salas;
-desc Servidor;
-desc Registro;
-desc UnidadeMedida;
-desc Componente;
-desc TipoComponente;
-
--- Função Cadastro Empresa--
-
--- Insere dados na tabela Empresa --
-insert into Empresa (nome, CNPJ) values(
- 'Nubank', '123456789012345678'
- );
- 
- -- insere o endereço da empresa na tabela Endereco --
- insert into Endereco (CEP, estado, rua, numero, bairro, cidade) values (
-	'04742040', 'São Paulo', 'Santa Zoe', '243', 'Santo Amaro', 'São Paulo'
-	);
- 
--- Teste -- 
- select * 
-	from Empresa join Endereco 
-    on fkEmpresa = idEmpresa;
-    
--- Função Cadastro Admin(2° Tela de cadastro)--
-
--- Define as permissões que o funcionário vai ter na dashboard, o valor 1 significa que ele terá acesso para fazer as respectivas da funcionalidades -- 
-insert into Permissao values (
-null, 1, 1, 1, 1
-);
-
--- Cria um grupo de Pessoas que terão as mesmas permissões -- 
-insert into NivelAcesso values(
-null, 'Admin', 1
-);
-
--- Adiciona as informações do Funcionário Admin -- 
-insert into Funcionario values(
-null, 'Guilherme', '008.539.263-18', 'guilherme.gsantos@sptech.school', '11982206065','Guigon89!', 1, 1
-);
-
--- Teste -- 
-select 
-	Funcionario.nome as Nome,
-	Funcionario.CPF as CPF,
-    Funcionario.telefone as Telefone,
-	Funcionario.email as Email,
-	Funcionario.senha as Senha,
-    Empresa.nome as NomeEmpresa,
-    Empresa.CNPJ as CNPJ,
-    Empresa.telefone as TelefoneEmpresa,
-    NivelAcesso.nomeCargo as Cargo,
-    Permissao.visualizar as Visualizar,
-    Permissao.editar as Editar,
-    Permissao.cadastrar as Cadastrar,
-    Permissao.deletar as Deletar
-		from Funcionario join Empresa
-		on fkEmpresa = idEmpresa
-		join NivelAcesso on fkNivelAcesso = idNivelAcesso
-		join Permissao on fkPermissao = idPermissao; 
-        
-        
--- Criação da salas (cadastro para a empresa adicionar) -- 
-
-insert into Salas values (
-null, 'Sala A1', 1, 1
-),(
-null, 'Sala A2', 2, 1
-);
-
--- Função onde o Admin vai adicionar um Servidor que será monitorado --
-
--- Select para ver as salas disponiveis para adicionar um servidor -- 
-
-select 
-	Salas.nomeSala as NomeSala, 
-    Empresa.nome as NomeEmpresa,
-    Salas.andarSala as andarSala
-		from Salas join Empresa 
-        on fkEmpresa = idEmpresa;
-        
- -- insert dos dados do Servidor adicionado --  
- 
- insert into Servidor values(
- null, 'Servidor Principal', '409', 'Ubuntu 22.04.03', 0, 3 
- );
- insert into Servidor values(
- null, 'Servidor Secundário', '557', 'Debian', 0, 4 
- );
- 
- select tipoComponente from TipoComponente; 
- select unidadeMedida from UnidadeMedida;
- 
  
 -- /*
 -- comandos para criar usuário em banco de dados azure, sqlserver,
