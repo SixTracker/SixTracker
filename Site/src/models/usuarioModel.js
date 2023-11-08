@@ -95,7 +95,8 @@ async function cadastrarADM(nome, cpf, email, telefone, senha, fkempresa) {
             const userId = resultadoEmpresa[0].idEmpresa;
 
             var instrucao = `
-                INSERT INTO Funcionario (nome, cpf, email, telefone, senha, fkEmpresa, fkNivelAcesso) VALUES ('${nome}', '${cpf}', '${email}', '${telefone}', '${senha}', ${userId},1);
+                INSERT INTO Funcionario (nome, cpf, email, telefone, senha, fkEmpresa, fkNivelAcesso) 
+                VALUES ('${nome}', '${cpf}', '${email}', '${telefone}', '${senha}', ${userId},1);
             `;
             console.log("Executando a instrução SQL: \n" + instrucao);
 
@@ -125,7 +126,8 @@ async function cadastrarUser(nome, cpf, email, nivelPermissao, telefone, senha, 
             const userId = resultadoEmpresa[0].idEmpresa;
 
             var instrucao = `
-                INSERT INTO Funcionario (nome, cpf, email, telefone, senha, fkEmpresa, fkNivelAcesso) VALUES ('${nome}', '${cpf}', '${email}', '${telefone}', '${senha}', ${userId},${nivelPermissao});
+                INSERT INTO Funcionario (nome, cpf, email, telefone, senha, fkEmpresa, fkNivelAcesso)
+                 VALUES ('${nome}', '${cpf}', '${email}', '${telefone}', '${senha}', ${userId}, 2);
             `;
             console.log("Executando a instrução SQL: \n" + instrucao);
 

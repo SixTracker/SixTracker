@@ -250,7 +250,9 @@ Coded by www.creative-tim.com
                       <div class="form-group">
                         <label for="exampleInputEmail1">Permissão: </label>
                         <select class="form-control" id="nivelPermissaoSelect" name="unidade">
-                          <option value="">Tipo de permissão</option>
+                          <option value= 0>Tipo de permissão</option>
+                          <option value= 1>Administrador</option>
+                          <option value= 2>Analista</option>
                         </select>
                       </div>
                     </div>
@@ -354,44 +356,44 @@ Coded by www.creative-tim.com
 
 
 <script>  
-  // BUSCAR TIPOS DE COMPONENTES
-  fetch(`/componente/buscarNivelPermissao/`)
-    .then(function (resposta) {
-      console.log("ESTOU NO THEN DO entrar()!")
+  // BUSCAR TIPOS DE Permissoes
+  // fetch(`/componente/buscarNivelPermissao/`)
+  //   .then(function (resposta) {
+  //     console.log("ESTOU NO THEN DO entrar()!")
 
-      if (resposta.ok) {
-        console.log(resposta);
+  //     if (resposta.ok) {
+  //       console.log(resposta);
 
-        resposta.json().then(json => {
-          console.log(json);
-          console.log(JSON.stringify(json));
+  //       resposta.json().then(json => {
+  //         console.log(json);
+  //         console.log(JSON.stringify(json));
 
-          var NivelPermissao = json
+  //         var NivelPermissao = json
 
-          var selectElement = document.getElementById('nivelPermissaoSelect');
+  //         var selectElement = document.getElementById('nivelPermissaoSelect');
 
-          // Itera sobre o array de empresas e cria as opções do select
-          for (let i = 0; i < NivelPermissao.length; i++) {
-            const nivelPermissao = NivelPermissao[i];
-            const nivelPermissaoNome = nivelPermissao.nomeCargo;
+  //         // Itera sobre o array de empresas e cria as opções do select
+  //         for (let i = 0; i < NivelPermissao.length; i++) {
+  //           const nivelPermissao = NivelPermissao[i];
+  //           const nivelPermissaoNome = nivelPermissao.nomeCargo;
 
-            // Cria um novo elemento de opção em cada iteração
-            const optionElement = document.createElement('option');
-            optionElement.value = 1;
-            optionElement.text = nivelPermissaoNome;
+  //           // Cria um novo elemento de opção em cada iteração
+  //           const optionElement = document.createElement('option');
+  //           optionElement.value = 1;
+  //           optionElement.text = nivelPermissaoNome;
 
-            selectElement.appendChild(optionElement);
-          }
+  //           selectElement.appendChild(optionElement);
+  //         }
 
 
-        });
+  //       });
 
-      }
-    }).catch(function (erro) {
-      console.log(erro);
-      cardErro.style.display = "block"
-      mensagem_erro.innerHTML = "O Nível Permissao está inválido";
-    })
+  //     }
+  //   }).catch(function (erro) {
+  //     console.log(erro);
+  //     cardErro.style.display = "block"
+  //     mensagem_erro.innerHTML = "O Nível Permissao está inválido";
+  //   })
 
   function cadastrarUser() {
 
@@ -410,9 +412,6 @@ Coded by www.creative-tim.com
     console.log("Registrando Variavéis")
     console.log(nivelPermissaoVar)
 
-
-    if (nivelPermissaoVar == "Admin") { nivelPermissaoVar = 1 }
-    console.log(nivelPermissaoVar)
 
     if (nomeVar == "" || cpfVar == "" || emailVar == "" || telefoneVar == "" || senhaVar == "") {
       cardErro.style.display = "block"
@@ -483,6 +482,8 @@ Coded by www.creative-tim.com
       finalizarAguardar();
       return false;
     }    
+
+       
 
     console.log("Entrando no fetch");
     
