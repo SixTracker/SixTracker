@@ -145,6 +145,43 @@ constraint fkTipoComponenteComponente foreign key (fkTipoComponente)
 	references Metrica(idMetrica)
 );
 
+create table Registro(
+idRegistro int primary key auto_increment, 
+valorRegistro double,
+dataRegistro datetime,
+fkComponente int,
+constraint FkComponenteRegistro foreign key (fkComponente) 
+	references Componente (idComponente)    
+); 
+
+INSERT INTO Componente (nome, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica) 
+VALUES 
+('Porcentagem da CPU', null, 1, 1, 1),
+("Velocidade da CPU", null,  5, 1, null),
+("Tempo no sistema da CPU", null, 4, 1, null),
+("Processos da CPU", null, null, 1, null);
+
+-- Inserir Memória RAM
+INSERT INTO Componente (nome, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica) 
+VALUES 
+('Porcentagem da Memoria',null, 1, 2, 2),
+('Total da Memoria',null, 2, 2, null),
+('Uso da Memoria',null, 2, 2, null),
+('Porcentagem da Memoria Swap',null, 1,2,null),
+('Uso da Memoria Swap',null, 2, 2, null);
+
+-- Inserir Disco
+INSERT INTO Componente (nome, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica) 
+VALUES 
+('Porcentagem do Disco', null, 1, 3, 3),
+('Total do Disco',null,  2, 3, null),
+('Uso do Disco',null, 2, 3, null),
+('Tempo de Leitura do Disco',null, 4, 3, null),
+('Tempo de Escrita do Disco',null, 4, 3, null);
+
+
+select * from Componente;
+
 SELECT
     nome AS 'Nome do Componente',
     fkServidor AS 'Servidor do Componente',
@@ -184,44 +221,7 @@ LEFT JOIN Metrica M ON C.fkMetrica = M.idMetrica
 LEFT JOIN Registro R ON C.idComponente = R.fkComponente
 WHERE C.idComponente = 14;
 
-
-
-INSERT INTO Componente (nome, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica) 
-VALUES 
-('Porcentagem da CPU', 1, 1, 1, 1),
-("Velocidade da CPU", 1,  5, 1, null),
-("Tempo no sistema da CPU", 1, 4, 1, null),
-("Processos da CPU", 1, null, 1, null);
-
--- Inserir Memória RAM
-INSERT INTO Componente (nome, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica) 
-VALUES 
-('Porcentagem da Memoria',1, 1, 2, 2),
-('Total da Memoria',1, 2, 2, null),
-('Uso da Memoria',1, 2, 2, null),
-('Porcentagem da Memoria Swap',1, 1,2,null),
-('Uso da Memoria Swap',1, 2, 2, null);
-
--- Inserir Disco
-INSERT INTO Componente (nome, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica) 
-VALUES 
-('Porcentagem do Disco', 1, 1, 3, 3),
-('Total do Disco',1,  2, 3, null),
-('Uso do Disco',1, 2, 3, null),
-('Tempo de Leitura do Disco',1, 4, 3, null),
-('Tempo de Escrita do Disco',1, 4, 3, null);
-
-
-create table Registro(
-idRegistro int primary key auto_increment, 
-valorRegistro double,
-dataRegistro datetime,
-fkComponente int,
-constraint FkComponenteRegistro foreign key (fkComponente) 
-	references Componente (idComponente)    
-); 
-
-select * from Componente;
+select * from Servidor;
 
 SELECT C.nome AS NomeDoComponente, TC.tipoComponente AS TipoDeComponente
 FROM Componente C
@@ -237,13 +237,7 @@ JOIN Metrica M ON C.fkMetrica = M.idMetrica
 WHERE R.valorRegistro > M.alerta;
 
 
-
-
-
-
 select * from Registro;
-truncate Componente;
-drop table Registro;
             
 CREATE TABLE janelas (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -366,84 +360,19 @@ select
 		from Salas join Empresa 
         on fkEmpresa = idEmpresa;
         
- -- insert dos dados do Servidor adicionado -- 
+ -- insert dos dados do Servidor adicionado --  
  
  insert into Servidor values(
- null, 'Servidor Principal', '409', 'Ubuntu 22.04.03', 0, 1 
+ null, 'Servidor Principal', '409', 'Ubuntu 22.04.03', 0, 3 
  );
  insert into Servidor values(
- null, 'Servidor Secundário', '557', 'Debian', 0, 1 
+ null, 'Servidor Secundário', '557', 'Debian', 0, 4 
  );
- 
- -- insert dos componentes que a 6tracker irá monitorar do servidor adicionado -- 
- 
- -- Aqui serão inseridos os tipos de componentes que a 6tracker pode monitorar -- 
- insert into TipoComponente values (
- null, 'CPU'
- ),(
- null, 'RAM'
- ),(
- null, 'DISCO'
- ),(
- null, 'USB'
- ); 
- 
- -- Aqui serão inseridos os tipos de unidades de medida dos componentes -- 
- 
- insert into UnidadeMedida values (
- null, '%'
- ),(
- null, 'Gb'
- ),(
- null, 'Mb'
- );
- 
- -- Esses serão os selects ultizados na aba de cadastro dos componentes do servidor que será monitorado -- 
  
  select tipoComponente from TipoComponente; 
  select unidadeMedida from UnidadeMedida;
  
- -- Insert dos dados do componente do servidor que será monitorado -- 
- insert into Componente values(
- null, 'Cpu Principal', 'Intel Xeon W3-2435', 'Intel','45','75','100',1,1,1
- ),(
- null, 'Memoria Ram', 'DDR5(4x32GB) 4800XMHz', 'Corsair Vengeance','45','90','128',1,2,2
- ); 
-   insert into Componente values(
- null, 'Cpu 1', 'Intel Xeon W3-2435', 'Intel','45','75','100',2,1,1
- ),(
- null, 'Memoria Ram', 'DDR5(2x32GB) 4800XMHz', 'Corsair Vengeance','45','90','64',2,2,2
- ); 
  
- -- Select para ver o Servidor e os componentes monitorados -- 
- 
- select 
-	Servidor.nome as NomeServidor, 
-    Servidor.sistemaOperacional as SoServidor, 
-    Servidor.ip as IP, 
-    Componente.nomeComponente as NomeComponente, 
-    Componente.modeloComponente as ModeloComponente, 
-    Componente.metricaMin as Min, 
-    Componente.metricaMax as Max,
-    Componente.valorTotal as ValorTotal, 
-    UnidadeMedida.unidadeMedida as UnidadeMedida, 
-    TipoComponente.tipoComponente as TipoComponente 
-		 from Servidor join Componente 
-			on Componente.fkServidor = Servidor.idServidor
-		 join UnidadeMedida on Componente.fkUnidadeMedida = UnidadeMedida.idUnidadeMedida
-         join TipoComponente on Componente.fkTipoComponente = TipoComponente.idTipoComponente;
-         
--- Select Componentes agrupados pelo Servidor --         
-	select
-		Servidor.idServidor as IdServidor,
-		Servidor.nome AS NomeServidor,
-		Componente.nomeComponente as NomeComponente,
-        Componente.modeloComponente as ModeloComponente, 		
-		COUNT(*) AS totalComponentes
-			from Servidor join Componente  
-				on Servidor.idServidor = Componente.fkServidor
-			group by Servidor.idServidor, Servidor.nome, Componente.nomeComponente, Componente.modeloComponente 
-			order by Servidor.idServidor, Componente.nomeComponente;
 -- /*
 -- comandos para criar usuário em banco de dados azure, sqlserver,
 -- com permissão de insert + update + delete + select
@@ -458,6 +387,3 @@ select
 
 -- EXEC sys.sp_addrolemember @rolename = N'db_datareader',
 -- @membername = N'usuarioParaAPIWebDataViz_datawriter_datareader';
-
-select * from Registro
-join Componente on fkComponente = idComponente;
