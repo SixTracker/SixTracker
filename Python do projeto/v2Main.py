@@ -195,11 +195,9 @@ while True:
             """
 
     #Outros
-    boot_time = datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
-    print("A maquina está ligada desde: ",boot_time)
-
     horarioAtual = datetime.now()
     horarioFormatado = horarioAtual.strftime('%Y-%m-%d %H:%M:%S')
+    print("Horario Atual:", horarioFormatado)
     
     ins = [cpuPorcentagem, cpuVelocidadeEmGhz, tempoSistema, processos, memoriaPorcentagem,
            memoriaTotal, memoriaUsada, memoriaSwapPorcentagem, memoriaSwapUso]
@@ -243,14 +241,14 @@ while True:
         connection.commit()
        
     print("\nINFORMAÇÕES SOBRE PROCESSAMENTO: ")
-    print('\nPorcentagem utilizada da CPU: ',cpuPorcentagem,
-          '\nVelocidade da CPU: ',cpuVelocidadeEmGhz,
-          '\nTempo de atividade da CPU: ', tempoSistema,
+    print('\nPorcentagem utilizada da CPU: ',cpuPorcentagem,'%',
+          '\nVelocidade da CPU: ',cpuVelocidadeEmGhz,'ghz',
+          '\nTempo de atividade da CPU: ', tempoSistema, 'segundos',
           '\nNumero de processos: ', processos,
-          '\nPorcentagem utilizada de memoria: ', memoriaPorcentagem,
-          '\nQuantidade usada de memoria: ', memoriaTotal,
-          '\nPorcentagem usada de memoria Swap: ', memoriaSwapPorcentagem,
-          '\nQuantidade usada de memoria Swap: ', memoriaSwapUso)
+          '\nPorcentagem utilizada de memoria: ', memoriaPorcentagem,'%',
+          '\nQuantidade usada de memoria: ', memoriaTotal, 'gb',
+          '\nPorcentagem usada de memoria Swap: ', memoriaSwapPorcentagem,'%',
+          '\nQuantidade usada de memoria Swap: ', memoriaSwapUso,'gb')
           
 
     time.sleep(5)
