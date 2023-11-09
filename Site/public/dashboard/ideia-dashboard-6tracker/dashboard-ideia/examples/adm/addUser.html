@@ -28,6 +28,9 @@ Coded by www.creative-tim.com
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- SWEET ALERT -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
   <!-- CSS Files -->
   <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />
@@ -87,7 +90,7 @@ Coded by www.creative-tim.com
               <p>Add servidor</p>
             </a>
           </li>
-        
+
           <li>
             <a href="./addComponente.html">
               <i class="nc-icon">
@@ -250,9 +253,9 @@ Coded by www.creative-tim.com
                       <div class="form-group">
                         <label for="exampleInputEmail1">Permissão: </label>
                         <select class="form-control" id="nivelPermissaoSelect" name="unidade">
-                          <option value= 0>Tipo de permissão</option>
-                          <option value= 1>Administrador</option>
-                          <option value= 2>Analista</option>
+                          <option value=0>Tipo de permissão</option>
+                          <option value=1>Administrador</option>
+                          <option value=2>Analista</option>
                         </select>
                       </div>
                     </div>
@@ -355,7 +358,7 @@ Coded by www.creative-tim.com
 </script>
 
 
-<script>  
+<script>
   // BUSCAR TIPOS DE Permissoes
   // fetch(`/componente/buscarNivelPermissao/`)
   //   .then(function (resposta) {
@@ -481,12 +484,15 @@ Coded by www.creative-tim.com
 
       finalizarAguardar();
       return false;
-    }    
+    }
 
-       
+
+    if(nivelPermissaoVar == 0){
+      window.alert("Adicione uma permissão ao novo usuário")
+    }
 
     console.log("Entrando no fetch");
-    
+
     // Enviando o valor da nova input
     fetch("/usuarios/cadastrarUser", {
       method: "post",
@@ -508,10 +514,8 @@ Coded by www.creative-tim.com
 
       console.log("resposta: ", resposta);
 
-      if (resposta.ok) {
-                alert("Servidor cadastrado com sucesso!");                
-                limparFormulario();
-                finalizarAguardar();     
+      if (resposta.ok) {        
+        window.alert("Sala cadastrada com sucesso!");       
       } else if (resposta.status == 404) {
         window.alert("Deu 404!");
       } else {
