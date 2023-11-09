@@ -35,6 +35,74 @@ Coded by www.creative-tim.com
 </head>
 
 <body class="">
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar Sala</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-5 pr-1">
+                  <div class="form-group1">
+                    <label>Nome</label>
+                    <input id="inp_edit_name" type="text" class="form-control" placeholder="Nome sala">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 pr-1">
+                  <div class="form-group1">
+                    <label>Código</label>
+                    <input id="inp_edit_name" type="text" class="form-control" placeholder="Nome sala">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 pr-1">
+                  <div class="form-group1">
+                    <label>Sistema operacional</label>
+                    <input id="inp_edit_name" type="text" class="form-control" placeholder="Nome sala">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 pr-1">
+                  <div class="form-group1">
+                    <label>Andar da Sala</label>
+                    <input id="inp_edit_andar" type="Number" class="form-control" placeholder="Andar Sala">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 pr-1">
+                  <div class="form-group1">
+                    <label>Andar da sala</label>
+                    <select class="form-control" id="salaSelect2" name="unidade">
+                      <option value="">Salas</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button id="btn_edit" onclick="editar(this.value)" type="button" class="btn btn-primary"
+            style="background-color: #cf41d1;">Salvar mudanças</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
@@ -300,7 +368,7 @@ Coded by www.creative-tim.com
                     </div>
                     <div class="col-md-4 pl-1">
                       <div class="form-group">
-                        <label for="exampleInputEmail1">Código do componente: </label>
+                        ilabel for="exampleInputEmail1">Código do componente: </label>
                         <input type="text" class="form-control" placeholder="Código do componente: ">
                       </div>
                     </div>
@@ -369,24 +437,33 @@ Coded by www.creative-tim.com
     </div>
   </div>
     <!-- Core JS Files   -->
-  <!-- <script src="../../assets/js/core/jquery.min.js"></script>
+  <!--   Core JS Files   -->
+  <script src="../../assets/js/core/jquery.min.js"></script>
   <script src="../../assets/js/core/popper.min.js"></script>
   <script src="../../assets/js/core/bootstrap.min.js"></script>
-  <script src="../../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script> -->
+  <script src="../../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
-  <!-- <script src="../../assets/js/plugins/chartjs.min.js"></script> -->
+  <script src="../../assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
-  <!-- <script src="../../assets/js/plugins/bootstrap-notify.js"></script> -->
+  <script src="../../assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <!-- <script src="../../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>Paper Dashboard DEMO methods, don't include it in your project! -->
-  <!-- <script src="../../assets/demo/demo.js"></script> -->
+  <script src="../../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>
+  <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../../assets/demo/demo.js"></script>
 </body>
 
 </html>
 
 <script>
+
+  function editarModal(idSala, nome, sala) {
+    document.getElementById("inp_edit_name").value = nome;
+    document.getElementById("inp_edit_andar").value = sala;
+    document.getElementById("btn_edit").value = idSala;
+    $('#exampleModal').modal('show')
+  };
 
 fetch(`/servidor/buscar`)
     .then(function (resposta) {
@@ -404,10 +481,10 @@ fetch(`/servidor/buscar`)
 
           for (let i = 0; i < dataSize; i++) {
             var idServidor = json[i]["idServidor"]
-            var nomeServidor = json[i]["nomeServidor"]
-            var codigo = json[i]["codigo"]
-            var sistemaOperacional = json[i]["so"]
-            var usbDetectado = json[i]["usbDetectado"]
+            var nomeServidor = json[i]["nome"]
+            //var codigo = json[i]["codigo"]
+            //var sistemaOperacional = json[i]["so"]
+            //var usbDetectado = json[i]["usbDetectado"]
             var fkSalas = json[i]["fkSalas"]
 
             tbody.innerHTML += `
@@ -416,8 +493,8 @@ fetch(`/servidor/buscar`)
                             ${nomeServidor}
                           </td>
                           <td>
-                            ${salaServidor}
-                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal(${idServidor}, '${nomeServidor}', ${salaServidor})"></i>
+                            ${fkSalas}
+                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal(${idServidor}, '${nomeServidor}', ${fkSalas})"></i>
                               <i style="margin-left: 5vh; cursor:pointer" class="fa fa-trash" onclick="deletar(${idServidor})"></i>
                           </td>
 
@@ -456,31 +533,28 @@ fetch(`/servidor/buscar`)
                     var salas = json
 
                     var selectElement = document.getElementById('salaSelect');
+                    var selectElement2 = document.getElementById('salaSelect2');
+
+
+
+
 
                     // Itera sobre o array de empresas e cria as opções do select
                     for (let i = 0; i < salas.length; i++) {
                         const sala = salas[i];
                         const salaNome = salas[i].nomeSala;
 
-                        // Cria um novo elemento de opção em cada iteração
+                        // Cria outro novo elemento de opção
                         const optionElement = document.createElement('option');
-                        optionElement.value = salas[i].idSalas;
+                        optionElement.value = sala.fkSalas;
                         optionElement.text = salaNome;
-
                         selectElement.appendChild(optionElement);
 
                         // Cria outro novo elemento de opção
-                        // const optionElement2 = document.createElement('option');
-                        // optionElement2.value = servidor.fkServidor;
-                        // optionElement2.text = servidorNome;
-                        // selectElement2.appendChild(optionElement2);
-
-                        // // Cria um terceiro novo elemento de opção
-                        // const optionElement3 = document.createElement('option');
-                        // optionElement3.value = servidor.fkEmp;
-                        // optionElement3.text = servidorNome;
-
-                        // selectElement3.appendChild(optionElement3);
+                        const optionElement2 = document.createElement('option');
+                        optionElement2.value = sala.fkSalas;
+                        optionElement2.text = salaNome;
+                        selectElement2.appendChild(optionElement2);
                     }
 
 
