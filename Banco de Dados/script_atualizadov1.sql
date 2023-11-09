@@ -5,15 +5,15 @@
 /*
 comandos para mysql - banco local - ambiente de desenvolvimento
 */
-Create DATABASE sixtracker;
+create DATABASE sixtracker;
 Use sixtracker;
 
 create table Permissao (
-idPermissao INT PRIMARY KEY auto_increment,
-visualizar TINYINT,
-editar TINYINT,
-cadastrar TINYINT,
-deletar TINYINT
+	idPermissao INT PRIMARY KEY auto_increment,
+	visualizar TINYINT,
+	editar TINYINT,
+	cadastrar TINYINT,
+	deletar TINYINT
 );
 
 insert into Permissao values (
@@ -189,7 +189,7 @@ constraint fkTipoComponenteComponente foreign key (fkTipoComponente)
 	references Metrica(idMetrica)
 );
 
--- Inserir CPU
+
 INSERT INTO Componente (nome, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica) 
 VALUES 
 ('Porcentagem da CPU', null, 1, 1, 1),
@@ -321,9 +321,31 @@ select
  select tipoComponente from TipoComponente; 
  select unidadeMedida from UnidadeMedida;
  
+ 
+ SELECT
+    nome AS 'Nome do Componente',
+    fkServidor AS 'Servidor do Componente',
+    fkUnidadeMedida AS 'Unidade de Medida',
+    fkTipoComponente AS 'Tipo do Componente',
+    fkMetrica AS 'Metrica de alerta'
+FROM Componente;
+
+SELECT
+    C.idComponente AS 'Id do Componente',
+    C.nome AS 'Nome Do Componente',
+    S.nome AS 'Nome do Servidor',
+    U.unidadeMedida AS 'Unidade De Medida',
+    TC.tipoComponente AS 'Tipo De Componente',
+    M.alerta AS 'Metrica'
+FROM Componente C
+LEFT JOIN Servidor S ON C.fkServidor = S.idServidor
+LEFT JOIN UnidadeMedida U ON C.fkUnidadeMedida = U.idUnidadeMedida
+LEFT JOIN TipoComponente TC ON C.fkTipoComponente = TC.idTipoComponente
+LEFT JOIN Metrica M ON C.fkMetrica = M.idMetrica
+WHERE C.idComponente = 5;
 
 
--- ESSE É O SELECT DE TESTE PARA VERIFICAR SE O PYTHON ESTA ENVIANDO PARA O BANCO
+-- ESSE É O SELECT QUE TEM QUE USAR
 SELECT
     C.idComponente AS ID,
     C.nome AS NomeDoComponente,
@@ -340,15 +362,23 @@ LEFT JOIN Metrica M ON C.fkMetrica = M.idMetrica
 LEFT JOIN Registro R ON C.idComponente = R.fkComponente
 WHERE C.idComponente = 1;
 
+select * from Servidor;
 
--- SELECT PARA VER OS COMPONENTES E SUAS ESPECIFICAÇÕES
 SELECT C.nome AS NomeDoComponente, TC.tipoComponente AS TipoDeComponente
 FROM Componente C
 JOIN TipoComponente TC ON C.fkTipoComponente = TC.idTipoComponente
 WHERE C.fkServidor = 1;
 
 
+SELECT C.nome AS NomeDoComponente, TC.tipoComponente AS TipoDeComponente, R.dataRegistro AS DataDoRegistro, R.valorRegistro AS ValorDoRegistro, M.alerta AS LimiteDeAlerta
+FROM Componente C
+JOIN TipoComponente TC ON C.fkTipoComponente = TC.idTipoComponente
+JOIN Registro R ON C.idComponente = R.fkComponente
+JOIN Metrica M ON C.fkMetrica = M.idMetrica
+WHERE R.valorRegistro > M.alerta;
 
+
+ 
 -- /*
 -- comandos para criar usuário em banco de dados azure, sqlserver,
 -- com permissão de insert + update + delete + select
