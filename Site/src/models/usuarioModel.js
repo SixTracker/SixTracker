@@ -127,7 +127,7 @@ async function cadastrarUser(nome, cpf, email, nivelPermissao, telefone, senha, 
 
             var instrucao = `
                 INSERT INTO Funcionario (nome, cpf, email, telefone, senha, fkEmpresa, fkNivelAcesso)
-                 VALUES ('${nome}', '${cpf}', '${email}', '${telefone}', '${senha}', ${userId}, 2);
+                 VALUES ('${nome}', '${cpf}', '${email}', '${telefone}', '${senha}', ${userId}, ${nivelPermissao});
             `;
             console.log("Executando a instrução SQL: \n" + instrucao);
 
