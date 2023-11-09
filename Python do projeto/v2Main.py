@@ -95,7 +95,7 @@ if __name__ == "__main__":
     hostname = socket.gethostname()
     print("Nome do host da máquina:", hostname)
 
-    connection = mysql_connection('localhost', 'root', '1234', 'sixtracker')
+    connection = mysql_connection('localhost', 'root', '271815', 'sixtracker')
     cursor = connection.cursor()
 
 def generate_random_code(length):
@@ -113,7 +113,7 @@ def bytes_para_gb(bytes_value):
 def milissegundos_para_segundos(ms_value):
     return ms_value / 1000
 
-connection = mysql_connection('localhost', 'root', '1234', 'sixtracker')
+connection = mysql_connection('localhost', 'root', '271815', 'sixtracker')
 
 #Disco
 
@@ -211,7 +211,7 @@ while True:
             requests.post(webhook, data=json.dumps(mensagem))
 
     if (discoPorcentagem >= 70):
-            mensagem = {"text": f"O uso do DISCO está em {disk}% (CRÍTICO)"}
+            mensagem = {"text": f"O uso do DISCO está em {discoPorcentagem}% (CRÍTICO)"}
             requests.post(webhook, data=json.dumps(mensagem))
 
     if (memoriaPorcentagem >= 70):
@@ -234,8 +234,8 @@ while True:
         query = "INSERT INTO Servidor (sistemaOperacional, fkSalas, ip, nome, codigo) VALUES (%s, %s, %s, %s, %s)"
         data = [(SO, 3, ip, hostname, unique_code)]
 
-        for record in data:
-            cursor.execute(query, record)
+    for record in data:
+        cursor.execute(query, record)
 
 
         connection.commit()

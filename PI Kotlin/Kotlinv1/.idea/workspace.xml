@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="74acfa52-c16a-49d8-b160-bc1f64db953d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Python do projeto/v2Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Python do projeto/v2Main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +19,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
   <component name="ProjectId" id="2VGwYe3BVLhCqqueqhcuG8op3j8" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -27,7 +31,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/bbiza/IdeaProjects/console_kot_6T"
+    "last_opened_file_path": "C:/Users/tfn40/OneDrive/Área de Trabalho/Faculdade/2semestre/Projeto_PI/SixTracker/PI Kotlin/Kotlinv1"
   }
 }]]></component>
   <component name="RunManager">
