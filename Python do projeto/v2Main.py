@@ -95,7 +95,7 @@ if __name__ == "__main__":
     hostname = socket.gethostname()
     print("Nome do host da máquina:", hostname)
 
-    connection = mysql_connection('localhost', 'root', '271815', 'sixtracker')
+    connection = mysql_connection('localhost', 'root', '', 'sixtracker')
     cursor = connection.cursor()
 
 def generate_random_code(length):
@@ -113,7 +113,7 @@ def bytes_para_gb(bytes_value):
 def milissegundos_para_segundos(ms_value):
     return ms_value / 1000
 
-connection = mysql_connection('localhost', 'root', '271815', 'sixtracker')
+connection = mysql_connection('localhost', 'root', '', 'sixtracker')
 
 #Disco
 
@@ -232,7 +232,7 @@ while True:
         cursor.execute(query, (valorRegistro, horarioFormatado, componente))
 
         query = "INSERT INTO Servidor (sistemaOperacional, fkSalas, ip, nome, codigo) VALUES (%s, %s, %s, %s, %s)"
-        data = [(SO, 3, ip, hostname, unique_code)]
+        data = [(SO, 1, ip, hostname, unique_code)]
 
     for record in data:
         cursor.execute(query, record)
