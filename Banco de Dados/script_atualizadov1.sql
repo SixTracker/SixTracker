@@ -377,6 +377,31 @@ JOIN Registro R ON C.idComponente = R.fkComponente
 JOIN Metrica M ON C.fkMetrica = M.idMetrica
 WHERE R.valorRegistro > M.alerta;
 
+SELECT * FROM Funcionario;
+SELECT * FROM Empresa;
+SELECT * FROM Salas;
+ 
+ -- 7 é o valor do id da Empresa que você fez o login 
+ insert into Salas values(
+ null, 'SalaKotlin', 14, 7
+ );
+ 
+ -- 9 é o valor do id da Sala que você cadastrou 
+ insert into Servidor values(
+ null, 'ServidorPrincipalKotlin', 'X4U9DO','UBUNTU','hfus283289hf2', 9
+ );
+ 
+ insert into Servidor values(
+ null, 'ServidorSecundarioKotlin', 'HY7DJ9','WINDOWS','sad832da283hd', 9
+ );
+ 
+ -- 7 é o valor do id que está da empresa que vc fez o login
+ SELECT * 
+	FROM Servidor JOIN Salas 
+		ON Servidor.fkSalas = Salas.idSalas
+        JOIN Empresa ON Salas.fkEmpresa = Empresa.idEmpresa 
+        WHERE Salas.fkEmpresa = 7;
+        
 
  
 -- /*
