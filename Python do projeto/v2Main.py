@@ -11,6 +11,7 @@ import string
 import socket
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
+import sys
 
 mensagem = {"text": "Olá, bem vindo. O sistema da 6TRACKER foi iniciado!"}
 webhook = "https://hooks.slack.com/services/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"
@@ -124,9 +125,7 @@ if result:
     print(f"O Servidor {hostname} já está cadastrada. Iniciando o monitoramento.")
 else:
     print(f"O Servidor {hostname} não foi cadastrada no site. Cadastre-a para fazer a captura!")
-    sys.exit()
-    
-cursor.fetchall()
+sys.exit()
 
 #Disco
 
