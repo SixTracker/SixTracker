@@ -373,7 +373,7 @@
         resposta.json().then(function (resposta) {
           console.log("Dados recebidos: ", JSON.stringify(resposta));
 
-          sessionStorage.idEmpresa = resposta[0].idUnidadeEmpresa;
+          sessionStorage.idEmpresa = resposta[0].idEmpresa;
 
           finalizarAguardar();
         });

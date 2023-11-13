@@ -41,5 +41,5 @@ app.listen(PORTA, function () {
 });
 
 //-----------------------iniciando as variáveis do perfil para select------------------------------------------//
-var perfilRouter = require("./src/routes/perfil");
-app.use("/perfil", perfilRouter);
+// var perfilRouter = require("./src/routes/perfil");
+// app.use("/perfil", perfilRouter);

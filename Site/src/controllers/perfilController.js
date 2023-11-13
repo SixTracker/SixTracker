@@ -5,7 +5,7 @@ function inserirImg(req, res) {
     var idFuncionario = req.body.idServer;
     var imagem = req.body.imgServer;
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-    perfilModel.inserirImg(fkFuncionario, imagem)
+    perfilModel.inserirImg(idFuncionario, imagem)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -53,7 +53,7 @@ function atualizarNome(req, res) {
     var nome = req.body.nomeServer
     var idFuncionario = req.body.idServer
 
-    perfilModel.atualizarNome(nome, Funcionario)
+    perfilModel.atualizarNome(nome, idFuncionario)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -175,7 +175,7 @@ module.exports = {
     atualizarNome,
     atualizarEmail,
     atualizarEndereco,
-    atualizartelefone,
+    atualizarTelefone,
     atualizarDescricao,
     verificar
 }
