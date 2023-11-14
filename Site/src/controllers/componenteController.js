@@ -1,6 +1,6 @@
 var componenteModel = require("../models/componenteModel");
 
-function buscarServidores(req, res){
+function buscarServidores(req, res) {
 
     console.log(`Recuperando medidas em tempo real`);
 
@@ -17,7 +17,7 @@ function buscarServidores(req, res){
     });
 }
 
-function buscarMedidas(req, res){
+function buscarMedidas(req, res) {
 
     console.log(`Recuperando medidas em tempo real`);
 
@@ -34,7 +34,7 @@ function buscarMedidas(req, res){
     });
 }
 
-function buscarComponentes(req, res){
+function buscarComponentes(req, res) {
 
     console.log(`Recuperando medidas em tempo real`);
 
@@ -68,9 +68,39 @@ function buscarComponentes(req, res){
 //     });
 // }
 
+function buscarFuncionarios(req, res) {
+
+    var fkEmpresa = req.body.fkEmpresaServer;
+
+
+    // Faça as validações dos valores
+    if (fkEmpresa == undefined) {
+        res.status(400).send("O id da empresa está undefined!");
+    } else {
+
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        componenteModel.buscarFuncionarios(fkEmpresa)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro do ADM, pois a empresa não existe! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
-buscarServidores,
-buscarMedidas,
-buscarComponentes,
-// buscarNivelPermissao
+    buscarServidores,
+    buscarMedidas,
+    buscarComponentes,
+    buscarFuncionarios
+    // buscarNivelPermissao
 }

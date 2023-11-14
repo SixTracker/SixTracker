@@ -1,12 +1,12 @@
 var database = require("../database/config")
 
-function inserirImg(fkFuncionario, imagem) {
+function inserirImg(idFuncionario, imagem) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", idUsuario,imagem);
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        UPDATE perfil SET imagem = '${imagem}' WHERE fkFuncionario = ${fkFuncionario} ;
+        UPDATE perfil SET imagem = '${imagem}' WHERE fkFuncionario = ${idFuncionario} ;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -15,7 +15,7 @@ function inserirImg(fkFuncionario, imagem) {
 function consultar(idFuncionario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", idFuncionario)
     var instrucao = `
-        SELECT * FROM perfil WHERE fkFuncionario = '${fkFuncionario}';
+        SELECT * FROM perfil WHERE fkFuncionario = '${idFuncionario}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -42,7 +42,7 @@ function atualizarEmail(email, idFuncionario) {
 function atualizarEndereco(fkEndereco, fkFuncionario) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", fkEndereco, idFuncionario)
     var instrucao = `
-    UPDATE perfil SET fkEndereco = '${fkEndereco}' WHERE fkFuncionario = ${idFuncionario}; 
+    UPDATE perfil SET fkEndereco = '${fkEndereco}' WHERE fkFuncionario = ${fkFuncionario}; 
     `;
     console.log(instrucao);
     return database.executar(instrucao);
@@ -72,7 +72,7 @@ function atualizarDescricao(fkFuncionario, descricao) {
 function verificar(fkFuncionario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar(${fkFuncionario}))");
     var instrucao = `
-        SELECT * FROM perfil WHERE fkFuncionario = '${idFuncionario}' ;
+        SELECT * FROM perfil WHERE fkFuncionario = '${fkFuncionario}' ;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

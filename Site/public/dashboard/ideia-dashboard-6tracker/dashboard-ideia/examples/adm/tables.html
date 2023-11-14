@@ -21,7 +21,7 @@ Coded by www.creative-tim.com
   <link rel="icon" type="image/png" href="../../assets/img/6Tracker/logo-sf-vertical-preta.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Lista de dados gerais
+    Lista Geral de Funcinários
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
     name='viewport' />
@@ -35,8 +35,7 @@ Coded by www.creative-tim.com
   <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />
   <link rel="stylesheet" href="../../assets/css/tabela.css">
 
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../assets/demo/demo.css" rel="stylesheet" />
+  
 </head>
 
 
@@ -159,7 +158,7 @@ Coded by www.creative-tim.com
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:;">Lista geral</a>
+            <a class="navbar-brand" href="javascript:;">Lista Geral de Funcionários</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
             aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -215,154 +214,36 @@ Coded by www.creative-tim.com
       </nav>
       <!-- End Navbar -->
       <div class="content">
-        <div class="row">
+        <div class="row" id="card-list">
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Lista de colaboradores</h4>
+                <h4 class="card-title">Lista de Fucionários</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
-
-
                     </thead>
-                    <tbody>
+                    <tbody id="tabelaUsuarios">
                       <tr>
                         <th>
-                          Nome completo
+                          Nome 
                         </th>
                         <th>
-                          Código
-                        </th>
-
-
-                      </tr>
-                      <tr>
-                        <td>
-                          Claudio Frizzarini
-                        </td>
-                        <td>
-                          567JMH
-                        </td>
-
-                      </tr>
-                      <tr>
-                        <td>
-                          Guilherme Gonçalves
-                        </td>
-                        <td>
-                          1AZ012
-                        </td>
-
-                      </tr>
-                      <tr>
-                        <td>
-                          Isabel Bermudes de Oliveira
-                        </td>
-                        <td>
-                          GJHU46
-                        </td>
-
-                      </tr>
-                      <tr>
-                        <td>
-                          Tiago Navarro
-                        </td>
-                        <td>
-                          OKL579
-                        </td>
-
-                      </tr>
-                      <tr>
-                        <td>
-                          Christian Bellei
-                        </td>
-                        <td>
-                          45LP6I
-                        </td>
-
-                      </tr>
-                      <tr>
-                        <td>
-                          Livia Lanes
-                        </td>
-                        <td>
-                          5FGF78
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Eduardo Medina
-                        </td>
-                        <td>
-                          JIKO45
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Gabriel Eduardo Barbosa
-                        </td>
-                        <td>
-                          75lPON
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Rafael Oliveira
-                        </td>
-                        <td>
-                          JTOIj9
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Laura Armendez
-                        </td>
-                        <td>
-                          SDVKJ7
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Pedro Paulo Fernandes
-                        </td>
-                        <td>
-                          654UGI
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Bernardo Silva
-                        </td>
-                        <td>
-                          89HIM6
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Luiza Mello
-                        </td>
-                        <td>
-                          125OIJ
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Heitor Cabra Lima
-                        </td>
-                        <td>
-                          DJDO13
-                        </td>
-                      </tr>
+                          Email
+                        </th>                        
+                        <th>
+                          Telefone
+                        </th>                        
+                      </tr>                                         
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-12">
+          <!-- <div class="col-md-12">
             <div class="card">
               <div class="card-header">
                 <h4 class="card-title"> Lista componentes</h4>
@@ -374,7 +255,7 @@ Coded by www.creative-tim.com
 
 
                     </thead>
-                    <tbody>
+                    <tbody id="tabelaComponente">
                       <tr>
                         <th>
                           Nome componente
@@ -382,8 +263,6 @@ Coded by www.creative-tim.com
                         <th>
                           Código
                         </th>
-
-
                       </tr>
                       <tr>
                         <td>
@@ -417,8 +296,8 @@ Coded by www.creative-tim.com
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </div>-->
+        </div> 
 
         <footer class="footer footer-black  footer-white ">
           <div class="container-fluid">
@@ -448,46 +327,56 @@ Coded by www.creative-tim.com
     <script src="../assets/js/core/jquery.min.js"></script>
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
-    <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-    <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>    
     <!-- Chart JS -->
     <script src="../assets/js/plugins/chartjs.min.js"></script>
     <!--  Notifications Plugin    -->
     <script src="../assets/js/plugins/bootstrap-notify.js"></script>
     <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>
-    <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-    <script src="../assets/demo/demo.js"></script>
+    
 </body>
 
 </html>
-<!-- <script>
- sessionStorage.ID_GERAL = 1
-  var idGeral = sessionStorage.getItem('ID_SALA')
-    fetch(``)
-        .then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
 
-            if (resposta.ok) {
-                console.log(resposta);
+  <script>
+    
+  // BUSCAR TIPOS DE Permissoes
+  var fkEmpresa = sessionStorage.FK_EMPRESA;
 
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
+  // Função para buscar usuários do banco de dados  
+  fetch("/componente/buscarFuncionarios/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        fkEmpresaServer: fkEmpresa,
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Limpa o conteúdo atual da tabela
+        const tabelaUsuarios = document.getElementById('tabelaUsuarios');
+        
 
-                    var id = json
+        // Itera sobre os dados do banco de dados e adiciona ao tbody
+        data.forEach(usuario => {
+          const row = tabelaUsuarios.insertRow();
+          const cellNome = row.insertCell(0);
+          const cellEmail = row.insertCell(1);
+          const cellTel = row.insertCell(2);
 
-                    var selectElement = document.getElementById('idSelect');
+          cellNome.textContent = usuario.nome;
+          cellEmail.textContent = usuario.email;
+          cellTel.textContent = usuario.telefone;
+        });
+      })
+      .catch(error => console.error('Erro ao buscar usuários:', error));
+  
 
-                    for (let i = 0; i < func.length; i++) {
-                        const id = id[i];
-                        const pssNome = funcionario.nome;
-                        const optionElement = document.createElement('option');
-                        optionElement.value = '../Dashboard.html';
-                        optionElement.text = pssNome;
-
-                        selectElement.appendChild(optionElement);
-
-
-</script> -->
+  // Chama a função ao carregar a página
+  document.addEventListener('DOMContentLoaded', buscarUsuarios);
+</script>

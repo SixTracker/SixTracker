@@ -23,6 +23,11 @@ Copyright (c) 2015 Daniel Eden
 
 
 
+#card-list{
+  position: relative;
+  top: 7vh;
+}
+
 #div_erros_login {
   display: none
 }

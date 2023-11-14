@@ -66,9 +66,24 @@ function buscarComponentes(){
 //    return database.executar(instrucaoSql);
 // }
 
+function buscarFuncionarios(fkEmpresa){
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+       instrucaoSql = `SELECT nome,email,telefone FROM Funcionario where fkEmpresa = ${fkEmpresa} ORDER BY nome ASC;`;
+   } else {
+       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+       return
+   }
+
+   console.log("Executando a instrução SQL: \n" + instrucaoSql);
+   return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarServidores,
     buscarMedidas,
     buscarComponentes,
+    buscarFuncionarios
     // buscarNivelPermissao
 };

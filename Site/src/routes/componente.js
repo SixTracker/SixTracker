@@ -20,4 +20,8 @@ router.get("/tipo/", function (req, res) {
 //     componenteController.buscarNivelPermissao(req, res);
 // })
 
+router.post("/buscarFuncionarios/", function (req, res) {
+    componenteController.buscarFuncionarios(req, res);
+})
+
 module.exports = router;
