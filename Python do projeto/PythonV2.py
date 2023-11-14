@@ -14,11 +14,9 @@ from reportlab.pdfgen import canvas
 import sys
 
 def iniciar():
-
-mensagem = {"text": "Olá, bem vindo. O sistema da 6TRACKER foi iniciado!"}
-webhook = "https://hooks.slack.com/services/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"
-
-requests.post(webhook, data=json.dumps(mensagem))
+    mensagem = {"text": "Olá, bem vindo. O sistema da 6TRACKER foi iniciado!"}
+    webhook = "https://hooks.slack.com/services/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"
+    requests.post(webhook, data=json.dumps(mensagem))
 
 def criar_relatorio_pdf():
     c = canvas.Canvas("relatorio.pdf", pagesize=letter)
@@ -119,7 +117,7 @@ def milissegundos_para_segundos(ms_value):
 connection = mysql_connection('localhost', 'root', 'Isabeol0609!', 'sixtracker')
 cursor = connection.cursor()
 
-    # Verifica se a máquina está cadastrada no banco de dados usando o nome do host
+# Verifica se a máquina está cadastrada no banco de dados usando o nome do host
 cursor.execute("SELECT idServidor FROM Servidor WHERE nome = %s", (hostname,))
 result = cursor.fetchone()
 
@@ -128,9 +126,9 @@ if result:
     iniciar()
 else:
     print(f"O Servidor {hostname} não foi cadastrada no site. Cadastre-a para fazer a captura!")
-sys.exit()
+    sys.exit()
 
-#Disco
+# Disco
 
 meu_so = platform.system()
 if(meu_so == "Linux"):
@@ -176,7 +174,7 @@ print(f'\nDisco porcentagem: {discoPorcentagem}%',
 
 while True:
 
-    #CPU
+    # CPU
     cpuPorcentagem = psutil.cpu_percent(None)
     frequenciaCpuMhz = psutil.cpu_freq(percpu=False)
     cpuVelocidadeEmGhz = "{:.2f}".format(frequenciaCpuMhz.current / 1000)
@@ -184,7 +182,7 @@ while True:
     processos = len(psutil.pids())
 
     
-    #Memoria
+    # Memoria
     memoriaPorcentagem = psutil.virtual_memory()[2]
     memoriaTotal = "{:.2f}".format(bytes_para_gb(psutil.virtual_memory().total))
     memoriaUsada = "{:.2f}".format(bytes_para_gb(psutil.virtual_memory().used))
@@ -210,7 +208,7 @@ while True:
             print(f"Erro ao acessar {particao.mountpoint}: {e}")
             """
 
-    #Outros
+    # Outros
     boot_time = datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
 
     horarioAtual = datetime.now()
