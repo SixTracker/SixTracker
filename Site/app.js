@@ -15,7 +15,7 @@ var medidasRouter = require("./src/routes/medidas");
 var servidorRouter = require("./src/routes/servidor");
 var salaRouter = require("./src/routes/sala");
 var componenteRouter = require("./src/routes/componente");
-
+var perfilRouter = require("./src/routes/perfil");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -30,6 +30,7 @@ app.use("/medidas", medidasRouter)
 app.use("/servidor", servidorRouter)
 app.use("/sala", salaRouter)
 app.use("/componente", componenteRouter)
+app.use("/perfil", perfilRouter)
 
 
 app.listen(PORTA, function () {

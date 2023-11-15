@@ -1,8 +1,8 @@
-var perfilModel = require("../models/perfilModels");
+var perfilModel = require("../models/perfilModel");
 
 function inserirImg(req, res) {
 
-    var idFuncionario = req.body.idServer;
+    var idFuncionario = req.body.idFuncionarioServer;
     var imagem = req.body.imgServer;
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
     perfilModel.inserirImg(idFuncionario, imagem)
@@ -23,7 +23,7 @@ function inserirImg(req, res) {
 }
 
 function consultar(req, res) {
-    var idFuncionario = req.body.idServer;
+    var idFuncionario = req.body.idFuncionarioServer;
 
     perfilModel.consultar(idFuncionario)
         .then(
@@ -51,7 +51,7 @@ function consultar(req, res) {
 
 function atualizarNome(req, res) {
     var nome = req.body.nomeServer
-    var idFuncionario = req.body.idServer
+    var idFuncionario = req.body.idFuncionarioServer
 
     perfilModel.atualizarNome(nome, idFuncionario)
         .then(
@@ -70,7 +70,7 @@ function atualizarNome(req, res) {
 }
 function atualizarEmail(req, res) {
     var email = req.body.emailServer;
-    var idFuncionario = req.body.idServer
+    var idFuncionario = req.body.idFuncionarioServer
 
     perfilModel.atualizarEmail(email, idFuncionario)
         .then(
@@ -89,7 +89,7 @@ function atualizarEmail(req, res) {
 }
 function atualizarEndereco(req, res) {
     var Endereco = req.body.EnderecoServer;
-    var idFuncionario = req.body.idServer
+    var idFuncionario = req.body.idFuncionarioServer
 
     perfilModel.atualizarEndereco(Endereco, idFuncionario)
         .then(
@@ -109,7 +109,7 @@ function atualizarEndereco(req, res) {
 
 function atualizarTelefone(req, res) {
     var telefone = req.body.telefoneServer;
-    var idFuncionario = req.body.idServer
+    var idFuncionario = req.body.idFuncionarioServer
 
     perfilModel.atualizarTelefone(telefone, idFuncionario)
         .then(
@@ -129,11 +129,11 @@ function atualizarTelefone(req, res) {
 
 function atualizarDescricao(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var fkFuncionario = req.body.idServer;
+    var idFuncionario = req.body.idFuncionarioServer;
     var descricao = req.body.descricaoServer;
 
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-    perfilModel.atualizarDescricao(fkFuncionario, descricao)
+    perfilModel.atualizarDescricao(idFuncionario, descricao)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -151,8 +151,8 @@ function atualizarDescricao(req, res) {
 }
 
 function verificar(req, res) {
-    var fkFuncionario = req.body.idServer;
-    perfilModel.verificar(fkFuncionario)
+    var idFuncionario = req.body.idFuncionarioServer;
+    perfilModel.verificar(idFuncionario)
         .then(function (resultado) {
             if (resultado.length == 1) {
                 res.status(200).json(resultado);

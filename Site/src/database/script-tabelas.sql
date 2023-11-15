@@ -248,6 +248,18 @@ select
  ),(
  null, 'Memoria Ram', 'DDR5(2x32GB) 4800XMHz', 'Corsair Vengeance','45','90','64',2,2,2
  ); 
+
+ create table perfil (
+	idperfil int primary key auto_increment,
+	imagem varchar(16000),
+	descricao TEXT,
+	fkFuncionario int,
+	fkEndereco int,
+	constraint fkFuncionario foreign key (fkFuncionario)
+	references Funcionario (idFuncionario),
+	constraint fkEndereco foreign key (fkEndereco)
+	references Endereco (idEndereco)
+ );
  
  -- Select para ver o Servidor e os componentes monitorados -- 
  
