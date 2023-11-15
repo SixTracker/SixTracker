@@ -74,7 +74,7 @@ Coded by www.creative-tim.com
             </a>
           </li>
           <li>
-            <a href="../adm/principalDashAdm.html">
+            <a id="redirecionarDash" href="../adm/principalDashAdm.html">
               <i class="nc-icon nc-layout-11"></i>
               <p>Dashboard - geral</p>
             </a>
@@ -683,3 +683,37 @@ Coded by www.creative-tim.com
 </body>
 
 </html>
+<script>
+  var idFuncionario = sessionStorage.ID_USUARIO;
+  var link = document.getElementById('redirecionarDash');
+
+  fetch("/usuarios/validarFuncionario", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      idFuncionarioServer: idFuncionario,
+    })
+  }).then(function (resposta) {
+    // Correção: Converta a resposta para JSON
+    return resposta.json();
+  }).then(function (json) {
+    console.log("json: ", json);
+
+    // Verifique a estrutura do objeto JSON real retornado pela API
+    if (Array.isArray(json) && json.length > 0 && json[0].fkNivelAcesso !== undefined) {
+      var nivelPermissao = json[0].fkNivelAcesso;
+      sessionStorage.NIVEL_PERMISSAO = nivelPermissao;   
+
+      if (nivelPermissao == 2) {
+        link.href = "../nossa/principalDash.html";
+      }
+    } else {
+      window.alert("A estrutura do objeto JSON é diferente do esperado. Verifique a resposta da API.");
+    }
+  }).catch(function (erro) {
+    console.log(`#ERRO: ${erro}`);
+    finalizarAguardar();
+  });
+</script>

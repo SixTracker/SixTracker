@@ -267,13 +267,9 @@ function cadastrarComponente(req, res) {
     }
 }
 
-function buscaridEmpresa(req, res) {
-    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-
-                // nomeEmpresaServer: nomeEmpreVar,
+function buscaridEmpresa(req, res) {   
 
     var nomeEmp = req.body.nomeEmpresaServer;
-
 
     // Faça as validações dos valores
     if (nomeEmp == undefined) {
@@ -299,6 +295,34 @@ function buscaridEmpresa(req, res) {
     }
 }
 
+function validarFuncionario(req, res) {   
+
+    var idFuncionario = req.body.idFuncionarioServer;
+
+    // Faça as validações dos valores
+    if (idFuncionario == undefined) {
+        res.status(400).send("O idFuncionário está undefined!");
+    } else {
+        
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel.validarFuncionario(idFuncionario)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro do ADM, pois a empresa não existe! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     entrar,
     cadastrar,    
@@ -306,6 +330,7 @@ module.exports = {
     cadastrarUser,
     cadastrarComponente,
     buscaridEmpresa,
+    validarFuncionario,
     listar,
     testar
 }

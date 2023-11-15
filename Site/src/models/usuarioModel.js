@@ -12,12 +12,25 @@ function listar() {
 function entrar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var instrucao = `
-        SELECT * FROM funcionario WHERE email = '${email}' AND senha = '${senha}';
+        SELECT * FROM Funcionario WHERE email = '${email}' AND senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
+function validarFuncionario(idFuncionario) {
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+       instrucaoSql = `SELECT fkNivelAcesso FROM Funcionario WHERE idFuncionario = ${idFuncionario};`;
+   } else {
+       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+       return
+   }
+
+   console.log("Executando a instrução SQL: \n" + instrucaoSql);
+   return database.executar(instrucaoSql);
+}
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
 async function cadastrar(nomeEmp, cnpj, cep, estado, rua, numero, bairro, cidade) {
@@ -56,8 +69,6 @@ async function cadastrar(nomeEmp, cnpj, cep, estado, rua, numero, bairro, cidade
     }
 }
 
-
-
 async function buscaridEmpresa(nomeEmp) {
     console.log("ACESSEI O USUARIO MODEL - function buscaridEmpresa():", nomeEmp);
 
@@ -78,7 +89,6 @@ async function buscaridEmpresa(nomeEmp) {
         throw erro; // Lançar o erro para que possa ser tratado posteriormente
     }
 }
-
 
 async function cadastrarADM(nome, cpf, email, telefone, senha, fkempresa) {
     console.log("ACESSEI O USUARIO MODEL - function cadastrarADM():", nome, cpf, email, telefone, senha, fkempresa);
@@ -155,5 +165,6 @@ module.exports = {
             cadastrarUser,
             cadastrarComponente,
             buscaridEmpresa,
+            validarFuncionario,
             listar,
         };
