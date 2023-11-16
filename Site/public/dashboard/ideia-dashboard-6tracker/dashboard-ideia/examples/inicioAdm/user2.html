@@ -154,7 +154,7 @@ Coded by www.creative-tim.com
         <div id="navUser" class="user">
           <div onclick="profile()"><img id="navImgUser" class="userImg" src="" alt=""></div>
           <p onclick="profile()" id="navNomeUser"></p>
-      </div>
+        </div>
         <div class="row">
           <div class="col-md-4">
             <div class="card card-user">
@@ -165,7 +165,7 @@ Coded by www.creative-tim.com
                 <div class="author">
                   <a href="#">
                     <img class="avatar border-gray" src="../../assets/img/faces/caramico.jpeg" alt="...">
-                    <h5 class="title" style="color: #254D32;">  </h5>
+                    <h5 class="title" style="color: #254D32;"> </h5>
                   </a>
                   <p class="description">
                     Sou a responsável pela infraestrutura de TI do Servidor do Serasa. Meu objetivo é garantir que a
@@ -176,13 +176,14 @@ Coded by www.creative-tim.com
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Sua foto: </label>
-                    <input id="iptImg" type="text" class="form-control" placeholder="Insira a URL da imagem" value="URL">
+                    <input id="iptImg" type="text" class="form-control" placeholder="Insira a URL da imagem"
+                      value="URL">
                   </div>
                 </div>
                 <div class="row">
                   <div class="update ml-auto mr-auto">
-                    <button onclick="ImgSubmit()"  type="submit" class="btn btn-primary btn-round"
-                      style="background-color: #254D32;">Atualizar Imagem</button>
+                    <button onclick="ImgSubmit()" type="submit" class="btn btn-primary btn-round"
+                      style="background-color: #c211a1;">Atualizar Imagem</button>
                   </div>
                 </div>
                 <p class="description text-center">
@@ -275,16 +276,22 @@ Coded by www.creative-tim.com
               <div class="card-body">
                 <form>
                   <div class="row">
-                    <div class="col-md-5 pr-1">
+                    <!-- <div class="col-md-5 pr-1">
                       <div class="form-group">
                         <label>Sua empresa: </label>
                         <input type="text" class="form-control" placeholder="Company" value="Serasa">
                       </div>
-                    </div>
-                    <div class="col-md-3 px-1">
+                    </div> -->
+                    <!-- <div class="col-md-3 px-1">
                       <div class="form-group">
                         <label>Username</label>
                         <input type="text" class="form-control" placeholder="Username" value="Fernanda Caramico">
+                      </div>
+                    </div> -->
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label>Nome completo: </label>
+                        <input type="text" class="form-control" placeholder="Company" value="Fernanda Caramico">
                       </div>
                     </div>
                     <div class="col-md-4 pl-1">
@@ -294,49 +301,44 @@ Coded by www.creative-tim.com
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label>Nome completo: </label>
-                        <input type="text" class="form-control" placeholder="Company" value="Fernanda Caramico">
-                      </div>
-                    </div>
-                    <div class="col-md-6 pl-1">
+                  <!-- <div class="row">                     -->
+                  <!-- <div class="col-md-6 pl-1">
                       <div class="form-group">
                         <label>Cargo:</label>
                         <input type="text" class="form-control" placeholder="Last Name"
                           value="Gerente de infraestrutura">
                       </div>
-                    </div>
-                  </div>
-                  <div class="row">
+                    </div> -->
+                  <!-- </div> -->
+                  <!-- <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Endereço: </label>
                         <input id="iptEndereco" type="text" class="form-control" placeholder="Home Address"
                           value="Rua Haddock Lobo, 595 - Cerqueira César, São Paulo - SP, 01414-001">
                       </div>
-                    </div>
-                  </div>
+                    </div> -->
+
                   <div class="row">
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
                         <label>Telefone: </label>
-                        <input id="iptTelefone" type="text" class="form-control" placeholder="City" value="(11) 4520-6598">
+                        <input id="iptTelefone" type="text" class="form-control" placeholder="City"
+                          value="(11) 4520-6598">
                       </div>
                     </div>
-                    <div class="col-md-4 px-1">
+                    <!-- <div class="col-md-4 px-1">
                       <div class="form-group">
                         <label>Setor: </label>
                         <input type="text" class="form-control" placeholder="Country" value="Tecnologia e inovação">
                       </div>
-                    </div>
-                    <div class="col-md-4 pl-1">
+                    </div> -->
+                    <!-- <div class="col-md-4 pl-1">
                       <div class="form-group">
                         <label>Sua equipe: </label>
                         <input type="number" class="form-control" placeholder="Quantidade de membros da sua equipe">
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                   <div class="row">
                     <div class="col-md-12">
@@ -349,8 +351,8 @@ Coded by www.creative-tim.com
                   </div>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
-                      <button onclick="PerfilSubmit()"  type="submit" class="btn btn-primary btn-round"
-                        style="background-color: #254D32;">Atualizar perfil</button>
+                      <button onclick="PerfilSubmit()" type="submit" class="btn btn-primary btn-round"
+                        style="background-color: #c211a1;">Atualizar perfil</button>
                     </div>
                   </div>
                 </form>
@@ -399,310 +401,302 @@ Coded by www.creative-tim.com
   <script src="../../assets/demo/demo.js"></script>
 
   <script>
-    function pegarDados() {
-      fetch("/perfil/consultar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          idFuncionarioServer: idFuncionario,
-        })
-      }).then(function (resposta) {
-        console.log("ESTOU NO THEN DO entrar()!")
-  
-        if (resposta.ok) {
-          console.log(resposta);
-          if (resposta.length != 0) {
-  
-            resposta.json().then(json => {
-              console.log(json);
-              console.log(JSON.stringify(json));
-  
-              iptNome.value = json.Nome
-              iptEmail.value = json.email
-              iptImg.value = json.imagem
-            });
-          }
-        } else {
-  
-          console.log("Houve um erro ao pegar os dados!");
-  
-          resposta.text().then(texto => {
-            console.error(texto);
-            // finalizarAguardar(texto);
-          });
-        }
-  
-      }).catch(function (erro) {
-        console.log(erro);
+    var idFuncionario = sessionStorage.ID_USUARIO;
+    var link = document.getElementById('redirecionarDash');
+
+    fetch("/perfil/consultar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        idFuncionarioServer: idFuncionario,
       })
-    }
-  
-    function imgSubmit() {
-      var imgVar = iptImg.value
-      fetch("/perfil/inserirImg", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          // crie um atributo que recebe o valor recuperado aqui
-          // Agora vá para o arquivo routes/usuario.js
-          idFuncionarioServer: idFuncionario,
-          imagemServer: imgVar
-        })
-      }).then(function (resposta) {
-  
-        console.log("resposta: ", resposta);
-  
-        if (resposta.ok) {
-  
-          sessionStorage.IMG_USUARIO = imgVar
-  
-  
+    }).then(function (resposta) {
+      // Correção: Converta a resposta para JSON
+      return resposta.json();
+    }).then(function (json) {
+      console.log("json: ", json);
+
+      // Verifique a estrutura do objeto JSON real retornado pela API
+      if (json !== undefined && json.nome !== undefined && json.email !== undefined && json.telefone !== undefined
+        && json.descricao !== undefined){
+          var nomeFuncionario = json[0].nome;
+          var emailFuncionario = json[0].email;
+          var telefoneFuncionario = json[0].telefone;
+          var descricaoFuncionario = json[0].descricao;
+
+          window.alert(`${nomeFuncionario} ${emailFuncionario} ${telefoneFuncionario} ${descricaoFuncionario}`);
+
         } else {
-          throw ("Houve um erro ao tentar realizar o cadastro!");
+          window.alert("A estrutura do objeto JSON é diferente do esperado. Verifique a resposta da API. 2");
         }
-      }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        // finalizarAguardar();
+      }).catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
+        finalizarAguardar();
       });
-      window.location = "user2.html"
-    }
-  
-    function PerfilSubmit() {
-      fetch("/perfil/atualizarNome", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          idFuncionarioServer: idFuncionario,
-          nomeServer: nomeVar
-        })
-      }).then(function (resposta) {
-        console.log("ESTOU NO THEN DO entrar()!")
-  
-        if (resposta.ok) {
-          console.log(resposta);
-          if (resposta.length != 0) {
-  
-            resposta.json().then(json => {
-              console.log(json);
-              console.log(JSON.stringify(json));
-              sessionStorage.NOME_USUARIO = nomeVar
-              nomeVar = ''
-            });
-          }
-        } else {
-  
-          console.log("Houve um erro ao tentar autenticar o Quizz!");
-  
-          resposta.text().then(texto => {
-            console.error(texto);
-            // finalizarAguardar(texto);
-          });
-        }
-  
-      }).catch(function (erro) {
-        console.log(erro);
-      })
-  
-      fetch("/perfil/atualizarEmail", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          idFuncionarioServer: idFuncionario,
-          emailServer: iptEmail.value
-        })
-      }).then(function (resposta) {
-        console.log("ESTOU NO THEN DO entrar()!")
-  
-        if (resposta.ok) {
-          console.log(resposta);
-          if (resposta.length != 0) {
-            resposta.json().then(json => {
-              console.log(json);
-              console.log(JSON.stringify(json));
-              sessionStorage.EMAIL_USUARIO = iptEmail.value
-              iptEmail.value = ''
-            });
-          }
-        } else {
-  
-          console.log("Houve um erro ao tentar autenticar o Quizz!");
-  
-          resposta.text().then(texto => {
-            console.error(texto);
-            // finalizarAguardar(texto);
-          });
-        }
-  
-      }).catch(function (erro) {
-        console.log(erro);
-      })
-  
-      fetch("/perfil/atualizarEndereco", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          idFuncionarioServer: idFuncionario,
-          EnderecoServer: iptEndereco.value
-        })
-      }).then(function (resposta) {
-        console.log("ESTOU NO THEN DO entrar()!")
-  
-        if (resposta.ok) {
-          console.log(resposta);
-          if (resposta.length != 0) {
-  
-            resposta.json().then(json => {
-              console.log(json);
-              console.log(JSON.stringify(json));
-  
-            });
-          }
-        } else {
-  
-          console.log("Houve um erro ao tentar");
-  
-          resposta.text().then(texto => {
-            console.error(texto);
-            // finalizarAguardar(texto);
-          });
-        }
-  
-      }).catch(function (erro) {
-        console.log(erro);
-      })
-      pegarDados()
-    }
-  
-    function atualizarDescricao() {
-      var descricaoVar = iptDesc.value
-      var idFuncionario = idFuncionarioServer
-      fetch("/perfil/atualizarDescricao", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          idFuncionarioServer: idFuncionario,
-          descricaoServer: descricaoVar
-        })
-      }).then(function (resposta) {
-  
-        console.log("resposta: ", resposta);
-  
-        if (resposta.ok) {
-  
-  
-  
-          // finalizarAguardar();
-        } else {
-          throw ("Houve um erro ao tentar realizar a descricao!");
-        }
-      }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        // finalizarAguardar();
-      });
-  
-      return false;
-    }
-  
-    function verificarDescricao() {
-      fetch("/perfil/verificar", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          idFuncionarioServer: idFuncionario
-        })
-      }).then(function (resposta) {
-        console.log("ESTOU NO THEN DO verificar()!")
-  
-        if (resposta.ok) {
-          console.log(resposta);
-  
-          if (resposta.status == 204) {
-  
-  
-          } else {
-            resposta.json().then(json => {
-              console.log(json);
-              console.log(JSON.stringify(json));
-  
-            });
-          }
-  
-        } else {
-  
-          console.log("Houve um erro ao tentar realizar o login!");
-  
-          resposta.text().then(texto => {
-            console.error(texto);
-            // finalizarAguardar(texto);
-          });
-        }
-  
-      }).catch(function (erro) {
-        console.log(erro);
-      })
-  
-      return false;
-    }
-  
-  
-    verificarDescricao()
-  
-    function atualizarTelefone() {
-      var telefoneVar = iptTelefone.value
-      idFuncionario = idFuncionarioServer
-      fetch("/perfil/atualizarTelefone", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          idFuncionarioServer: idFuncionario,
-          telefoneServer: telefoneVar
-        })
-      }).then(function (resposta) {
-  
-        console.log("resposta: ", resposta);
-  
-        if (resposta.ok) {
-  
-  
-  
-          // finalizarAguardar();
-        } else {
-          throw ("Houve um erro ao tentar realizar a descricao!");
-        }
-      }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        // finalizarAguardar();
-      });
-  
-      return false;
-    }
-  
-  
+
+
+    // function imgSubmit() {
+    //   var imgVar = iptImg.value
+    //   fetch("/perfil/inserirImg", {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //       // crie um atributo que recebe o valor recuperado aqui
+    //       // Agora vá para o arquivo routes/usuario.js
+    //       idFuncionarioServer: idFuncionario,
+    //       imagemServer: imgVar
+    //     })
+    //   }).then(function (resposta) {
+
+    //     console.log("resposta: ", resposta);
+
+    //     if (resposta.ok) {
+
+    //       sessionStorage.IMG_USUARIO = imgVar
+
+
+    //     } else {
+    //       throw ("Houve um erro ao tentar realizar o cadastro!");
+    //     }
+    //   }).catch(function (resposta) {
+    //     console.log(`#ERRO: ${resposta}`);
+    //     // finalizarAguardar();
+    //   });
+    //   window.location = "user2.html"
+    // }
+
+    // function PerfilSubmit() {
+    //   fetch("/perfil/atualizarNome", {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //       idFuncionarioServer: idFuncionario,
+    //       nomeServer: nomeVar
+    //     })
+    //   }).then(function (resposta) {
+    //     console.log("ESTOU NO THEN DO entrar()!")
+
+    //     if (resposta.ok) {
+    //       console.log(resposta);
+    //       if (resposta.length != 0) {
+
+    //         resposta.json().then(json => {
+    //           console.log(json);
+    //           console.log(JSON.stringify(json));
+    //           sessionStorage.NOME_USUARIO = nomeVar
+    //           nomeVar = ''
+    //         });
+    //       }
+    //     } else {
+
+    //       console.log("Houve um erro ao tentar autenticar o Quizz!");
+
+    //       resposta.text().then(texto => {
+    //         console.error(texto);
+    //         // finalizarAguardar(texto);
+    //       });
+    //     }
+
+    //   }).catch(function (erro) {
+    //     console.log(erro);
+    //   })
+
+    //   fetch("/perfil/atualizarEmail", {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //       idFuncionarioServer: idFuncionario,
+    //       emailServer: iptEmail.value
+    //     })
+    //   }).then(function (resposta) {
+    //     console.log("ESTOU NO THEN DO entrar()!")
+
+    //     if (resposta.ok) {
+    //       console.log(resposta);
+    //       if (resposta.length != 0) {
+    //         resposta.json().then(json => {
+    //           console.log(json);
+    //           console.log(JSON.stringify(json));
+    //           sessionStorage.EMAIL_USUARIO = iptEmail.value
+    //           iptEmail.value = ''
+    //         });
+    //       }
+    //     } else {
+
+    //       console.log("Houve um erro ao tentar autenticar o Quizz!");
+
+    //       resposta.text().then(texto => {
+    //         console.error(texto);
+    //         // finalizarAguardar(texto);
+    //       });
+    //     }
+
+    //   }).catch(function (erro) {
+    //     console.log(erro);
+    //   })
+
+    //   fetch("/perfil/atualizarEndereco", {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //       idFuncionarioServer: idFuncionario,
+    //       EnderecoServer: iptEndereco.value
+    //     })
+    //   }).then(function (resposta) {
+    //     console.log("ESTOU NO THEN DO entrar()!")
+
+    //     if (resposta.ok) {
+    //       console.log(resposta);
+    //       if (resposta.length != 0) {
+
+    //         resposta.json().then(json => {
+    //           console.log(json);
+    //           console.log(JSON.stringify(json));
+
+    //         });
+    //       }
+    //     } else {
+
+    //       console.log("Houve um erro ao tentar");
+
+    //       resposta.text().then(texto => {
+    //         console.error(texto);
+    //         // finalizarAguardar(texto);
+    //       });
+    //     }
+
+    //   }).catch(function (erro) {
+    //     console.log(erro);
+    //   })
+    //   pegarDados()
+    // }
+
+    // function atualizarDescricao() {
+    //   var descricaoVar = iptDesc.value
+    //   var idFuncionario = idFuncionarioServer
+    //   fetch("/perfil/atualizarDescricao", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //       idFuncionarioServer: idFuncionario,
+    //       descricaoServer: descricaoVar
+    //     })
+    //   }).then(function (resposta) {
+
+    //     console.log("resposta: ", resposta);
+
+    //     if (resposta.ok) {
+
+
+
+    //       // finalizarAguardar();
+    //     } else {
+    //       throw ("Houve um erro ao tentar realizar a descricao!");
+    //     }
+    //   }).catch(function (resposta) {
+    //     console.log(`#ERRO: ${resposta}`);
+    //     // finalizarAguardar();
+    //   });
+
+    //   return false;
+    // }
+
+    // function verificarDescricao() {
+    //   fetch("/perfil/verificar", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //       idFuncionarioServer: idFuncionario
+    //     })
+    //   }).then(function (resposta) {
+    //     console.log("ESTOU NO THEN DO verificar()!")
+
+    //     if (resposta.ok) {
+    //       console.log(resposta);
+
+    //       if (resposta.status == 204) {
+
+
+    //       } else {
+    //         resposta.json().then(json => {
+    //           console.log(json);
+    //           console.log(JSON.stringify(json));
+
+    //         });
+    //       }
+
+    //     } else {
+
+    //       console.log("Houve um erro ao tentar realizar o login!");
+
+    //       resposta.text().then(texto => {
+    //         console.error(texto);
+    //         // finalizarAguardar(texto);
+    //       });
+    //     }
+
+    //   }).catch(function (erro) {
+    //     console.log(erro);
+    //   })
+
+    //   return false;
+    // }
+
+
+    // verificarDescricao()
+
+    // function atualizarTelefone() {
+    //   var telefoneVar = iptTelefone.value
+    //   idFuncionario = idFuncionarioServer
+    //   fetch("/perfil/atualizarTelefone", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //       idFuncionarioServer: idFuncionario,
+    //       telefoneServer: telefoneVar
+    //     })
+    //   }).then(function (resposta) {
+
+    //     console.log("resposta: ", resposta);
+
+    //     if (resposta.ok) {
+
+
+
+    //       // finalizarAguardar();
+    //     } else {
+    //       throw ("Houve um erro ao tentar realizar a descricao!");
+    //     }
+    //   }).catch(function (resposta) {
+    //     console.log(`#ERRO: ${resposta}`);
+    //     // finalizarAguardar();
+    //   });
+
+    //   return false;
+    // }
+
   </script>
-  
+
 </body>
 
 </html>
 <script>
-  var idFuncionario = sessionStorage.ID_USUARIO;
-  var link = document.getElementById('redirecionarDash');
-
   fetch("/usuarios/validarFuncionario", {
     method: "post",
     headers: {
@@ -720,7 +714,7 @@ Coded by www.creative-tim.com
     // Verifique a estrutura do objeto JSON real retornado pela API
     if (Array.isArray(json) && json.length > 0 && json[0].fkNivelAcesso !== undefined) {
       var nivelPermissao = json[0].fkNivelAcesso;
-      sessionStorage.NIVEL_PERMISSAO = nivelPermissao;   
+      sessionStorage.NIVEL_PERMISSAO = nivelPermissao;
 
       if (nivelPermissao == 2) {
         link.href = "../nossa/principalDash.html";
@@ -732,10 +726,4 @@ Coded by www.creative-tim.com
     console.log(`#ERRO: ${erro}`);
     finalizarAguardar();
   });
-</script>
-<script>
-  titulo.innerHTML = `${sessionStorage.NOME_USUARIO}`
-    document.getElementById("imgUser").src = `${sessionStorage.IMG_USUARIO}`
-    document.getElementById("navImgUser").src = `${sessionStorage.IMG_USUARIO}`
-    nomeUser.innerHTML = sessionStorage.NOME_USUARIO
 </script>
