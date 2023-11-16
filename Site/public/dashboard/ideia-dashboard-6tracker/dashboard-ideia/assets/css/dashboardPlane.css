@@ -21,7 +21,14 @@ Licensed under the MIT license - http://opensource.org/licenses/MIT
 Copyright (c) 2015 Daniel Eden
 */
 
+#emailPerfil{
+  position: relative;
+  left: 5vw;
+}
 
+#iptEmail{
+  width: 22vw;
+}
 
 #card-list{
   position: relative;

@@ -1,11 +1,11 @@
 var perfilModel = require("../models/perfilModel");
 
-function inserirImg(req, res) {
+function AtualizarImg(req, res) {
 
     var idFuncionario = req.body.idFuncionarioServer;
     var imagem = req.body.imgServer;
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-    perfilModel.inserirImg(idFuncionario, imagem)
+    perfilModel.AtualizarImg(idFuncionario, imagem)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -49,133 +49,49 @@ function consultar(req, res) {
         );
 }
 
-function atualizarNome(req, res) {
-    var nome = req.body.nomeServer
-    var idFuncionario = req.body.idFuncionarioServer
+function atualizarPerfil(req, res) {    
 
-    perfilModel.atualizarNome(nome, idFuncionario)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-
-}
-function atualizarEmail(req, res) {
+    var idFuncionario = req.body.idFuncionarioServer;
+    var nome = req.body.nomeServer;    
     var email = req.body.emailServer;
-    var idFuncionario = req.body.idFuncionarioServer
-
-    perfilModel.atualizarEmail(email, idFuncionario)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-
-}
-function atualizarEndereco(req, res) {
-    var Endereco = req.body.EnderecoServer;
-    var idFuncionario = req.body.idFuncionarioServer
-
-    perfilModel.atualizarEndereco(Endereco, idFuncionario)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-
-}
-
-function atualizarTelefone(req, res) {
     var telefone = req.body.telefoneServer;
-    var idFuncionario = req.body.idFuncionarioServer
-
-    perfilModel.atualizarTelefone(telefone, idFuncionario)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        )
-        .catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-
-}
-
-function atualizarDescricao(req, res) {
-    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var idFuncionario = req.body.idFuncionarioServer;
     var descricao = req.body.descricaoServer;
+    
 
-    // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-    perfilModel.atualizarDescricao(idFuncionario, descricao)
-        .then(
-            function (resultado) {
-                res.json(resultado);
-            }
-        ).catch(
-            function (erro) {
-                console.log(erro);
-                console.log(
-                    "\nHouve um erro ao realizar o cadastro! Erro: ",
-                    erro.sqlMessage
-                );
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
+    // Faça as validações dos valores
+    if (nome == undefined) {
+        res.status(400).send("O nome está undefined!");
+    }else if (email == undefined) {
+        res.status(400).send("O email está undefined!");
+    }else if (telefone == undefined) {
+        res.status(400).send("O telefone está undefined!");
+    }else if (idFuncionario == undefined) {
+        res.status(400).send("O idFuncionário está undefined!");
+    }else if (descricao == undefined) {
+        res.status(400).send("A descrição está undefined!");
+    } else {
+        
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        perfilModel.atualizarPerfil(idFuncionario, nome, email, telefone, descricao)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar a atualização do Perfil! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
 }
-
-function verificar(req, res) {
-    var idFuncionario = req.body.idFuncionarioServer;
-    perfilModel.verificar(idFuncionario)
-        .then(function (resultado) {
-            if (resultado.length == 1) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(
-            function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            }
-        );
-}
-
 
 module.exports = {
-    inserirImg,
+    AtualizarImg,
     consultar,
-    atualizarNome,
-    atualizarEmail,
-    atualizarEndereco,
-    atualizarTelefone,
-    atualizarDescricao,
-    verificar
+    atualizarPerfil
 }

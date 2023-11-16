@@ -30,9 +30,7 @@ Coded by www.creative-tim.com
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
   <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../../assets/demo/demo.css" rel="stylesheet" />
+  <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />  
 </head>
 
 <body class="">
@@ -164,7 +162,7 @@ Coded by www.creative-tim.com
               <div class="card-body">
                 <div class="author">
                   <a href="#">
-                    <img class="avatar border-gray" src="../../assets/img/faces/caramico.jpeg" alt="...">
+                    <img id="imagemPerfil" class="avatar border-gray" src="../../assets/img/faces/caramico.jpeg" alt="...">
                     <h5 class="title" style="color: #254D32;"> </h5>
                   </a>
                   <p id="idNome"></p>
@@ -184,7 +182,7 @@ Coded by www.creative-tim.com
                 </div>
                 <div class="row">
                   <div class="update ml-auto mr-auto">
-                    <button onclick="ImgSubmit()" type="submit" class="btn btn-primary btn-round"
+                    <button onclick="imgSubmit()" type="submit" class="btn btn-primary btn-round"
                       style="background-color: #c211a1;">Atualizar Imagem</button>
                   </div>
                 </div>
@@ -296,7 +294,7 @@ Coded by www.creative-tim.com
                         <input id="iptNome" type="text" class="form-control" placeholder="Company">
                       </div>
                     </div>
-                    <div class="col-md-4 pl-1">
+                    <div id="emailPerfil" class="col-md-4 pl-1">
                       <div class="form-group">
                         <label for="exampleInputEmail1">Email: </label>
                         <input id="iptEmail" type="email" class="form-control" placeholder="Email">
@@ -405,315 +403,15 @@ Coded by www.creative-tim.com
   <script>
     var idFuncionario = sessionStorage.ID_USUARIO;
     var link = document.getElementById('redirecionarDash');
-
-    fetch("/perfil/consultar/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        idFuncionarioServer: idFuncionario
-      })
-    })
-      .then(function (resposta) {
-        // Verifica se a resposta foi bem-sucedida (status 2xx)
-        if (!resposta.ok) {
-          throw new Error(`Erro na requisição: ${resposta.status} - ${resposta.statusText}`);
-        }
-        // Converte a resposta para JSON
-        return resposta.json();
-      })
-      .then(function (dados) {
-        console.log("Tipo da variável dados:", typeof dados);
-        console.log("Dados recebidos: ", JSON.stringify(dados));
-
-        // Verifica se os dados foram recebidos corretamente
-        if (dados && typeof dados === 'object') {
-          var funcionario = dados; // Não é necessário acessar o primeiro elemento
-          var nomeFuncionario = funcionario.nome;
-          var emailFuncionario = funcionario.email;
-          var telefoneFuncionario = funcionario.telefone;
-          var descricaoFuncionario = funcionario.descricao;
-
-          const inputNome = document.getElementById("iptNome");
-          inputNome.value = nomeFuncionario;          
-
-          const inputEmail = document.getElementById("iptEmail");
-          inputEmail.value = emailFuncionario;
-
-          const inputTelefone = document.getElementById("iptTelefone");
-          inputTelefone.value = telefoneFuncionario;
-
-          const inputDescricao = document.getElementById("iptDescricao");
-          inputDescricao.value = descricaoFuncionario;
-
-          const nomeFoto = document.getElementById("idNome");
-          nomeFoto.innerText = nomeFuncionario;
-          const descricaoHtml = document.getElementById("idDescricao");
-          descricaoHtml.innerText = descricaoFuncionario;
-        } else {
-          console.error("Dados inválidos recebidos do Funcionário.");
-        }
-      })
-      .catch(function (erro) {
-        console.error(erro);
-      });
-
-
-    // function imgSubmit() {
-    //   var imgVar = iptImg.value
-    //   fetch("/perfil/inserirImg", {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //       // crie um atributo que recebe o valor recuperado aqui
-    //       // Agora vá para o arquivo routes/usuario.js
-    //       idFuncionarioServer: idFuncionario,
-    //       imagemServer: imgVar
-    //     })
-    //   }).then(function (resposta) {
-
-    //     console.log("resposta: ", resposta);
-
-    //     if (resposta.ok) {
-
-    //       sessionStorage.IMG_USUARIO = imgVar
-
-
-    //     } else {
-    //       throw ("Houve um erro ao tentar realizar o cadastro!");
-    //     }
-    //   }).catch(function (resposta) {
-    //     console.log(`#ERRO: ${resposta}`);
-    //     // finalizarAguardar();
-    //   });
-    //   window.location = "user2.html"
-    // }
-
-    // function PerfilSubmit() {
-    //   fetch("/perfil/atualizarNome", {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //       idFuncionarioServer: idFuncionario,
-    //       nomeServer: nomeVar
-    //     })
-    //   }).then(function (resposta) {
-    //     console.log("ESTOU NO THEN DO entrar()!")
-
-    //     if (resposta.ok) {
-    //       console.log(resposta);
-    //       if (resposta.length != 0) {
-
-    //         resposta.json().then(json => {
-    //           console.log(json);
-    //           console.log(JSON.stringify(json));
-    //           sessionStorage.NOME_USUARIO = nomeVar
-    //           nomeVar = ''
-    //         });
-    //       }
-    //     } else {
-
-    //       console.log("Houve um erro ao tentar autenticar o Quizz!");
-
-    //       resposta.text().then(texto => {
-    //         console.error(texto);
-    //         // finalizarAguardar(texto);
-    //       });
-    //     }
-
-    //   }).catch(function (erro) {
-    //     console.log(erro);
-    //   })
-
-    //   fetch("/perfil/atualizarEmail", {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //       idFuncionarioServer: idFuncionario,
-    //       emailServer: iptEmail.value
-    //     })
-    //   }).then(function (resposta) {
-    //     console.log("ESTOU NO THEN DO entrar()!")
-
-    //     if (resposta.ok) {
-    //       console.log(resposta);
-    //       if (resposta.length != 0) {
-    //         resposta.json().then(json => {
-    //           console.log(json);
-    //           console.log(JSON.stringify(json));
-    //           sessionStorage.EMAIL_USUARIO = iptEmail.value
-    //           iptEmail.value = ''
-    //         });
-    //       }
-    //     } else {
-
-    //       console.log("Houve um erro ao tentar autenticar o Quizz!");
-
-    //       resposta.text().then(texto => {
-    //         console.error(texto);
-    //         // finalizarAguardar(texto);
-    //       });
-    //     }
-
-    //   }).catch(function (erro) {
-    //     console.log(erro);
-    //   })
-
-    //   fetch("/perfil/atualizarEndereco", {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //       idFuncionarioServer: idFuncionario,
-    //       EnderecoServer: iptEndereco.value
-    //     })
-    //   }).then(function (resposta) {
-    //     console.log("ESTOU NO THEN DO entrar()!")
-
-    //     if (resposta.ok) {
-    //       console.log(resposta);
-    //       if (resposta.length != 0) {
-
-    //         resposta.json().then(json => {
-    //           console.log(json);
-    //           console.log(JSON.stringify(json));
-
-    //         });
-    //       }
-    //     } else {
-
-    //       console.log("Houve um erro ao tentar");
-
-    //       resposta.text().then(texto => {
-    //         console.error(texto);
-    //         // finalizarAguardar(texto);
-    //       });
-    //     }
-
-    //   }).catch(function (erro) {
-    //     console.log(erro);
-    //   })
-    //   pegarDados()
-    // }
-
-    // function atualizarDescricao() {
-    //   var descricaoVar = iptDesc.value
-    //   var idFuncionario = idFuncionarioServer
-    //   fetch("/perfil/atualizarDescricao", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //       idFuncionarioServer: idFuncionario,
-    //       descricaoServer: descricaoVar
-    //     })
-    //   }).then(function (resposta) {
-
-    //     console.log("resposta: ", resposta);
-
-    //     if (resposta.ok) {
-
-
-
-    //       // finalizarAguardar();
-    //     } else {
-    //       throw ("Houve um erro ao tentar realizar a descricao!");
-    //     }
-    //   }).catch(function (resposta) {
-    //     console.log(`#ERRO: ${resposta}`);
-    //     // finalizarAguardar();
-    //   });
-
-    //   return false;
-    // }
-
-    // function verificarDescricao() {
-    //   fetch("/perfil/verificar", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //       idFuncionarioServer: idFuncionario
-    //     })
-    //   }).then(function (resposta) {
-    //     console.log("ESTOU NO THEN DO verificar()!")
-
-    //     if (resposta.ok) {
-    //       console.log(resposta);
-
-    //       if (resposta.status == 204) {
-
-
-    //       } else {
-    //         resposta.json().then(json => {
-    //           console.log(json);
-    //           console.log(JSON.stringify(json));
-
-    //         });
-    //       }
-
-    //     } else {
-
-    //       console.log("Houve um erro ao tentar realizar o login!");
-
-    //       resposta.text().then(texto => {
-    //         console.error(texto);
-    //         // finalizarAguardar(texto);
-    //       });
-    //     }
-
-    //   }).catch(function (erro) {
-    //     console.log(erro);
-    //   })
-
-    //   return false;
-    // }
-
-
-    // verificarDescricao()
-
-    // function atualizarTelefone() {
-    //   var telefoneVar = iptTelefone.value
-    //   idFuncionario = idFuncionarioServer
-    //   fetch("/perfil/atualizarTelefone", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //       idFuncionarioServer: idFuncionario,
-    //       telefoneServer: telefoneVar
-    //     })
-    //   }).then(function (resposta) {
-
-    //     console.log("resposta: ", resposta);
-
-    //     if (resposta.ok) {
-
-
-
-    //       // finalizarAguardar();
-    //     } else {
-    //       throw ("Houve um erro ao tentar realizar a descricao!");
-    //     }
-    //   }).catch(function (resposta) {
-    //     console.log(`#ERRO: ${resposta}`);
-    //     // finalizarAguardar();
-    //   });
-
-    //   return false;
-    // }
-
+    const inputNome = document.getElementById("iptNome");
+    const inputEmail = document.getElementById("iptEmail");
+    const inputTelefone = document.getElementById("iptTelefone");
+    const inputDescricao = document.getElementById("iptDescricao");
+    const nomeFoto = document.getElementById("idNome");
+    const descricaoHtml = document.getElementById("idDescricao");
+    const imagem = document.getElementById("minhaImagem");
+     
+    
     fetch("/usuarios/validarFuncionario", {
       method: "post",
       headers: {
@@ -743,8 +441,111 @@ Coded by www.creative-tim.com
       console.log(`#ERRO: ${erro}`);
       finalizarAguardar();
     });
+
+    fetch("/perfil/consultar/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        idFuncionarioServer: idFuncionario
+      })
+    })
+      .then(function (resposta) {
+        // Verifica se a resposta foi bem-sucedida (status 2xx)
+        if (!resposta.ok) {
+          throw new Error(`Erro na requisição: ${resposta.status} - ${resposta.statusText}`);
+        }
+        // Converte a resposta para JSON
+        return resposta.json();
+      })
+      .then(function (dados) {
+        console.log("Tipo da variável dados:", typeof dados);
+        console.log("Dados recebidos: ", JSON.stringify(dados));
+
+        // Verifica se os dados foram recebidos corretamente
+        if (dados && typeof dados === 'object') {
+          var funcionario = dados; // Não é necessário acessar o primeiro elemento
+          var nomeFuncionario = funcionario.nome;
+          var emailFuncionario = funcionario.email;
+          var telefoneFuncionario = funcionario.telefone;
+          var descricaoFuncionario = funcionario.descricao;
+          
+          inputNome.value = nomeFuncionario;
+          inputEmail.value = emailFuncionario;          
+          inputTelefone.value = telefoneFuncionario;
+          inputDescricao.value = descricaoFuncionario;
+          nomeFoto.innerText = nomeFuncionario;
+          descricaoHtml.innerText = descricaoFuncionario;
+
+          sessionStorage.NOME_USUARIO = nomeFuncionario;
+          sessionStorage.EMAIL_USUARIO = emailFuncionario;
+
+        } else {
+          console.error("Dados inválidos recebidos do Funcionário.");
+        }
+      })
+      .catch(function (erro) {
+        console.error(erro);
+      });
+
+      function PerfilSubmit(){
+        fetch("/perfil/atualizarPerfil", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({       
+                idFuncionarioServer: idFuncionario,         
+                nomeServer: inputNome.value,                
+                emailServer: inputEmail.value,
+                telefoneServer: inputTelefone.value,
+                descricaoServer: inputDescricao.value                
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("Perfil Atualizado com sucesso!!")                              
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);            
+        });
+      }
+
+
+    function imgSubmit() {
+      var urlImagem = imagem.src;
+
+      fetch("/perfil/AtualizarImg", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/usuario.js
+          idFuncionarioServer: idFuncionario,
+          imagemServer: urlImagem
+        })
+      }).then(function (resposta) {
+
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          imagem.src = resposta.imagem
+        } else {
+          throw ("Houve um erro ao tentar realizar o cadastro!");
+        }
+      }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        // finalizarAguardar();
+      });      
+    }
+
   </script>
-
 </body>
-
 </html>
