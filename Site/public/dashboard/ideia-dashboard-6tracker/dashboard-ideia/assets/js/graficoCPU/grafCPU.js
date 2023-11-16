@@ -19,24 +19,10 @@ demo = {
     ctx = document.getElementById("analiseCPU").getContext("2d");
 
     myChart = new Chart(ctx, {
-      type: "line",
+      type: "bar",
 
       data: {
-        labels: [
-          "12:00",
-          "12:05",
-          "12:10",
-          "12:15",
-          "12:20",
-          "12:25",
-          "12:30",
-          "12:35",
-          "12:40",
-          "12:45",
-          "12:50",
-          "12:55",
-          "13:00",
-        ],
+        labels: [2015, 2016, 2017],
         datasets: [
           {
             label: "Utilização da CPU em %",
@@ -215,3 +201,59 @@ demo = {
     });
   },
 };
+
+
+
+$(function() {
+  var optionsBar = {
+    responsive: true,
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  };
+
+  var dataBar = {
+    labels: ["Servidor001", "Servidor002", "Servidor003"],
+    datasets: [{
+      label: "CPU",
+      backgroundColor: "rgba(194, 17, 162, 0.731)",
+      borderColor: "#c211a1",
+      borderWidth: 2,
+      hoverBackgroundColor: "#c211a1",
+      hoverBorderColor: "#c211a1",
+      data: [555, 666, 777]
+    }, {
+      label: "RAM",
+      backgroundColor: "rgba(0,130,229,0.8)",
+      borderColor: "rgba(0,130,229,0.9)",
+      borderWidth: 2,
+      hoverBackgroundColor: "rgba(0,130,229,0.9)",
+      hoverBorderColor: "rgba(0,130,229,1)",
+      data: [444, 555, 666]
+    }, {
+      label: "DISCO",
+      backgroundColor: "rgba(43,139,74,0.8)",
+      borderColor: "rgba(43,139,74,0.9)",
+      borderWidth: 2,
+      hoverBackgroundColor: "rgba(43,139,74,0.9)",
+      hoverBorderColor: "rgba(43,139,74,1)",
+      data: [333, 444, 555]
+    }]
+  };
+
+function gerarGraficos() {
+  var ctx = document.getElementById("chart-one").getContext("2d");
+  var BarChart2 = new Chart(ctx, {
+    type: 'bar',
+    data: dataBar,
+    options: optionsBar
+  });
+
+}
+
+gerarGraficos();
+});
