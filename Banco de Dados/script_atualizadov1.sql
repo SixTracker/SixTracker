@@ -57,6 +57,8 @@ telefone char(11),
 senha varchar(45),
 fkEmpresa INT,
 fkNivelAcesso INT,
+imagem varchar(16000),
+descricao varchar(200),
 FOREIGN KEY (fkNivelAcesso) REFERENCES NivelAcesso(idNivelAcesso),
 FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa)
 );
@@ -66,6 +68,12 @@ null, 'Guilherme', '008.539.263-18', 'guilherme.gsantos@sptech.school', '1198220
 );
 
 select * from funcionario;
+
+UPDATE Funcionario
+SET imagem = 'IMAGEM GRANDONA 4K', descricao = 'Hello World'
+WHERE idFuncionario = 2;
+
+desc Funcionario;
 
 create table Endereco(
 idEndereco int primary key auto_increment,
