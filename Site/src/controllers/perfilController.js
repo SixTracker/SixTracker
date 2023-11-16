@@ -3,7 +3,7 @@ var perfilModel = require("../models/perfilModel");
 function AtualizarImg(req, res) {
 
     var idFuncionario = req.body.idFuncionarioServer;
-    var imagem = req.body.imgServer;
+    var imagem = req.body.imagemServer;
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
     perfilModel.AtualizarImg(idFuncionario, imagem)
         .then(

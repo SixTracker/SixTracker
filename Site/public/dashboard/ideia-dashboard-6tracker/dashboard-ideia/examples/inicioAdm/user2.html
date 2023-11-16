@@ -30,7 +30,7 @@ Coded by www.creative-tim.com
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
   <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />  
+  <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -162,7 +162,7 @@ Coded by www.creative-tim.com
               <div class="card-body">
                 <div class="author">
                   <a href="#">
-                    <img id="imagemPerfil" class="avatar border-gray" src="../../assets/img/faces/caramico.jpeg" alt="...">
+                    <img id="imagemPerfil" class="avatar border-gray" src="" alt="...">
                     <h5 class="title" style="color: #254D32;"> </h5>
                   </a>
                   <p id="idNome"></p>
@@ -176,8 +176,7 @@ Coded by www.creative-tim.com
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Sua foto: </label>
-                    <input id="iptImg" type="text" class="form-control" placeholder="Insira a URL da imagem"
-                      value="URL">
+                    <input id="iptImg" type="text" class="form-control" placeholder="Insira a URL da imagem">
                   </div>
                 </div>
                 <div class="row">
@@ -409,9 +408,9 @@ Coded by www.creative-tim.com
     const inputDescricao = document.getElementById("iptDescricao");
     const nomeFoto = document.getElementById("idNome");
     const descricaoHtml = document.getElementById("idDescricao");
-    const imagem = document.getElementById("minhaImagem");
-     
-    
+    const imagem = document.getElementById("imagemPerfil");
+
+
     fetch("/usuarios/validarFuncionario", {
       method: "post",
       headers: {
@@ -469,12 +468,14 @@ Coded by www.creative-tim.com
           var nomeFuncionario = funcionario.nome;
           var emailFuncionario = funcionario.email;
           var telefoneFuncionario = funcionario.telefone;
+          var imagemFuncionario = funcionario.imagem;
           var descricaoFuncionario = funcionario.descricao;
-          
+
           inputNome.value = nomeFuncionario;
-          inputEmail.value = emailFuncionario;          
+          inputEmail.value = emailFuncionario;
           inputTelefone.value = telefoneFuncionario;
           inputDescricao.value = descricaoFuncionario;
+          imagem.src = imagemFuncionario
           nomeFoto.innerText = nomeFuncionario;
           descricaoHtml.innerText = descricaoFuncionario;
 
@@ -489,36 +490,39 @@ Coded by www.creative-tim.com
         console.error(erro);
       });
 
-      function PerfilSubmit(){
-        fetch("/perfil/atualizarPerfil", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({       
-                idFuncionarioServer: idFuncionario,         
-                nomeServer: inputNome.value,                
-                emailServer: inputEmail.value,
-                telefoneServer: inputTelefone.value,
-                descricaoServer: inputDescricao.value                
-            })
-        }).then(function (resposta) {
+    function PerfilSubmit() {
+      fetch("/perfil/atualizarPerfil/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          idFuncionarioServer: idFuncionario,
+          nomeServer: inputNome.value,
+          emailServer: inputEmail.value,
+          telefoneServer: inputTelefone.value,
+          descricaoServer: inputDescricao.value
+        })
+      }).then(function (resposta) {
 
-            console.log("resposta: ", resposta);
+        console.log("resposta: ", resposta);
 
-            if (resposta.ok) {
-                window.alert("Perfil Atualizado com sucesso!!")                              
-            } else {
-                throw ("Houve um erro ao tentar realizar o cadastro!");
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);            
-        });
-      }
+        if (resposta.ok) {
+          window.alert("Perfil Atualizado com sucesso!!")
+        } else {
+          throw ("Houve um erro ao tentar realizar o cadastro!");
+        }
+      }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+    }
 
 
     function imgSubmit() {
-      var urlImagem = imagem.src;
+      var inputImagem = iptImg.value;
+
+      // Remova as aspas simples da URL
+      inputImagem = inputImagem.replace(/'/g, '');
 
       fetch("/perfil/AtualizarImg", {
         method: "PUT",
@@ -526,26 +530,35 @@ Coded by www.creative-tim.com
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          // crie um atributo que recebe o valor recuperado aqui
-          // Agora vá para o arquivo routes/usuario.js
           idFuncionarioServer: idFuncionario,
-          imagemServer: urlImagem
+          imagemServer: inputImagem
         })
-      }).then(function (resposta) {
+      })
+        .then(function (resposta) {
+          if (!resposta.ok) {
+            throw new Error("Erro ao atualizar a imagem");
+          }
+          return resposta.json();
+        })
+        .then(function (dados) {
+          // Verifique se a resposta contém a nova URL da imagem
+          var novaUrlImagem = dados.imagem;
+          console.log(novaUrlImagem)
 
-        console.log("resposta: ", resposta);
+          // Atualize a tag de imagem com a nova URL
+          imagem.src = novaUrlImagem;
 
-        if (resposta.ok) {
-          imagem.src = resposta.imagem
-        } else {
-          throw ("Houve um erro ao tentar realizar o cadastro!");
-        }
-      }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        // finalizarAguardar();
-      });      
+          console.log("Imagem atualizada com sucesso!");
+        })
+        .catch(function (erro) {
+          console.log(`#ERRO: ${erro}`);
+        });
+
+        location.reload();
     }
+
 
   </script>
 </body>
+
 </html>
