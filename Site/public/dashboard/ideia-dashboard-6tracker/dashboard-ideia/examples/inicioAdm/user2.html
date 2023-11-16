@@ -167,7 +167,9 @@ Coded by www.creative-tim.com
                     <img class="avatar border-gray" src="../../assets/img/faces/caramico.jpeg" alt="...">
                     <h5 class="title" style="color: #254D32;"> </h5>
                   </a>
-                  <p class="description">
+                  <p id="idNome"></p>
+                  <p id="idDescricao" class="description">
+                    Fernanda Caramico <br>
                     Sou a responsável pela infraestrutura de TI do Servidor do Serasa. Meu objetivo é garantir que a
                     infraestrutura de TI do Serasa seja confiável, segura e eficiente, para que os usuarios, clientes,
                     funcionários e outros possam ter a segurança e tranquilidade de seus dados preservados.
@@ -291,7 +293,7 @@ Coded by www.creative-tim.com
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
                         <label>Nome completo: </label>
-                        <input type="text" class="form-control" placeholder="Company" value="Fernanda Caramico">
+                        <input id="iptNome" type="text" class="form-control" placeholder="Company">
                       </div>
                     </div>
                     <div class="col-md-4 pl-1">
@@ -344,7 +346,7 @@ Coded by www.creative-tim.com
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Descrição sobre você: </label>
-                        <textarea id="iptDesc"
+                        <textarea id="iptDescricao"
                           class="form-control textarea">Sou a responsável pela infraestrutura de TI do Servidor do Serasa. Meu objetivo é garantir que a infraestrutura de TI do Serasa seja confiável, segura e eficiente, para que os usuarios, clientes, funcionários e outros possam ter a segurança e tranquilidade de seus dados preservados.</textarea>
                       </div>
                     </div>
@@ -404,36 +406,57 @@ Coded by www.creative-tim.com
     var idFuncionario = sessionStorage.ID_USUARIO;
     var link = document.getElementById('redirecionarDash');
 
-    fetch("/perfil/consultar", {
+    fetch("/perfil/consultar/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        idFuncionarioServer: idFuncionario,
+        idFuncionarioServer: idFuncionario
       })
-    }).then(function (resposta) {
-      // Correção: Converta a resposta para JSON
-      return resposta.json();
-    }).then(function (json) {
-      console.log("json: ", json);
-
-      // Verifique a estrutura do objeto JSON real retornado pela API
-      if (json !== undefined && json.nome !== undefined && json.email !== undefined && json.telefone !== undefined
-        && json.descricao !== undefined){
-          var nomeFuncionario = json[0].nome;
-          var emailFuncionario = json[0].email;
-          var telefoneFuncionario = json[0].telefone;
-          var descricaoFuncionario = json[0].descricao;
-
-          window.alert(`${nomeFuncionario} ${emailFuncionario} ${telefoneFuncionario} ${descricaoFuncionario}`);
-
-        } else {
-          window.alert("A estrutura do objeto JSON é diferente do esperado. Verifique a resposta da API. 2");
+    })
+      .then(function (resposta) {
+        // Verifica se a resposta foi bem-sucedida (status 2xx)
+        if (!resposta.ok) {
+          throw new Error(`Erro na requisição: ${resposta.status} - ${resposta.statusText}`);
         }
-      }).catch(function (erro) {
-        console.log(`#ERRO: ${erro}`);
-        finalizarAguardar();
+        // Converte a resposta para JSON
+        return resposta.json();
+      })
+      .then(function (dados) {
+        console.log("Tipo da variável dados:", typeof dados);
+        console.log("Dados recebidos: ", JSON.stringify(dados));
+
+        // Verifica se os dados foram recebidos corretamente
+        if (dados && typeof dados === 'object') {
+          var funcionario = dados; // Não é necessário acessar o primeiro elemento
+          var nomeFuncionario = funcionario.nome;
+          var emailFuncionario = funcionario.email;
+          var telefoneFuncionario = funcionario.telefone;
+          var descricaoFuncionario = funcionario.descricao;
+
+          const inputNome = document.getElementById("iptNome");
+          inputNome.value = nomeFuncionario;          
+
+          const inputEmail = document.getElementById("iptEmail");
+          inputEmail.value = emailFuncionario;
+
+          const inputTelefone = document.getElementById("iptTelefone");
+          inputTelefone.value = telefoneFuncionario;
+
+          const inputDescricao = document.getElementById("iptDescricao");
+          inputDescricao.value = descricaoFuncionario;
+
+          const nomeFoto = document.getElementById("idNome");
+          nomeFoto.innerText = nomeFuncionario;
+          const descricaoHtml = document.getElementById("idDescricao");
+          descricaoHtml.innerText = descricaoFuncionario;
+        } else {
+          console.error("Dados inválidos recebidos do Funcionário.");
+        }
+      })
+      .catch(function (erro) {
+        console.error(erro);
       });
 
 
@@ -691,39 +714,37 @@ Coded by www.creative-tim.com
     //   return false;
     // }
 
+    fetch("/usuarios/validarFuncionario", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        idFuncionarioServer: idFuncionario,
+      })
+    }).then(function (resposta) {
+      // Correção: Converta a resposta para JSON
+      return resposta.json();
+    }).then(function (json) {
+      console.log("json: ", json);
+
+      // Verifique a estrutura do objeto JSON real retornado pela API
+      if (Array.isArray(json) && json.length > 0 && json[0].fkNivelAcesso !== undefined) {
+        var nivelPermissao = json[0].fkNivelAcesso;
+        sessionStorage.NIVEL_PERMISSAO = nivelPermissao;
+
+        if (nivelPermissao == 2) {
+          link.href = "../nossa/principalDash.html";
+        }
+      } else {
+        window.alert("A estrutura do objeto JSON é diferente do esperado. Verifique a resposta da API.");
+      }
+    }).catch(function (erro) {
+      console.log(`#ERRO: ${erro}`);
+      finalizarAguardar();
+    });
   </script>
 
 </body>
 
 </html>
-<script>
-  fetch("/usuarios/validarFuncionario", {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      idFuncionarioServer: idFuncionario,
-    })
-  }).then(function (resposta) {
-    // Correção: Converta a resposta para JSON
-    return resposta.json();
-  }).then(function (json) {
-    console.log("json: ", json);
-
-    // Verifique a estrutura do objeto JSON real retornado pela API
-    if (Array.isArray(json) && json.length > 0 && json[0].fkNivelAcesso !== undefined) {
-      var nivelPermissao = json[0].fkNivelAcesso;
-      sessionStorage.NIVEL_PERMISSAO = nivelPermissao;
-
-      if (nivelPermissao == 2) {
-        link.href = "../nossa/principalDash.html";
-      }
-    } else {
-      window.alert("A estrutura do objeto JSON é diferente do esperado. Verifique a resposta da API.");
-    }
-  }).catch(function (erro) {
-    console.log(`#ERRO: ${erro}`);
-    finalizarAguardar();
-  });
-</script>
