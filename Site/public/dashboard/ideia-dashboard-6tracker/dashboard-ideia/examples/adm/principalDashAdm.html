@@ -208,8 +208,14 @@ Coded by www.creative-tim.com fdp chris
           </div>
         </div>
       </nav>
+      
       <!-- End Navbar -->
+     
       <div class="content">
+        <div class="select_servidor">
+          <select id="servidorSelect">
+          </select>
+        </div>
         <div class="row">
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card-stats">
@@ -431,7 +437,107 @@ Coded by www.creative-tim.com fdp chris
       // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
       demo.initChartsPages();
     });
+
+
+    fetch(`/servidor/buscar/`)
+        .then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+                  console.log("testttt");
+                    console.log(resposta);
+
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    console.log("testttt");
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    var servidores = json
+
+                    var selectElement = document.getElementById('servidorSelect');
+
+                    // Itera sobre o array de empresas e cria as opções do select
+                    for (let i = 0; i < servidores.length; i++) {
+                        const servidor = servidores[i];
+                        const servidorNome = servidor.nome;
+
+                        // Cria um novo elemento de opção em cada iteração
+                        const optionElement = document.createElement('option');
+                        optionElement.value = servidor.idServidor;
+                        optionElement.text = servidorNome;
+
+                        selectElement.appendChild(optionElement);
+                    }
+
+
+                });
+
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "O Login está inválido";
+        })
+
   </script>
 </body>
 
 </html>
+
+
+
+SELECT (SELECT
+    C.idComponente AS ID,
+    C.nome AS NomeDoComponente,
+    R.valorRegistro AS ValorDoRegistro,
+    U.unidadeMedida AS UnidadeDeMedida,
+    TC.tipoComponente AS TipoDeComponente,
+    M.tipo_dado AS Metrica,
+    R.dataRegistro AS DataDoRegistro,
+    c.fkServidor
+FROM Componente C
+LEFT JOIN Servidor S ON C.fkServidor = S.idServidor
+LEFT JOIN UnidadeMedida U ON C.fkUnidadeMedida = U.idUnidadeMedida
+LEFT JOIN TipoComponente TC ON C.fkTipoComponente = TC.idTipoComponente
+LEFT JOIN Metrica M ON C.fkMetrica = M.idMetrica
+LEFT JOIN Registro R ON C.idComponente = R.fkComponente
+where idUnidadeMedida = 1 AND idTipoComponente = 1  #AND fkServidor = 1
+order by DataDoRegistro desc limit 1
+),
+( 
+  SELECT
+    C.idComponente AS ID,
+    C.nome AS NomeDoComponente,
+    R.valorRegistro AS ValorDoRegistro,
+    U.unidadeMedida AS UnidadeDeMedida,
+    TC.tipoComponente AS TipoDeComponente,
+    M.tipo_dado AS Metrica,
+    R.dataRegistro AS DataDoRegistro,
+    c.fkServidor
+FROM Componente C
+LEFT JOIN Servidor S ON C.fkServidor = S.idServidor
+LEFT JOIN UnidadeMedida U ON C.fkUnidadeMedida = U.idUnidadeMedida
+LEFT JOIN TipoComponente TC ON C.fkTipoComponente = TC.idTipoComponente
+LEFT JOIN Metrica M ON C.fkMetrica = M.idMetrica
+LEFT JOIN Registro R ON C.idComponente = R.fkComponente
+where idUnidadeMedida = 1 AND idTipoComponente = 3  #AND fkServidor = 1
+order by DataDoRegistro desc limit 1
+),
+(
+  SELECT
+    C.idComponente AS ID,
+    C.nome AS NomeDoComponente,
+    R.valorRegistro AS ValorDoRegistro,
+    U.unidadeMedida AS UnidadeDeMedida,
+    TC.tipoComponente AS TipoDeComponente,
+    M.tipo_dado AS Metrica,
+    R.dataRegistro AS DataDoRegistro,
+    c.fkServidor
+FROM Componente C
+LEFT JOIN Servidor S ON C.fkServidor = S.idServidor
+LEFT JOIN UnidadeMedida U ON C.fkUnidadeMedida = U.idUnidadeMedida
+LEFT JOIN TipoComponente TC ON C.fkTipoComponente = TC.idTipoComponente
+LEFT JOIN Metrica M ON C.fkMetrica = M.idMetrica
+LEFT JOIN Registro R ON C.idComponente = R.fkComponente
+where idUnidadeMedida = 1 AND idTipoComponente = 3  #AND fkServidor = 1
+order by DataDoRegistro desc limit 1
+)

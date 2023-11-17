@@ -96,7 +96,7 @@ if __name__ == "__main__":
     hostname = socket.gethostname()
     print("Nome do host da máquina:", hostname)
 
-    connection = mysql_connection('localhost', 'root', 'Isabeol0609!', 'sixtracker')
+    connection = mysql_connection('localhost', 'root', '271815', 'SixTracker')
     cursor = connection.cursor()
 
 def generate_random_code(length):
@@ -114,7 +114,7 @@ def bytes_para_gb(bytes_value):
 def milissegundos_para_segundos(ms_value):
     return ms_value / 1000
 
-connection = mysql_connection('localhost', 'root', 'Isabeol0609!', 'sixtracker')
+connection = mysql_connection('localhost', 'root', '271815', 'SixTracker')
 cursor = connection.cursor()
 
 # Verifica se a máquina está cadastrada no banco de dados usando o nome do host

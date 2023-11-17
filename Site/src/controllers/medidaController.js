@@ -22,13 +22,13 @@ function buscarUltimasMedidas(req, res) {
 }
 
 
-function buscarMedidasEmTempoReal(req, res) {
+function buscarMetricas(req, res) {
 
-    var idAquario = req.params.idAquario;
+    var idServidor = req.params.idServidor;
 
-    console.log(`Recuperando medidas em tempo real`);
+    console.log(`Recuperando métricas por servidor`);
 
-    medidaModel.buscarMedidasEmTempoReal(idAquario).then(function (resultado) {
+    medidaModel.buscarMetricas(idServidor).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -43,6 +43,5 @@ function buscarMedidasEmTempoReal(req, res) {
 
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
-
+    buscarMetricas 
 }
