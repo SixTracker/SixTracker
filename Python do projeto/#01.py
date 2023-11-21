@@ -77,13 +77,13 @@ if __name__ == "__main__":
     connection = mysql_connection('localhost', 'root', 'Isabeol0609!', 'sixtracker')
     cursor = connection.cursor()
 
-def generate_random_code(length):
-    characters = string.ascii_letters + string.digits
-    code = ''.join(random.choice(characters) for _ in range(length))
-    return code
+#def generate_random_code(length):
+#    characters = string.ascii_letters + string.digits
+#    code = ''.join(random.choice(characters) for _ in range(length))
+#    return code
 
-unique_code = generate_random_code(4)
-print("O código da sua máquina é:", unique_code)
+#unique_code = generate_random_code(4)
+#print("O código da sua máquina é:", unique_code)
 
 
 def bytes_para_gb(bytes_value):
@@ -97,14 +97,23 @@ cursor = connection.cursor()
 
 # Verifica se a máquina está cadastrada no banco de dados usando o nome do host
 cursor.execute("SELECT idServidor FROM Servidor WHERE nome = %s", (hostname,))
-result = cursor.fetchone()
+result_servidor = cursor.fetchone()
 
-if result:
-    print(f"O Servidor {hostname} já está cadastrada. Iniciando o monitoramento.")
-    iniciar()
-else:
-    print(f"O Servidor {hostname} não foi cadastrada no site. Cadastre-a para fazer a captura!")
+if not result_servidor:
+    print(f"O Servidor {hostname} não foi cadastrado no site. Cadastre-o para fazer a captura!")
     sys.exit()
+
+ # Buscar os componentes cadastrados para o servidor
+cursor.execute("SELECT idComponente, nome FROM Componente WHERE fkServidor = %s", (result_servidor[0],))
+componentes_servidor = cursor.fetchall()
+
+if not componentes_servidor:
+   print(f"Não há componentes cadastrados para o Servidor {hostname}. Cadastre componentes para continuar.")
+   sys.exit()
+else:
+    print(f"\nComponentes cadastrados para o Servidor {hostname}:")
+    for componente in componentes_servidor:
+        print(f"ID: {componente[0]}, Nome: {componente[1]}")
 
 # Disco
 
