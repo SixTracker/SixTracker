@@ -207,19 +207,19 @@ while True:
     
     cursor = connection.cursor()
 
-    if (cpuPorcentagem >= 70):
-            uso_da_cpu_formatado = "{:.2f}".format(cpu)
-            mensagem = {"text": f"O uso da CPU está em {uso_da_cpu_formatado}% (CRÍTICO)"}
-            requests.post(webhook, data=json.dumps(mensagem))
+   # if (cpuPorcentagem >= 70):
+   #         uso_da_cpu_formatado = "{:.2f}".format(cpuPorcentagem)
+    #        mensagem = {"text": f"O uso da CPU está em {uso_da_cpu_formatado}% (CRÍTICO)"}
+    #        requests.post(webhook, data=json.dumps(mensagem))
 
-    if (discoPorcentagem >= 70):
-            mensagem = {"text": f"O uso do DISCO está em {disk}% (CRÍTICO)"}
-            requests.post(webhook, data=json.dumps(mensagem))
+   # if (discoPorcentagem >= 70):
+      #      mensagem = {"text": f"O uso do DISCO está em {discoPorcentagem}% (CRÍTICO)"}
+      #      requests.post(webhook, data=json.dumps(mensagem))
 
-    if (memoriaPorcentagem >= 70):
-            memoria_formatado = "{:.2f}".format(mem_used)
-            mensagem = {"text": f"O uso da MEMÓRIA RAM está em {memoria_formatado}% (CRÍTICO)"}
-            requests.post(webhook, data=json.dumps(mensagem))
+   # if (memoriaPorcentagem >= 70):
+#        memoria_formatado = "{:.2f}".format(memoriaPorcentagem)
+#        mensagem = {"text": f"O uso da MEMÓRIA RAM está em {memoria_formatado}% (CRÍTICO)"}
+#        requests.post(webhook, data=json.dumps(mensagem))
     
     for i in range(len(ins)):
         
@@ -271,7 +271,7 @@ while True:
           '\nHorario Atual dos dados: ', horarioFormatado)
           
 
-    time.sleep(3)
+    time.sleep(10)
 
 cursor.close()
 connection.close()
