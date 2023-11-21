@@ -54,7 +54,7 @@ Coded by www.creative-tim.com
                 <div class="col-md-5 pr-1">
                   <div class="form-group1">
                     <label>Nome</label>
-                    <input id="inp_edit_name" type="text" class="form-control" placeholder="Nome sala">
+                    <input id="inp_edit_name" type="text" class="form-control" placeholder="Nome Servidor">
                   </div>
                 </div>
               </div>
@@ -62,7 +62,7 @@ Coded by www.creative-tim.com
                 <div class="col-md-5 pr-1">
                   <div class="form-group1">
                     <label>Código</label>
-                    <input id="inp_edit_name" type="text" class="form-control" placeholder="Nome sala">
+                    <input id="inp_edit_codigo" type="text" class="form-control" placeholder="código">
                   </div>
                 </div>
               </div>
@@ -70,7 +70,7 @@ Coded by www.creative-tim.com
                 <div class="col-md-5 pr-1">
                   <div class="form-group1">
                     <label>Sistema operacional</label>
-                    <input id="inp_edit_name" type="text" class="form-control" placeholder="Nome sala">
+                    <input id="inp_edit_so" type="text" class="form-control" placeholder="SO">
                   </div>
                 </div>
               </div>
@@ -293,7 +293,7 @@ Coded by www.creative-tim.com
                         <div class="col-md-12">
                           <div class="form-group">
                             <label>Nome: </label>
-                            <input name="nome" id="nome" maxlength="100" type="text" class="form-control" placeholder="Identificação do servidor">
+                            <input name="nome" id="inp_nome" maxlength="100" type="text" class="form-control" placeholder="Identificação do servidor">
                           </div>
                         </div>
                       </div>
@@ -302,13 +302,13 @@ Coded by www.creative-tim.com
                         <div class="col-md-6 pr-1">
                           <div class="form-group">
                             <label>Código:  </label>
-                            <input name="codigo" id="codigo" type="text" class="form-control" placeholder="Código do servidor:" >
+                            <input name="codigo" id="inp_codigo" type="text" class="form-control" placeholder="Código do servidor:" >
                           </div>
                         </div>
                         <div class="col-md-6 pl-1">
                           <div class="form-group">
                             <label>Sistema Operacional:</label>
-                            <input name="so" id="so" type="text" class="form-control" placeholder="S.O. utilizado">
+                            <input name="so" id="inp_so" type="text" class="form-control" placeholder="S.O. utilizado">
                           </div>
                         </div>
                       </div>
@@ -316,7 +316,7 @@ Coded by www.creative-tim.com
                         <div class="col-md-6 pr-1">
                           <div class="form-group">
                             <label>IP:  </label>
-                            <input name="usb" id="usb" type="text" class="form-control" placeholder="IP Do Servidor" >
+                            <input name="usb" id="inp_usb" type="text" class="form-control" placeholder="IP Do Servidor" >
                           </div>
                         </div>
                         <div class="col-md-6 pl-1">
@@ -473,10 +473,12 @@ Coded by www.creative-tim.com
 
 <script>
 
-  function editarModal(idSala, nome, sala) {
+  function editarModal(idServidor, nome, codigo, so, usb, sala) {
     document.getElementById("inp_edit_name").value = nome;
+    document.getElementById("inp_edit_codigo").value = codigo;
+    document.getElementById("inp_edit_so").value = so;
     document.getElementById("inp_edit_andar").value = sala;
-    document.getElementById("btn_edit").value = idSala;
+    document.getElementById("btn_edit").value = idServidor;
     $('#exampleModal').modal('show')
   };
 
@@ -591,13 +593,13 @@ fetch(`/servidor/buscar`)
             codigo: inp_codigo.value,
             so: inp_so.value,
             usb: inp_usb.value,
-            sala: inp_salaSelect.value
+            sala: salaSelect.value
         }
 
         console.log(corpo)
 
         window.alert("publicando")
-        fetch(`/Servidor/publicar`, {
+        fetch(`/servidor/publicar`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

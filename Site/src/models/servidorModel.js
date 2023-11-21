@@ -51,17 +51,17 @@ var database = require("../database/config");
 //     return database.executar(instrucao);
 // }
 
-function publicar(nome, codigo, so, usb, sala) {
-    console.log("ACESSEI O SERVIDOR MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function publicar(): ", nome, codigo, so, usb, sala);
+function publicar(nome, codigo, so, ip, fkSala) {
+    console.log("ACESSEI O SERVIDOR MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function publicar(): ", nome, codigo, so, ip, fkSala);
     var instrucao = `
-        INSERT INTO Servidor (nome, codigo, sistemaOperacional, usbDetectado, fkSalas) VALUES ('${nome}', '${codigo}',' ${so}', '${usb}', ${sala});
+        INSERT INTO Servidor (nome, codigo, sistemaOperacional, ip, fkSalas) VALUES ('${nome}', '${codigo}',' ${so}', '${ip}', ${fkSala});
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
-function editar(nome, codigo, so, usb, sala) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novaDescricao, idAviso);
+function editar(nome, codigo, so, ip, fkSala) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", nome, codigo, so, ip, fkSala);
     var instrucao = `
         UPDATE servidor SET idServidor = '${idServidor}' WHERE id = ${idServidor};
     `;
@@ -106,6 +106,6 @@ module.exports = {
     // listarPorUsuario,
     // pesquisarDescricao,
     publicar,
-    // editar,
-    // deletar
+    editar,
+    deletar
 }

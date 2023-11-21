@@ -70,7 +70,7 @@ function publicar(req, res) {
     var codigo = req.body.codigo;
     var so = req.body.so;
     var usb = req.body.usb;
-    var sala = req.body.sala;
+    var salaSelect = req.body.salaSelect;
     // var idUsuario = req.params.idUsuario;
 
     if (nome == undefined) {
@@ -81,10 +81,10 @@ function publicar(req, res) {
         res.status(403).send("O SO está indefinido!");
     } else if (usb == undefined) {
         res.status(403).send("O usb está indefinido!");
-    } else if (sala == undefined) {
-        res.status(403).send("A sala está indefinida!");
+    } else if (salaSelect == undefined) {
+        res.status(403).send("A salaSelect está indefinida!");
     } else {
-        servidorModel.publicar(nome, codigo, so, usb, sala)
+        servidorModel.publicar(nome, codigo, so, usb, salaSelect)
             .then(
                 function (resultado) {
                     res.json(resultado);

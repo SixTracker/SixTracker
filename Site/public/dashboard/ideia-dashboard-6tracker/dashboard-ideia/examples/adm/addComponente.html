@@ -621,4 +621,74 @@ Coded by www.creative-tim.com
         return false;
 
 }
+
+function deletar(idSala) {
+    var promptConfimacao = prompt('Digite "deletar" para apagar a sala');
+
+    if (promptConfimacao != "deletar") {
+      window.alert("Você não digitou deletar então a sala não sera apagada")
+      return
+    }
+
+    fetch(`/sala/deletar/${idSala}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(function (resposta) {
+      if (resposta.ok) {
+        window.alert("Sala deletada com sucesso");
+        window.location = "addSala.html"
+      } else if (resposta.status == 404) {
+        window.alert("Deu 404!");
+      } else {
+        throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+    });
+  }
+
+  function editar(idSala) {
+    var corpo = {
+      nomeSala: inp_edit_name.value,
+      andarSala: inp_edit_andar.value
+    }
+
+    fetch(`/sala/editar/${idSala}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(corpo)
+    }).then(function (resposta) {
+      if (resposta.ok) {
+        window.alert("Sala editada com sucesso");
+        window.location = "addSala.html"
+      } else if (resposta.status == 404) {
+        window.alert("Deu 404!");
+      } else {
+        throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+    });
+  }
+
+  function testar() {
+    aguardar();
+
+    var formulario = new URLSearchParams(new FormData(document.getElementById("form_postagem")));
+
+    var divResultado = document.getElementById("div_feed");
+
+    divResultado.appendChild(document.createTextNode(formulario.get("descricao")));
+    divResultado.innerHTML = formulario.get("descricao");
+
+    finalizarAguardar();
+
+    return false;
+  }
+
+</script>
 </script>
