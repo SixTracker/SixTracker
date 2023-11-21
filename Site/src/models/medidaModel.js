@@ -51,8 +51,7 @@ function buscarMetricas(idAquario) {
                 LEFT JOIN TipoComponente TC ON C.fkTipoComponente = TC.idTipoComponente
                 LEFT JOIN Metrica M ON C.fkMetrica = M.idMetrica
                 LEFT JOIN Registro R ON C.idComponente = R.fkComponente
-                WHERE idUnidadeMedida = 1 AND idTipoComponente IN (1, 2, 3)
-            )
+                WHERE idUnidadeMedida = 1 AND idTipoComponente IN (1, 2, 3);
             SELECT
                 ID,
                 NomeDoComponente,

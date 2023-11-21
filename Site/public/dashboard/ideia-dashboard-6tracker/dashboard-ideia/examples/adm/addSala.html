@@ -581,32 +581,74 @@ Coded by www.creative-tim.com
   }
 
 
-  function deletar(idSala) {
-    var promptConfimacao = prompt('Digite "deletar" para apagar a sala');
+    // function deletar(idSala) {
 
-    if (promptConfimacao != "deletar") {
-      window.alert("Você não digitou deletar então a sala não sera apagada")
-      return
+    //   alert(1)
+    //   var promptConfimacao = prompt('Digite "deletar" para apagar a sala');
+
+    //   if (promptConfimacao != "deletar") {
+    //     window.alert("Você não digitou deletar então a sala não sera apagada")
+    //     return
+    //   }
+
+    //   alert(1)
+
+    //   fetch(`/sala/deletar/${idSala}`, {
+    //     method: "DELETE",
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     }
+    //   }).then(function (resposta) {
+    //     if (resposta.ok) {
+    //       window.alert("Sala deletada com sucesso");
+    //       window.location = "addSala.html"
+    //     } else if (resposta.status == 404) {
+    //       window.alert("Deu 404!");
+    //     } else {
+    //       throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+    //     }
+    //   }).catch(function (resposta) {
+    //     console.log(`#ERRO: ${resposta}`);
+    //   });
+    // }
+
+    function deletar(idSala) {
+    var promptConfirmacao = prompt('Digite "deletar" para apagar a sala');
+
+    if (promptConfirmacao !== "deletar") {
+        window.alert("Você não digitou 'deletar', então a sala não será apagada.");
+        return;
     }
 
     fetch(`/sala/deletar/${idSala}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      }
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
     }).then(function (resposta) {
-      if (resposta.ok) {
-        window.alert("Sala deletada com sucesso");
-        window.location = "addSala.html"
-      } else if (resposta.status == 404) {
-        window.alert("Deu 404!");
-      } else {
-        throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-      }
-    }).catch(function (resposta) {
-      console.log(`#ERRO: ${resposta}`);
+        if (resposta.ok) {
+            window.alert("Sala deletada com sucesso");
+            window.location = "addSala.html";
+        } else if (resposta.status === 404) {
+            window.alert("Sala não encontrada (404)");
+        } else {
+            return resposta.json().then(function (erro) {
+                console.error(`Erro ao tentar realizar a exclusão. Código da resposta: ${resposta.status}. Detalhes:`, erro);
+                throw new Error(`Erro ao tentar realizar a exclusão. Código da resposta: ${resposta.status}. Detalhes: ${JSON.stringify(erro)}`);
+            });
+        }
+    }).catch(function (error) {
+        console.error("#ERRO:", error);
+
+        if (error instanceof TypeError && error.message.includes("Failed to fetch")) {
+            window.alert("Erro de rede ao tentar realizar a exclusão. Verifique sua conexão com a internet.");
+        } else {
+            window.alert("Erro ao tentar realizar a exclusão. Verifique o console para mais informações.");
+        }
     });
-  }
+}
+
+
 
   function editar(idSala) {
     var corpo = {

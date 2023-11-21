@@ -69,14 +69,21 @@ function editar(nomeSala, andarSala, idSala) {
     return database.executar(instrucao);
 }
 
+// function deletar(idSala) {
+//     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idSala);
+//     var instrucao = `
+//         DELETE FROM salas WHERE idSalas = ${idSala};
+//     `;
+//     console.log("Executando a instrução SQL: \n" + instrucao);
+//     return database.executar(instrucao);
+// }
+
 function deletar(idSala) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idSala);
-    var instrucao = `
-        DELETE FROM salas WHERE idSalas = ${idSala};
-    `;
+    var instrucao = `DELETE FROM salas WHERE idSalas = ${idSala};`;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
-}
+};
 
 
 function buscarSalas(){
