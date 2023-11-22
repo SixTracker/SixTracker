@@ -387,7 +387,7 @@ Coded by www.creative-tim.com
                   </div>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
-                      <button type="submit" class="btn btn-primary btn-round" style="background-color: #c211a1;" onclick="cadastrarComponente()">Adicionar componente</button>
+                      <button class="btn btn-primary btn-round" style="background-color: #c211a1;" onclick="cadastrarComponente1()">Adicionar componente</button>
                     </div>
                   </div>
                 </form>
@@ -557,7 +557,7 @@ Coded by www.creative-tim.com
 
         // CADASTRAR COMPONENTE NO BANCO
 
-        function cadastrarComponente() {
+        function cadastrarComponente1() {
 
         console.log("Chamando Função cadastrar componente")
         //Recupere o valor da nova input pelo nome do id
@@ -581,8 +581,8 @@ Coded by www.creative-tim.com
         console.log("Entrando no fetch");
 
         // Enviando o valor da nova input
-        fetch("/usuarios/cadastrarComponente", {
-          method: "post",
+        fetch("/componente/cadastrarComponente", {
+          method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
@@ -605,9 +605,9 @@ Coded by www.creative-tim.com
         
           if (resposta.ok) {
             window.alert("Componente cadastrado com sucesso!");
-            window.location = "/dashboard/ideia-dashboard-6tracker/dashboard-ideia/examples/adm/addComponente.html";
-            limparFormulario();
-            finalizarAguardar();
+            // window.location = "/dashboard/ideia-dashboard-6tracker/dashboard-ideia/examples/adm/addComponente.html";
+            // limparFormulario();
+            // finalizarAguardar();
           } else if (resposta.status == 404) {
             window.alert("Deu 404!");
           } else {

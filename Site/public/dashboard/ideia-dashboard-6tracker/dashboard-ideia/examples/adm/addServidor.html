@@ -334,7 +334,7 @@ Coded by www.creative-tim.com
 
                       <div class="row">
                         <div class="update ml-auto mr-auto">
-                          <button class="btn btn-primary btn-round" onclick="publicar()" style="background-color: #c211a1;">Adicionar servidor</button>
+                          <button class="btn btn-primary btn-round" id="cadastrarServidor" onclick="publicar()" style="background-color: #c211a1;">Adicionar servidor</button>
                         </div>
                       </div>
 
@@ -627,6 +627,7 @@ fetch(`/servidor/buscar`)
         return false;
 
     }
+
 
     function deletar(idServidor) {
       var promptConfimacao = prompt('Digite "deletar" para apagar o servidor');

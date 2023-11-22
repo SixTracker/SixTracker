@@ -213,59 +213,7 @@ function cadastrarUser(req, res) {
     }
 }
 
-function cadastrarComponente(req, res) {
-  
-    var nome = req.body.nomeServer;
-    var fornecedor = req.body.fornecedorServer;
-    var modelo = req.body.modeloServer;
-    var maxima = req.body.maximaServer;
-    var minima = req.body.minimaServer;
-    var total = req.body.totalServer;
-    var Servidor = req.body.ServidorServer;
-    var UnidadeMedida = req.body.UnidadeMedidaServer;
-    var TipoComponente = req.body.TipoComponenteServer;
-    // var fkempresa = req.body.fkempresaServer
 
-    // Faça as validações dos valores
-    if (nome == undefined) {
-        res.status(400).send("O nome está undefined!");
-    } else if (fornecedor == undefined) {
-        res.status(400).send("O fornecedor está undefined!");
-    } else if (modelo == undefined) {
-        res.status(400).send("O modelo está undefined!");
-    } else if (maxima == undefined) {
-        res.status(400).send("O maxima está undefined!");
-    } else if (minima == undefined) {
-        res.status(400).send("O minima está undefined!");
-    } else if (total == undefined) {
-        res.status(400).send("A total está undefined!");
-    } else if (Servidor == undefined) {
-        res.status(400).send("A Servidor está undefined!");
-    } else if (UnidadeMedida == undefined) {
-        res.status(400).send("A UnidadeMedida está undefined!");
-    } else if (TipoComponente == undefined) {
-        res.status(400).send("A TipoComponente está undefined!");
-    } 
-    else {
-        
-        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrarComponente(nome, fornecedor, modelo, maxima, minima, total, Servidor, UnidadeMedida, TipoComponente)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro do Usuário! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    }
-}
 
 function buscaridEmpresa(req, res) {   
 
@@ -328,7 +276,6 @@ module.exports = {
     cadastrar,    
     cadastrarADM,
     cadastrarUser,
-    cadastrarComponente,
     buscaridEmpresa,
     validarFuncionario,
     listar,

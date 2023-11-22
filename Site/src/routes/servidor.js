@@ -29,7 +29,7 @@ router.put("/editar/:idServidor", function (req, res) {
 });
 
 router.delete("/deletar/:idServidor", function (req, res) {
-    avisoController.deletar(req, res);
+    servidorController.deletar(req, res);
 });
 
 router.get("/buscar/", function (req, res) {

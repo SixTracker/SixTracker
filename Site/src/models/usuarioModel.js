@@ -139,20 +139,6 @@ async function cadastrarUser(nome, cpf, email, nivelPermissao, telefone, senha, 
     }
 }
 
-async function cadastrarComponente(nome, fornecedor, modelo, maxima, minima, total, Servidor, UnidadeMedida, TipoComponente) {
-    console.log("ACESSEI O USUARIO MODEL - function cadastrarComponente():", nome, fornecedor, modelo, maxima, minima, total, Servidor, UnidadeMedida, TipoComponente);
-
-    // const buscarEmpresa = `
-    //     SELECT idEmpresa FROM Empresa WHERE nome = '${fkempresa}';
-    // `;
-
-    var instrucao = `
-                INSERT INTO Componente (nomeComponente, modeloComponente, fabricante, metricaMin, metricaMax, valorTotal, fkServidor, fkUnidadeMedida, fkTipoComponente) VALUES ('${nome}', '${modelo}', '${fornecedor}', '${minima}', '${maxima}', ${total},${Servidor}, ${UnidadeMedida}, ${TipoComponente});
-            `;
-            console.log("Executando a instrução SQL: \n" + instrucao);
-
-            return database.executar(instrucao);
-}
 
 
 
@@ -163,7 +149,6 @@ module.exports = {
             cadastrar,            
             cadastrarADM,
             cadastrarUser,
-            cadastrarComponente,
             buscaridEmpresa,
             validarFuncionario,
             listar,

@@ -643,7 +643,7 @@ Coded by www.creative-tim.com
         if (error instanceof TypeError && error.message.includes("Failed to fetch")) {
             window.alert("Erro de rede ao tentar realizar a exclusão. Verifique sua conexão com a internet.");
         } else {
-            window.alert("Erro ao tentar realizar a exclusão. Verifique o console para mais informações.");
+            window.alert("Erro ao tentar realizar a exclusão, Você não pode deletar esta sala existem servidores nesta sala!. Verifique o console para mais informações.");
         }
     });
 }
