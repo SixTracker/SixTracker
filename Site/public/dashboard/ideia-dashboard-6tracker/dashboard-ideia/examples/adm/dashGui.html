@@ -29,9 +29,7 @@ Coded by www.creative-tim.com fdp chris
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
   <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../../assets/demo/demo.css" rel="stylesheet" />
+  <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />  
 </head>
 
 <body class="">
@@ -211,24 +209,25 @@ Coded by www.creative-tim.com fdp chris
       </nav>
       <!-- End Navbar -->
       <div class="content">
-        <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6">
+        <div id="idKpi" class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card-stats">
               <div class="card-body ">
                 <div class="row">
                   <div class="col-5 col-md-4">
                     <div class="icon-big text-center icon-warning">
                       <div class="text-cpi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="60" fill="currentColor" class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="50" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                          <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
                         </svg>
                       </div>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Cpu</p>
-                      <p class="card-title">85%<p>
+                      <p class="card-category">Picos - CPU</p>
+                      <p class="card-title">7<p>
                     </div>
                   </div>
                 </div>
@@ -238,7 +237,7 @@ Coded by www.creative-tim.com fdp chris
                 <div class="stats">
                   <i class="fa fa-refresh"></i>
                   Update Now
-                </div>
+                </div> 
               </div>
             </div>
           </div>
@@ -258,8 +257,8 @@ Coded by www.creative-tim.com fdp chris
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Ram</p>
-                      <p class="card-title">70%<p>
+                      <p class="card-category">Picos - Ram</p>
+                      <p class="card-title">20<p>  
                     </div>
                   </div>
                 </div>
@@ -274,38 +273,7 @@ Coded by www.creative-tim.com fdp chris
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <div class="text-cpi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="50" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Disco</p>
-                      <p class="card-title">65%<p>  
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update Now
-                </div> 
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
+            <div id="idDisco" class="card card-stats">
               <div class="card-body ">
                 <div class="row">
                   <div class="col-5 col-md-4">
@@ -315,8 +283,8 @@ Coded by www.creative-tim.com fdp chris
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Backup</p>
-                      <p class="card-title">Ativo<p>
+                      <p class="card-category">Disco Em Uso</p>
+                      <p class="card-title">59%<p>
                     </div>
                   </div>
                 </div>
@@ -334,14 +302,30 @@ Coded by www.creative-tim.com fdp chris
           <h3 class="description" style="color: aliceblue;text-align: center;">Gráficos</h3>
           <!--Inicio dos gráficos-->
           <div class="row">
-            <div class="col-md-12">
-              <div class="card ">
+            <div id="rowDashGui" class="col-md-12">
+              <div id="CardCPU" class="card ">
                 <div class="card-header ">
-                  <h5 class="card-title">Produtividade</h5>
-                  <p class="card-category">Resumo de produtividade do sistema</p>
+                  <h5 class="card-title">CPU</h5>
+                  <p class="card-category">Uso em %</p>
                 </div>
                 <div class="card-body ">
-                  <canvas id=analiseSistema width="400" height="100"></canvas>
+                  <canvas id=analiseSistema width="400" height="150"></canvas>
+                </div>
+                <div class="card-footer ">
+                  <hr>
+                  <div class="stats">
+                    <i class="fa fa-history"></i> Atualizado 1 minuto atrás.
+                  </div>
+                </div>
+              </div>
+            
+              <div id="CardRAM" class="card ">
+                <div class="card-header ">
+                  <h5 class="card-title">RAM</h5>
+                  <p class="card-category">Uso em %</p>
+                </div>
+                <div class="card-body ">
+                  <canvas id=analiseSistema2 width="400" height="150"></canvas>
                 </div>
                 <div class="card-footer ">
                   <hr>
@@ -351,44 +335,7 @@ Coded by www.creative-tim.com fdp chris
                 </div>
               </div>
             </div>
-          </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card ">
-              <div class="card-header ">
-                <h5 class="card-title">Disco</h5>
-                <p class="card-category">Armazenamento</p>
-              </div>
-              <div class="card-body ">
-                <canvas id="chartEstado"></canvas>
-              </div>
-              <div class="card-footer ">
-                
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-history"></i> Atualizado 1 minuto atrás.
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-8">
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-title">Estatísticas dos servidores</h5>
-                <p class="card-category">Estado de velocidade rede</p>
-              </div>
-              <div class="card-body">
-                <canvas id="chartVelocidade" width="400" height="100"></canvas>
-              </div>
-              <div class="card-footer">
-                <hr />
-                <div class="card-stats">
-                  <i class="fa fa-history"></i> Atualizado 1 minuto atrás.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          </div>        
       </div>
       <footer class="footer footer-black  footer-white ">
         <div class="container-fluid">
@@ -417,8 +364,6 @@ Coded by www.creative-tim.com fdp chris
   <script src="../../assets/js/core/popper.min.js"></script>
   <script src="../../assets/js/core/bootstrap.min.js"></script>
   <script src="../../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
   <script src="../../assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->

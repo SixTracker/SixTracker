@@ -21,6 +21,38 @@ Licensed under the MIT license - http://opensource.org/licenses/MIT
 Copyright (c) 2015 Daniel Eden
 */
 
+#idKpi{
+gap: 7vw;
+position: relative;
+left: 2vw;
+}
+
+#idDisco{
+  width: 18vw;
+}
+
+#rowDashGui{
+  flex-direction: row;
+  height: 40vh;
+  position: relative;
+  bottom: 5vh;
+}
+
+#CardCPU{
+  height: fit-content;
+  width: 38vw;
+  position: relative;
+  right: 1vw;
+}
+
+#CardRAM{
+  height: fit-content;
+  width: 38vw;
+  position: relative;
+  left: 38vw;
+  bottom: 28.59vw;
+}
+
 #emailPerfil{
   position: relative;
   left: 5vw;

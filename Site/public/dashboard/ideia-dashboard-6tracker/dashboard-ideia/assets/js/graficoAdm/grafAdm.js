@@ -16,7 +16,7 @@ demo = {
   initChartsPages: function () {
     chartColor = "#FFFFFF";
 
-    ctx = document.getElementById("analiseSistema").getContext("2d");
+    ctx = document.getElementById("analiseSistema").getContext("2d");    
 
     myChart = new Chart(ctx, {
       type: "line",
@@ -48,6 +48,76 @@ demo = {
             data: [75, 90, 85, 70, 75, 70, 65, 60, 75, 50, 45, 40, 35],
             fill: false,
           },
+        ],
+      },
+      options: {
+        legend: {
+          //display: false
+          position: "top",
+        },
+
+        /*  tooltips: {
+            enabled: false
+          }, */
+
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                fontColor: "#9f9f9f",
+                beginAtZero: false,
+                maxTicksLimit: 5,
+                //padding: 20
+              },
+              gridLines: {
+                drawBorder: false,
+                zeroLineColor: "#ccc",
+                color: "rgba(255,255,255,0.05)",
+              },
+            },
+          ],
+
+          xAxes: [
+            {
+              barPercentage: 1.6,
+              gridLines: {
+                drawBorder: false,
+                color: "rgba(255,255,255,0.1)",
+                zeroLineColor: "transparent",
+                display: false,
+              },
+              ticks: {
+                padding: 20,
+                fontColor: "#9f9f9f",
+              },
+            },
+          ],
+        },
+      },
+    });
+
+    ctx2 = document.getElementById("analiseSistema2").getContext("2d");
+
+    myChart = new Chart(ctx2, {
+      type: "line",
+
+      data: {
+        labels: [
+          "12:00",
+          "12:05",
+          "12:10",
+          "12:15",
+          "12:20",
+          "12:25",
+          "12:30",
+          "12:35",
+          "12:40",
+          "12:45",
+          "12:50",
+          "12:55",
+          "13:00",
+        ],
+        datasets: [          
           {
             label: "RAM   ",
             borderColor: "#0004ff",
