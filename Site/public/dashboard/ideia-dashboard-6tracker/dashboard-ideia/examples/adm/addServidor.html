@@ -85,7 +85,7 @@ Coded by www.creative-tim.com
               <div class="row">
                 <div class="col-md-6 pr-1">
                   <div class="form-group1">
-                    <label>Andar da sala</label>
+                    <label>Sala</label>
                     <select class="form-control" id="salaSelect2" name="unidade">
                       <option value="">Salas</option>
                     </select>
@@ -585,78 +585,84 @@ fetch(`/servidor/buscar`)
         })
 
 
-    function publicar() {
-        // var idUsuario = 1
-
-        var corpo = {
+        function publicar() {
+    // var idUsuario = 1
+    var corpo = {
             nome: inp_nome.value,
             codigo: inp_codigo.value,
             so: inp_so.value,
             usb: inp_usb.value,
             sala: salaSelect.value
-        }
-
+        };
         console.log(corpo)
+    
 
-        window.alert("publicando")
-        fetch(`/servidor/publicar`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(corpo)
-        }).then(function (resposta) {
+    window.alert("publicando")
+    fetch(`/servidor/publicar`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(corpo)
+    }).then(function (resposta) {
 
-            console.log("resposta: ", resposta);
+      console.log("resposta: ", resposta);
 
-            if (resposta.ok) {
-                window.alert("Servidor cadastrado com sucesso!");
-                window.location = "/dashboard/ideia-dashboard-6tracker/dashboard-ideia/examples/adm/addServidor.html";
-                limparFormulario();
-                finalizarAguardar();
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-            } else {
-                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-            // finalizarAguardar();
-        });
+      if (resposta.ok) {
+        window.alert("Servidor cadastrado com sucesso!");
+        window.location = "/dashboard/ideia-dashboard-6tracker/dashboard-ideia/examples/adm/addServidor.html";
+        limparFormulario();
+        finalizarAguardar();
+      } else if (resposta.status == 404) {
+        window.alert("Deu 404!");
+      } else {
+        throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+      // finalizarAguardar();
+    });
 
-        return false;
+    return false;
 
-    }
+  }
 
 
     function deletar(idServidor) {
-      var promptConfimacao = prompt('Digite "deletar" para apagar o servidor');
+    var promptConfirmacao = prompt('Digite "deletar" para apagar o servidor');
 
-      if (promptConfimacao != "deletar") {
-      window.alert("Você não digitou deletar então a sala não sera apagada")
-      return
+    if (promptConfirmacao !== "deletar") {
+        window.alert("Você não digitou 'deletar', então o servidor não será apagado.");
+        return;
     }
 
-        fetch(`/servidor/deletar/${idServidor}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(function (resposta) {
+    fetch(`/servidor/deletar/${idServidor}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            window.alert("Servidor deletado com sucesso");
+            window.location = "addServidor.html";
+        } else if (resposta.status === 404) {
+            window.alert("Servidor não encontrada (404)");
+        } else {
+            return resposta.json().then(function (erro) {
+                console.error(`Erro ao tentar realizar a exclusão. Código da resposta: ${resposta.status}. Detalhes:`, erro);
+                throw new Error(`Erro ao tentar realizar a exclusão. Código da resposta: ${resposta.status}. Detalhes: ${JSON.stringify(erro)}`);
+            });
+        }
+    }).catch(function (error) {
+        console.error("#ERRO:", error);
 
-            if (resposta.ok) {
-                window.alert("Servidor deletado com sucesso");
-                window.location = "addServidor.html"
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-            } else {
-                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-        });
-    }
-
+        if (error instanceof TypeError && error.message.includes("Failed to fetch")) {
+            window.alert("Erro de rede ao tentar realizar a exclusão. Verifique sua conexão com a internet.");
+        } else {
+            window.alert("Erro ao tentar realizar a exclusão, Você não pode deletar este servidor existem componentes nele!. Verifique o console para mais informações.");
+        }
+    });
+}
   function testar() {
         aguardar();
 
@@ -671,5 +677,34 @@ fetch(`/servidor/buscar`)
 
         return false;
     }
+
+    function editar(idServidor) {
+    var corpo = {
+            nome: inp_nome.value,
+            codigo: inp_codigo.value,
+            so: inp_so.value,
+            usb: inp_usb.value,
+            sala: salaSelect.value
+    }
+
+    fetch(`/servidor/editar/${idServidor}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(corpo)
+    }).then(function (resposta) {
+      if (resposta.ok) {
+        window.alert("Servidor editada com sucesso");
+        window.location = "addServidor.html"
+      } else if (resposta.status == 404) {
+        window.alert("Deu 404!");
+      } else {
+        throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+    });
+  }
 
 </script>

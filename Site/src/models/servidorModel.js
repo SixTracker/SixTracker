@@ -51,23 +51,24 @@ var database = require("../database/config");
 //     return database.executar(instrucao);
 // }
 
-function publicar(nome, codigo, so, ip, fkSala) {
-    console.log("ACESSEI O SERVIDOR MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function publicar(): ", nome, codigo, so, ip, fkSala);
+function publicar(nome, codigo, so, usb, salaSelect) {
+    console.log("ACESSEI O SERVIDOR MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function publicar(): ", nome, codigo, so, usb, salaSelect);
     var instrucao = `
-        INSERT INTO Servidor (nome, codigo, sistemaOperacional, ip, fkSalas) VALUES ('${nome}', '${codigo}',' ${so}', '${ip}', ${fkSala});
+        INSERT INTO Servidor (nome, codigo, sistemaOperacional, ip, fkSalas) VALUES ('${nome}', '${codigo}',' ${so}', '${usb}', ${salaSelect});
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
-function editar(nome, codigo, so, ip, fkSala) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", nome, codigo, so, ip, fkSala);
+function editar(nome, codigo, so, usb, salaSelect) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", nome, codigo, so, usb, salaSelect);
     var instrucao = `
-        UPDATE servidor SET idServidor = '${idServidor}' WHERE id = ${idServidor};
-    `;
+        UPDATE servidor SET idServidor = '${idServidor}', codigo = ${codigo}, sistemaOperacional = ${so}, ip = ${usb}, fkSalas = ${salaSelect} WHERE servidor = ${idServidor};
+        `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
+
 
 function deletar(idServidor) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idServidor);
