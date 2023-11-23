@@ -515,7 +515,7 @@ function editarModal(nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTi
 
   //Lista Componentes Cadastrados
 
-  fetch(`/componente/buscarServidoresComponente/`, {
+  fetch(`/componente/listarComponentes/`, {
     method: 'POST', 
     headers: {
       'Content-Type': 'application/json'
@@ -538,7 +538,7 @@ function editarModal(nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTi
 
         for (let i = 0; i < dataSize; i++) {
           var idServidor = json[i]["idServidor"]
-          var nomeComponente = json[i]["nome"]
+          var nomeComponente = json[i]["nomeComponente"]
           var modeloComponente = json[i]["modelo"]
           var nomeServidor = json[i]["nome"]
 
@@ -554,7 +554,7 @@ function editarModal(nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTi
                           </td>
                           <td>
                             ${nomeServidor}
-                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal(${idServidor}, '${nomeServidor}', ${nomeSala})"></i>
+                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal(${idServidor}, '${nomeComponente}', ${modeloComponente})"></i>
                               <i style="margin-left: 5vh; cursor:pointer" class="fa fa-trash" onclick="deletar(${idServidor})"></i>
                           </td>
 

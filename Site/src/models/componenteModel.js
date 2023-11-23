@@ -6,7 +6,7 @@ function listarComponentes(fkEmpresa){
 
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
        instrucaoSql = `SELECT 
-       Componente.nome, 
+       Componente.nome as nomeComponente, 
        Componente.modelo, 
        Servidor.nome 
        FROM Componente JOIN Servidor 
@@ -22,29 +22,6 @@ function listarComponentes(fkEmpresa){
    return database.executar(instrucaoSql);
 }
 
-function buscarServidoresComponente(fkEmpresa) {
-
-  }
-  
-
-function buscarServidoresComponente(fkEmpresa){
-    instrucaoSql = ''
-
-    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-       instrucaoSql = `select 
-       Componente.tipoComponente,
-       Componente.modelo 
-           from Componente 
-               join Servidor 
-                   on Servidor.idServidor = Componente.fkServidor;`;
-   } else {
-       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-       return
-   }
-
-   console.log("Executando a instrução SQL: \n" + instrucaoSql);
-   return database.executar(instrucaoSql);
-}
 
 function buscarMedidas(){
     instrucaoSql = ''
@@ -120,8 +97,7 @@ function cadastrarComponente(nome, fornecedor, modelo, Servidor, UnidadeMedida, 
 
 
 module.exports = {
-    listarComponentes,
-    buscarServidoresComponente,
+    listarComponentes,    
     buscarMedidas,
     buscarComponentes,
     buscarFuncionarios,
