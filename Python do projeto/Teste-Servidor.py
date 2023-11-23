@@ -9,12 +9,10 @@ import random
 import json
 import string
 import socket
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
 import sys
 
 def iniciar():
-    mensagem = {"text": "Olá, bem vindo. O sistema da 6TRACKER foi iniciado!"}
+    mensagem = {"text": "Olá, bem-vindo. O sistema da 6TRACKER foi iniciado!"}
     webhook = "https://hooks.slack.com/services/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"
     requests.post(webhook, data=json.dumps(mensagem))
 
@@ -25,11 +23,37 @@ def mysql_connection(host, user, passwd, database=None):
         passwd=passwd,
         database=database
     )
-    
     return connection
-    
-    cursor = connection.cursor(dictionary=True)
 
+def get_ip():
+    hostname = socket.gethostname()
+    ip = socket.gethostbyname(hostname)
+    return ip
+
+if __name__ == "__main__":
+    ip = get_ip()
+    print("O ip da máquina é:", ip)
+
+    SO = platform.system()
+    print("O sistema operacional é:", SO)
+
+    hostname = socket.gethostname()
+    print("Nome do host da máquina:", hostname)
+
+    connection = mysql_connection('localhost', 'root', 'Isabeol0609!', 'sixtracker')
+    cursor = connection.cursor()
+
+    # Verificar se o servidor já está cadastrado
+    cursor.execute("SELECT idServidor FROM Servidor WHERE nome = %s", (hostname,))
+    result_servidor = cursor.fetchone()
+
+    _ = cursor.fetchall()
+
+    if not result_servidor:
+        print(f"O Servidor {hostname} não foi cadastrado no site. Cadastre-o para fazer a captura!")
+        sys.exit()
+
+    # Definindo os componentes
     componentes = {
         10: "Porcentagem de Disco",
         11: "Disco total",
@@ -46,82 +70,34 @@ def mysql_connection(host, user, passwd, database=None):
         9: "Memória Swap Usada"
     }
 
-    # Consulta para recuperar dados do banco de dados
-    cursor.execute(f"SELECT * FROM Registro WHERE fkComponente = {componente_id} ORDER BY dataRegistro DESC LIMIT 10")
-    registros = cursor.fetchall()
+    # Buscar os componentes cadastrados para o servidor
+    cursor.execute("SELECT idComponente, nome FROM Componente WHERE fkServidor = %s", (result_servidor[0],))
+    componentes_servidor = cursor.fetchall()
 
-    # Encerrar a conexão com o banco de dados
-    connection.close()
+    # Verificar e adicionar os componentes de 1 a 14 se não existirem
+    for componente_id, componente_nome in componentes.items():
+        if not any(componente_id == comp[0] for comp in componentes_servidor):
+            # Componente não encontrado, adicionar à tabela Componente
+            cursor.execute("INSERT INTO Componente (nome, fkServidor) VALUES (%s, %s)", (componente_nome, result_servidor[0]))
+            
+    if not componentes_servidor:
+       print(f"Não há componentes cadastrados para o Servidor {hostname}. Cadastre componentes para continuar.")
+       sys.exit()
+    else:
+        print(f"\nComponentes cadastrados para o Servidor {hostname}:")
+        for componente in componentes_servidor:
+            print(f"ID: {componente[0]}, Nome: {componente[1]}")
 
-# Pegando o IP da maquina (servidor) e inserindo no banco de dados.
-def get_ip(): # Função responsável por capturar o ip da maquina
-    hostname = socket.gethostname() #socket é o nome da biblioteca usada para a captura do IP
-    ip = socket.gethostbyname(hostname) #O método gethostbyname() é uma função útil para obter o endereço IP de um host, seja um host remoto ou o host local.
-    return ip
+    connection.commit()
+    cursor.close()
 
-# O idioma de nome principal é um truque que permite executar um código específico apenas se o código for executado como um programa.
-
-# Isso significa que, se você copiar e colar o código em um editor de texto e executá-lo,
-# o código específico será executado. No entanto, se você importar o código como um módulo
-# em outro programa Python, o código específico não será executado.
-if __name__ == "__main__":
-    ip = get_ip()
-    print("O ip da máquina é:", ip)
-
-    SO = platform.system()
-    print("O sistema operacional é:", SO)
-
-    hostname = socket.gethostname()
-    print("Nome do host da máquina:", hostname)
-
-    connection = mysql_connection('localhost', 'root', 'Isabeol0609!', 'sixtracker')
-    cursor = connection.cursor()
-
-#def generate_random_code(length):
-#    characters = string.ascii_letters + string.digits
-#    code = ''.join(random.choice(characters) for _ in range(length))
-#    return code
-
-#unique_code = generate_random_code(4)
-#print("O código da sua máquina é:", unique_code)
-
+# Disco
 
 def bytes_para_gb(bytes_value):
     return bytes_value / (1024 ** 3)
 
 def milissegundos_para_segundos(ms_value):
     return ms_value / 1000
-
-connection = mysql_connection('localhost', 'root', 'Isabeol0609!', 'sixtracker')
-cursor = connection.cursor()
-
-# Verifica se a máquina está cadastrada no banco de dados usando o nome do host
-cursor.execute("SELECT idServidor FROM Servidor WHERE nome = %s", (hostname,))
-result_servidor = cursor.fetchone()
-
-if not result_servidor:
-    print(f"O Servidor {hostname} não foi cadastrado no site. Cadastre-o para fazer a captura!")
-    sys.exit()
-
- # Buscar os componentes cadastrados para o servidor
-cursor.execute("SELECT idComponente, nome FROM Componente WHERE fkServidor = %s", (result_servidor[0],))
-componentes_servidor = cursor.fetchall()
-
-# Verificar e adicionar os componentes de 1 a 14 se não existirem
-for componente_id, componente_nome in componentes.items():
-    if not any(componente_id == comp[0] for comp in componentes_servidor):
-        # Componente não encontrado, adicionar à tabela Componente
-        cursor.execute("INSERT INTO Componente (nome, fkServidor) VALUES (%s, %s)", (componente_nome, result_servidor[0]))
-
-if not componentes_servidor:
-   print(f"Não há componentes cadastrados para o Servidor {hostname}. Cadastre componentes para continuar.")
-   sys.exit()
-else:
-    print(f"\nComponentes cadastrados para o Servidor {hostname}:")
-    for componente in componentes_servidor:
-        print(f"ID: {componente[0]}, Nome: {componente[1]}")
-
-# Disco
 
 meu_so = platform.system()
 if(meu_so == "Linux"):
@@ -281,3 +257,4 @@ while True:
 
 cursor.close()
 connection.close()
+
