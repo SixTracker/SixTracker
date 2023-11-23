@@ -1,10 +1,15 @@
 var componenteModel = require("../models/componenteModel");
 
-function buscarServidores(req, res) {
+function testar(req, res) {
+    console.log("ENTRAMOS NO componenteController");
+    res.send("ENTRAMOS NO COMPONENTE CONTROLLER");
+}
+
+function buscarServidoresComponente(req, res) {
 
     console.log(`Recuperando medidas em tempo real`);
 
-    componenteModel.buscarServidores().then(function (resultado) {
+    componenteModel.buscarServidoresComponente().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -173,13 +178,39 @@ function cadastrarComponente(req, res) {
     }
 }
 
+function editarComponente(req, res) {
+    var nome = req.body.nomeServer;
+    var fornecedor = req.body.fornecedorServer;
+    var modelo = req.body.modeloServer;  
+    var servidor = req.body.ServidorServer;
+    var unidadeMedida = req.body.UnidadeMedidaServer;
+    var tipoComponente = req.body.TipoComponenteServer;
+
+
+    componenteModel.editar(nome, fornecedor, modelo, servidor, unidadeMedida, tipoComponente)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
 
 module.exports = {
-    buscarServidores,
+    buscarServidoresComponente,
     buscarMedidas,
     buscarComponentes,
     buscarFuncionarios,
     cadastrarComponente,
-    listarComponentes
+    listarComponentes,
+    editarComponente
     // buscarNivelPermissao
 }

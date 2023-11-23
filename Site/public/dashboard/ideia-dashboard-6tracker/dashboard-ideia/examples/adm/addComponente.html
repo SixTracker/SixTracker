@@ -328,6 +328,85 @@ Coded by www.creative-tim.com
           </div>
         </div>
       </div>
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editar Sala</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+  
+            <div class="card-body">
+              <form>
+                <div class="row">
+                  <div class="col-md-5 pr-1">
+                    <div class="form-group1">
+                      <label>Nome do componente</label>
+                      <input id="inp_edit_nome" type="text" class="form-control" placeholder="Nome Componente">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 pr-1">
+                    <div class="form-group1">
+                      <label>Modelo: </label>
+                      <input id="inp_edit_modelo" type="text" class="form-control" placeholder="Modelo Componente">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 pr-1">
+                    <div class="form-group1">
+                      <label>Fornecedor: </label>
+                      <input id="inp_edit_fabricante" type="text" class="form-control" placeholder="Fornecedor Componente">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 pr-1">
+                    <div class="form-group1">
+                      <label>Servidor: </label>
+                      <input id="servidorSelect2" type="text" class="form-control" placeholder="Servidor Componente">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 pr-1">
+                    <div class="form-group1">
+                      <label>Unidade De Medida: </label>
+                      <input id="medidaSelect2" type="text" class="form-control" placeholder="Unidade de Medida">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 pr-1">
+                    <div class="form-group1">
+                      <label>Tipo de Componente: </label>
+                      <input id="componenteSelect2" type="text" class="form-control" placeholder="Unidade de Medida">
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            <button id="btn_edit" onclick="editar(this.value)" type="button" class="btn btn-primary"
+              style="background-color: #cf41d1;">Salvar mudanças</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
       <footer class="footer footer-black  footer-white ">
         <div class="container-fluid">
           <div class="row">
@@ -368,6 +447,20 @@ Coded by www.creative-tim.com
 
 </html>
 <script>
+
+function editarModal(nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica) {
+    document.getElementById("inp_edit_nome").value = nome;
+    document.getElementById("inp_edit_modelo").value = modelo;
+    document.getElementById("inp_edit_fabricante").value = fabricante;
+    document.getElementById("inp_edit_servidor").value = fkServidor;
+    document.getElementById("inp_edit_tipoComponente").value = fkTipoComponente; 
+    document.getElementById("inp_edit_metrica").value = fkMetrica;
+    document.getElementById("btn_editComponente").value = idComponente;
+    $('#exampleModal').modal('show')
+
+    console.log (nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica)
+  };
+
   // BUSCAR SERVIDORES
   var fkEmpresa = sessionStorage.FK_EMPRESA;
   console.log("fkEmpresa:", fkEmpresa);
@@ -394,6 +487,7 @@ Coded by www.creative-tim.com
         var servidores = json
 
         var selectElement = document.getElementById('servidorSelect');
+        var selectElement2 = document.getElementById('servidorSelect2');
 
         // Itera sobre o array de empresas e cria as opções do select
         for (let i = 0; i < servidores.length; i++) {
@@ -492,6 +586,7 @@ Coded by www.creative-tim.com
           var medidas = json
 
           var selectElement = document.getElementById('medidaSelect');
+          var selectElement2 = document.getElementById('medidaSelect2');
 
           // Itera sobre o array de empresas e cria as opções do select
           for (let i = 0; i < medidas.length; i++) {
@@ -530,6 +625,8 @@ Coded by www.creative-tim.com
           var componentes = json
 
           var selectElement = document.getElementById('componenteSelect');
+          var selectElement2 = document.getElementById('componenteSelect2');
+
 
           // Itera sobre o array de empresas e cria as opções do select
           for (let i = 0; i < componentes.length; i++) {
@@ -632,17 +729,17 @@ Coded by www.creative-tim.com
   function editar(idComponente) {
 
 
-    
+
     var corpo = {
-     nomeVar: nome_input.value,
-     fornecedorVar: fornecedor_input.value,
-     modeloVar: modelo_input.value,    
-     ServidorVar: servidorSelect.value,
-     UnidadeVar: medidaSelect.value,
-     TipoVar: componenteSelect.value
+     nomeVar: inp_edit_nome.value,
+     fornecedorVar: inp_edit_fabricante.value,
+     modeloVar: inp_edit_modelo.value,    
+     ServidorVar: servidorSelect2.value,
+     UnidadeVar: medidaSelect2.value,
+     TipoVar: componenteSelect2.value
     };
 
-    fetch(`/sala/editar/${idComponente}`, {
+    fetch(`/componente/editar/${idComponente}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"

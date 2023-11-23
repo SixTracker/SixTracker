@@ -21,7 +21,7 @@ function listarComponentes(fkEmpresa){
    return database.executar(instrucaoSql);
 }
 
-function buscarServidores(){
+function buscarServidoresComponente(){
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
@@ -115,7 +115,7 @@ function cadastrarComponente(nome, fornecedor, modelo, Servidor, UnidadeMedida, 
 
 module.exports = {
     listarComponentes,
-    buscarServidores,
+    buscarServidoresComponente,
     buscarMedidas,
     buscarComponentes,
     buscarFuncionarios,

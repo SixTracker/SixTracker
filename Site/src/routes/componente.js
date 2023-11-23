@@ -5,7 +5,7 @@ var componenteController = require("../controllers/componenteController");
 
 
 router.get("/buscar/", function (req, res) {
-    componenteController.buscarServidores(req, res);
+    componenteController.buscarServidoresComponente(req, res);
 })
 
 router.get("/unidade/", function (req, res) {
@@ -30,6 +30,9 @@ router.post("/cadastrarComponente", function (req, res) {
 
 router.post("/buscarFuncionarios/", function (req, res) {
     componenteController.buscarFuncionarios(req, res);
+})
+router.post("/editar/:idComponente", function (req, res) {
+    componenteController.editarModal(req, res);
 })
 
 module.exports = router;
