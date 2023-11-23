@@ -65,13 +65,14 @@ function testar(req, res) {
 //         );
 // }
 
-function publicar(req, res) {
+function publicar(req, res) {    
+
     var nome = req.body.nome;
     var codigo = req.body.codigo;
     var so = req.body.so;
     var usb = req.body.usb;
-    var salaSelect = req.body.salaSelect;
-    // var idUsuario = req.params.idUsuario;
+    var salaSelect = req.body.sala;
+    
 
     if (nome == undefined) {
         res.status(400).send("O nome está indefinido!");
@@ -144,9 +145,12 @@ function deletar(req, res) {
 
 function buscarServidores(req, res){
 
+
+    var fkempresa = req.body.fkempresaServer
+
     console.log(`Recuperando servidores em tempo real`);
 
-    servidorModel.buscarServidores().then(function (resultado) {
+    servidorModel.buscarServidores(fkempresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

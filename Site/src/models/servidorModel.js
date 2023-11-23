@@ -80,15 +80,16 @@ function deletar(idServidor) {
 }
 
 
-function buscarServidores(){
+function buscarServidores(fkempresa){
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-       instrucaoSql = `select 
+       instrucaoSql = `SELECT
        Servidor.idServidor,
        Servidor.nome,
        Servidor.fkSalas
-           from Servidor;`;
+           FROM Servidor JOIN Salas on fkSalas = idSalas
+           WHERE Salas.fkEmpresa = ${fkempresa};`;
    } else {
        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
        return

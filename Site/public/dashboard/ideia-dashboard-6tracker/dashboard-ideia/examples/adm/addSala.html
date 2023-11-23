@@ -115,12 +115,12 @@ Coded by www.creative-tim.com
               <p>Dashboard - Lívia</p>
             </a>
           </li>
-          <li> 
+          <li>
             <a href="./dashTiago.html">
               <i class="nc-icon nc-layout-11"></i>
               <p>Dashboard - Tiago</p>
             </a>
-          </li>         
+          </li>
           <li class="active">
             <a href="./addSala.html">
               <i class="nc-icon">
@@ -178,7 +178,7 @@ Coded by www.creative-tim.com
               <p>Adicionar usuários</p>
             </a>
           </li>
-         
+
 
           <li>
             <a href="./tables.html">
@@ -474,17 +474,14 @@ Coded by www.creative-tim.com
   <script src="../../assets/js/core/jquery.min.js"></script>
   <script src="../../assets/js/core/popper.min.js"></script>
   <script src="../../assets/js/core/bootstrap.min.js"></script>
-  <script src="../../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <script src="../../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>  
   <!-- Chart JS -->
   <script src="../../assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
   <script src="../../assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>
-  <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../../assets/demo/demo.js"></script>
+  
 </body>
 
 </html>
@@ -499,26 +496,36 @@ Coded by www.creative-tim.com
     $('#exampleModal').modal('show')
   };
 
-  fetch(`/sala/buscar`)
-    .then(function (resposta) {
-      console.log("ESTOU NO THEN DO entrar()!")
+  var fkEmpresa = sessionStorage.FK_EMPRESA;
+  console.log("fkEmpresa:", fkEmpresa);
 
-      if (resposta.ok) {
-        console.log(resposta);
+  fetch(`/sala/buscar`, {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      fkempresaServer: fkEmpresa
+    })
+  }).then(function (resposta) {
+    console.log("ESTOU NO THEN DO entrar()!")
 
-        resposta.json().then(json => {
-          console.log(json);
-          console.log(JSON.stringify(json));
+    if (resposta.ok) {
+      console.log(resposta);
 
-          const dataSize = json.length;
-          const tbody = document.getElementById("tb_sala");
+      resposta.json().then(json => {
+        console.log(json);
+        console.log(JSON.stringify(json));
 
-          for (let i = 0; i < dataSize; i++) {
-            var idSala = json[i]["idSalas"]
-            var nomeSala = json[i]["nomeSala"]
-            var andarSala = json[i]["andarSala"]
+        const dataSize = json.length;
+        const tbody = document.getElementById("tb_sala");
 
-            tbody.innerHTML += `
+        for (let i = 0; i < dataSize; i++) {
+          var idSala = json[i]["idSalas"]
+          var nomeSala = json[i]["nomeSala"]
+          var andarSala = json[i]["andarSala"]
+
+          tbody.innerHTML += `
                         <tr>
                           <td>
                             ${nomeSala}
@@ -531,32 +538,31 @@ Coded by www.creative-tim.com
 
                         </tr>
                       `
-          }
-        });
-      }
-    }).catch(function (erro) {
-      console.log(erro);
-      cardErro.style.display = "block"
-      mensagem_erro.innerHTML = "O Login está inválido";
-    })
+        }
+      });
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    cardErro.style.display = "block"
+    mensagem_erro.innerHTML = "O Login está inválido";
+  })
 
 
   function publicar() {
     // var idUsuario = 1
+    
 
-    var corpo = {
-      nomeSala: inp_name.value,
-      andarSala: inp_andar.value,
-      fkEmpresa: sessionStorage.getItem("FK_EMPRESA")
-    }
-
-    window.alert("publicando")
+    
     fetch(`/sala/publicar`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(corpo)
+      body: JSON.stringify({
+      nomeSala: inp_name.value,
+      andarSala: inp_andar.value,
+      fkEmpresa: sessionStorage.FK_EMPRESA
+    })
     }).then(function (resposta) {
 
       console.log("resposta: ", resposta);
@@ -581,72 +587,72 @@ Coded by www.creative-tim.com
   }
 
 
-    // function deletar(idSala) {
+  // function deletar(idSala) {
 
-    //   alert(1)
-    //   var promptConfimacao = prompt('Digite "deletar" para apagar a sala');
+  //   alert(1)
+  //   var promptConfimacao = prompt('Digite "deletar" para apagar a sala');
 
-    //   if (promptConfimacao != "deletar") {
-    //     window.alert("Você não digitou deletar então a sala não sera apagada")
-    //     return
-    //   }
+  //   if (promptConfimacao != "deletar") {
+  //     window.alert("Você não digitou deletar então a sala não sera apagada")
+  //     return
+  //   }
 
-    //   alert(1)
+  //   alert(1)
 
-    //   fetch(`/sala/deletar/${idSala}`, {
-    //     method: "DELETE",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     }
-    //   }).then(function (resposta) {
-    //     if (resposta.ok) {
-    //       window.alert("Sala deletada com sucesso");
-    //       window.location = "addSala.html"
-    //     } else if (resposta.status == 404) {
-    //       window.alert("Deu 404!");
-    //     } else {
-    //       throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-    //     }
-    //   }).catch(function (resposta) {
-    //     console.log(`#ERRO: ${resposta}`);
-    //   });
-    // }
+  //   fetch(`/sala/deletar/${idSala}`, {
+  //     method: "DELETE",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     }
+  //   }).then(function (resposta) {
+  //     if (resposta.ok) {
+  //       window.alert("Sala deletada com sucesso");
+  //       window.location = "addSala.html"
+  //     } else if (resposta.status == 404) {
+  //       window.alert("Deu 404!");
+  //     } else {
+  //       throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+  //     }
+  //   }).catch(function (resposta) {
+  //     console.log(`#ERRO: ${resposta}`);
+  //   });
+  // }
 
-    function deletar(idSala) {
+  function deletar(idSala) {
     var promptConfirmacao = prompt('Digite "deletar" para apagar a sala');
 
     if (promptConfirmacao !== "deletar") {
-        window.alert("Você não digitou 'deletar', então a sala não será apagada.");
-        return;
+      window.alert("Você não digitou 'deletar', então a sala não será apagada.");
+      return;
     }
 
     fetch(`/sala/deletar/${idSala}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        }
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
     }).then(function (resposta) {
-        if (resposta.ok) {
-            window.alert("Sala deletada com sucesso");
-            window.location = "addSala.html";
-        } else if (resposta.status === 404) {
-            window.alert("Sala não encontrada (404)");
-        } else {
-            return resposta.json().then(function (erro) {
-                console.error(`Erro ao tentar realizar a exclusão. Código da resposta: ${resposta.status}. Detalhes:`, erro);
-                throw new Error(`Erro ao tentar realizar a exclusão. Código da resposta: ${resposta.status}. Detalhes: ${JSON.stringify(erro)}`);
-            });
-        }
+      if (resposta.ok) {
+        window.alert("Sala deletada com sucesso");
+        window.location = "addSala.html";
+      } else if (resposta.status === 404) {
+        window.alert("Sala não encontrada (404)");
+      } else {
+        return resposta.json().then(function (erro) {
+          console.error(`Erro ao tentar realizar a exclusão. Código da resposta: ${resposta.status}. Detalhes:`, erro);
+          throw new Error(`Erro ao tentar realizar a exclusão. Código da resposta: ${resposta.status}. Detalhes: ${JSON.stringify(erro)}`);
+        });
+      }
     }).catch(function (error) {
-        console.error("#ERRO:", error);
+      console.error("#ERRO:", error);
 
-        if (error instanceof TypeError && error.message.includes("Failed to fetch")) {
-            window.alert("Erro de rede ao tentar realizar a exclusão. Verifique sua conexão com a internet.");
-        } else {
-            window.alert("Erro ao tentar realizar a exclusão, Você não pode deletar esta sala existem servidores nesta sala!. Verifique o console para mais informações.");
-        }
+      if (error instanceof TypeError && error.message.includes("Failed to fetch")) {
+        window.alert("Erro de rede ao tentar realizar a exclusão. Verifique sua conexão com a internet.");
+      } else {
+        window.alert("Erro ao tentar realizar a exclusão, Você não pode deletar esta sala existem servidores nesta sala!. Verifique o console para mais informações.");
+      }
     });
-}
+  }
 
 
 

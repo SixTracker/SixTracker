@@ -19,8 +19,7 @@ router.get("/", function (req, res) {
 //     avisoController.pesquisarDescricao(req, res);
 // });
 
-router.post("/publicar", function (req, res) {
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+router.post("/publicar", function (req, res) {    
     servidorController.publicar(req, res);
 });
 
@@ -32,9 +31,8 @@ router.delete("/deletar/:idServidor", function (req, res) {
     servidorController.deletar(req, res);
 });
 
-router.get("/buscar/", function (req, res) {
+router.post("/buscar/", function (req, res) {
     servidorController.buscarServidores(req, res);
 })
-
 
 module.exports = router;

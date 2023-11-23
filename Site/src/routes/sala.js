@@ -31,7 +31,7 @@ router.delete("/deletar/:idSala", function (req, res) {
     salaController.deletar(req, res);
 });
 
-router.get("/buscar/", function (req, res) {
+router.post("/buscar/", function (req, res) {
     salaController.buscarSalas(req, res);
 });
 

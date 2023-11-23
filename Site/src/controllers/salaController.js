@@ -139,9 +139,11 @@ function deletar(req, res) {
 
 function buscarSalas(req, res){
 
+    var fkempresa = req.body.fkempresaServer
+
     console.log(`Recuperando salas em tempo real`);
 
-    salaModel.buscarSalas().then(function (resultado) {
+    salaModel.buscarSalas(fkempresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
