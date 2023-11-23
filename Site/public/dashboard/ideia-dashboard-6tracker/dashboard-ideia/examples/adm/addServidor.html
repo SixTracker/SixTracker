@@ -412,6 +412,9 @@ Coded by www.creative-tim.com
     document.getElementById("salaSelect").value = idSala;
     document.getElementById("btn_edit").value = idServidor;
     $('#exampleModal').modal('show')
+
+    console.log( nome, codigo, so, idSala, idServidor);
+
   };
 
 
@@ -634,14 +637,15 @@ Coded by www.creative-tim.com
 
   function editar(idServidor) {
 
-    var corpo = {
-      nome: inp_nome.value,
-      codigo: inp_codigo.value,
-      so: inp_so.value,
-      usb: inp_usb.value,
-      sala: salaSelect.value
-    };
    
+
+    var corpo = {
+      nome: inp_edit_name.value,
+      codigo: inp_edit_codigo.value,
+      so: inp_edit_so.value,
+      sala: salaSelect.value,
+      id: btn_edit.value
+    };
     fetch(`/servidor/editar/${idServidor}`, {
       method: "PUT",
       headers: {

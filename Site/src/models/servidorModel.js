@@ -51,19 +51,18 @@ var database = require("../database/config");
 //     return database.executar(instrucao);
 // }
 
-function publicar(nome, codigo, so, usb, salaSelect) {
-    console.log("ACESSEI O SERVIDOR MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function publicar(): ", nome, codigo, so, usb, salaSelect);
+function publicar(nome, codigo, so, usb, sala) {
+    console.log("ACESSEI O SERVIDOR MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function publicar(): ", nome, codigo, so, usb, sala);
     var instrucao = `
-        INSERT INTO Servidor (nome, codigo, sistemaOperacional, ip, fkSalas) VALUES ('${nome}', '${codigo}',' ${so}', '${usb}', ${salaSelect});
+        INSERT INTO Servidor (nome, codigo, sistemaOperacional, ip, fkSalas) VALUES ('${nome}', '${codigo}',' ${so}', '${usb}', ${sala});
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
-function editar(nome, codigo, so, usb, salaSelect) {
-    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", nome, codigo, so, usb, salaSelect);
+function editar(idServidor, nome, codigo, so, fkSalas) {
     var instrucao = `
-    UPDATE servidor set nome = '${nome}', codigo = '${codigo}', sistemaOperacional = '${so}', fkSalas = ${salaSelect} WHERE idServidor = ${idServidor};
+    UPDATE servidor set nome = '${nome}', codigo = '${codigo}', sistemaOperacional = '${so}', fkSalas = ${fkSalas} WHERE idServidor = ${idServidor};
         `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

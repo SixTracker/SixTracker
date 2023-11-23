@@ -103,12 +103,13 @@ function publicar(req, res) {
 
 function editar(req, res) {
     var idServidor = req.params.idServidor
-    var nome = req.body.nomeServidor;
+    var nome = req.body.nome;
+    var so = req.body.so;
     var codigo = req.body.codigo;
-    var sala = req.params.salaSelect;
+    var sala = req.body.sala;
 
 
-    servidorModel.editar(idServidor, nome, codigo, sala)
+    servidorModel.editar(idServidor, nome, codigo, so, sala)
         .then(
             function (resultado) {
                 res.json(resultado);
