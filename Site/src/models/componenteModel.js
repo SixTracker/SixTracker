@@ -1,4 +1,5 @@
-var database = require("../database/config");
+const database = require("../database/config");
+
 
 function listarComponentes(fkEmpresa){
     instrucaoSql = ''
@@ -21,13 +22,18 @@ function listarComponentes(fkEmpresa){
    return database.executar(instrucaoSql);
 }
 
-function buscarServidoresComponente(){
+function buscarServidoresComponente(fkEmpresa) {
+
+  }
+  
+
+function buscarServidoresComponente(fkEmpresa){
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
        instrucaoSql = `select 
-       Servidor.idServidor,
-       Servidor.nome 
+       Componente.tipoComponente,
+       Componente.modelo 
            from Componente 
                join Servidor 
                    on Servidor.idServidor = Componente.fkServidor;`;

@@ -515,7 +515,7 @@ function editarModal(nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTi
 
   //Lista Componentes Cadastrados
 
-  fetch(`/componente/listarComponentes/`, {
+  fetch(`/componente/buscarServidoresComponente/`, {
     method: 'POST', 
     headers: {
       'Content-Type': 'application/json'
