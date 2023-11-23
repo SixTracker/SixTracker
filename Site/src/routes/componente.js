@@ -16,6 +16,10 @@ router.get("/tipo/", function (req, res) {
     componenteController.buscarComponentes(req, res);
 })
 
+router.post("/listarComponentes/", function (req, res) {
+    componenteController.listarComponentes(req, res);
+})
+
 // router.get("/buscarNivelPermissao/", function (req, res) {
 //     componenteController.buscarNivelPermissao(req, res);
 // })

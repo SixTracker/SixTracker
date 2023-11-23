@@ -306,6 +306,23 @@ Coded by www.creative-tim.com
                     </div>
                   </div>
                 </form>
+                <br/><br/>
+                <table class="table">
+                  <thead class=" text-primary">
+                  </thead>
+                  <tbody id="tb_Componentes">
+                    <tr>
+                      <th>
+                        Servidor
+                      </th>
+                      <th>
+                        SO
+                      </th>
+                      <th>
+                        Sala 
+                      </th>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -394,6 +411,63 @@ Coded by www.creative-tim.com
 
       });
 
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    cardErro.style.display = "block"
+    mensagem_erro.innerHTML = "O Login está inválido";
+  })
+
+
+  //Lista Componentes Cadastrados
+
+  fetch(`/componente/listarComponentes/`, {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      fkempresaServer: fkEmpresa
+    })
+  }).then(function (resposta) {
+    console.log("ESTOU NO THEN DO entrar()!")
+
+    if (resposta.ok) {
+      console.log(resposta);
+
+      resposta.json().then(json => {
+        console.log(json);
+        console.log(JSON.stringify(json));
+
+        const dataSize = json.length;
+        const tbody = document.getElementById("tb_Componentes");
+
+        for (let i = 0; i < dataSize; i++) {
+          var idServidor = json[i]["idServidor"]
+          var nomeServidor = json[i]["nome"]
+          var sistemaOperacional = json[i]["sistemaOperacional"]
+          var nomeSala = json[i]["nomeSala"]
+
+          console.log( "TESTANDO VALORES::", idServidor, nomeServidor, nomeSala)
+
+          tbody.innerHTML += `
+                        <tr>
+                          <td>
+                            ${nomeServidor}
+                          </td>
+                          <td>
+                            ${sistemaOperacional}
+                          </td>
+                          <td>
+                            ${nomeSala}
+                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal(${idServidor}, '${nomeServidor}', ${nomeSala})"></i>
+                              <i style="margin-left: 5vh; cursor:pointer" class="fa fa-trash" onclick="deletar(${idServidor})"></i>
+                          </td>
+
+                        </tr>
+                      `
+        }
+      });
     }
   }).catch(function (erro) {
     console.log(erro);

@@ -51,6 +51,37 @@ function buscarComponentes(req, res) {
     });
 }
 
+
+function listarComponentes(req, res) {
+
+    var fkEmpresa = req.body.fkempresaServer;
+
+
+    // Faça as validações dos valores
+    if (fkEmpresa == undefined) {
+        res.status(400).send("O id da empresa está undefined!");
+    } else {
+
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        componenteModel.listarComponentes(fkEmpresa)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro do ADM, pois a empresa não existe! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+
 // function buscarNivelPermissao(req, res){
 
 //     console.log(`Recuperando medidas em tempo real`);
@@ -148,6 +179,7 @@ module.exports = {
     buscarMedidas,
     buscarComponentes,
     buscarFuncionarios,
-    cadastrarComponente
+    cadastrarComponente,
+    listarComponentes
     // buscarNivelPermissao
 }

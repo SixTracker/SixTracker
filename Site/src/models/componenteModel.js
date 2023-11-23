@@ -1,5 +1,26 @@
 var database = require("../database/config");
 
+function listarComponentes(fkEmpresa){
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+       instrucaoSql = `SELECT 
+       idServidor, 
+       Servidor.nome, 
+       Servidor.sistemaOperacional, 
+       Salas.nomeSala
+       FROM Servidor Join Salas 
+       ON idSalas = fkSalas
+       WHERE fkEmpresa = ${fkEmpresa};`;
+   } else {
+       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+       return
+   }
+
+   console.log("Executando a instrução SQL: \n" + instrucaoSql);
+   return database.executar(instrucaoSql);
+}
+
 function buscarServidores(){
     instrucaoSql = ''
 
@@ -93,6 +114,7 @@ function cadastrarComponente(nome, fornecedor, modelo, Servidor, UnidadeMedida, 
 
 
 module.exports = {
+    listarComponentes,
     buscarServidores,
     buscarMedidas,
     buscarComponentes,
