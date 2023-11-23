@@ -67,6 +67,64 @@ left: 2vw;
   top: 7vh;
 }
 
+#idNomeEmpresa{
+  position: relative;
+  left: 2vw;
+  gap: 5vw;
+}
+
+#fornecedor_input{
+  width: 30vw;
+}
+
+#idModeloServidor{
+  position: relative;
+  left: 2.7vw;
+  gap: 8.4vw;
+}
+
+#modelo_input{
+  width: 28vw;
+}
+
+#servidorSelect{
+  width: 30vw;
+}
+
+#idUnidadeTipo{
+  position: relative;
+  left: 2.7vw;
+  gap: 15.3vw;
+}
+
+#medidaSelect{
+  width: 28vw;
+}
+
+#componenteSelect{
+  width: 30vw;
+}
+
+#btComponente{
+  position: relative;
+  right: 3vw;
+  top: 2vh;
+}
+
+#idCodSO{
+  gap: 10vw;
+}
+
+#idIpSala{
+  gap: 10vw;
+}
+
+#btaAddServidor{
+  position: relative;
+  right: 3vw;
+  top: 1.5vh;
+}
+
 #div_erros_login {
   display: none
 }

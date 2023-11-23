@@ -87,7 +87,7 @@ function buscarServidores(fkempresa){
        instrucaoSql = `SELECT
        Servidor.idServidor,
        Servidor.nome,
-       Servidor.fkSalas
+       Salas.nomeSala as nomeSala
            FROM Servidor JOIN Salas on fkSalas = idSalas
            WHERE Salas.fkEmpresa = ${fkempresa};`;
    } else {

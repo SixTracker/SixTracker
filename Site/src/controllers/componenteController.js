@@ -101,10 +101,7 @@ function cadastrarComponente(req, res) {
   
     var nome = req.body.nomeServer;
     var fornecedor = req.body.fornecedorServer;
-    var modelo = req.body.modeloServer;
-    var maxima = req.body.maximaServer;
-    var minima = req.body.minimaServer;
-    var total = req.body.totalServer;
+    var modelo = req.body.modeloServer;  
     var Servidor = req.body.ServidorServer;
     var UnidadeMedida = req.body.UnidadeMedidaServer;
     var TipoComponente = req.body.TipoComponenteServer;
@@ -116,13 +113,7 @@ function cadastrarComponente(req, res) {
     } else if (fornecedor == undefined) {
         res.status(400).send("O fornecedor está undefined!");
     } else if (modelo == undefined) {
-        res.status(400).send("O modelo está undefined!");
-    } else if (maxima == undefined) {
-        res.status(400).send("O maxima está undefined!");
-    } else if (minima == undefined) {
-        res.status(400).send("O minima está undefined!");
-    } else if (total == undefined) {
-        res.status(400).send("A total está undefined!");
+        res.status(400).send("O modelo está undefined!");    
     } else if (Servidor == undefined) {
         res.status(400).send("A Servidor está undefined!");
     } else if (UnidadeMedida == undefined) {
@@ -133,7 +124,7 @@ function cadastrarComponente(req, res) {
     else {
         
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        componenteModel.cadastrarComponente(nome, fornecedor, modelo, maxima, minima, total, Servidor, UnidadeMedida, TipoComponente)
+        componenteModel.cadastrarComponente(nome, fornecedor, modelo,Servidor, UnidadeMedida, TipoComponente)
             .then(
                 function (resultado) {
                     res.json(resultado);

@@ -80,14 +80,10 @@ function buscarFuncionarios(fkEmpresa){
    return database.executar(instrucaoSql);
 }
 
-async function cadastrarComponente(nome, fornecedor, modelo, maxima, minima, total, Servidor, UnidadeMedida, TipoComponente) {
-    console.log("ACESSEI O USUARIO MODEL - function cadastrarComponente():", nome, fornecedor, modelo, maxima, minima, total, Servidor, UnidadeMedida, TipoComponente);
+function cadastrarComponente(nome, fornecedor, modelo, Servidor, UnidadeMedida, TipoComponente) {
+    console.log("ACESSEI O USUARIO MODEL - function cadastrarComponente():", nome, fornecedor, modelo, Servidor, UnidadeMedida, TipoComponente);
 
-    // const buscarEmpresa = `
-    //     SELECT idEmpresa FROM Empresa WHERE nome = '${fkempresa}';
-    // `;
-
-    var instrucao = `
+      var instrucao = `
                 INSERT INTO Componente (nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTipoComponente) VALUES ('${nome}', '${modelo}', '${fornecedor}', ${Servidor}, ${UnidadeMedida}, ${TipoComponente});
             `;
             console.log("Executando a instrução SQL: \n" + instrucao);

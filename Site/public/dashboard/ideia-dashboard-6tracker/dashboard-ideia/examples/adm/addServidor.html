@@ -74,15 +74,7 @@ Coded by www.creative-tim.com
                     <input id="inp_edit_so" type="text" class="form-control" placeholder="SO">
                   </div>
                 </div>
-              </div>
-              <!-- <div class="row">
-                <div class="col-md-5 pr-1">
-                  <div class="form-group1">
-                    <label>Andar da Sala</label>
-                    <input id="inp_edit_andar" type="Number" class="form-control" placeholder="Andar Sala">
-                  </div>
-                </div>
-              </div> -->
+              </div>             
               <div class="row">
                 <div class="col-md-6 pr-1">
                   <div class="form-group1">
@@ -311,7 +303,7 @@ Coded by www.creative-tim.com
                   </div>
                 </div>
 
-                <div class="row">
+                <div id="idCodSO" class="row">
                   <div class="col-md-6 pr-1">
                     <div class="form-group">
                       <label>Código: </label>
@@ -326,7 +318,7 @@ Coded by www.creative-tim.com
                     </div>
                   </div>
                 </div>
-                <div class="row">
+                <div id="idIpSala" class="row">
                   <div class="col-md-6 pr-1">
                     <div class="form-group">
                       <label>IP: </label>
@@ -342,13 +334,9 @@ Coded by www.creative-tim.com
                     </div>
                   </div>
                 </div>
-
-
-
-
                 <div class="row">
                   <div class="update ml-auto mr-auto">
-                    <button class="btn btn-primary btn-round" id="cadastrarServidor" onclick="publicar()"
+                    <button id="btaAddServidor" class="btn btn-primary btn-round" id="cadastrarServidor" onclick="publicar()"
                       style="background-color: #c211a1;">Adicionar servidor</button>
                   </div>
                 </div>
@@ -452,11 +440,8 @@ Coded by www.creative-tim.com
 
         for (let i = 0; i < dataSize; i++) {
           var idServidor = json[i]["idServidor"]
-          var nomeServidor = json[i]["nome"]
-          //var codigo = json[i]["codigo"]
-          //var sistemaOperacional = json[i]["so"]
-          //var usbDetectado = json[i]["usbDetectado"]
-          var fkSalas = json[i]["fkSalas"]
+          var nomeServidor = json[i]["nome"]          
+          var nomeSala = json[i]["nomeSala"]
 
           tbody.innerHTML += `
                         <tr>
@@ -464,8 +449,8 @@ Coded by www.creative-tim.com
                             ${nomeServidor}
                           </td>
                           <td>
-                            ${fkSalas}
-                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal(${idServidor}, '${nomeServidor}', ${fkSalas})"></i>
+                            ${nomeSala}
+                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal(${idServidor}, '${nomeServidor}', ${nomeSala})"></i>
                               <i style="margin-left: 5vh; cursor:pointer" class="fa fa-trash" onclick="deletar(${idServidor})"></i>
                           </td>
 
