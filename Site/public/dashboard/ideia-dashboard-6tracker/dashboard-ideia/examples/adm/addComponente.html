@@ -313,13 +313,13 @@ Coded by www.creative-tim.com
                   <tbody id="tb_Componentes">
                     <tr>
                       <th>
-                        Servidor
+                        Componente
                       </th>
                       <th>
-                        SO
+                        Modelo
                       </th>
                       <th>
-                        Sala 
+                        Servidor 
                       </th>
                   </tbody>
                 </table>
@@ -538,22 +538,22 @@ function editarModal(nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTi
 
         for (let i = 0; i < dataSize; i++) {
           var idServidor = json[i]["idServidor"]
+          var nomeComponente = json[i]["nome"]
+          var modeloComponente = json[i]["modelo"]
           var nomeServidor = json[i]["nome"]
-          var sistemaOperacional = json[i]["sistemaOperacional"]
-          var nomeSala = json[i]["nomeSala"]
 
-          console.log( "TESTANDO VALORES::", idServidor, nomeServidor, nomeSala)
+          console.log( "TESTANDO VALORES::", nomeServidor, nomeComponente, modeloComponente)
 
           tbody.innerHTML += `
                         <tr>
                           <td>
+                            ${nomeComponente}
+                          </td>
+                          <td>
+                            ${modeloComponente}
+                          </td>
+                          <td>
                             ${nomeServidor}
-                          </td>
-                          <td>
-                            ${sistemaOperacional}
-                          </td>
-                          <td>
-                            ${nomeSala}
                               <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal(${idServidor}, '${nomeServidor}', ${nomeSala})"></i>
                               <i style="margin-left: 5vh; cursor:pointer" class="fa fa-trash" onclick="deletar(${idServidor})"></i>
                           </td>

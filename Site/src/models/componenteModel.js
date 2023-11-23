@@ -5,12 +5,12 @@ function listarComponentes(fkEmpresa){
 
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
        instrucaoSql = `SELECT 
-       idServidor, 
-       Servidor.nome, 
-       Servidor.sistemaOperacional, 
-       Salas.nomeSala
-       FROM Servidor Join Salas 
-       ON idSalas = fkSalas
+       Componente.nome, 
+       Componente.modelo, 
+       Servidor.nome 
+       FROM Componente JOIN Servidor 
+       ON fkServidor = idServidor 
+       JOIN Salas on fkSalas = idSalas 
        WHERE fkEmpresa = ${fkEmpresa};`;
    } else {
        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
