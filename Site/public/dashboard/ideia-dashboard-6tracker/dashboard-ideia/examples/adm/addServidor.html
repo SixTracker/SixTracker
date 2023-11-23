@@ -405,14 +405,17 @@ Coded by www.creative-tim.com
 
 <script>
 
-  function editarModal(idServidor, nome, codigo, so, usb, sala) {
+  function editarModal(idServidor, nome, codigo, so, usb, idSala) {
     document.getElementById("inp_edit_name").value = nome;
     document.getElementById("inp_edit_codigo").value = codigo;
     document.getElementById("inp_edit_so").value = so;
-    document.getElementById("inp_edit_andar").value = sala;
+    document.getElementById("salaSelect").value = idSala;
     document.getElementById("btn_edit").value = idServidor;
     $('#exampleModal').modal('show')
   };
+
+
+
 
   var fkEmpresa = sessionStorage.FK_EMPRESA;
   console.log("fkEmpresa:", fkEmpresa);
@@ -438,10 +441,20 @@ Coded by www.creative-tim.com
         const dataSize = json.length;
         const tbody = document.getElementById("tb_servidor");
 
+       var idServidores = []; 
+       var vetorsalas = []
         for (let i = 0; i < dataSize; i++) {
           var idServidor = json[i]["idServidor"]
-          var nomeServidor = json[i]["nome"]          
+          idServidores.push(idServidor);
+          var nomeServidor = json[i]["nome"]    
+          var sistemaOperacional = json[i]["so"]          
+
+          var codigo = json[i]["cod"]          
+          var ip = json[i]["ip"]          
+          var fkSalas = json[i]["fkS"]          
+
           var nomeSala = json[i]["nomeSala"]
+          vetorsalas.push(nomeSala)
 
           tbody.innerHTML += `
                         <tr>
@@ -450,7 +463,7 @@ Coded by www.creative-tim.com
                           </td>
                           <td>
                             ${nomeSala}
-                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal(${idServidor}, '${nomeServidor}', ${nomeSala})"></i>
+                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal(${idServidores[i]}, '${nomeServidor}', '${codigo}', '${sistemaOperacional}', '${ip}', ${fkSalas})"></i>
                               <i style="margin-left: 5vh; cursor:pointer" class="fa fa-trash" onclick="deletar(${idServidor})"></i>
                           </td>
 
@@ -464,6 +477,7 @@ Coded by www.creative-tim.com
     cardErro.style.display = "block"
     mensagem_erro.innerHTML = "O Login está inválido";
   })
+
 
 
 
@@ -507,7 +521,7 @@ Coded by www.creative-tim.com
 
             // Cria outro novo elemento de opção
             const optionElement2 = document.createElement('option');
-            optionElement2.value = sala.fkSalas;
+            optionElement2.value = sala.idSalas;
             optionElement2.text = salaNome;
             selectElement2.appendChild(optionElement2);
           }
@@ -619,14 +633,15 @@ Coded by www.creative-tim.com
   }
 
   function editar(idServidor) {
+
     var corpo = {
       nome: inp_nome.value,
       codigo: inp_codigo.value,
       so: inp_so.value,
       usb: inp_usb.value,
       sala: salaSelect.value
-    }
-
+    };
+   
     fetch(`/servidor/editar/${idServidor}`, {
       method: "PUT",
       headers: {
@@ -635,7 +650,7 @@ Coded by www.creative-tim.com
       body: JSON.stringify(corpo)
     }).then(function (resposta) {
       if (resposta.ok) {
-        window.alert("Servidor editada com sucesso");
+        window.alert("Servidor editado com sucesso");
         window.location = "addServidor.html"
       } else if (resposta.status == 404) {
         window.alert("Deu 404!");

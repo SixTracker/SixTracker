@@ -63,7 +63,7 @@ function publicar(nome, codigo, so, usb, salaSelect) {
 function editar(nome, codigo, so, usb, salaSelect) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", nome, codigo, so, usb, salaSelect);
     var instrucao = `
-        UPDATE servidor SET idServidor = '${idServidor}', codigo = ${codigo}, sistemaOperacional = ${so}, ip = ${usb}, fkSalas = ${salaSelect} WHERE servidor = ${idServidor};
+    UPDATE servidor set nome = '${nome}', codigo = '${codigo}', sistemaOperacional = '${so}', fkSalas = ${salaSelect} WHERE idServidor = ${idServidor};
         `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -87,7 +87,12 @@ function buscarServidores(fkempresa){
        instrucaoSql = `SELECT
        Servidor.idServidor,
        Servidor.nome,
-       Salas.nomeSala as nomeSala
+       Salas.nomeSala as nomeSala,
+       Servidor.codigo as cod,
+       Servidor.sistemaOperacional as so,
+       Servidor.ip as ip,
+       Servidor.fkSalas as fkS
+       
            FROM Servidor JOIN Salas on fkSalas = idSalas
            WHERE Salas.fkEmpresa = ${fkempresa};`;
    } else {
