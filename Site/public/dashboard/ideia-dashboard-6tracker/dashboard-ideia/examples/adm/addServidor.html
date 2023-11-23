@@ -353,6 +353,12 @@ Coded by www.creative-tim.com
                           Servidor
                         </th>
                         <th>
+                          Código
+                        </th>
+                        <th>
+                          SO
+                        </th>
+                        <th>
                           Sala
                         </th>
                     </tbody>
@@ -450,8 +456,7 @@ Coded by www.creative-tim.com
           var idServidor = json[i]["idServidor"]
           idServidores.push(idServidor);
           var nomeServidor = json[i]["nome"]    
-          var sistemaOperacional = json[i]["so"]          
-
+          var sistemaOperacional = json[i]["so"] 
           var codigo = json[i]["cod"]          
           var ip = json[i]["ip"]          
           var fkSalas = json[i]["fkS"]          
@@ -463,6 +468,12 @@ Coded by www.creative-tim.com
                         <tr>
                           <td>
                             ${nomeServidor}
+                          </td>
+                          <td>
+                            ${codigo}
+                          </td>
+                          <td>
+                            ${sistemaOperacional}
                           </td>
                           <td>
                             ${nomeSala}
