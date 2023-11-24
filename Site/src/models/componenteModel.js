@@ -109,16 +109,21 @@ function deletarComponente(nome) {
     // Início da transação
     var instrucao = `
         START TRANSACTION;
-        
-        DELETE FROM registro WHERE fkComponente IN (SELECT idComponente FROM componente WHERE nome = '${nome}');
-        DELETE FROM componente WHERE nome = '${nome}';
-        
+
+        DELETE FROM registro WHERE fkComponente IN (SELECT idComponente FROM componente WHERE nome = ?);
+        DELETE FROM componente WHERE nome = ?;
+
         COMMIT;
     `;
-    
-    console.log("Executando a instrução SQL: \n" + instrucao);
+
+    // Substitui os placeholders pelos parâmetros
+
+    // Substitua a linha abaixo com a lógica real para executar a instrução no banco de dados
+    // Certifique-se de usar um método seguro para evitar injeção de SQL
+    console.log("Executando a instrução SQL: \n" + instrucao + "\ncom parâmetros:", parametros);
     return database.executar(instrucao);
 }
+
 
 
 

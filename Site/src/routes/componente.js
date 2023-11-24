@@ -31,11 +31,11 @@ router.post("/cadastrarComponente", function (req, res) {
 router.post("/buscarFuncionarios/", function (req, res) {
     componenteController.buscarFuncionarios(req, res);
 });
-router.delete("/deletaComponente/:nome", function (req, res) {
-    componenteController.deletar(req, res);
+router.delete("/deletarComponente/:nome", function (req, res) {
+    componenteController.deletarComponente(req, res);
 
 router.put("/editarComponente/:idComponente", function (req, res) {
-        componenteController.editar(req, res);
+        componenteController.editarComponente(req, res);
     });
 });
 
