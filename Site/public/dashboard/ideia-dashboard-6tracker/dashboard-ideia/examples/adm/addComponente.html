@@ -706,7 +706,7 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
 
   }
 
-  function deletarComponente(nome) {
+  function deletarComponente(idComponente) {
     var promptConfirmacao = prompt('Digite "deletar" para apagar o Componente');
 
     if (promptConfirmacao !== "deletar") {
@@ -716,7 +716,7 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
 
    
 
-    fetch(`/componente/deletar/${nome}`, {
+    fetch(`/componente/deletar/${idComponente}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json"
@@ -759,7 +759,7 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
     return false;
   }
 
-  function editarComponente(nome) {
+  function editarComponente(idComponente) {
 
     var corpo = {
      nomeVar: inp_edit_nome.value,
@@ -770,7 +770,7 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
      TipoVar: componenteSelect2.value
     };
 
-    fetch(`/componente/editar/${nome}`, {
+    fetch(`/componente/editar/${idComponente}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"

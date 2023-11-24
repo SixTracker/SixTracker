@@ -164,14 +164,14 @@ function cadastrarComponente(req, res) {
 
 function editarComponente(req, res) {
     var nome = req.body.nomeServer;
+    var modelo = req.body.modeloServer;
     var fornecedor = req.body.fornecedorServer;
-    var modelo = req.body.modeloServer;  
-    var servidor = req.body.ServidorServer;
-    var unidadeMedida = req.body.UnidadeMedidaServer;
-    var tipoComponente = req.body.TipoComponenteServer;
+    var servidorSe = req.body.ServidorServer;
+    var medidaSelect2 = req.body.UnidadeMedidaServer;
+    var componenteSelect2 = req.body.TipoComponenteServer;
 
 
-    componenteModel.editar(nome, fornecedor, modelo, servidor, unidadeMedida, tipoComponente)
+    componenteModel.editar(nome, fornecedor, modelo, servidorSe, medidaSelect2, componenteSelect2)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -189,9 +189,9 @@ function editarComponente(req, res) {
 
 
 function deletarComponente(req, res) {
-    var nome = req.body.nome
+    var idComponente = req.params.idComponente;
 
-    componenteModel.deletar(nome)
+    componenteModel.deletarComponente(idComponente)
         .then(
             function (resultado) {
                 res.json(resultado);

@@ -31,7 +31,7 @@ router.post("/cadastrarComponente", function (req, res) {
 router.post("/buscarFuncionarios/", function (req, res) {
     componenteController.buscarFuncionarios(req, res);
 });
-router.delete("/deletarComponente/:nome", function (req, res) {
+router.delete("/deletarComponente/:idComponente", function (req, res) {
     componenteController.deletarComponente(req, res);
 
 router.put("/editarComponente/:idComponente", function (req, res) {
