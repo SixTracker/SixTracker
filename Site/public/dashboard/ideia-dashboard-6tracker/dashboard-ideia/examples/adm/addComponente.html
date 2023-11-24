@@ -400,7 +400,7 @@ Coded by www.creative-tim.com
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-            <button id="btn_edit" onclick="editar(this.value)" type="button" class="btn btn-primary"
+            <button id="btn_editComponente" onclick="editar(this.value)" type="button" class="btn btn-primary"
               style="background-color: #cf41d1;">Salvar mudanças</button>
           </div>
         </div>
@@ -448,13 +448,13 @@ Coded by www.creative-tim.com
 </html>
 <script>
 
-function editarModal(nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica) {
+function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica) {
     document.getElementById("inp_edit_nome").value = nome;
     document.getElementById("inp_edit_modelo").value = modelo;
     document.getElementById("inp_edit_fabricante").value = fabricante;
-    document.getElementById("inp_edit_servidor").value = fkServidor;
-    document.getElementById("inp_edit_tipoComponente").value = fkTipoComponente; 
-    document.getElementById("inp_edit_metrica").value = fkMetrica;
+    document.getElementById("servidorSelect").value = fkServidor;
+    document.getElementById("componenteSelect").value = fkTipoComponente; 
+    document.getElementById("medidaSelect").value = fkMetrica;
     document.getElementById("btn_editComponente").value = idComponente;
     $('#exampleModal').modal('show')
 
@@ -536,8 +536,12 @@ function editarModal(nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTi
         const dataSize = json.length;
         const tbody = document.getElementById("tb_Componentes");
 
+        var idServidores = []; 
+        var vetorComponentes = []
+
         for (let i = 0; i < dataSize; i++) {
           var idServidor = json[i]["idServidor"]
+          idServidores.push(idServidor);
           var nomeComponente = json[i]["nomeComponente"]
           var modeloComponente = json[i]["modelo"]
           var nomeServidor = json[i]["nome"]
@@ -554,7 +558,7 @@ function editarModal(nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTi
                           </td>
                           <td>
                             ${nomeServidor}
-                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal(${idServidor}, '${nomeComponente}', ${modeloComponente})"></i>
+                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal(${nomeComponente}, '${modeloComponente}', ${idServidor[i]})"></i>
                               <i style="margin-left: 5vh; cursor:pointer" class="fa fa-trash" onclick="deletar(${idServidor})"></i>
                           </td>
 
@@ -700,11 +704,11 @@ function editarModal(nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTi
   }
 
   function deletar(idComponente) {
-    var promptConfimacao = prompt('Digite "deletar" para apagar a sala');
+    var promptConfirmacao = prompt('Digite "deletar" para apagar o Componente');
 
-    if (promptConfimacao != "deletar") {
-      window.alert("Você não digitou deletar então a sala não sera apagada")
-      return
+    if (promptConfirmacao !== "deletar") {
+      window.alert("Você não digitou 'deletar', então o componente não será apagado!");
+      return;
     }
 
     fetch(`/componente/deletar/${idComponente}`, {
@@ -714,21 +718,43 @@ function editarModal(nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTi
       }
     }).then(function (resposta) {
       if (resposta.ok) {
-        window.alert("Componente deletada com sucesso");
-        window.location = "addComponente.html"
-      } else if (resposta.status == 404) {
-        window.alert("Deu 404!");
+        window.alert("Componente deletado com sucesso");
+        window.location = "addComponente.html";
+      } else if (resposta.status === 404) {
+        window.alert("Componente não encontrada (404)");
       } else {
-        throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+        return resposta.json().then(function (erro) {
+          console.error(`Erro ao tentar realizar a exclusão. Código da resposta: ${resposta.status}. Detalhes:`, erro);
+          throw new Error(`Erro ao tentar realizar a exclusão. Código da resposta: ${resposta.status}. Detalhes: ${JSON.stringify(erro)}`);
+        });
       }
-    }).catch(function (resposta) {
-      console.log(`#ERRO: ${resposta}`);
+    }).catch(function (error) {
+      console.error("#ERRO:", error);
+
+      if (error instanceof TypeError && error.message.includes("Failed to fetch")) {
+        window.alert("Erro de rede ao tentar realizar a exclusão. Verifique sua conexão com a internet.");
+      } else {
+        window.alert("Erro ao tentar realizar a exclusão, Você não pode deletar este servidor existem componentes nele!. Verifique o console para mais informações.");
+      }
     });
   }
 
+  function testar() {
+    aguardar();
+
+    var formulario = new URLSearchParams(new FormData(document.getElementById("form_postagem")));
+
+    var divResultado = document.getElementById("div_feed");
+
+    divResultado.appendChild(document.createTextNode(formulario.get("descricao")));
+    divResultado.innerHTML = formulario.get("descricao");
+
+    finalizarAguardar();
+
+    return false;
+  }
+
   function editar(idComponente) {
-
-
 
     var corpo = {
      nomeVar: inp_edit_nome.value,
@@ -747,8 +773,8 @@ function editarModal(nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTi
       body: JSON.stringify(corpo)
     }).then(function (resposta) {
       if (resposta.ok) {
-        window.alert("Sala editada com sucesso");
-        window.location = "addSala.html"
+        window.alert("Componente editado com sucesso");
+        window.location = "addComponente.html"
       } else if (resposta.status == 404) {
         window.alert("Deu 404!");
       } else {
@@ -759,20 +785,7 @@ function editarModal(nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTi
     });
   }
 
-  function testar() {
-    aguardar();
-
-    var formulario = new URLSearchParams(new FormData(document.getElementById("form_postagem")));
-
-    var divResultado = document.getElementById("div_feed");
-
-    divResultado.appendChild(document.createTextNode(formulario.get("descricao")));
-    divResultado.innerHTML = formulario.get("descricao");
-
-    finalizarAguardar();
-
-    return false;
-  }
+  
 
 </script>
 </script>

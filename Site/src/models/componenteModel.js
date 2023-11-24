@@ -95,12 +95,21 @@ function cadastrarComponente(nome, fornecedor, modelo, Servidor, UnidadeMedida, 
             return database.executar(instrucao);
 }
 
+function editarComponente(idComponente, nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica) {
+    var instrucao = `
+    UPDATE componente set nome = '${nome}', modelo = '${modelo}', fabricante = '${fabricante}', fkServidor = ${fkServidor}, fkTipoComponente = ${fkTipoComponente}, fkMetrica = ${fkMetrica} WHERE idComponente = ${idComponente};
+        `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 
 module.exports = {
     listarComponentes,    
     buscarMedidas,
     buscarComponentes,
     buscarFuncionarios,
-    cadastrarComponente
+    cadastrarComponente,
+    editarComponente
     // buscarNivelPermissao
 };

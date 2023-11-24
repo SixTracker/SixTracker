@@ -47,7 +47,7 @@ function listarComponentes(req, res) {
 
 
     // Faça as validações dos valores
-    if (fkEmpresa == undefined) {
+    if (fkEmpresa === undefined) {
         res.status(400).send("O id da empresa está undefined!");
     } else {
 
