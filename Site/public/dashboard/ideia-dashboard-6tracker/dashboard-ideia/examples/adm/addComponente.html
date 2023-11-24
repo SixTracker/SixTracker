@@ -31,8 +31,6 @@ Coded by www.creative-tim.com
   <!-- CSS Files -->
   <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../../assets/demo/demo.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -306,7 +304,7 @@ Coded by www.creative-tim.com
                     </div>
                   </div>
                 </form>
-                <br/><br/>
+                <br /><br />
                 <table class="table">
                   <thead class=" text-primary">
                   </thead>
@@ -319,7 +317,13 @@ Coded by www.creative-tim.com
                         Modelo
                       </th>
                       <th>
-                        Servidor 
+                        Unidade de Medida
+                      </th>
+                      <th>
+                        Tipo Componente
+                      </th>
+                      <th>
+                        Servidor
                       </th>
                   </tbody>
                 </table>
@@ -330,81 +334,87 @@ Coded by www.creative-tim.com
       </div>
 
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Editar Componentes</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="card-body">
-              <form id="idModal">
-                <div class="row">
-                  <div class="col-md-5 pr-1">
-                    <div class="form-group1">
-                      <label>Nome</label>
-                      <input id="inp_edit_nome" type="text" class="form-control" placeholder="Nome Componente">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 pr-1">
-                    <div class="form-group1">
-                      <label>Modelo</label>
-                      <input id="inp_edit_modelo" type="text" class="form-control" placeholder="Modelo">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 pr-1">
-                    <div class="form-group1">
-                      <label>Fornecedor</label>
-                      <input id="inp_edit_fabricante" type="text" class="form-control" placeholder="Fornecedor Componente">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 pr-1">
-                    <div class="form-group1">
-                      <label>Servidor</label>
-                      <input id="servidorSelect2" type="text" class="form-control" placeholder="Servidor Componente">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 pr-1">
-                    <div class="form-group1">
-                      <label>Unidade De Medida</label>
-                      <input id="medidaSelect2" type="text" class="form-control" placeholder="Unidade de Medida">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6 pr-1">
-                    <div class="form-group1">
-                      <label>Tipo de Componente</label>
-                      <input id="componenteSelect2" type="text" class="form-control" placeholder="Unidade de Medida">
-                    </div>
-                  </div>
-                </div>
-
-              </form>
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div id="modalCrudComponente" class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Editar Componentes</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-            <button id="btn_editComponente" onclick="editarComponente(this.value)" type="button" class="btn btn-primary"
-              style="background-color: #cf41d1;">Salvar mudanças</button>
+            <div class="modal-body">
+              <div class="card-body">
+                <form id="idModal">
+                  <div class="row">
+                    <div class="col-md-5 pr-1">
+                      <div class="form-group1">
+                        <label>Nome:</label>
+                        <input id="inp_edit_nome" type="text" class="form-control" placeholder="Nome Componente">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group1">
+                        <label>Modelo:</label>
+                        <input id="inp_edit_modelo" type="text" class="form-control" placeholder="Modelo">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group1">
+                        <label>Fabricante:</label>
+                        <input id="inp_edit_fabricante" type="text" class="form-control"
+                          placeholder="Fornecedor Componente">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group1">
+                        <label>Servidor: </label>
+                        <select class="form-control" id="servidorSelect2" name="unidade">
+                          <option value="">Servidores</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group1">
+                        <label>Unidade de medida:</label>
+                        <select class="form-control" id="medidaSelect2" name="Unidade">
+                          <option value="">Unidade de medida</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group1">
+                        <label for="exampleInputEmail1">Tipo de componente: </label>
+                        <select class="form-control" id="componenteSelect2" name="unidade">
+                          <option value="">Tipo de componente</option>
+                        </select>
+                      </div>
+                    </div>
+
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+              <button id="btn_editComponente" onclick="editarComponente(this.value)" type="button"
+                class="btn btn-primary" style="background-color: #cf41d1;">Salvar mudanças</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
       <footer class="footer footer-black  footer-white ">
         <div class="container-fluid">
@@ -447,18 +457,18 @@ Coded by www.creative-tim.com
 </html>
 <script>
 
-function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica) {
+  function editarModal(idComponente, nome, modelo, fabricante, Servidor, UnidadeMedida, TipoComponente) {
     document.getElementById("btn_editComponente").value = idComponente;
     document.getElementById("inp_edit_nome").value = nome;
     document.getElementById("inp_edit_modelo").value = modelo;
     document.getElementById("inp_edit_fabricante").value = fabricante;
-    document.getElementById("servidorSelect2").value = fkServidor;
-    document.getElementById("componenteSelect2").value = fkTipoComponente; 
-    document.getElementById("medidaSelect2").value = fkMetrica;
-    
+    document.getElementById("servidorSelect2").value = Servidor;
+    document.getElementById("componenteSelect2").value = TipoComponente;
+    document.getElementById("medidaSelect2").value = UnidadeMedida;
+
     $('#exampleModal').modal('show')
 
-    console.log (nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica)
+    console.log(nome, modelo, fabricante, Servidor, UnidadeMedida, TipoComponente)
   };
 
   // BUSCAR SERVIDORES
@@ -497,10 +507,15 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
           // Cria um novo elemento de opção em cada iteração
           const optionElement = document.createElement('option');
           optionElement.value = servidor.idServidor;
-          console.log()
           optionElement.text = servidorNome;
 
           selectElement.appendChild(optionElement);
+
+          const optionElement2 = document.createElement('option');
+          optionElement2.value = servidor.idServidor;
+          optionElement2.text = servidorNome;
+
+          selectElement2.appendChild(optionElement2);
         }
 
       });
@@ -519,7 +534,7 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
   console.log("fkEmpresa:", fkEmpresa);
 
   fetch(`/componente/listarComponentes/`, {
-    method: 'POST', 
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
@@ -539,7 +554,7 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
         const dataSize = json.length;
         const tbody = document.getElementById("tb_Componentes");
 
-        var idComponentes = []; 
+        var idComponentes = [];
         var vetorComponentes = []
         for (let i = 0; i < dataSize; i++) {
           var idComponente = json[i]["idComponente"]
@@ -547,9 +562,15 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
           var nomeComponente = json[i]["nomeComponente"]
           vetorComponentes.push(nomeComponente)
           var modeloComponente = json[i]["modelo"]
+          var fabricante = json[i]["fabricante"]
+          var unidadeMedida = json[i]["unidadeMedida"]
+          var tipoComponente = json[i]["tipoComponente"]
           var nomeServidor = json[i]["nome"]
+          var fkServidor = json[i]["fkServidor"]
+          var fkUnidadeMedida = json[i]["fkUnidadeMedida"]
+          var fkTipoComponente = json[i]["fkTipoComponente"]
 
-          console.log( "TESTANDO VALORES::", nomeServidor, nomeComponente, modeloComponente)
+          // console.log( "TESTANDO VALORES::", nomeServidor, nomeComponente, modeloComponente)
 
           tbody.innerHTML += `
                         <tr>
@@ -560,8 +581,14 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
                             ${modeloComponente}
                           </td>
                           <td>
+                            ${unidadeMedida}
+                          </td>
+                          <td>
+                            ${tipoComponente}
+                          </td>
+                          <td>
                             ${nomeServidor}
-                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal('${nomeComponente}', '${modeloComponente}', ${idComponentes[i]})"></i>
+                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal('${idComponente}', '${nomeComponente}', '${modeloComponente}', '${fabricante}', '${fkServidor}', '${fkUnidadeMedida}','${fkTipoComponente}')"></i>
                               <i style="margin-left: 5vh; cursor:pointer" class="fa fa-trash" onclick="deletarComponente(${idComponente})"></i>
                           </td>
 
@@ -576,7 +603,7 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
     mensagem_erro.innerHTML = "O Login está inválido";
   })
 
-  
+
 
   // BUSCAR UNIDADE DE MEDIDA
   fetch(`/componente/unidade/`)
@@ -604,8 +631,12 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
             const optionElement = document.createElement('option');
             optionElement.value = medida.idUnidadeMedida;
             optionElement.text = medidaNome;
-
             selectElement.appendChild(optionElement);
+
+            const optionElement2 = document.createElement('option');
+            optionElement2.value = medida.idUnidadeMedida;
+            optionElement2.text = medidaNome;
+            selectElement2.appendChild(optionElement2);
           }
 
         });
@@ -646,6 +677,12 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
             optionElement.text = componenteNome;
 
             selectElement.appendChild(optionElement);
+
+            const optionElement2 = document.createElement('option');
+            optionElement2.value = componente.idTipoComponente;
+            optionElement2.text = componenteNome;
+
+            selectElement2.appendChild(optionElement2);
           }
 
         });
@@ -661,14 +698,11 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
   // CADASTRAR COMPONENTE NO BANCO
 
   function cadastrarComponente1() {
-    var ServidorVar = document.getElementById('servidorSelect')
-    console.log("Chamando Função cadastrar componente")
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
+    var ServidorVar = servidorSelect.value
     var nomeVar = nome_input.value;
     var fornecedorVar = fornecedor_input.value;
-    var modeloVar = modelo_input.value;    
-    
+    var modeloVar = modelo_input.value;
+
     var UnidadeVar = medidaSelect.value;
     var TipoVar = componenteSelect.value;
 
@@ -678,10 +712,10 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({        
+      body: JSON.stringify({
         nomeServer: nomeVar,
         fornecedorServer: fornecedorVar,
-        modeloServer: modeloVar,        
+        modeloServer: modeloVar,
         ServidorServer: ServidorVar,
         UnidadeMedidaServer: UnidadeVar,
         TipoComponenteServer: TipoVar,
@@ -691,7 +725,7 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
       console.log("resposta: ", resposta);
 
       if (resposta.ok) {
-        window.alert("Componente cadastrado com sucesso!"); 
+        window.alert("Componente cadastrado com sucesso!");
       } else if (resposta.status == 404) {
         window.alert("Deu 404!");
       } else {
@@ -714,7 +748,7 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
       return;
     }
 
-   
+
 
     fetch(`/componente/deletarComponente/${idComponente}`, {
       method: "DELETE",
@@ -762,15 +796,15 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
   function editarComponente(idComponente) {
 
     var corpo = {
-     nomeVar: inp_edit_nome.value,
-     fornecedorVar: inp_edit_fabricante.value,
-     modeloVar: inp_edit_modelo.value,    
-     ServidorVar: servidorSelect2.value,
-     UnidadeVar: medidaSelect2.value,
-     TipoVar: componenteSelect2.value
+      nomeServer: inp_edit_nome.value,
+      fornecedorServer: inp_edit_fabricante.value,
+      modeloServer: inp_edit_modelo.value,
+      ServidorServer: servidorSelect2.value,
+      UnidadeMedidaServer: medidaSelect2.value,
+      TipoComponenteServer: componenteSelect2.value
     };
 
-    fetch(`/componente/editar/${idComponente}`, {
+    fetch(`/componente/editarComponente/${idComponente}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
@@ -781,6 +815,7 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
         window.alert("Componente editado com sucesso");
         window.location = "addComponente.html"
       } else if (resposta.status == 404) {
+        console.log(corpo);
         window.alert("Deu 404!");
       } else {
         throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
@@ -788,9 +823,11 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
     }).catch(function (resposta) {
       console.log(`#ERRO: ${resposta}`);
     });
+
+
   }
 
-  
+
 
 </script>
 </script>

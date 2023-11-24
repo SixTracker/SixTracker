@@ -171,7 +171,9 @@ function editarComponente(req, res) {
     var componenteSelect2 = req.body.TipoComponenteServer;
 
 
-    componenteModel.editar(nome, fornecedor, modelo, servidorSelect2, medidaSelect2, componenteSelect2)
+    componenteModel.editarComponente(nome, fornecedor, modelo, servidorSelect2, medidaSelect2, componenteSelect2)
+    console.log("TESTETETETETEETETETETETE",idComponente,nome, fornecedor, modelo, servidorSelect2, medidaSelect2, componenteSelect2)
+
         .then(
             function (resultado) {
                 res.json(resultado);

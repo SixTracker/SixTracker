@@ -8,11 +8,19 @@ function listarComponentes(fkEmpresa){
        instrucaoSql = `SELECT 
        idComponente, 
        Componente.nome as nomeComponente, 
-       Componente.modelo, 
-       Servidor.nome 
+       Componente.modelo,
+       Componente.fabricante, 
+       Componente.fkUnidadeMedida, 
+       Componente.fkServidor, 
+       Componente.fkTipoComponente, 
+       Servidor.nome, 
+       UnidadeMedida.unidadeMedida,
+       TipoComponente.tipoComponente
        FROM Componente JOIN Servidor 
-       ON fkServidor = idServidor 
-       JOIN Salas on fkSalas = idSalas 
+       ON fkServidor = idServidor
+       JOIN UnidadeMedida ON fkUnidadeMedida = idUnidadeMedida
+       JOIN TipoComponente ON fkTipoComponente = idTipoComponente
+       JOIN Salas ON fkSalas = idSalas 
        WHERE fkEmpresa = ${fkEmpresa};`;
    } else {
        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -96,9 +104,9 @@ function cadastrarComponente(nome, fornecedor, modelo, Servidor, UnidadeMedida, 
             return database.executar(instrucao);
 }
 
-function editarComponente(idComponente, nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica) {
+function editarComponente(idComponente,nome, fornecedor, modelo, servidorSelect2, medidaSelect2, componenteSelect2) {
     var instrucao = `
-    UPDATE componente set nome = '${nome}', modelo = '${modelo}', fabricante = '${fabricante}', fkServidor = ${fkServidor}, fkTipoComponente = ${fkTipoComponente}, fkMetrica = ${fkMetrica} WHERE idComponente = ${idComponente};
+    UPDATE Componente SET nome = '${nome}', modelo = '${modelo}', fabricante = '${fornecedor}', fkServidor = ${servidorSelect2}, fkUnidadeMedida = ${medidaSelect2}, fkTipoComponente = ${componenteSelect2} WHERE idComponente = ${idComponente};
         `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

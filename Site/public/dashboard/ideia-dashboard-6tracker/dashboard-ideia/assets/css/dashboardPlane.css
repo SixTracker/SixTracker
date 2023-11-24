@@ -28,6 +28,11 @@ Copyright (c) 2015 Daniel Eden
   box-shadow: 0rem 0rem 1.5rem 1rem #6b6367a0;
 }
 
+#modalCrudComponente{
+  border-radius: 1rem;
+  box-shadow: 0rem 0rem 1.5rem 1rem #6b6367a0;
+}
+
 #idModal{
   position: relative;
   right: 5vw;
