@@ -166,12 +166,12 @@ function editarComponente(req, res) {
     var nome = req.body.nomeServer;
     var modelo = req.body.modeloServer;
     var fornecedor = req.body.fornecedorServer;
-    var servidorSe = req.body.ServidorServer;
+    var servidorSelect2 = req.body.ServidorServer;
     var medidaSelect2 = req.body.UnidadeMedidaServer;
     var componenteSelect2 = req.body.TipoComponenteServer;
 
 
-    componenteModel.editar(nome, fornecedor, modelo, servidorSe, medidaSelect2, componenteSelect2)
+    componenteModel.editar(nome, fornecedor, modelo, servidorSelect2, medidaSelect2, componenteSelect2)
         .then(
             function (resultado) {
                 res.json(resultado);
