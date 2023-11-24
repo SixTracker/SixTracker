@@ -85,7 +85,7 @@ function buscarFuncionarios(fkEmpresa){
 }
 
 function cadastrarComponente(nome, fornecedor, modelo, Servidor, UnidadeMedida, TipoComponente) {
-    console.log("ACESSEI O USUARIO MODEL - function cadastrarComponente():", nome, fornecedor, modelo, Servidor, UnidadeMedida, TipoComponente);
+    console.log("ACESSEI O componente MODEL - function cadastrarComponente():", nome, fornecedor, modelo, Servidor, UnidadeMedida, TipoComponente);
 
       var instrucao = `
                 INSERT INTO Componente (nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTipoComponente) VALUES ('${nome}', '${modelo}', '${fornecedor}', ${Servidor}, ${UnidadeMedida}, ${TipoComponente});
@@ -103,6 +103,16 @@ function editarComponente(idComponente, nome, modelo, fabricante, fkServidor, fk
     return database.executar(instrucao);
 }
 
+function deletarComponente(idComponente) {
+    console.log("ACESSEI O Componente MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idComponente);
+    var instrucao = `
+        DELETE FROM componente WHERE idComponente = ${idComponente};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+
 
 module.exports = {
     listarComponentes,    
@@ -110,6 +120,7 @@ module.exports = {
     buscarComponentes,
     buscarFuncionarios,
     cadastrarComponente,
-    editarComponente
+    editarComponente,
+    deletarComponente
     // buscarNivelPermissao
 };
