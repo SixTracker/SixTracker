@@ -334,19 +334,18 @@ Coded by www.creative-tim.com
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Editar Sala</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Editar Componentes</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-  
             <div class="card-body">
-              <form>
+              <form id="idModal">
                 <div class="row">
                   <div class="col-md-5 pr-1">
                     <div class="form-group1">
-                      <label>Nome do componente</label>
+                      <label>Nome</label>
                       <input id="inp_edit_nome" type="text" class="form-control" placeholder="Nome Componente">
                     </div>
                   </div>
@@ -354,15 +353,15 @@ Coded by www.creative-tim.com
                 <div class="row">
                   <div class="col-md-6 pr-1">
                     <div class="form-group1">
-                      <label>Modelo: </label>
-                      <input id="inp_edit_modelo" type="text" class="form-control" placeholder="Modelo Componente">
+                      <label>Modelo</label>
+                      <input id="inp_edit_modelo" type="text" class="form-control" placeholder="Modelo">
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6 pr-1">
                     <div class="form-group1">
-                      <label>Fornecedor: </label>
+                      <label>Fornecedor</label>
                       <input id="inp_edit_fabricante" type="text" class="form-control" placeholder="Fornecedor Componente">
                     </div>
                   </div>
@@ -371,7 +370,7 @@ Coded by www.creative-tim.com
                 <div class="row">
                   <div class="col-md-6 pr-1">
                     <div class="form-group1">
-                      <label>Servidor: </label>
+                      <label>Servidor</label>
                       <input id="servidorSelect2" type="text" class="form-control" placeholder="Servidor Componente">
                     </div>
                   </div>
@@ -380,7 +379,7 @@ Coded by www.creative-tim.com
                 <div class="row">
                   <div class="col-md-6 pr-1">
                     <div class="form-group1">
-                      <label>Unidade De Medida: </label>
+                      <label>Unidade De Medida</label>
                       <input id="medidaSelect2" type="text" class="form-control" placeholder="Unidade de Medida">
                     </div>
                   </div>
@@ -389,7 +388,7 @@ Coded by www.creative-tim.com
                 <div class="row">
                   <div class="col-md-6 pr-1">
                     <div class="form-group1">
-                      <label>Tipo de Componente: </label>
+                      <label>Tipo de Componente</label>
                       <input id="componenteSelect2" type="text" class="form-control" placeholder="Unidade de Medida">
                     </div>
                   </div>
@@ -400,7 +399,7 @@ Coded by www.creative-tim.com
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-            <button id="btn_editComponente" onclick="editar(this.value)" type="button" class="btn btn-primary"
+            <button id="btn_editComponente" onclick="editarComponente(this.value)" type="button" class="btn btn-primary"
               style="background-color: #cf41d1;">Salvar mudanças</button>
           </div>
         </div>
@@ -449,13 +448,14 @@ Coded by www.creative-tim.com
 <script>
 
 function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica) {
+    document.getElementById("btn_editComponente").value = idComponente;
     document.getElementById("inp_edit_nome").value = nome;
     document.getElementById("inp_edit_modelo").value = modelo;
     document.getElementById("inp_edit_fabricante").value = fabricante;
-    document.getElementById("servidorSelect").value = fkServidor;
-    document.getElementById("componenteSelect").value = fkTipoComponente; 
-    document.getElementById("medidaSelect").value = fkMetrica;
-    document.getElementById("btn_editComponente").value = idComponente;
+    document.getElementById("servidorSelect2").value = fkServidor;
+    document.getElementById("componenteSelect2").value = fkTipoComponente; 
+    document.getElementById("medidaSelect2").value = fkMetrica;
+    
     $('#exampleModal').modal('show')
 
     console.log (nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTipoComponente, fkMetrica)
@@ -513,7 +513,10 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
   })
 
 
+
   //Lista Componentes Cadastrados
+  var fkEmpresa = sessionStorage.FK_EMPRESA;
+  console.log("fkEmpresa:", fkEmpresa);
 
   fetch(`/componente/listarComponentes/`, {
     method: 'POST', 
@@ -538,11 +541,11 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
 
         var idServidores = []; 
         var vetorComponentes = []
-
         for (let i = 0; i < dataSize; i++) {
           var idServidor = json[i]["idServidor"]
           idServidores.push(idServidor);
           var nomeComponente = json[i]["nomeComponente"]
+          vetorComponentes.push(nomeComponente)
           var modeloComponente = json[i]["modelo"]
           var nomeServidor = json[i]["nome"]
 
@@ -558,8 +561,8 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
                           </td>
                           <td>
                             ${nomeServidor}
-                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal(${nomeComponente}, '${modeloComponente}', ${idServidor[i]})"></i>
-                              <i style="margin-left: 5vh; cursor:pointer" class="fa fa-trash" onclick="deletar(${idServidor})"></i>
+                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal('${nomeComponente}', '${modeloComponente}', ${idServidores[i]})"></i>
+                              <i style="margin-left: 5vh; cursor:pointer" class="fa fa-trash" onclick="deletarComponente(${idServidor})"></i>
                           </td>
 
                         </tr>
@@ -573,7 +576,7 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
     mensagem_erro.innerHTML = "O Login está inválido";
   })
 
-
+  
 
   // BUSCAR UNIDADE DE MEDIDA
   fetch(`/componente/unidade/`)
@@ -658,14 +661,14 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
   // CADASTRAR COMPONENTE NO BANCO
 
   function cadastrarComponente1() {
-
+    var ServidorVar = document.getElementById('servidorSelect')
     console.log("Chamando Função cadastrar componente")
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
     var nomeVar = nome_input.value;
     var fornecedorVar = fornecedor_input.value;
     var modeloVar = modelo_input.value;    
-    var ServidorVar = servidorSelect.value;
+    
     var UnidadeVar = medidaSelect.value;
     var TipoVar = componenteSelect.value;
 
@@ -703,7 +706,7 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
 
   }
 
-  function deletar(idComponente) {
+  function deletarComponente(nome) {
     var promptConfirmacao = prompt('Digite "deletar" para apagar o Componente');
 
     if (promptConfirmacao !== "deletar") {
@@ -711,7 +714,9 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
       return;
     }
 
-    fetch(`/componente/deletar/${idComponente}`, {
+   
+
+    fetch(`/componente/deletar/${nome}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json"
@@ -734,7 +739,7 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
       if (error instanceof TypeError && error.message.includes("Failed to fetch")) {
         window.alert("Erro de rede ao tentar realizar a exclusão. Verifique sua conexão com a internet.");
       } else {
-        window.alert("Erro ao tentar realizar a exclusão, Você não pode deletar este servidor existem componentes nele!. Verifique o console para mais informações.");
+        window.alert("Erro ao tentar realizar a exclusão, Você não pode deletar este componente existem servidores cadastrados nele!. Verifique o console para mais informações.");
       }
     });
   }
@@ -754,7 +759,7 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
     return false;
   }
 
-  function editar(idComponente) {
+  function editarComponente(nome) {
 
     var corpo = {
      nomeVar: inp_edit_nome.value,
@@ -765,7 +770,7 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
      TipoVar: componenteSelect2.value
     };
 
-    fetch(`/componente/editar/${idComponente}`, {
+    fetch(`/componente/editar/${nome}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"

@@ -188,12 +188,32 @@ function editarComponente(req, res) {
 }
 
 
+function deletarComponente(req, res) {
+    var nome = req.body.nome
+
+    componenteModel.deletar(nome)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
 module.exports = {    
     buscarMedidas,
     buscarComponentes,
     buscarFuncionarios,
     cadastrarComponente,
     listarComponentes,
-    editarComponente
+    editarComponente,
+    deletarComponente
     // buscarNivelPermissao
 }

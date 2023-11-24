@@ -31,13 +31,10 @@ router.post("/cadastrarComponente", function (req, res) {
 router.post("/buscarFuncionarios/", function (req, res) {
     componenteController.buscarFuncionarios(req, res);
 });
-router.post("/editar/:idComponente", function (req, res) {
-    componenteController.editarModal(req, res);
-});
-router.delete("/deletar/:idComponente", function (req, res) {
+router.delete("/deletaComponente/:nome", function (req, res) {
     componenteController.deletar(req, res);
 
-router.put("/editar/:idComponente", function (req, res) {
+router.put("/editarComponente/:idComponente", function (req, res) {
         componenteController.editar(req, res);
     });
 });

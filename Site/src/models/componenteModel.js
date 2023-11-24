@@ -103,14 +103,24 @@ function editarComponente(idComponente, nome, modelo, fabricante, fkServidor, fk
     return database.executar(instrucao);
 }
 
-function deletarComponente(idComponente) {
-    console.log("ACESSEI O Componente MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idComponente);
+function deletarComponente(nome) {
+    console.log("ACESSEI O Componente MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", nome);
+    
+    // Início da transação
     var instrucao = `
-        DELETE FROM componente WHERE idComponente = ${idComponente};
+        START TRANSACTION;
+        
+        DELETE FROM registro WHERE fkComponente IN (SELECT idComponente FROM componente WHERE nome = '${nome}');
+        DELETE FROM componente WHERE nome = '${nome}';
+        
+        COMMIT;
     `;
+    
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
+
+
 
 
 
