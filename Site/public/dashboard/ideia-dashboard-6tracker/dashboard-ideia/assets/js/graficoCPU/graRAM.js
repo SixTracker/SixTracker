@@ -46,6 +46,7 @@ demo = {
               pointHoverRadius: 8,
               borderWidth: 0.1,
               data: [24,24,24,24,24,24,24,24,24,24,24,24,24],
+              fill: false
             },
           ],
         },
@@ -174,6 +175,7 @@ demo = {
               backgroundColor: ["#D0DB97", "#254D32"],
               borderWidth: 0,
               data: [42, 58],
+            
             },
           ],
         },

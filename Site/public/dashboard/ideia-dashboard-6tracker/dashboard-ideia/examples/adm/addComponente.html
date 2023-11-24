@@ -539,11 +539,11 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
         const dataSize = json.length;
         const tbody = document.getElementById("tb_Componentes");
 
-        var idServidores = []; 
+        var idComponentes = []; 
         var vetorComponentes = []
         for (let i = 0; i < dataSize; i++) {
-          var idServidor = json[i]["idServidor"]
-          idServidores.push(idServidor);
+          var idComponente = json[i]["idComponente"]
+          idComponentes.push(idComponente);
           var nomeComponente = json[i]["nomeComponente"]
           vetorComponentes.push(nomeComponente)
           var modeloComponente = json[i]["modelo"]
@@ -561,8 +561,8 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
                           </td>
                           <td>
                             ${nomeServidor}
-                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal('${nomeComponente}', '${modeloComponente}', ${idServidores[i]})"></i>
-                              <i style="margin-left: 5vh; cursor:pointer" class="fa fa-trash" onclick="deletarComponente(${idServidor})"></i>
+                              <i style="margin-left: 10vh; cursor:pointer"class="fa fa-edit" onclick="editarModal('${nomeComponente}', '${modeloComponente}', ${idComponentes[i]})"></i>
+                              <i style="margin-left: 5vh; cursor:pointer" class="fa fa-trash" onclick="deletarComponente(${idComponente})"></i>
                           </td>
 
                         </tr>
@@ -716,7 +716,7 @@ function editarModal(idComponente, nome, modelo, fabricante, fkServidor, fkUnida
 
    
 
-    fetch(`/componente/deletar/${idComponente}`, {
+    fetch(`/componente/deletarComponente/${idComponente}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json"

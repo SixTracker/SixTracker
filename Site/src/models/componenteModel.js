@@ -6,6 +6,7 @@ function listarComponentes(fkEmpresa){
 
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
        instrucaoSql = `SELECT 
+       idComponente, 
        Componente.nome as nomeComponente, 
        Componente.modelo, 
        Servidor.nome 
@@ -107,15 +108,19 @@ function deletarComponente(idComponente) {
     console.log("ACESSEI O Componente MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idComponente);
     
     // Início da transação
-    var instrucao = `
-    START TRANSACTION;
+    var instrucaoRegistro = `
     DELETE FROM registro WHERE fkComponente = ${idComponente}; 
-    DELETE FROM componente WHERE idComponente = ${idComponente}; 
-    COMMIT;
+    `;    
+    
+    var instrucaoComponente = `
+    DELETE FROM componente WHERE idComponente = ${idComponente};
     `;
     
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+    console.log("Executando a instrução SQL: \n" + instrucaoRegistro);
+    console.log("Executando a instrução SQL: \n" + instrucaoComponente);
+   
+    database.executar(instrucaoRegistro);
+    return database.executar(instrucaoComponente);
 }
 
 

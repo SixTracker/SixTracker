@@ -32,6 +32,7 @@ demo = {
             pointHoverRadius: 15,
             borderWidth: 0.1,
             data: [12, 18, 23, 29, 34, 40, 45, 51, 56, 60, 56, 51, 60],
+            fill: false
           },
         ],
       },
