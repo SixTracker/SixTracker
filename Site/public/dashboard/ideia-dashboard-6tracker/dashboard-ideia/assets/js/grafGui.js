@@ -16,7 +16,7 @@ demo = {
     initChartsPages: function () {
       chartColor = "#FFFFFF";
   
-      ctx = document.getElementById("analiseRAM").getContext("2d");
+      ctx = document.getElementById("analiseSistema").getContext("2d");    
   
       myChart = new Chart(ctx, {
         type: "line",
@@ -39,14 +39,14 @@ demo = {
           ],
           datasets: [
             {
-              label: "Utilização da memória RAM ",
-              borderColor: "#000000",
-              backgroundColor: "#6bd098",
-              pointRadius: 3,
-              pointHoverRadius: 8,
+              label: "CPU",
+              borderColor: "##ff00d0",
+              backgroundColor: "#eb98dc",
+              pointRadius: 8,
+              pointHoverRadius: 15,
               borderWidth: 0.1,
-              data: [24,24,24,24,24,24,24,24,24,24,24,24,24],
-              fill: false
+              data: [75, 90, 85, 70, 75, 70, 65, 60, 75, 50, 45, 40, 35],
+              fill: false,
             },
           ],
         },
@@ -96,36 +96,47 @@ demo = {
         },
       });
   
-      ctx = document.getElementById("chartUtiRAM").getContext("2d");
+      ctx2 = document.getElementById("analiseSistema2").getContext("2d");
   
-      myChart = new Chart(ctx, {
-        type: "doughnut",
+      myChart = new Chart(ctx2, {
+        type: "line",
+  
         data: {
-          labels: ["Utilizado", "Não utilizado"],
-          datasets: [
+          labels: [
+            "12:00",
+            "12:05",
+            "12:10",
+            "12:15",
+            "12:20",
+            "12:25",
+            "12:30",
+            "12:35",
+            "12:40",
+            "12:45",
+            "12:50",
+            "12:55",
+            "13:00",
+          ],
+          datasets: [          
             {
+              label: "RAM   ",
+              borderColor: "#0004ff",
+              backgroundColor: "#b011c2",
+              pointRadius: 8,
+              pointHoverRadius: 15,
+              borderWidth: 0.1,
+              data: [25, 35, 45, 50, 55, 40, 75, 30, 75, 30, 85, 90, 95],
               fill: false,
-              pointRadius: 0,
-              pointHoverRadius: 0,
-              backgroundColor: ["#69b5789e", "#3A7D44"],
-              borderWidth: 0,
-              data: [11.3, 42.2],
             },
           ],
         },
-  
         options: {
           legend: {
-            display: false,
+            //display: false
+            position: "top",
           },
   
-          pieceLabel: {
-            render: "percentage",
-            fontColor: ["white"],
-            precision: 2,
-          },
-  
-          /* tooltips: {
+          /*  tooltips: {
               enabled: false
             }, */
   
@@ -133,12 +144,15 @@ demo = {
             yAxes: [
               {
                 ticks: {
-                  display: false,
+                  fontColor: "#9f9f9f",
+                  beginAtZero: false,
+                  maxTicksLimit: 5,
+                  //padding: 20
                 },
                 gridLines: {
                   drawBorder: false,
-                  zeroLineColor: "transparent",
-                  color: "69B578",
+                  zeroLineColor: "#ccc",
+                  color: "rgba(255,255,255,0.05)",
                 },
               },
             ],
@@ -147,35 +161,88 @@ demo = {
               {
                 barPercentage: 1.6,
                 gridLines: {
-                  drawBorder: true,
-                  color: "69B578",
+                  drawBorder: false,
+                  color: "rgba(255,255,255,0.1)",
                   zeroLineColor: "transparent",
+                  display: false,
                 },
                 ticks: {
-                  display: true,
+                  padding: 20,
+                  fontColor: "#9f9f9f",
                 },
               },
             ],
           },
         },
       });
-
-
-      ctx = document.getElementById("chartUtilizado").getContext("2d");
+  
+      var speedCanvas = document.getElementById("chartVelocidade");
+  
+      var dataFirst = {
+        data: [
+          25,35,35,39,42,45,56,65,66,68,69,70,71,73,74,75,78
+        ],
+        fill: false,
+        borderColor: "#181D27",
+        backgroundColor: "transparent",
+        pointBorderColor: "#c211a1",
+        pointRadius: 4,
+        pointHoverRadius: 4,
+        pointBorderWidth: 8,
+      };
+  
+      var speedData = {
+        labels: [
+          "12:00",
+  
+          "12:02",
+          "12:04",
+          "12:06",
+          "12:08",
+          "12:10",
+          "12:12",
+          "12:14",
+          "12:16",
+          "12:18",
+          "12:19",
+          "12:20",
+          "12:22",
+          "12:24",
+          "12:26",
+          "12:28",
+          "12:30",
+        ],
+        datasets: [dataFirst],
+      };
+  
+      var chartOptions = {
+        legend: {
+          display: false,
+          position: "top",
+        },
+      };
+  
+      var lineChart = new Chart(speedCanvas, {
+        type: "line",
+        hover: false,
+        data: speedData,
+        options: chartOptions,
+      });
+  
+      ctx = document.getElementById("chartEstado").getContext("2d");
   
       myChart = new Chart(ctx, {
         type: "doughnut",
         data: {
-          labels: ["Utilizado", "Não utilizado"],
+          labels: ["Em Uso", "Disponível"],
           datasets: [
             {
               fill: false,
               pointRadius: 0,
               pointHoverRadius: 0,
-              backgroundColor: ["#D0DB97", "#254D32"],
+              backgroundColor: ["#eb98dc","#d651be","#c211a1"],
               borderWidth: 0,
-              data: [42, 58],
-            
+              data: [85, 10],
             },
           ],
         },

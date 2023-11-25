@@ -30,9 +30,7 @@ Coded by www.creative-tim.com
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
   <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <!-- <link href="../../assets/demo/demo.css" rel="stylesheet" /> -->
+  <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />  
 </head>
 
 <body class="">
@@ -40,17 +38,16 @@ Coded by www.creative-tim.com
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
+      <div id="modalCrud" class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Editar Sala</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Editar Servidor</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-
           <div class="card-body">
-            <form>
+            <form id="idModal">
               <div class="row">
                 <div class="col-md-5 pr-1">
                   <div class="form-group1">
@@ -63,7 +60,7 @@ Coded by www.creative-tim.com
                 <div class="col-md-5 pr-1">
                   <div class="form-group1">
                     <label>Código</label>
-                    <input id="inp_edit_codigo" type="text" class="form-control" placeholder="código">
+                    <input id="inp_edit_codigo" type="text" class="form-control" placeholder="Código">
                   </div>
                 </div>
               </div>
@@ -353,6 +350,12 @@ Coded by www.creative-tim.com
                           Servidor
                         </th>
                         <th>
+                          Código
+                        </th>
+                        <th>
+                          SO
+                        </th>
+                        <th>
                           Sala
                         </th>
                     </tbody>
@@ -450,8 +453,7 @@ Coded by www.creative-tim.com
           var idServidor = json[i]["idServidor"]
           idServidores.push(idServidor);
           var nomeServidor = json[i]["nome"]    
-          var sistemaOperacional = json[i]["so"]          
-
+          var sistemaOperacional = json[i]["so"] 
           var codigo = json[i]["cod"]          
           var ip = json[i]["ip"]          
           var fkSalas = json[i]["fkS"]          
@@ -463,6 +465,12 @@ Coded by www.creative-tim.com
                         <tr>
                           <td>
                             ${nomeServidor}
+                          </td>
+                          <td>
+                            ${codigo}
+                          </td>
+                          <td>
+                            ${sistemaOperacional}
                           </td>
                           <td>
                             ${nomeSala}
@@ -636,8 +644,6 @@ Coded by www.creative-tim.com
   }
 
   function editar(idServidor) {
-
-   
 
     var corpo = {
       nome: inp_edit_name.value,

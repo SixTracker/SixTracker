@@ -1,16 +1,26 @@
-var database = require("../database/config");
+const database = require("../database/config");
+
 
 function listarComponentes(fkEmpresa){
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
        instrucaoSql = `SELECT 
-       idServidor, 
+       idComponente, 
+       Componente.nome as nomeComponente, 
+       Componente.modelo,
+       Componente.fabricante, 
+       Componente.fkUnidadeMedida, 
+       Componente.fkServidor, 
+       Componente.fkTipoComponente, 
        Servidor.nome, 
-       Servidor.sistemaOperacional, 
-       Salas.nomeSala
-       FROM Servidor Join Salas 
-       ON idSalas = fkSalas
+       UnidadeMedida.unidadeMedida,
+       TipoComponente.tipoComponente
+       FROM Componente JOIN Servidor 
+       ON fkServidor = idServidor
+       JOIN UnidadeMedida ON fkUnidadeMedida = idUnidadeMedida
+       JOIN TipoComponente ON fkTipoComponente = idTipoComponente
+       JOIN Salas ON fkSalas = idSalas 
        WHERE fkEmpresa = ${fkEmpresa};`;
    } else {
        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -21,24 +31,6 @@ function listarComponentes(fkEmpresa){
    return database.executar(instrucaoSql);
 }
 
-function buscarServidoresComponente(){
-    instrucaoSql = ''
-
-    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-       instrucaoSql = `select 
-       Servidor.idServidor,
-       Servidor.nome 
-           from Componente 
-               join Servidor 
-                   on Servidor.idServidor = Componente.fkServidor;`;
-   } else {
-       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-       return
-   }
-
-   console.log("Executando a instrução SQL: \n" + instrucaoSql);
-   return database.executar(instrucaoSql);
-}
 
 function buscarMedidas(){
     instrucaoSql = ''
@@ -102,7 +94,7 @@ function buscarFuncionarios(fkEmpresa){
 }
 
 function cadastrarComponente(nome, fornecedor, modelo, Servidor, UnidadeMedida, TipoComponente) {
-    console.log("ACESSEI O USUARIO MODEL - function cadastrarComponente():", nome, fornecedor, modelo, Servidor, UnidadeMedida, TipoComponente);
+    console.log("ACESSEI O componente MODEL - function cadastrarComponente():", nome, fornecedor, modelo, Servidor, UnidadeMedida, TipoComponente);
 
       var instrucao = `
                 INSERT INTO Componente (nome, modelo, fabricante, fkServidor, fkUnidadeMedida, fkTipoComponente) VALUES ('${nome}', '${modelo}', '${fornecedor}', ${Servidor}, ${UnidadeMedida}, ${TipoComponente});
@@ -112,13 +104,43 @@ function cadastrarComponente(nome, fornecedor, modelo, Servidor, UnidadeMedida, 
             return database.executar(instrucao);
 }
 
+function editarComponente(idComponente,nome, fornecedor, modelo, servidorSelect2, medidaSelect2, componenteSelect2) {
+    var instrucao = `
+    UPDATE Componente SET nome = '${nome}', modelo = '${modelo}', fabricante = '${fornecedor}', fkServidor = ${servidorSelect2}, fkUnidadeMedida = ${medidaSelect2}, fkTipoComponente = ${componenteSelect2} WHERE idComponente = ${idComponente};
+        `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function deletarComponente(idComponente) {
+    console.log("ACESSEI O Componente MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idComponente);
+    
+    // Início da transação
+    var instrucaoRegistro = `
+    DELETE FROM registro WHERE fkComponente = ${idComponente}; 
+    `;    
+    
+    var instrucaoComponente = `
+    DELETE FROM componente WHERE idComponente = ${idComponente};
+    `;
+    
+    console.log("Executando a instrução SQL: \n" + instrucaoRegistro);
+    console.log("Executando a instrução SQL: \n" + instrucaoComponente);
+   
+    database.executar(instrucaoRegistro);
+    return database.executar(instrucaoComponente);
+}
+
+
+
 
 module.exports = {
-    listarComponentes,
-    buscarServidoresComponente,
+    listarComponentes,    
     buscarMedidas,
     buscarComponentes,
     buscarFuncionarios,
-    cadastrarComponente
+    cadastrarComponente,
+    editarComponente,
+    deletarComponente
     // buscarNivelPermissao
 };

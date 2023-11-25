@@ -5,22 +5,6 @@ function testar(req, res) {
     res.send("ENTRAMOS NO COMPONENTE CONTROLLER");
 }
 
-function buscarServidoresComponente(req, res) {
-
-    console.log(`Recuperando medidas em tempo real`);
-
-    componenteModel.buscarServidoresComponente().then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
 
 function buscarMedidas(req, res) {
 
@@ -63,7 +47,7 @@ function listarComponentes(req, res) {
 
 
     // Faça as validações dos valores
-    if (fkEmpresa == undefined) {
+    if (fkEmpresa === undefined) {
         res.status(400).send("O id da empresa está undefined!");
     } else {
 
@@ -179,15 +163,16 @@ function cadastrarComponente(req, res) {
 }
 
 function editarComponente(req, res) {
+    var idComponente = req.params.idComponente;
     var nome = req.body.nomeServer;
+    var modelo = req.body.modeloServer;
     var fornecedor = req.body.fornecedorServer;
-    var modelo = req.body.modeloServer;  
-    var servidor = req.body.ServidorServer;
-    var unidadeMedida = req.body.UnidadeMedidaServer;
-    var tipoComponente = req.body.TipoComponenteServer;
+    var servidorSelect2 = req.body.ServidorServer;
+    var medidaSelect2 = req.body.UnidadeMedidaServer;
+    var componenteSelect2 = req.body.TipoComponenteServer;
 
 
-    componenteModel.editar(nome, fornecedor, modelo, servidor, unidadeMedida, tipoComponente)
+    componenteModel.editarComponente(idComponente, nome, fornecedor, modelo, servidorSelect2, medidaSelect2, componenteSelect2)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -204,13 +189,32 @@ function editarComponente(req, res) {
 }
 
 
-module.exports = {
-    buscarServidoresComponente,
+function deletarComponente(req, res) {
+    var idComponente = req.params.idComponente;
+
+    componenteModel.deletarComponente(idComponente)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao deletar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
+module.exports = {    
     buscarMedidas,
     buscarComponentes,
     buscarFuncionarios,
     cadastrarComponente,
     listarComponentes,
-    editarComponente
+    editarComponente,
+    deletarComponente
     // buscarNivelPermissao
 }

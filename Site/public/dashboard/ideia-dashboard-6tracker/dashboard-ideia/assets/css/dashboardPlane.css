@@ -21,6 +21,30 @@ Licensed under the MIT license - http://opensource.org/licenses/MIT
 Copyright (c) 2015 Daniel Eden
 */
 
+#modalCrud{
+  position: relative;
+  top: 3vh;
+  border-radius: 1rem;
+  box-shadow: 0rem 0rem 1.5rem 1rem #6b6367a0;
+}
+
+#modalCrudComponente{
+  border-radius: 1rem;
+  box-shadow: 0rem 0rem 1.5rem 1rem #6b6367a0;
+}
+
+#idModal{
+  position: relative;
+  right: 5vw;
+  bottom: 5vh;
+}
+
+#idModalSala{
+  position: relative;
+  right: 4vw;
+  bottom: 3vh;
+}
+
 #idKpi{
 gap: 7vw;
 position: relative;
