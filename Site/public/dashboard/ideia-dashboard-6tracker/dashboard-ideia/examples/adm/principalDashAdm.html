@@ -456,26 +456,30 @@ Coded by www.creative-tim.com fdp chris
   <script src="../../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../../assets/js/graficoAdm/grafAdm.js"></script>
+  <script src="../../assets/js/graficoCPU/grafDisco.js"></script>
 
 
   <script>
 
+// fetch("/medidas/disco/29")
+//   .then((resposta) => {
+//     console.log("RESPOSTA ------- ", resposta)
+//     if (!resposta.ok) {
+//       throw new Error(`Erro na requisição: ${resposta.status}`);
+//     }
+
+//     // Agora, você precisa esperar pela conversão do JSON
+//     return resposta.json();
+//   })
+//   .then((jsonResposta) => {
+//     console.log(jsonResposta);
 
 
-    fetch(`/medidas/disco/29`)
-      .then((resposta) => {
-        console.log("RESPOSTA ------- ", resposta);
+//   })
+//   .catch((error) => {
+//     alert('Deu ruim: ' + error.message);
+//   });
 
-      }).catch(error => {
-        alert('Deu ruim')
-      })
-
-
-
-    //  $(document).ready(function() {
-    //   // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-    //   demo.initChartsPages();
-    // });
 
 
     // fetch(`/servidor/buscar/`)

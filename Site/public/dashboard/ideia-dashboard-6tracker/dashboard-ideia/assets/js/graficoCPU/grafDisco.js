@@ -1,4 +1,5 @@
-demo = {
+
+  demo = {
     initPickColor: function () {
       $(".pick-class-label").click(function () {
         var new_class = $(this).attr("new-class");
@@ -12,15 +13,18 @@ demo = {
         }
       });
     },
-  
-    initChartsPages: function () {
+
+    initChartsPages: function (dados) {
+
+      
+
       chartColor = "#FFFFFF";
-  
-      ctx = document.getElementById("analiseDisco").getContext("2d");
-  
+
+      ctx = document.getElementById("analiseDisco")
+
       myChart = new Chart(ctx, {
         type: "line",
-  
+
         data: {
           labels: [
             "12:00",
@@ -65,11 +69,11 @@ demo = {
             display: false,
             position: "top",
           },
-  
+
           /*  tooltips: {
               enabled: false
             }, */
-  
+
           scales: {
             yAxes: [
               {
@@ -86,7 +90,7 @@ demo = {
                 },
               },
             ],
-  
+
             xAxes: [
               {
                 barPercentage: 1.6,
@@ -105,12 +109,13 @@ demo = {
           },
         },
       });
-  
+
+
       var speedCanvas = document.getElementById("chartVelocidadeDisco");
-  
+
       var dataFirst = {
         data: [
-          4,0,1,0,5,6,3,8,2,0,9,4,6,2,3,1,15
+          4, 0, 1, 0, 5, 6, 3, 8, 2, 0, 9, 4, 6, 2, 3, 1, 15
         ],
         fill: false,
         label: "Atividade de leitura e gravações do disco",
@@ -125,7 +130,7 @@ demo = {
       var speedData = {
         labels: [
           "12:00",
-  
+
           "12:02",
           "12:04",
           "12:06",
@@ -145,21 +150,78 @@ demo = {
         ],
         datasets: [dataFirst],
       };
-  
+
       var chartOptions = {
         legend: {
-          display: false ,
+          display: false,
           position: "top",
         },
       };
-  
+
       var lineChart = new Chart(speedCanvas, {
         type: "line",
         hover: false,
         data: speedData,
         options: chartOptions,
       });
-  
+
     },
   };
   
+  let graficoTodos;
+ $(document).ready(function () {
+  // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+
+  fetch("/medidas/disco/29", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(function (resposta) {
+      return resposta.json();
+    })
+    .then(data => {
+      console.log(data);
+
+      // Verifica se data é uma array e tem comprimento antes de continuar
+      if (Array.isArray(data) && data.length > 0) {
+        const data_reverse = data.reverse();
+        graficoTodos = demo.initChartsPages(data_reverse);
+        graficoCpu = demo.ChartsCPU(data_reverse);
+        graficoRam = demo.ChartsRAM(data_reverse);
+        graficoDisco = demo.ChartsDisco(data_reverse);
+        graficoNet = demo.ChartsNET(data_reverse);
+
+        setInterval(() => {
+          atualizarGraficos();
+        }, 3000);
+      } else {
+        console.error("Os dados não são uma array válida ou estão vazios:", data);
+      }
+    })
+    .catch(error => {
+      console.error("Erro na requisição:", error);
+    });
+});
+
+
+  /* 
+
+  async function botao() {
+
+    const disco1 = await fetch ("/medidas/disco/29", {
+        method: "GET",
+        headers: { "Content-type": "application/json; charset=UTF-8" }
+
+    })
+    
+
+    const discoJson = await disco1.json();
+    console.log(discoJson)
+
+    const ultimoDisco = discoJson[discoJson.length-1]
+    console.log(ultimoDisco)
+    
+  }
+   */
