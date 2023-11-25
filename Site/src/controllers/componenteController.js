@@ -163,6 +163,7 @@ function cadastrarComponente(req, res) {
 }
 
 function editarComponente(req, res) {
+    var idComponente = req.params.idComponente;
     var nome = req.body.nomeServer;
     var modelo = req.body.modeloServer;
     var fornecedor = req.body.fornecedorServer;
@@ -171,9 +172,7 @@ function editarComponente(req, res) {
     var componenteSelect2 = req.body.TipoComponenteServer;
 
 
-    componenteModel.editarComponente(nome, fornecedor, modelo, servidorSelect2, medidaSelect2, componenteSelect2)
-    console.log("TESTETETETETEETETETETETE",idComponente,nome, fornecedor, modelo, servidorSelect2, medidaSelect2, componenteSelect2)
-
+    componenteModel.editarComponente(idComponente, nome, fornecedor, modelo, servidorSelect2, medidaSelect2, componenteSelect2)
         .then(
             function (resultado) {
                 res.json(resultado);

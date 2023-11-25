@@ -33,10 +33,9 @@ router.post("/buscarFuncionarios/", function (req, res) {
 });
 router.delete("/deletarComponente/:idComponente", function (req, res) {
     componenteController.deletarComponente(req, res);
-
+});
 router.put("/editarComponente/:idComponente", function (req, res) {
-        componenteController.editarComponente(req, res);
-    });
+    componenteController.editarComponente(req, res);
 });
 
 module.exports = router;
