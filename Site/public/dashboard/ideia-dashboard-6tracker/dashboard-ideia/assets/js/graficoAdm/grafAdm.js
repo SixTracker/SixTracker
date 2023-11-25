@@ -13,7 +13,7 @@ demo = {
     });
   },
 
-  initChartsPages: function () {
+  initChartsPages: function (dadosDisco) {
     chartColor = "#FFFFFF";
 
     ctx = document.getElementById("analiseSistema").getContext("2d");    
