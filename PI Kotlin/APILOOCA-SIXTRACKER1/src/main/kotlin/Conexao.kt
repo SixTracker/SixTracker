@@ -10,8 +10,8 @@ object Conexao {
                 val dataSource = BasicDataSource()
                 dataSource.driverClassName = "com.mysql.cj.jdbc.Driver"
                 dataSource.url = "jdbc:mysql://localhost:3306/sixtracker"
-                dataSource.username = "root"
-                dataSource.password = "Isabeol0609!"
+                dataSource.username = "sixtracker6"
+                dataSource.password = "error404"
                 val novoJdbcTemplate = JdbcTemplate(dataSource)
                 field = novoJdbcTemplate
 
@@ -22,7 +22,7 @@ object Conexao {
         get() {
             if (field == null) {
                 val dataSourceServer = BasicDataSource()
-                dataSourceServer.url = "jdbc:sqlserver://52.7.105.138;databaseName=sixtracker;encrypt=false";
+                dataSourceServer.url = "jdbc:sqlserver://54.146.1.25;databaseName=sixtracker;encrypt=false";
                 dataSourceServer.driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
                 dataSourceServer.username = "sa"
                 dataSourceServer.password = "Sixtracker@"
