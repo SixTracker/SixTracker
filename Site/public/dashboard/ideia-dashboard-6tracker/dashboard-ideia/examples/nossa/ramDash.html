@@ -32,6 +32,8 @@ Coded by www.creative-tim.com
   <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />
   <link rel="stylesheet" href="../../assets/css/cpuDash.css">
+  <link rel="stylesheet" href="../../assets/css/DashChris.css"
+
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../../assets/demo/demo.css" rel="stylesheet" />
 </head>
@@ -193,8 +195,8 @@ Coded by www.creative-tim.com
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Em uso</p>
-                      <p class="card-title">8,6 GB</p>
+                      <p class="card-category">Média das RAM</p>
+                      <p class="card-title">30%</p>
                     </div>
                   </div>
                 </div>
@@ -203,7 +205,7 @@ Coded by www.creative-tim.com
                 <hr>
                 <div class="stats">
                   <i class="fa fa-refresh"></i>
-                  Update Now
+                  Atualizar agora
                 </div>
               </div>
             </div>
@@ -227,9 +229,8 @@ Coded by www.creative-tim.com
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Velocidade</p>
-                      <p class="card-title">2,4 GHz
-                      <p>
+                      <p class="card-category">Quantidade de memória RAM</p>
+                      <p class="card-title">3<p>
                     </div>
                   </div>
                 </div>
@@ -238,7 +239,7 @@ Coded by www.creative-tim.com
                 <hr>
                 <div class="stats">
                   <i class="fa fa-refresh"></i>
-                  Update Now
+                  Atualizar agora
                 </div>
               </div>
             </div>
@@ -260,8 +261,8 @@ Coded by www.creative-tim.com
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Em cache</p>
-                      <p class="card-title">5,6 GB
+                      <p class="card-category">Último horário atualizado</p>
+                      <p class="card-title">13:20h
                       <p>
                     </div>
                   </div>
@@ -271,7 +272,7 @@ Coded by www.creative-tim.com
                 <hr>
                 <div class="stats">
                   <i class="fa fa-refresh"></i>
-                  Update Now
+                  Atualizar agora
                 </div>
               </div>
             </div>
@@ -302,20 +303,27 @@ Coded by www.creative-tim.com
                 <hr>
                 <div class="stats">
                   <i class="fa fa-refresh"></i>
-                  Update now
+                  Atualizar agora
                 </div>
               </div>
             </div>
           </div>
         </div>
         <h3 class="description" style="color: aliceblue;text-align: center;">Gráficos</h3>
+        
         <!--Inicio dos gráficos-->
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card ">
+        <div class="dash">
+          <div class="grafico">
+              <canvas id="myChart"></canvas>
+          </div>
+      </div>
+
+        <!-- <div class="row">
+          <div id= "DashChris" class="col-md-12">
+            <div id="cardRAM" class="card ">
               <div class="card-header ">
                 <h5 class="card-title">Dados da RAM</h5>
-                <p class="card-category">Monitoramento 24 horas de performance.</p>
+                <p class="card-category">Média geral das RAMs</p>
               </div>
               <div class="card-body ">
                 <canvas id=analiseRAM width="400" height="150"></canvas>
@@ -390,7 +398,7 @@ Coded by www.creative-tim.com
           </div>
         </footer>
       </div>
-    </div>
+    </div> -->
     <!--   Core JS Files   -->
     <script src="../../assets/js/core/jquery.min.js"></script>
     <script src="../../assets/js/core/popper.min.js"></script>
@@ -414,5 +422,214 @@ Coded by www.creative-tim.com
       });
     </script>
 </body>
+
+<!-- Começando o script para plotar os gráficos -->
+<script>
+  function obterDadosGrafico() {
+    var idUsuario = Number(sessionStorage.ID_USUARIO);
+    obterDadosGrafico(idUsuario)
+
+}
+
+function obterDadosGrafico(idUsuario) {
+
+    // alterarTitulo(idUsuario)
+    if (proximaAtualizacao != undefined) {
+        clearTimeout(proximaAtualizacao);
+    }
+    fetch(`/medidas/ultimas/`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                resposta.reverse();
+
+                plotarGrafico(resposta);
+
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+
+function plotarGrafico(resposta, idUsuario) {
+
+    console.log('iniciando plotagem do gráfico...');
+
+    // Criando estrutura para plotar gráfico - labels
+    let labels = ["Joel", "Ellie", "Tess", "Bill", "Infectados"];
+
+    // Criando estrutura para plotar gráfico - dados
+    let dados = {
+        labels: labels,
+        datasets: [{
+            label: 'Joel',
+            data: [],
+            backgroundColor: 'purple',
+            borderColor: 'purple',
+            fill: false,
+           
+            tension: 0.1
+        },
+        {
+            label: 'Ellie',
+            data: [],
+            backgroundColor: 'green',
+            borderColor: 'green',
+            fill: false,
+           
+            tension: 0.1
+        },
+        {
+            label: 'Bill',
+            data: [],
+            backgroundColor: 'darkorange',
+            borderColor: 'darkorange',
+            fill: false,
+           
+            tension: 0.1
+        }, {
+            label: 'Tess',
+            data: [],
+            backgroundColor: 'blue',
+            borderColor: 'blue',
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        },
+        {
+            label: 'Bill',
+            data: [],
+            backgroundColor: 'black',
+            borderColor: 'black',
+            fill: false,
+           
+            tension: 0.1
+        }]
+    };
+    
+    
+    
+    console.log('----------------------------------------------')
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    console.log(resposta)
+
+    // Inserindo valores recebidos em estrutura para plotar o gráfico
+    for (i = 0; i < resposta.length; i++) {
+        var registro = resposta[i];
+        // labels.push(registro.momento_grafico);
+        dados.datasets[0].data[0] = registro.Joel;
+        dados.datasets[1].data[1] = registro.Ellie;
+        dados.datasets[2].data[2] = registro.Tess;
+        dados.datasets[3].data[3] = registro.Bill;
+        dados.datasets[4].data[4] = registro.Infectados;
+
+        // dados.datasets[0].data.push(registro.Joel);
+        // dados.datasets[1].data.push(registro.Ellie);
+        // dados.datasets[2].data.push(registro.Tess);
+        // dados.datasets[3].data.push(registro.Bill);
+        // dados.datasets[4].data.push(registro.Infectados);
+        
+    }
+    
+    console.log('----------------------------------------------')
+    console.log('O gráfico será plotado com os respectivos valores:')
+    console.log('Labels:')
+    console.log(labels)
+    console.log('Dados:')
+    console.log(dados.datasets)
+    console.log('----------------------------------------------')
+    
+    // Criando estrutura para plotar gráfico - config
+    const config = {
+    type: 'bar',
+    data: dados,
+};
+
+// // Adicionando gráfico criado em div na tela
+let myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+    );
+    
+    // setTimeout(() => atualizarGrafico(idUsuario, dados, myChart), 2000);
+    
+
+}
+
+// Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+// buscando a última medida inserida em tabela contendo as capturas, 
+
+//     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+//     Para ajustar o "select", ajuste o comando sql em src/models
+// function atualizarGrafico(idUsuario, dados, myChart) {
+
+
+
+//     fetch(`/medidas/tempo-real/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
+//         if (response.ok) {
+//             response.json().then(function (novoRegistro) {
+
+//                 // obterdados(idUsuario);
+
+//                 // alertar(novoRegistro, idAquario);
+//                 console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+//                 console.log(`Dados atuais do gráfico:`);
+//                 console.log(dados);
+
+//                 let avisoCaptura = document.getElementById(`avisoCaptura${idUsuario}`)
+                
+
+
+//                 if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+//                     console.log("---------------------------------------------------------------")
+//                     console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+//                     console.log("Horário do novo dado capturado:")
+//                     console.log(novoRegistro[0].momento_grafico)
+//                     console.log("Horário do último dado capturado:")
+//                     console.log(dados.labels[dados.labels.length - 1])
+//                     console.log("---------------------------------------------------------------")
+//                 } else {
+
+//                     dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+//                     dados.datasets[0].data.push(novoRegistro[0].Joel); // incluir uma nova medida de umidade
+
+//                     dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+//                     dados.datasets[1].data.push(novoRegistro[0].Ellie); // incluir uma nova medida de temperatura
+
+
+//                     dados.datasets[2].data.shift();  // apagar o primeiro de temperatura
+//                     dados.datasets[2].data.push(novoRegistro[0].Bill);
+
+
+//                     dados.datasets[3].data.shift();  // apagar o primeiro de temperatura
+//                     dados.datasets[3].data.push(novoRegistro[0].Infectados);
+
+//                     dados.datasets[4].data.shift();  // apagar o primeiro de temperatura
+//                     dados.datasets[4].data.push(novoRegistro[0].Tess);
+//                     myChart.update();
+//                 }
+
+//                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+//                 proximaAtualizacao = setTimeout(() => atualizarGrafico(idUsuario, dados, myChart), 2000);
+//             });
+//         } else {
+//             console.error('Nenhum dado encontrado ou erro na API');
+
+//             // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+//             proximaAtualizacao = setTimeout(() => atualizarGrafico(idUsuario, dados, myChart), 2000);
+//         }
+//     })
+//         .catch(function (error) {
+//             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+//         });
+
+// }
+</script>
+
 
 </html>

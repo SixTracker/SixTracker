@@ -1,0 +1,11 @@
+.dash {
+    display: flex;
+  }
+
+  
+.grafico {
+    background-color: rgb(255, 255, 255);
+    height: 300px;
+    width: 600px;
+    margin-bottom: 5%;
+  }
