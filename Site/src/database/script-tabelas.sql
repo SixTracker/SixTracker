@@ -302,7 +302,7 @@ CREATE USER [sa]
 
 -- Criação do banco 
 --DROP DATABASE teste2;
---CREATE DATABASE sixtracker;
+CREATE DATABASE sixtracker;
 Use sixtracker;
 
 -- Tabela Permissao
