@@ -13,120 +13,38 @@ demo = {
     });
   },
 
-  initChartsPages: function (dadosDisco) {
+  initChartsPages: function () {
     chartColor = "#FFFFFF";
 
-    ctx = document.getElementById("analiseSistema").getContext("2d");    
+    ctx = document.getElementById("analiseSistema").getContext("2d");
 
     myChart = new Chart(ctx, {
       type: "line",
 
       data: {
         labels: [
-          "12:00",
-          "12:05",
-          "12:10",
-          "12:15",
-          "12:20",
-          "12:25",
-          "12:30",
-          "12:35",
-          "12:40",
-          "12:45",
-          "12:50",
-          "12:55",
-          "13:00",
+          "Janeiro",
+          "Fevereiro",
+          "Março",
+          "Abril",
+          "Maio",
+          "Junho",
+          "Julho",
+          "Agosto",
+          "Setembro",
+          "Outubro",
+          "Novembro",
+          "Dezembro",
         ],
         datasets: [
           {
-            label: "CPU",
-            borderColor: "##ff00d0",
-            backgroundColor: "#eb98dc",
+            label: "Chamados abertos",
+            borderColor: "#000000",
+            backgroundColor: "#6bd098",
             pointRadius: 8,
             pointHoverRadius: 15,
             borderWidth: 0.1,
-            data: [75, 90, 85, 70, 75, 70, 65, 60, 75, 50, 45, 40, 35],
-            fill: false,
-          },
-        ],
-      },
-      options: {
-        legend: {
-          //display: false
-          position: "top",
-        },
-
-        /*  tooltips: {
-            enabled: false
-          }, */
-
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                fontColor: "#9f9f9f",
-                beginAtZero: false,
-                maxTicksLimit: 5,
-                //padding: 20
-              },
-              gridLines: {
-                drawBorder: false,
-                zeroLineColor: "#ccc",
-                color: "rgba(255,255,255,0.05)",
-              },
-            },
-          ],
-
-          xAxes: [
-            {
-              barPercentage: 1.6,
-              gridLines: {
-                drawBorder: false,
-                color: "rgba(255,255,255,0.1)",
-                zeroLineColor: "transparent",
-                display: false,
-              },
-              ticks: {
-                padding: 20,
-                fontColor: "#9f9f9f",
-              },
-            },
-          ],
-        },
-      },
-    });
-
-    ctx2 = document.getElementById("analiseSistema2").getContext("2d");
-
-    myChart = new Chart(ctx2, {
-      type: "line",
-
-      data: {
-        labels: [
-          "12:00",
-          "12:05",
-          "12:10",
-          "12:15",
-          "12:20",
-          "12:25",
-          "12:30",
-          "12:35",
-          "12:40",
-          "12:45",
-          "12:50",
-          "12:55",
-          "13:00",
-        ],
-        datasets: [          
-          {
-            label: "RAM   ",
-            borderColor: "#0004ff",
-            backgroundColor: "#b011c2",
-            pointRadius: 8,
-            pointHoverRadius: 15,
-            borderWidth: 0.1,
-            data: [25, 35, 45, 50, 55, 40, 75, 30, 75, 30, 85, 90, 95],
-            fill: false,
+            data: [1,2,3,4,5,6,7,8,9,10,11,12],
           },
         ],
       },
@@ -185,7 +103,7 @@ demo = {
       fill: false,
       borderColor: "#181D27",
       backgroundColor: "transparent",
-      pointBorderColor: "#c211a1",
+      pointBorderColor: "#3A7D44",
       pointRadius: 4,
       pointHoverRadius: 4,
       pointBorderWidth: 8,
@@ -194,7 +112,6 @@ demo = {
     var speedData = {
       labels: [
         "12:00",
-
         "12:02",
         "12:04",
         "12:06",
@@ -231,18 +148,18 @@ demo = {
 
     ctx = document.getElementById("chartEstado").getContext("2d");
 
-    myChart = new Chart(ctx, {
+    myChartRosca = new Chart(ctx, {
       type: "doughnut",
       data: {
-        labels: ["Em Uso", "Disponível"],
+        labels: ["Seguro", "Alerta", "Risco"],
         datasets: [
           {
             fill: false,
             pointRadius: 0,
             pointHoverRadius: 0,
-            backgroundColor: ["#eb98dc","#d651be","#c211a1"],
+            backgroundColor: ["#3A7D44","#69b5789e","#EA2309"],
             borderWidth: 0,
-            data: [85, 10],
+            data: [85, 10,5],
           },
         ],
       },
@@ -294,3 +211,5 @@ demo = {
     });
   },
 };
+
+
