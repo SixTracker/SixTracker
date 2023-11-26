@@ -13,6 +13,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 var avisosRouter = require("./src/routes/avisos");
 var medidasRouter = require("./src/routes/medidas");
 var graficosGuiRouter = require("./src/routes/graficosGui");
+var graficosChrisRouter = require("./src/routes/graficosChris");
 var servidorRouter = require("./src/routes/servidor");
 var salaRouter = require("./src/routes/sala");
 var componenteRouter = require("./src/routes/componente");
