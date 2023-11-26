@@ -21,6 +21,15 @@ Licensed under the MIT license - http://opensource.org/licenses/MIT
 Copyright (c) 2015 Daniel Eden
 */
 
+#SelectidSalasDash{
+  position: relative;
+  bottom: 2.5vh;
+}
+
+#IptSalas{
+  width: 18vw;
+}
+
 #modalCrud{
   position: relative;
   top: 3vh;
@@ -46,9 +55,10 @@ Copyright (c) 2015 Daniel Eden
 }
 
 #idKpi{
-gap: 7vw;
+gap: 9.7vw;
 position: relative;
-left: 2vw;
+right: 1vw;
+bottom: 1vh;
 }
 
 #idDisco{
@@ -59,7 +69,7 @@ left: 2vw;
   flex-direction: row;
   height: 40vh;
   position: relative;
-  bottom: 5vh;
+  bottom: 8vh;
 }
 
 #CardCPU{
@@ -73,8 +83,8 @@ left: 2vw;
   height: fit-content;
   width: 38vw;
   position: relative;
-  left: 38vw;
-  bottom: 28.59vw;
+  left: 38vw;  
+  bottom: 45.7vh;
 }
 
 #emailPerfil{

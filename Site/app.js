@@ -1,5 +1,5 @@
-//process.env.AMBIENTE_PROCESSO = "desenvolvimento";
-process.env.AMBIENTE_PROCESSO = "producao";
+process.env.AMBIENTE_PROCESSO = "desenvolvimento";
+// process.env.AMBIENTE_PROCESSO = "producao";
 
 var express = require("express");
 var cors = require("cors");
@@ -12,6 +12,7 @@ var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var avisosRouter = require("./src/routes/avisos");
 var medidasRouter = require("./src/routes/medidas");
+var graficosGuiRouter = require("./src/routes/graficosGui");
 var servidorRouter = require("./src/routes/servidor");
 var salaRouter = require("./src/routes/sala");
 var componenteRouter = require("./src/routes/componente");
@@ -28,6 +29,7 @@ app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter)
+app.use("/graficosGui", graficosGuiRouter)
 app.use("/servidor", servidorRouter)
 app.use("/sala", salaRouter)
 app.use("/componente", componenteRouter)
