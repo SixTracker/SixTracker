@@ -306,8 +306,7 @@ Coded by www.creative-tim.com fdp chris
               </div>
             </div>
           </div>
-        </div>
-          <h3 class="description" style="color: aliceblue;text-align: center;">Gráficos</h3>
+        </div>          
           <!--Inicio dos gráficos-->
           <div class="row">
             <div id="rowDashGui" class="col-md-12">
@@ -450,6 +449,43 @@ Coded by www.creative-tim.com fdp chris
         cardRam.style.bottom = '52.5vh';
     }
 });
+
+
+window.onload = async function () {
+        try {
+            var selectSala = document.getElementById('salaSelect');
+            var idSala = selectSala.value;
+            await obterDadosMediaRAM(idSala);
+            await atualizarGraficoRAM(idSala);
+            await obterDadosMediaCPU(idSala);
+            await atualizarGraficoMediaCPU(idSala);
+       } catch (error) {
+            console.error("Erro no carregamento da página: " + error.message);
+        }
+    };
+
+    var seletor = document.getElementById("salaSelect");
+
+    seletor.addEventListener("change", function () {
+        mudarId()
+    });
+
+
+    async function mudarId() {
+        try {
+            limparCPU()
+            limparRAM()
+            var selectSala = document.getElementById('salaSelect');
+            var idSala = selectSala.value;
+            console.log(idSala)
+            await obterDadosMediaCPU(idSala);
+            await obterDadosMediaRAM(idSala);
+            await atualizarGraficoRAM(idSala);
+            await atualizarGraficoMediaCPU(idSala);
+        } catch (error) {
+            console.error("Erro no carregamento da página: " + error.message);
+        }
+    }
 
 
 </script>

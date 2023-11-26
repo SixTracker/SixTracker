@@ -76,8 +76,51 @@ function plotarGraficoCPU(resposta, idSalas) {
     config
   );
 
+  setTimeout(() => atualizarGraficoCPU(idSalas, dados, chartMediaCPU), 5000);
 
 }
+
+function atualizarGraficoCPU(idSalas, dados, chartMediaCPU) {
+
+  fetch(`/graficosGui/medidasAtualizadaCPU/${idSalas}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+          response.json().then(function (novoRegistro) {              
+
+              if (novoRegistro[0].intervalo_tempo == dados.datasets[0].data.intervalo_tempo) {
+                  console.log("---------------------------------------------------------------")
+                  console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                  console.log("Horário do novo dado capturado:")
+                  console.log(novoRegistro[0].intervalo_tempo)
+                  console.log("Horário do último dado capturado:")
+                  console.log(dados.labels[dados.labels.length - 1])
+                  console.log("---------------------------------------------------------------")
+              } else {
+                  // tirando e colocando valores no gráfico
+                  dados.labels.shift(); // apagar o primeiro
+                  dados.labels.push(novoRegistro[0].intervalo_tempo); // incluir um novo momento
+
+                  dados.datasets[0].data.shift();  // apagar o primeira medida
+                  dados.datasets[0].data.push(novoRegistro[0].CPU); // incluir uma nova medida            
+
+                  chartMediaCPU.update();
+              }
+
+              // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+              proximaAtualizacaoCPU = setTimeout(() => atualizarGraficoCPU(idSalas, dados, chartMediaCPU), 5000);
+          });
+      } else {
+          console.error('Nenhum dado encontrado ou erro na API');
+          // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+          proximaAtualizacaoCPU = setTimeout(() => atualizarGraficoCPU(idSalas, dados, chartMediaCPU), 5000);
+      }
+  })
+      .catch(function (error) {
+          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+
+}
+
+
 
 function obterDadosMediaRAM(idSalas) {
   console.log("RAM")
@@ -157,7 +200,64 @@ function plotarGraficoRAM(resposta, idSalas) {
     config
   );
 
+  setTimeout(() => atualizarGraficoRAM(idSalas, dados, chartMediaRAM), 5000);
 
+}
+
+function atualizarGraficoRAM(idSalas, dados, chartMediaRAM) {
+
+  fetch(`/graficosGui/medidasAtualizadaRAM/${idSalas}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+          response.json().then(function (novoRegistro) {              
+
+              if (novoRegistro[0].intervalo_tempo == dados.datasets[0].data.intervalo_tempo) {
+                  console.log("---------------------------------------------------------------")
+                  console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                  console.log("Horário do novo dado capturado:")
+                  console.log(novoRegistro[0].data_hora)
+                  console.log("Horário do último dado capturado:")
+                  console.log(dados.labels[dados.labels.length - 1])
+                  console.log("---------------------------------------------------------------")
+              } else {
+                  // tirando e colocando valores no gráfico
+                  dados.labels.shift(); // apagar o primeiro
+                  dados.labels.push(novoRegistro[0].intervalo_tempo); // incluir um novo momento
+
+                  dados.datasets[0].data.shift();  // apagar o primeira medida
+                  dados.datasets[0].data.push(novoRegistro[0].RAM); // incluir uma nova medida            
+
+                  chartMediaRAM.update();
+              }
+
+              // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+              proximaAtualizacaoRAM = setTimeout(() => atualizarGraficoRAM(idSalas, dados, chartMediaRAM), 5000);
+          });
+      } else {
+          console.error('Nenhum dado encontrado ou erro na API');
+          // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+          proximaAtualizacaoRAM = setTimeout(() => atualizarGraficoRAM(idSalas, dados, chartMediaRAM), 5000);
+      }
+  })
+      .catch(function (error) {
+          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+
+}
+
+function limparCPU(){
+  let chartMediaRAM = new Chart(
+    document.getElementById("analiseSistema"),
+  );
+
+  chartMediaRAM.clear()
+}
+
+function limparRAM(){
+  let chartMediaRAM = new Chart(
+    document.getElementById("analiseSistema2"),
+  );
+
+  chartMediaRAM.clear()
 }
 
 
