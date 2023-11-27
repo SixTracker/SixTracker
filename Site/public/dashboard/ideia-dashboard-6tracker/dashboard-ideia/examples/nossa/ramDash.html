@@ -32,6 +32,8 @@ Coded by www.creative-tim.com
   <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />
   <link rel="stylesheet" href="../../assets/css/cpuDash.css">
+  <link rel="stylesheet" href="../../assets/css/DashChris.css"
+
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../../assets/demo/demo.css" rel="stylesheet" />
 </head>
@@ -193,8 +195,8 @@ Coded by www.creative-tim.com
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Em uso</p>
-                      <p class="card-title">8,6 GB</p>
+                      <p class="card-category">Média das RAM</p>
+                      <p class="card-title">30%</p>
                     </div>
                   </div>
                 </div>
@@ -203,7 +205,7 @@ Coded by www.creative-tim.com
                 <hr>
                 <div class="stats">
                   <i class="fa fa-refresh"></i>
-                  Update Now
+                  Atualizar agora
                 </div>
               </div>
             </div>
@@ -227,9 +229,8 @@ Coded by www.creative-tim.com
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Velocidade</p>
-                      <p class="card-title">2,4 GHz
-                      <p>
+                      <p class="card-category">Quantidade de memória RAM</p>
+                      <p class="card-title">3<p>
                     </div>
                   </div>
                 </div>
@@ -238,7 +239,7 @@ Coded by www.creative-tim.com
                 <hr>
                 <div class="stats">
                   <i class="fa fa-refresh"></i>
-                  Update Now
+                  Atualizar agora
                 </div>
               </div>
             </div>
@@ -260,8 +261,8 @@ Coded by www.creative-tim.com
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Em cache</p>
-                      <p class="card-title">5,6 GB
+                      <p class="card-category">Último horário atualizado</p>
+                      <p class="card-title">13:20h
                       <p>
                     </div>
                   </div>
@@ -271,7 +272,7 @@ Coded by www.creative-tim.com
                 <hr>
                 <div class="stats">
                   <i class="fa fa-refresh"></i>
-                  Update Now
+                  Atualizar agora
                 </div>
               </div>
             </div>
@@ -302,20 +303,37 @@ Coded by www.creative-tim.com
                 <hr>
                 <div class="stats">
                   <i class="fa fa-refresh"></i>
-                  Update now
+                  Atualizar agora
                 </div>
               </div>
             </div>
           </div>
         </div>
         <h3 class="description" style="color: aliceblue;text-align: center;">Gráficos</h3>
+        
         <!--Inicio dos gráficos-->
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card ">
+        <div class="dashChris">
+          <div class="graficoChris">
+            <h4 class="card-title">Dados da RAM</h4>
+            <h6 class= "card-title">Servidor 1</h6>
+              <canvas id="sistemaRAM"></canvas>
+              <h6 class="card-title2">Atualizado agora</h6>
+            </div>
+              
+          <div class="graficoChris">
+            <h4 class="card-title">Dados da RAM</h4>
+            <h6 class= "card-title">Servidor 2</h6>
+              <canvas id="sistemaRAM2"></canvas>
+              <h6 class="card-title2">Atualizado agora</h6>
+            </div>
+              
+
+        <!-- <div class="row">
+          <div id= "DashChris" class="col-md-12">
+            <div id="cardRAM" class="card ">
               <div class="card-header ">
                 <h5 class="card-title">Dados da RAM</h5>
-                <p class="card-category">Monitoramento 24 horas de performance.</p>
+                <p class="card-category">Média geral das RAMs</p>
               </div>
               <div class="card-body ">
                 <canvas id=analiseRAM width="400" height="150"></canvas>
@@ -390,7 +408,7 @@ Coded by www.creative-tim.com
           </div>
         </footer>
       </div>
-    </div>
+    </div> -->
     <!--   Core JS Files   -->
     <script src="../../assets/js/core/jquery.min.js"></script>
     <script src="../../assets/js/core/popper.min.js"></script>
@@ -413,6 +431,6 @@ Coded by www.creative-tim.com
         demo.initChartsPages();
       });
     </script>
-</body>
+</body>  
 
 </html>

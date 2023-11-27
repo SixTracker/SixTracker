@@ -61,7 +61,7 @@ Coded by www.creative-tim.com fdp chris
           <li class="active ">
             <a href="./dashGui.html">
               <i class="nc-icon nc-layout-11"></i>
-              <p>Dashboard - Guilherme</p>
+              <p>Dashboard CPU e RAM</p>
             </a>
           </li>
           <li>
@@ -209,71 +209,42 @@ Coded by www.creative-tim.com fdp chris
       </nav>
       <!-- End Navbar -->
       <div class="content">
+        <div id="SelectidSalasDash" class="col-md-6 pl-1">
+          <div id="IptSalas" class="form-group">
+            <label><b>Sala:</b></label>
+            <select class="form-control" id="salaSelect" name="unidade">
+              <option value="">Salas</option>
+            </select>
+          </div>
+        </div>
         <div id="idKpi" class="row">
         <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
+            <div id="KpiCPUDash" class="card card-stats">
               <div class="card-body ">
                 <div class="row">
                   <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <div class="text-cpi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="50" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
-                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                          <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-                        </svg>
-                      </div>
+                    <div class="icon-big text-center icon-warning text-cpi">
+                      <i class="nc-icon nc-sound-wave"></i>
                     </div>
-                  </div>
+                  </div>                  
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Picos - CPU</p>
-                      <p class="card-title">7<p>
+                      <p class="card-category">ValorMax - CPU</p>
+                      <p id="KpiCPU" class="card-title"><p>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-footer ">
                 <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update Now
+                <div id="kpidtCPU" class="stats">
+                  <i class="fa fa-refresh"></i>                  
                 </div> 
               </div>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <div class="text-cpi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="50" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
-                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                          <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Picos - Ram</p>
-                      <p class="card-title">20<p>  
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update Now
-                </div> 
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div id="idDisco" class="card card-stats">
+            <div id="KpiRam" class="card card-stats">
               <div class="card-body ">
                 <div class="row">
                   <div class="col-5 col-md-4">
@@ -283,23 +254,41 @@ Coded by www.creative-tim.com fdp chris
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Disco Em Uso</p>
-                      <p class="card-title">59%<p>
+                      <p class="card-category">ValorMax - Ram</p>
+                      <p id="KpiRAM" class="card-title"><p>  
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-footer ">
                 <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update now
-                </div>
+                <div id="kpidtRAM" class="stats">
+                  <i class="fa fa-refresh"></i>                  
+                </div> 
               </div>
             </div>
           </div>
-        </div>
-          <h3 class="description" style="color: aliceblue;text-align: center;">Gráficos</h3>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div id="idDisco" class="card card-stats">
+              <!-- <div class="card-body ">
+                <div class="row">
+                  <table class="table">
+                    <thead class=" text-primary">
+                    </thead>
+                    <tbody id="tb_ServidoresDash">
+                      <tr>
+                        <th>
+                          Servidores da Sala
+                        </th>                    
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="card-footer ">                
+              </div> -->
+            </div>
+          </div>
+        </div>          
           <!--Inicio dos gráficos-->
           <div class="row">
             <div id="rowDashGui" class="col-md-12">
@@ -312,10 +301,10 @@ Coded by www.creative-tim.com fdp chris
                   <canvas id="analiseSistema" width="400" height="150"></canvas>
                 </div>
                 <div class="card-footer ">
-                  <hr>
-                  <div class="stats">
+                  <!-- <hr> -->
+                  <!-- <div class="stats">
                     <i class="fa fa-history"></i> Atualizado 1 minuto atrás.
-                  </div>
+                  </div> -->
                 </div>
               </div>
             
@@ -328,10 +317,10 @@ Coded by www.creative-tim.com fdp chris
                   <canvas id="analiseSistema2" width="400" height="150"></canvas>
                 </div>
                 <div class="card-footer ">
-                  <hr>
+                  <!-- <hr>
                   <div class="stats">
                     <i class="fa fa-history"></i> Atualizado 1 minuto atrás.
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -372,12 +361,122 @@ Coded by www.creative-tim.com fdp chris
   <script src="../../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../../assets/js/grafGui.js"></script>
   
-  <script>
+  <!-- <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
       demo.initChartsPages();
     });
-  </script>
+  </script> -->
 </body>
+
+<script>
+  var fkEmpresa = sessionStorage.FK_EMPRESA;
+
+  fetch(`/sala/buscar`, {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      fkempresaServer: fkEmpresa
+    })
+  }).then(function (resposta) {
+      console.log("ESTOU NO THEN DO entrar()!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          
+
+          var salas = json
+
+          var selectElement = document.getElementById('salaSelect');
+          
+
+          // Itera sobre o array de empresas e cria as opções do select
+          for (let i = 0; i < salas.length; i++) {
+            const sala = salas[i];
+            const salaNome = salas[i].nomeSala;
+
+            // Cria outro novo elemento de opção
+            const optionElement = document.createElement('option');
+            optionElement.value = sala.idSalas;            
+            optionElement.text = salaNome;
+            selectElement.appendChild(optionElement);
+
+          }
+
+
+        });
+
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+      cardErro.style.display = "block"
+      mensagem_erro.innerHTML = "O Login está inválido";
+    })
+
+
+    var cardRam = document.getElementById('CardRAM')
+
+    document.getElementById('salaSelect').addEventListener('change', function() {
+    var idSalas = this.value; // Obtém o valor selecionado
+
+    console.log(idSalas);
+
+    if (idSalas) {
+        obterDadosMediaCPU(idSalas);
+        obterDadosMediaRAM(idSalas);
+        cardRam.style.bottom = '52.5vh';
+    }
+});
+
+
+
+window.onload = async function () {
+        try {
+            var selectSala = document.getElementById('salaSelect');
+            var idSala = selectSala.value;
+            await obterDadosMediaRAM(idSala);
+            await atualizarGraficoRAM(idSala);
+            await obterDadosMediaCPU(idSala);
+            await atualizarGraficoCPU(idSala);
+            await obterDadosDesempenhoMax(idSala);
+            // await atualizarListaServidores(idSala);
+            await limparplotarKpiDesempenhoMax();
+       } catch (error) {
+            console.error("Erro no carregamento da página: " + error.message);
+        }
+    };
+
+    var seletor = document.getElementById("salaSelect");
+
+    seletor.addEventListener("change", function () {
+        mudarId()
+    });
+
+
+    async function mudarId() {
+        try {
+            limparCPU()
+            limparRAM()
+            var selectSala = document.getElementById('salaSelect');
+            var idSala = selectSala.value;
+            console.log(idSala)
+            await obterDadosMediaCPU(idSala);
+            await obterDadosMediaRAM(idSala);
+            await atualizarGraficoRAM(idSala);
+            await atualizarGraficoCPU(idSala);
+            await obterDadosDesempenhoMax(idSala);
+            // await atualizarListaServidores(idSala);
+            await limparplotarKpiDesempenhoMax();
+        } catch (error) {
+            console.error("Erro no carregamento da página: " + error.message);
+        }
+    }
+
+
+</script>
 
 </html>

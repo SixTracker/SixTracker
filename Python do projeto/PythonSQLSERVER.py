@@ -14,7 +14,7 @@ def iniciar():
     requests.post(webhook, data=json.dumps(mensagem))
 
 def sql_server_connection(server, database, username, password):
-    connection_string = f'DRIVER={{SQL Server}};SERVER={server};DATABASE={database};UID={username};PWD={password}'
+    connection_string = f'DRIVER={{SQL Server}};SERVER={54.146.1.25};DATABASE={sixtracker};UID={sa};PWD={Sixtracker@}'
     try:
         connection = pyodbc.connect(connection_string)
         return connection
