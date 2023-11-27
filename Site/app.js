@@ -18,6 +18,7 @@ var servidorRouter = require("./src/routes/servidor");
 var salaRouter = require("./src/routes/sala");
 var componenteRouter = require("./src/routes/componente");
 var perfilRouter = require("./src/routes/perfil");
+var dashAnalistaRouter = require("./src/routes/dashAnalista");
 var cpuRouter = require("./src/routes/dadosCpu");
 var isabelRouter = require("./src/routes/isabel");
 
@@ -37,6 +38,7 @@ app.use("/servidor", servidorRouter)
 app.use("/sala", salaRouter)
 app.use("/componente", componenteRouter)
 app.use("/perfil", perfilRouter)
+app.use("/dashAnalista", dashAnalistaRouter)
 app.use("/dadosCpu",cpuRouter);
 app.use("/isabel", isabelRouter)
 

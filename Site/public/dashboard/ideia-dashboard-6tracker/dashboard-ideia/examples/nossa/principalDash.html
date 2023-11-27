@@ -167,6 +167,14 @@ Coded by www.creative-tim.com
       </nav>
       <!-- End Navbar -->
       <div class="content">
+        <div id="SelectidSalasDash" class="col-md-6 pl-1">
+          <div id="IptSalas" class="form-group">
+            <label><b>Sala:</b></label>
+            <select class="form-control" id="salaSelect" name="unidade">
+              <option value="">Salas</option>
+            </select>
+          </div>
+        </div>
         <div class="row">
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card-stats">
@@ -184,7 +192,7 @@ Coded by www.creative-tim.com
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">CPU</p>
-                      <p class="card-title" id="cpuEstado">---<p>
+                      <p class="card-title" id="KpiCPU"><p>
                     </div>
                   </div>
                 </div>
@@ -214,7 +222,7 @@ Coded by www.creative-tim.com
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">RAM</p>
-                      <p class="card-title" id="ramEstado">---<p>
+                      <p class="card-title" id="KpiRAM"><p>
                     </div>
                   </div>
                 </div>
@@ -229,7 +237,7 @@ Coded by www.creative-tim.com
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
+            <div id="KpiDisco" class="card card-stats">
               <div class="card-body ">
                 <div class="row">
                   <div class="col-5 col-md-4">
@@ -245,14 +253,14 @@ Coded by www.creative-tim.com
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Disco</p>
-                      <p class="card-title" id="discoEstado">---<p>  
+                      <p class="card-title" id="KpiDISCO"><p>  
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-footer ">
                 <hr>
-                <div class="stats">
+                <div id="kpidtDISCO" class="stats">
                   <i class="fa fa-refresh"></i>
                   Update Now
                 </div> 
@@ -296,44 +304,46 @@ Coded by www.creative-tim.com
                   <p class="card-category">Monitoramento 24 horas de performance.</p>
                 </div>
                 <div class="card-body ">
-                  <canvas id=chartHours width="400" height="100"></canvas>
+                  <canvas id=analiseSistema width="400" height="100"></canvas> 
+                <!-- chartHours -->
                 </div>
                 <div class="card-footer ">
-                  <hr>
+                  <!-- <hr>
                   <div class="stats">
                     <i class="fa fa-history"></i> Atualizado 1 minuto atrás.
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
           </div>
-        <div class="row">
-          <div class="col-md-4">
+        <!-- <div class="row">
+          <div class="col-md-4"> -->
             <div class="card ">
               <div class="card-header ">
-                <h5 class="card-title">Estatísticas do disco</h5>
-                <p class="card-category">Tempo médio de resposta</p>
+                <h5 class="card-title">Memoria RAM</h5>
+                <p class="card-category">Em uso contínuo</p>
               </div>
               <div class="card-body ">
-                <canvas id="chartEmail"></canvas>
+                <canvas id="analiseSistema2"></canvas>
+                <!-- chartEmail -->
               </div>
               <div class="card-footer ">
                 
-                <hr>
+                <!-- <hr>
                 <div class="stats">
                   <i class="fa fa-history"></i> Atualizado 1 minuto atrás.
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
           <div class="col-md-8">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-title">Memória RAM</h5>
-                <p class="card-category">Em uso contínuo</p>
+                <h5 class="card-title">Estatistica do Disco</h5>
+                <p class="card-category"></p>
               </div>
               <div class="card-body">
-                <canvas id="speedChart" width="400" height="100"></canvas>
+                <canvas id="analiseSistema3" width="400" height="100"></canvas>
               </div>
               <div class="card-footer">
                 <hr />
@@ -389,6 +399,122 @@ Coded by www.creative-tim.com
       demo.initChartsPages();
     });
   </script>
+  <script>
+  
+      var fkEmpresa = sessionStorage.FK_EMPRESA;
+    
+      fetch(`/sala/buscar`, {
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          fkempresaServer: fkEmpresa
+        })
+      }).then(function (resposta) {
+          console.log("ESTOU NO THEN DO entrar()!")
+    
+          if (resposta.ok) {
+            console.log(resposta);
+    
+            resposta.json().then(json => {
+              
+    
+              var salas = json
+    
+              var selectElement = document.getElementById('salaSelect');
+              
+    
+              // Itera sobre o array de empresas e cria as opções do select
+              for (let i = 0; i < salas.length; i++) {
+                const sala = salas[i];
+                const salaNome = salas[i].nomeSala;
+    
+                // Cria outro novo elemento de opção
+                const optionElement = document.createElement('option');
+                optionElement.value = sala.idSalas;            
+                optionElement.text = salaNome;
+                selectElement.appendChild(optionElement);
+    
+              }
+    
+    
+            });
+    
+          }
+        }).catch(function (erro) {
+          console.log(erro);
+          cardErro.style.display = "block"
+          mensagem_erro.innerHTML = "O Login está inválido";
+        })
+    
+    
+        var cardRam = document.getElementById('CardRAM')
+    
+        document.getElementById('salaSelect').addEventListener('change', function() {
+        var idSalas = this.value; // Obtém o valor selecionado
+    
+        console.log(idSalas);
+    
+        if (idSalas) {
+            obterDadosMediaCPU(idSalas);
+            obterDadosMediaRAM(idSalas);
+            ObterDadosMediaDISCO(idSalas);
+            cardRam.style.bottom = '52.5vh';
+        }
+    });
+    
+    
+    
+    window.onload = async function () {
+            try {
+                var selectSala = document.getElementById('salaSelect');
+                var idSala = selectSala.value;
+                await obterDadosMediaRAM(idSala);
+                await atualizarGraficoRAM(idSala);
+                await obterDadosMediaCPU(idSala);
+                await atualizarGraficoCPU(idSala);
+                await obterDadosMediaDISCO(idSala);
+                await atualizarGraficoDISCO(idSala)
+                await obterDadosDesempenhoMax(idSala);
+                // await atualizarListaServidores(idSala);
+                await limparplotarKpiDesempenhoMax();
+           } catch (error) {
+                console.error("Erro no carregamento da página: " + error.message);
+            }
+        };
+    
+        var seletor = document.getElementById("salaSelect");
+    
+        seletor.addEventListener("change", function () {
+            mudarId()
+        });
+    
+    
+        async function mudarId() {
+            try {
+                limparCPU()
+                limparRAM()
+                var selectSala = document.getElementById('salaSelect');
+                var idSala = selectSala.value;
+                console.log(idSala)
+                await obterDadosMediaCPU(idSala);
+                await obterDadosMediaRAM(idSala);
+                await atualizarGraficoRAM(idSala);
+                await atualizarGraficoCPU(idSala);
+                await obterDadosMediaDISCO(idSala);
+                await atualizarGraficoDISCO(idSala)
+                await obterDadosDesempenhoMax(idSala);
+                // await atualizarListaServidores(idSala);
+                await limparplotarKpiDesempenhoMax();
+            } catch (error) {
+                console.error("Erro no carregamento da página: " + error.message);
+            }
+        }
+    
+    
+    </script>
+  
 </body>
 
 </html>
