@@ -663,6 +663,17 @@ pre code {
     margin-top: 1vw;
 }
 
+.row_KPI_Tiago{
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: 0vw;
+    margin-left: 0vh;
+    margin-top: 1vw;
+    justify-content: center;
+}
+
 .no-gutters {
     margin-right: 0;
     margin-left: 0

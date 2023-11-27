@@ -38,7 +38,7 @@ demo = {
         ],
         datasets: [
           {
-            label: "Chamados abertos",
+            label: "CPU e RAM",
             borderColor: "#000000",
             backgroundColor: "#6bd098",
             pointRadius: 8,
