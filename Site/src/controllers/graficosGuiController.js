@@ -82,6 +82,44 @@ function buscarMedidasAtualizadaRAM(req, res) {
     });
 }
 
+function obterDadosDesempenhoMaxCPU(req, res) {
+
+    var idSalas = req.params.idSalas;
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    graficosGuiModel.obterDadosDesempenhoMaxCPU(idSalas).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+// function atualizarListaServidores(req, res) {
+
+//     var idSalas = req.params.idSalas;
+
+//     console.log(`Recuperando medidas em tempo real`);
+
+//     graficosGuiModel.atualizarListaServidores(idSalas).then(function (resultado) {
+//         if (resultado.length > 0) {
+//             res.status(200).json(resultado);
+//         } else {
+//             res.status(204).send("Nenhum resultado encontrado!")
+//         }
+//     }).catch(function (erro) {
+//         console.log(erro);
+//         console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+//         res.status(500).json(erro.sqlMessage);
+//     });
+// }
+
 
 
 
@@ -90,5 +128,7 @@ module.exports = {
     buscarMedidasCPU,    
     buscarMedidasRAM,
     buscarMedidasAtualizadaRAM,
-    buscarMedidasAtualizadaCPU    
+    buscarMedidasAtualizadaCPU,    
+    obterDadosDesempenhoMaxCPU,    
+    // atualizarListaServidores
 }

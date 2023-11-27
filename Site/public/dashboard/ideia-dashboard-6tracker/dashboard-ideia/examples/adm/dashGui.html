@@ -219,69 +219,32 @@ Coded by www.creative-tim.com fdp chris
         </div>
         <div id="idKpi" class="row">
         <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
+            <div id="KpiCPUDash" class="card card-stats">
               <div class="card-body ">
                 <div class="row">
                   <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <div class="text-cpi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="50" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
-                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                          <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-                        </svg>
-                      </div>
+                    <div class="icon-big text-center icon-warning text-cpi">
+                      <i class="nc-icon nc-sound-wave"></i>
                     </div>
                   </div>                  
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Picos - CPU</p>
-                      <p class="card-title">7<p>
+                      <p class="card-category">ValorMax - CPU</p>
+                      <p id="KpiCPU" class="card-title"><p>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-footer ">
                 <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update Now
+                <div id="kpidtCPU" class="stats">
+                  <i class="fa fa-refresh"></i>                  
                 </div> 
               </div>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <div class="text-cpi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="50" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
-                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                          <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Picos - Ram</p>
-                      <p class="card-title">20<p>  
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update Now
-                </div> 
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div id="idDisco" class="card card-stats">
+            <div id="KpiRam" class="card card-stats">
               <div class="card-body ">
                 <div class="row">
                   <div class="col-5 col-md-4">
@@ -291,19 +254,38 @@ Coded by www.creative-tim.com fdp chris
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Disco Em Uso</p>
-                      <p class="card-title">59%<p>
+                      <p class="card-category">ValorMax - Ram</p>
+                      <p id="KpiRAM" class="card-title"><p>  
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-footer ">
                 <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update now
+                <div id="kpidtRAM" class="stats">
+                  <i class="fa fa-refresh"></i>                  
+                </div> 
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div id="idDisco" class="card card-stats">
+              <!-- <div class="card-body ">
+                <div class="row">
+                  <table class="table">
+                    <thead class=" text-primary">
+                    </thead>
+                    <tbody id="tb_ServidoresDash">
+                      <tr>
+                        <th>
+                          Servidores da Sala
+                        </th>                    
+                    </tbody>
+                  </table>
                 </div>
               </div>
+              <div class="card-footer ">                
+              </div> -->
             </div>
           </div>
         </div>          
@@ -379,12 +361,12 @@ Coded by www.creative-tim.com fdp chris
   <script src="../../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../../assets/js/grafGui.js"></script>
   
-  <script>
+  <!-- <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
       demo.initChartsPages();
     });
-  </script>
+  </script> -->
 </body>
 
 <script>
@@ -451,6 +433,7 @@ Coded by www.creative-tim.com fdp chris
 });
 
 
+
 window.onload = async function () {
         try {
             var selectSala = document.getElementById('salaSelect');
@@ -458,7 +441,10 @@ window.onload = async function () {
             await obterDadosMediaRAM(idSala);
             await atualizarGraficoRAM(idSala);
             await obterDadosMediaCPU(idSala);
-            await atualizarGraficoMediaCPU(idSala);
+            await atualizarGraficoCPU(idSala);
+            await obterDadosDesempenhoMax(idSala);
+            // await atualizarListaServidores(idSala);
+            await limparplotarKpiDesempenhoMax();
        } catch (error) {
             console.error("Erro no carregamento da página: " + error.message);
         }
@@ -481,7 +467,10 @@ window.onload = async function () {
             await obterDadosMediaCPU(idSala);
             await obterDadosMediaRAM(idSala);
             await atualizarGraficoRAM(idSala);
-            await atualizarGraficoMediaCPU(idSala);
+            await atualizarGraficoCPU(idSala);
+            await obterDadosDesempenhoMax(idSala);
+            // await atualizarListaServidores(idSala);
+            await limparplotarKpiDesempenhoMax();
         } catch (error) {
             console.error("Erro no carregamento da página: " + error.message);
         }

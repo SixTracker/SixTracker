@@ -19,4 +19,12 @@ router.get("/medidasAtualizadaRAM/:idSalas", function (req, res) {
     graficosGuiController.buscarMedidasAtualizadaRAM(req, res);
 });
 
+router.get("/obterDadosDesempenhoMaxCPU/:idSalas", function (req, res) {
+    graficosGuiController.obterDadosDesempenhoMaxCPU(req, res);
+});
+
+// router.get("/atualizarListaServidores/:idSalas", function (req, res) {
+//     graficosGuiController.atualizarListaServidores(req, res);
+// });
+
 module.exports = router;

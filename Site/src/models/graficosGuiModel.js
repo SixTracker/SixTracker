@@ -137,9 +137,52 @@ function buscarMedidasAtualizadaRAM(idSalas){
 }
 
 
+function obterDadosDesempenhoMaxCPU(idSalas){
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+       instrucaoSql = `
+       SELECT MAX(valorRegistro) AS maximo_valor, TipoComponente.tipoComponente AS nome_tipo, fkTipoComponente, MAX(DATE_FORMAT(dataRegistro, '%Hh:%i')) AS intervalo_tempo
+FROM Registro
+JOIN Componente ON fkComponente = idComponente
+JOIN TipoComponente ON fkTipoComponente = idTipoComponente
+JOIN Servidor ON fkServidor = idServidor
+JOIN Salas ON fkSalas = idSalas
+WHERE idSalas = ${idSalas}
+GROUP BY fkTipoComponente, nome_tipo;
+   `
+   } else {
+       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+       return
+   }
+
+   console.log("Executando a instrução SQL: \n" + instrucaoSql);
+   return database.executar(instrucaoSql);
+}
+
+
+// function atualizarListaServidores(idSalas){
+//     instrucaoSql = ''
+
+//     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+//        instrucaoSql = `
+//        SELECT nome FROM Servidor JOIN Salas ON fkSalas = idSalas WHERE idSalas = ${idSalas};
+//    `
+//    } else {
+//        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+//        return
+//    }
+
+//    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+//    return database.executar(instrucaoSql);
+// }
+
+
 module.exports = {        
     buscarMedidasCPU,
     buscarMedidasRAM,
     buscarMedidasAtualizadaRAM,
-    buscarMedidasAtualizadaCPU
+    buscarMedidasAtualizadaCPU,
+    obterDadosDesempenhoMaxCPU,
+    // atualizarListaServidores
 };

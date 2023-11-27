@@ -262,7 +262,126 @@ function limparRAM(){
 
 
 
+var kpiCpu = document.getElementById("KpiCPU");
+var kpiRam = document.getElementById("KpiRAM");
+var kpidtCPU = document.getElementById("kpidtCPU");
+var kpidtRam = document.getElementById("kpidtRAM");
+valores_kpi_desempenho = [kpiCpu, kpiRam, kpidtCPU, kpidtRam]
 
+function obterDadosDesempenhoMax(idSala) {  
+  fetch(`/graficosGui/obterDadosDesempenhoMaxCPU/${idSala}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+          response.json().then(function (resposta) {
+              console.log(`Dados recebidos DE CPU Max: ${JSON.stringify(resposta)}`);              
+              plotarKpiDesempenhoMax(resposta, idSala);
+          });
+      } else {
+          console.error('Nenhum dado encontrado ou erro na API');
+      }
+  })
+      .catch(function (error) {
+          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+}
+
+function plotarKpiDesempenhoMax(resposta, idSala) {
+  for (i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+      if (registro.nome_tipo === "CPU") {
+          valores_kpi_desempenho[0].innerHTML = (registro.maximo_valor) + "%";
+          valores_kpi_desempenho[2].innerHTML = "Data de Captura: " + (registro.intervalo_tempo);
+      }
+      if (registro.nome_tipo === "RAM") {
+          valores_kpi_desempenho[1].innerHTML = (registro.maximo_valor) + "%";
+          valores_kpi_desempenho[3].innerHTML = "Data de Captura: " + (registro.intervalo_tempo);
+      }
+     
+  }
+ 
+  setTimeout(() => atualizarKpiDesempenhoMax(idSala), 2000);
+}
+
+function atualizarKpiDesempenhoMax(idSala) {
+
+  fetch(`/medidas/tempo-realDesempenhoMedia/${idSala}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+          response.json().then(function (novoRegistro) {
+              console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+              valores_kpi_desempenho = [kpiCpu, kpiRam]
+
+              for (i = 0; i < resposta.length; i++) {
+                var registro = resposta[i];
+                if (registro.nome_tipo === "CPU") {
+                    valores_kpi_desempenho[0].innerHTML = (registro.maximo_valor) + "%";
+                }
+                if (registro.nome_tipo === "RAM") {
+                    valores_kpi_desempenho[1].innerHTML = (registro.maximo_valor) + "%";
+                }               
+            }
+             
+              // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+              proximaAtualizacaoKpiDesempenhoMax = setTimeout(() => atualizarKpiDesempenhoMax(idSala), 5000);
+          });
+      } else {
+          console.error('Nenhum dado encontrado ou erro na API');
+          // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+          proximaAtualizacaoKpiDesempenhoMax = setTimeout(() => atualizarKpiDesempenhoMax(idSala), 5000);
+      }
+  })
+      .catch(function (error) {
+          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+
+}
+
+function limparplotarKpiDesempenhoMax() {
+  for (i = 0; i <= valores.length; i++) {
+      valores_kpi_desempenho[i].innerHTML = "";
+  }
+}
+
+
+// function atualizarListaServidores(idSala){ 
+//   fetch(`/graficosGui/atualizarListaServidores/${idSala}`, { cache: 'no-store' }).then(function (response) {
+//     if (response.ok) {
+//         response.json().then(function (resposta) {
+//             console.log(`Dados recebidos DE Listar Servidores: ${JSON.stringify(resposta)}`);              
+//             plotarListaServidores(resposta);
+//         });
+//     } else {
+//         console.error('Nenhum dado encontrado ou erro na API');
+//     }
+// })
+//     .catch(function (error) {
+//         console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+//     });
+
+// }    
+// const tabelaServ = document.getElementById("tb_ServidoresDash")
+// function plotarListaServidores(resposta) {
+//           resposta.json().then(function (resposta) {
+//             console.log("Dados recebidos: ", JSON.stringify(resposta));
+            
+
+            
+//             tabelaServ.innerHTML = "";
+//             for (let i = 0; i < resposta.length; i++) {
+//                 var maquina = resposta[i];
+
+//                 // Cria uma nova linha na tabela
+//                 var novaLinha = tabelaServ.insertRow();
+
+//                 // Cria células para cada coluna
+//                 var nome = novaLinha.insertCell(0);
+//                 nome.innerHTML = maquina.nome;              
+//                 console.log(maquina.nome);                
+//             }          
+//         });
+//  }
+  
+
+
+ 
 
 
 
