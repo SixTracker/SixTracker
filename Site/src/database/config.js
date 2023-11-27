@@ -2,18 +2,16 @@ var mysql = require("mysql2");
 var sql = require('mssql');
 
 //CONEXÃO DO SQL SERVER - AZURE (NUVEM)
-var sqlServerConfig = {
+var sqlServerConfig = {	
+    port: parseInt(1433, 10),
     server: "54.146.1.25",
     database: "sixtracker",
+    stream: false,
     user: "sa",
     password: "Sixtracker@",
-    pool: {
-        max: 10,
-        min: 0,
-        idleTimeoutMillis: 30000
-    },
     options: {
-        encrypt: true, // for azure
+        encrypt: false,
+trustServerCertificate: true // for azure
     }
 }
 
