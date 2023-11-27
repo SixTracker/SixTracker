@@ -1,21 +1,21 @@
-.dash {
+/* .dashChris {
     display: flex;
-  }
+  } */
 
-  
-.grafico {
-    background-color: rgb(255, 255, 255);
-    height: 300px;
-    width: 600px;
-    margin-bottom: 5%;
-    border-radius: 10%;
-  }
 
-  .card-title{
-    position: relative;
-    margin-left: 3%;
-  }
+.graficoChris {
+  background-color: rgb(255, 255, 255);
+  height: 300px;
+  width: 600px;
+  margin-bottom: 5%;
+  border-radius: 5%;
+}
 
-  .card-title2{
-    margin-left: 3%;
-  }
+.card-title {
+  position: relative;
+  margin-left: 5%;
+}
+
+.card-title2 {
+  margin-left: 5%;
+}
