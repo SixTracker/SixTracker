@@ -69,14 +69,14 @@ function obterDadosGraficoRAM(resposta, idSalas) {
     };
 
     // // Adicionando gráfico criado em div na tela
-    let myChart = new Chart(
-        document.getElementById('myChart'),
+    let ChartRAM = new Chart(
+        ctx,
         config
     );
 
-    setTimeout(() => atualizarGraficoRAM(idSalas, dados, sistemaRAM2), 2000);
+    setTimeout(() => atualizarGraficoRAM(idSalas, dados, ChartRAM), 2000);
 
-    function atualizarGraficoRAM(idSalas, dados, sistemaRAM2) {
+    function atualizarGraficoRAM(idSalas, dados, ChartRAM) {
 
         fetch(`/graficosChris/medidasEmTempoRealRAM/${idSalas}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
@@ -98,16 +98,16 @@ function obterDadosGraficoRAM(resposta, idSalas) {
                         dados.datasets[0].data.shift();  // apagar o primeira medida
                         dados.datasets[0].data.push(novoRegistro[0].RAM); // incluir uma nova medida            
 
-                        sistemaRAM2.update();
+                        ChartRAM.update();
                     }
 
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacaoRAM = setTimeout(() => atualizarGraficoRAM(idSalas, dados, sistemaRAM2), 5000);
+                    proximaAtualizacaoRAM = setTimeout(() => atualizarGraficoRAM(idSalas, dados, ChartRAM), 5000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacaoRAM = setTimeout(() => atualizarGraficoRAM(idSalas, dados, sistemaRAM2), 5000);
+                proximaAtualizacaoRAM = setTimeout(() => atualizarGraficoRAM(idSalas, dados, ChartRAM), 5000);
             }
         })
             .catch(function (error) {
@@ -116,12 +116,12 @@ function obterDadosGraficoRAM(resposta, idSalas) {
 
     }
 
-    function limparRAM() {
-        let sistemaRAM2 = new Chart(
+    function limparRAM2() {
+        let ChartRAM = new Chart(
             document.getElementById("sistemaRAM2"),
         );
 
-        sistemaRAM2.clear()
+        ChartRAM.clear()
     }
 
 
