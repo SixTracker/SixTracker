@@ -31,7 +31,7 @@ function obterDadosGraficoRAM(resposta, idSalas) {
     let dados = {
         labels: labels,
         datasets: [{
-            label: 'Usada',
+            label: 'RAM',
             data: [],
             backgroundColor: 'purple',
             borderColor: 'purple',
