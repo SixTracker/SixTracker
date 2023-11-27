@@ -31,6 +31,7 @@ app.use("/usuarios", usuarioRouter);
 app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter)
 app.use("/graficosGui", graficosGuiRouter)
+app.use("/graficosChris", graficosChrisRouter)
 app.use("/servidor", servidorRouter)
 app.use("/sala", salaRouter)
 app.use("/componente", componenteRouter)

@@ -312,13 +312,21 @@ Coded by www.creative-tim.com
         <h3 class="description" style="color: aliceblue;text-align: center;">Gráficos</h3>
         
         <!--Inicio dos gráficos-->
-        <div class="dash">
-          <div class="grafico">
+        <div class="dashChris">
+          <div class="graficoChris">
             <h4 class="card-title">Dados da RAM</h4>
-              <canvas id="myChart"></canvas>
+            <h6 class= "card-title">Servidor 1</h6>
+              <canvas id="sistemaRAM"></canvas>
               <h6 class="card-title2">Atualizado agora</h6>
-          </div>
-      </div>
+            </div>
+              
+          <div class="graficoChris">
+            <h4 class="card-title">Dados da RAM</h4>
+            <h6 class= "card-title">Servidor 2</h6>
+              <canvas id="sistemaRAM2"></canvas>
+              <h6 class="card-title2">Atualizado agora</h6>
+            </div>
+              
 
         <!-- <div class="row">
           <div id= "DashChris" class="col-md-12">
@@ -425,213 +433,109 @@ Coded by www.creative-tim.com
     </script>
 </body>
 
-<!-- Começando o script para plotar os gráficos -->
+
 <script>
-  function obterDadosGrafico() {
-    var idUsuario = Number(sessionStorage.ID_USUARIO);
-    obterDadosGrafico(idUsuario)
+  var fkEmpresa = sessionStorage.FK_EMPRESA;
 
-}
-
-function obterDadosGrafico(idUsuario) {
-
-    // alterarTitulo(idUsuario)
-    if (proximaAtualizacao != undefined) {
-        clearTimeout(proximaAtualizacao);
-    }
-    fetch(`/medidas/ultimas/`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                resposta.reverse();
-
-                plotarGrafico(resposta);
-
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
+  fetch(`/sala/buscar`, {
+    method: 'POST', 
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      fkempresaServer: fkEmpresa
     })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+  }).then(function (resposta) {
+      console.log("ESTOU NO THEN DO entrar()!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          
+
+          var salas = json
+
+          var selectElement = document.getElementById('salaSelect');
+          
+
+          // Itera sobre o array de empresas e cria as opções do select
+          for (let i = 0; i < salas.length; i++) {
+            const sala = salas[i];
+            const salaNome = salas[i].nomeSala;
+
+            // Cria outro novo elemento de opção
+            const optionElement = document.createElement('option');
+            optionElement.value = sala.idSalas;            
+            optionElement.text = salaNome;
+            selectElement.appendChild(optionElement);
+
+          }
+
+
         });
-}
+
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+      cardErro.style.display = "block"
+      mensagem_erro.innerHTML = "O Login está inválido";
+    })
 
 
-function plotarGrafico(resposta, idUsuario) {
+    var cardRam = document.getElementById('CardRAM')
 
-    console.log('iniciando plotagem do gráfico...');
+    document.getElementById('salaSelect').addEventListener('change', function() {
+    var idSalas = this.value; // Obtém o valor selecionado
 
-    // Criando estrutura para plotar gráfico - labels
-    let labels = ["Joel", "Ellie", "Tess", "Bill", "Infectados"];
+    console.log(idSalas);
 
-    // Criando estrutura para plotar gráfico - dados
-    let dados = {
-        labels: labels,
-        datasets: [{
-            label: 'Joel',
-            data: [],
-            backgroundColor: 'purple',
-            borderColor: 'purple',
-            fill: false,
-           
-            tension: 0.1
-        },
-        {
-            label: 'Ellie',
-            data: [],
-            backgroundColor: 'green',
-            borderColor: 'green',
-            fill: false,
-           
-            tension: 0.1
-        },
-        {
-            label: 'Bill',
-            data: [],
-            backgroundColor: 'darkorange',
-            borderColor: 'darkorange',
-            fill: false,
-           
-            tension: 0.1
-        }, {
-            label: 'Tess',
-            data: [],
-            backgroundColor: 'blue',
-            borderColor: 'blue',
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        },
-        {
-            label: 'Bill',
-            data: [],
-            backgroundColor: 'black',
-            borderColor: 'black',
-            fill: false,
-           
-            tension: 0.1
-        }]
-    };
-    
-    
-    
-    console.log('----------------------------------------------')
-    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-    console.log(resposta)
-
-    // Inserindo valores recebidos em estrutura para plotar o gráfico
-    for (i = 0; i < resposta.length; i++) {
-        var registro = resposta[i];
-        // labels.push(registro.momento_grafico);
-        dados.datasets[0].data[0] = registro.Joel;
-        dados.datasets[1].data[1] = registro.Ellie;
-        dados.datasets[2].data[2] = registro.Tess;
-        dados.datasets[3].data[3] = registro.Bill;
-        dados.datasets[4].data[4] = registro.Infectados;
-
-        // dados.datasets[0].data.push(registro.Joel);
-        // dados.datasets[1].data.push(registro.Ellie);
-        // dados.datasets[2].data.push(registro.Tess);
-        // dados.datasets[3].data.push(registro.Bill);
-        // dados.datasets[4].data.push(registro.Infectados);
-        
+    if (idSalas) {
+        obterDadosMediaCPU(idSalas);
+        obterDadosMediaRAM(idSalas);
+        cardRam.style.bottom = '52.5vh';
     }
-    
-    console.log('----------------------------------------------')
-    console.log('O gráfico será plotado com os respectivos valores:')
-    console.log('Labels:')
-    console.log(labels)
-    console.log('Dados:')
-    console.log(dados.datasets)
-    console.log('----------------------------------------------')
-    
-    // Criando estrutura para plotar gráfico - config
-    const config = {
-    type: 'bar',
-    data: dados,
-};
-
-// // Adicionando gráfico criado em div na tela
-let myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-    );
-    
-    // setTimeout(() => atualizarGrafico(idUsuario, dados, myChart), 2000);
-    
-
-}
-
-// Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-// buscando a última medida inserida em tabela contendo as capturas, 
-
-//     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-//     Para ajustar o "select", ajuste o comando sql em src/models
-// function atualizarGrafico(idUsuario, dados, myChart) {
+});
 
 
+window.onload = async function () {
+        try {
+            var selectSala = document.getElementById('salaSelect');
+            var idSala = selectSala.value;
+            await obterDadosMediaRAM(idSala);
+            await atualizarGraficoRAM(idSala);
+            await obterDadosMediaCPU(idSala);
+            await atualizarGraficoMediaCPU(idSala);
+       } catch (error) {
+            console.error("Erro no carregamento da página: " + error.message);
+        }
+    };
 
-//     fetch(`/medidas/tempo-real/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
-//         if (response.ok) {
-//             response.json().then(function (novoRegistro) {
+    var seletor = document.getElementById("salaSelect");
 
-//                 // obterdados(idUsuario);
-
-//                 // alertar(novoRegistro, idAquario);
-//                 console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-//                 console.log(`Dados atuais do gráfico:`);
-//                 console.log(dados);
-
-//                 let avisoCaptura = document.getElementById(`avisoCaptura${idUsuario}`)
-                
-
-
-//                 if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-//                     console.log("---------------------------------------------------------------")
-//                     console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-//                     console.log("Horário do novo dado capturado:")
-//                     console.log(novoRegistro[0].momento_grafico)
-//                     console.log("Horário do último dado capturado:")
-//                     console.log(dados.labels[dados.labels.length - 1])
-//                     console.log("---------------------------------------------------------------")
-//                 } else {
-
-//                     dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-//                     dados.datasets[0].data.push(novoRegistro[0].Joel); // incluir uma nova medida de umidade
-
-//                     dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
-//                     dados.datasets[1].data.push(novoRegistro[0].Ellie); // incluir uma nova medida de temperatura
+    seletor.addEventListener("change", function () {
+        mudarId()
+    });
 
 
-//                     dados.datasets[2].data.shift();  // apagar o primeiro de temperatura
-//                     dados.datasets[2].data.push(novoRegistro[0].Bill);
+    async function mudarId() {
+        try {
+            limparCPU()
+            limparRAM()
+            var selectSala = document.getElementById('salaSelect');
+            var idSala = selectSala.value;
+            console.log(idSala)
+            await obterDadosMediaCPU(idSala);
+            await obterDadosMediaRAM(idSala);
+            await atualizarGraficoRAM(idSala);
+            await atualizarGraficoMediaCPU(idSala);
+        } catch (error) {
+            console.error("Erro no carregamento da página: " + error.message);
+        }
+    }
 
 
-//                     dados.datasets[3].data.shift();  // apagar o primeiro de temperatura
-//                     dados.datasets[3].data.push(novoRegistro[0].Infectados);
-
-//                     dados.datasets[4].data.shift();  // apagar o primeiro de temperatura
-//                     dados.datasets[4].data.push(novoRegistro[0].Tess);
-//                     myChart.update();
-//                 }
-
-//                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-//                 proximaAtualizacao = setTimeout(() => atualizarGrafico(idUsuario, dados, myChart), 2000);
-//             });
-//         } else {
-//             console.error('Nenhum dado encontrado ou erro na API');
-
-//             // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-//             proximaAtualizacao = setTimeout(() => atualizarGrafico(idUsuario, dados, myChart), 2000);
-//         }
-//     })
-//         .catch(function (error) {
-//             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-//         });
-
-// }
 </script>
 
-
+<!-- Começando o script para plotar os gráficos -->
 </html>

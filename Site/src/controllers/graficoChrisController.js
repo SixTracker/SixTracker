@@ -1,28 +1,8 @@
-var graficosGuiModel = require("../models/graficosGuiModel");
+var medidaRamModel = require("../models/medidaRamModel");
 
 function testar(req, res) {
     console.log("ENTRAMOS NO componenteController");
     res.send("ENTRAMOS NO COMPONENTE CONTROLLER");
-}
-
-
-function buscarMedidasCPU(req, res) {
-
-    var idSalas = req.params.idSalas;
-
-    console.log(`Recuperando medidas em tempo real`);
-
-    graficosGuiModel.buscarMedidasCPU(idSalas).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
 }
 
 function buscarMedidasRAM(req, res) {
@@ -31,7 +11,7 @@ function buscarMedidasRAM(req, res) {
 
     console.log(`Recuperando medidas em tempo real`);
 
-    graficosGuiModel.buscarMedidasRAM(idSalas).then(function (resultado) {
+    medidaRamModel.buscarMedidasRAM(idSalas).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -44,24 +24,6 @@ function buscarMedidasRAM(req, res) {
     });
 }
 
-function buscarMedidasAtualizadaCPU(req, res) {
-
-    var idSalas = req.params.idSalas;
-
-    console.log(`Recuperando medidas em tempo real`);
-
-    graficosGuiModel.buscarMedidasAtualizadaCPU(idSalas).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
 
 function buscarMedidasAtualizadaRAM(req, res) {
 
@@ -69,7 +31,7 @@ function buscarMedidasAtualizadaRAM(req, res) {
 
     console.log(`Recuperando medidas em tempo real`);
 
-    graficosGuiModel.buscarMedidasAtualizadaRAM(idSalas).then(function (resultado) {
+    medidaRamModel.buscarMedidasAtualizadaRAM(idSalas).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -82,13 +44,8 @@ function buscarMedidasAtualizadaRAM(req, res) {
     });
 }
 
-
-
-
 module.exports = {    
-    testar,
-    buscarMedidasCPU,    
+    testar,    
     buscarMedidasRAM,
-    buscarMedidasAtualizadaRAM,
-    buscarMedidasAtualizadaCPU    
+    buscarMedidasAtualizadaRAM    
 }
