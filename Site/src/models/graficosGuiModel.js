@@ -5,24 +5,26 @@ function buscarMedidasCPU(idSalas){
      
        instrucaoSql = `
        SELECT
-       AVG(valorRegistro) as CPU,
-       DATE_FORMAT(dataRegistro, '%Hh:%i') AS intervalo_tempo,
-       MAX(Servidor.nome) as nome_servidor
-   FROM
-       Registro
-   JOIN
-       Componente ON fkComponente = idComponente
-   JOIN
-       Servidor ON fkServidor = idServidor
-   JOIN
-       Salas ON fkSalas = idSalas
-   WHERE
-       fkTipoComponente = 1 AND idSalas = ${idSalas}
-   GROUP BY
-       intervalo_tempo
-   ORDER BY
-       intervalo_tempo DESC
-   LIMIT 4;
+    AVG(valorRegistro) as CPU,
+    FORMAT(dataRegistro, 'HH\h:mm') AS intervalo_tempo,
+    MAX(Servidor.nome) as nome_servidor
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas
+WHERE
+    fkTipoComponente = 1 AND idSalas = ${idSalas}
+GROUP BY
+    FORMAT(dataRegistro, 'HH\h:mm')
+ORDER BY
+    FORMAT(dataRegistro, 'HH\h:mm') DESC
+OFFSET 0 ROWS
+FETCH NEXT 4 ROWS ONLY;
+
    `
   
    console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -32,24 +34,25 @@ function buscarMedidasCPU(idSalas){
 function buscarMedidasRAM(idSalas){
        instrucaoSql = `
        SELECT
-       AVG(valorRegistro) as RAM,
-       DATE_FORMAT(dataRegistro, '%Hh:%i') AS intervalo_tempo,
-       MAX(Servidor.nome) as nome_servidor
-   FROM
-       Registro
-   JOIN
-       Componente ON fkComponente = idComponente
-   JOIN
-       Servidor ON fkServidor = idServidor
-   JOIN
-       Salas ON fkSalas = idSalas
-   WHERE
-       fkTipoComponente = 2 AND idSalas = ${idSalas}
-   GROUP BY
-       intervalo_tempo
-   ORDER BY
-       intervalo_tempo DESC
-   LIMIT 4;
+    AVG(valorRegistro) as RAM,
+    FORMAT(dataRegistro, 'HH\h:mm') AS intervalo_tempo,
+    MAX(Servidor.nome) as nome_servidor
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas
+WHERE
+    fkTipoComponente = 2 AND idSalas = ${idSalas}
+GROUP BY
+    FORMAT(dataRegistro, 'HH\h:mm')
+ORDER BY
+    FORMAT(dataRegistro, 'HH\h:mm') DESC
+OFFSET 0 ROWS
+FETCH NEXT 4 ROWS ONLY;
    `
   
    console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -60,23 +63,23 @@ function buscarMedidasRAM(idSalas){
 function buscarMedidasAtualizadaCPU(idSalas){
        instrucaoSql = `
        SELECT
-       AVG(valorRegistro) as CPU,
-       DATE_FORMAT(dataRegistro, '%Hh:%i') AS intervalo_tempo,
-       MAX(Servidor.nome) as nome_servidor
-   FROM
-       Registro
-   JOIN
-       Componente ON fkComponente = idComponente
-   JOIN
-       Servidor ON fkServidor = idServidor
-   JOIN
-       Salas ON fkSalas = idSalas
-   WHERE
-       fkTipoComponente = 1 AND idSalas = ${idSalas}
-   GROUP BY
-       intervalo_tempo
-   ORDER BY
-       intervalo_tempo DESC;
+    AVG(valorRegistro) as CPU,
+    FORMAT(dataRegistro, 'HH\h:mm') AS intervalo_tempo,
+    MAX(Servidor.nome) as nome_servidor
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas
+WHERE
+    fkTipoComponente = 1 AND idSalas = ${idSalas}
+GROUP BY
+    FORMAT(dataRegistro, 'HH\h:mm')
+ORDER BY
+    FORMAT(dataRegistro, 'HH\h:mm') DESC;
    `
    
    console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -86,23 +89,23 @@ function buscarMedidasAtualizadaCPU(idSalas){
 function buscarMedidasAtualizadaRAM(idSalas){
        instrucaoSql = `
        SELECT
-       AVG(valorRegistro) as RAM,
-       DATE_FORMAT(dataRegistro, '%Hh:%i') AS intervalo_tempo,
-       MAX(Servidor.nome) as nome_servidor
-   FROM
-       Registro
-   JOIN
-       Componente ON fkComponente = idComponente
-   JOIN
-       Servidor ON fkServidor = idServidor
-   JOIN
-       Salas ON fkSalas = idSalas
-   WHERE
-       fkTipoComponente = 2 AND idSalas = ${idSalas}
-   GROUP BY
-       intervalo_tempo
-   ORDER BY
-       intervalo_tempo DESC;
+    AVG(valorRegistro) as RAM,
+    FORMAT(dataRegistro, 'HH\h:mm') AS intervalo_tempo,
+    MAX(Servidor.nome) as nome_servidor
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas
+WHERE
+    fkTipoComponente = 2 AND idSalas = ${idSalas}
+GROUP BY
+    FORMAT(dataRegistro, 'HH\h:mm')
+ORDER BY
+    FORMAT(dataRegistro, 'HH\h:mm') DESC;
    `
    
    console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -112,14 +115,26 @@ function buscarMedidasAtualizadaRAM(idSalas){
 
 function obterDadosDesempenhoMaxCPU(idSalas){
        instrucaoSql = `
-       SELECT MAX(valorRegistro) AS maximo_valor, TipoComponente.tipoComponente AS nome_tipo, fkTipoComponente, MAX(DATE_FORMAT(dataRegistro, '%Hh:%i')) AS intervalo_tempo
-FROM Registro
-JOIN Componente ON fkComponente = idComponente
-JOIN TipoComponente ON fkTipoComponente = idTipoComponente
-JOIN Servidor ON fkServidor = idServidor
-JOIN Salas ON fkSalas = idSalas
-WHERE idSalas = ${idSalas}
-GROUP BY fkTipoComponente, nome_tipo;
+       SELECT
+    MAX(valorRegistro) AS maximo_valor,
+    TipoComponente.tipoComponente AS nome_tipo,
+    fkTipoComponente,
+    MAX(FORMAT(dataRegistro, 'HH\h:mm')) AS intervalo_tempo
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    TipoComponente ON fkTipoComponente = idTipoComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas
+WHERE
+    idSalas = ${idSalas}
+GROUP BY
+    fkTipoComponente, nome_tipo;
+
    `
    
    console.log("Executando a instrução SQL: \n" + instrucaoSql);
