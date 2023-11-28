@@ -7,7 +7,7 @@ router.get("/medidasRAM/:idSalas", function (req, res) {
     graficoChrisController.buscarMedidasRAM(req, res);
 });
 
-router.get("/medidasAtualizadasRAM/:idSalas", function (req, res) {
+router.get("/medidasAtualizadaRAM/:idSalas", function (req, res) {
     graficoChrisController.buscarMedidasAtualizadaRAM(req, res);
 });
 
