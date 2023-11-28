@@ -2,7 +2,8 @@ function obterDadosMediaRAM(idSalas) {
     console.log("RAM")
     console.log("--------------------------Entrando na Função Obter dados Ram -------------------------------------")
 
-    fetch(`/graficosChris/medidasRAM/${idSalas}`, { cache: 'no-store' }).then(function (response) {
+    fetch(`/graficosGui/medidasRAM/${idSalas}`, { cache: 'no-store' }).then(function (response) {
+        console.log("--------------------------Entrando na Função Obter dados Ram -------------------------------------")
         if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos DE RAM: ${JSON.stringify(resposta)}`);
