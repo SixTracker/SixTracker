@@ -18,16 +18,9 @@ function entrar(email, senha) {
     return database.executar(instrucao);
 }
 
-function validarFuncionario(idFuncionario) {
-    instrucaoSql = ''
-
-    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+function validarFuncionario(idFuncionario) {    
         instrucaoSql = `SELECT fkNivelAcesso FROM Funcionario WHERE idFuncionario = ${idFuncionario};`;
-    } else {
-        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-        return
-    }
-
+    
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
