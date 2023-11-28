@@ -31,22 +31,24 @@ var database = require("../database/config");
 //     return database.executar(instrucaoSql);
 // }
 
-function buscarMedidasDisco(idServidor) {
+async function buscarMedidasDisco(idServidor) {
     var instrucaoSql = `
     
-        select * from 
-        registro 
-        where 
-        fkComponente = 
-        (select idComponente from 
-            componente 
-            where fkServidor = ${idServidor} 
-            and nome = "Disco Total" order by idComponente desc limit 1);
+    select * from 
+    registro 
+    where 
+    fkComponente = 
+    (select idComponente from 
+        componente 
+        where fkServidor = ${idServidor} 
+        and nome = "Total do Disco" order by idComponente desc limit 1);  
     
     `
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    var executavel = await database.executar(instrucaoSql);
+    console.log(executavel)
+    return executavel
 }
 
 function buscarMetricas(idServidor) {

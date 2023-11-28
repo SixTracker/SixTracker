@@ -79,28 +79,20 @@ function deletar(idServidor) {
 }
 
 
-function buscarServidores(fkempresa){
-    instrucaoSql = ''
-
-    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-       instrucaoSql = `SELECT
-       Servidor.idServidor,
-       Servidor.nome,
+function buscarServidores(fkempresa) {
+    instrucaoSql = `SELECT
+       Servidor.idServidor as idServidor,
+       Servidor.nome as Nome,
        Salas.nomeSala as nomeSala,
        Servidor.codigo as cod,
        Servidor.sistemaOperacional as so,
        Servidor.ip as ip,
-       Servidor.fkSalas as fkS
-       
+       Servidor.fkSalas as fkS       
            FROM Servidor JOIN Salas on fkSalas = idSalas
            WHERE Salas.fkEmpresa = ${fkempresa};`;
-   } else {
-       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-       return
-   }
 
-   console.log("Executando a instrução SQL: \n" + instrucaoSql);
-   return database.executar(instrucaoSql);
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 }
 
 

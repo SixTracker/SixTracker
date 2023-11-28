@@ -70,23 +70,35 @@ if __name__ == "__main__":
         9: "Memória Swap Usada"
     }
 
-    # Buscar os componentes cadastrados para o servidor
-    cursor.execute("SELECT idComponente, nome FROM Componente WHERE fkServidor = %s", (result_servidor[0],))
-    componentes_servidor = cursor.fetchall()
+# Buscar os componentes cadastrados para o servidor
+cursor.execute("SELECT idComponente, nome FROM Componente WHERE fkServidor = %s", (result_servidor[0],))
+componentes_servidor = cursor.fetchall()
 
-    # Verificar e adicionar os componentes de 1 a 14 se não existirem
-    for componente_id, componente_nome in componentes.items():
-        if not any(componente_id == comp[0] for comp in componentes_servidor):
-            # Componente não encontrado, adicionar à tabela Componente
-            cursor.execute("INSERT INTO Componente (nome, fkServidor) VALUES (%s, %s)", (componente_nome, result_servidor[0]))
-            
-    if not componentes_servidor:
-       print(f"Não há componentes cadastrados para o Servidor {hostname}. Cadastre componentes para continuar.")
-       sys.exit()
+# Verificar e adicionar/atualizar os componentes de 1 a 14
+for componente_id, componente_nome in componentes.items():
+    # Verificar se o componente já está cadastrado para o servidor
+    componente_existente = next((comp for comp in componentes_servidor if comp[1] == componente_nome), None)
+    
+    if componente_existente:
+        # Componente encontrado, atualizar os valores (ou fazer o que for necessário)
+        print(f"Componente {componente_nome} já cadastrado. Atualizando valores se necessário.")
+        # Aqui você pode realizar a lógica de atualização, por exemplo, atualizar o timestamp de última atualização
     else:
-        print(f"\nComponentes cadastrados para o Servidor {hostname}:")
-        for componente in componentes_servidor:
-            print(f"ID: {componente[0]}, Nome: {componente[1]}")
+        # Componente não encontrado, adicionar à tabela Componente
+        cursor.execute("INSERT INTO Componente (nome, fkServidor) VALUES (%s, %s)", (componente_nome, result_servidor[0]))
+
+# Recarregar os componentes cadastrados para o servidor
+cursor.execute("SELECT idComponente, nome FROM Componente WHERE fkServidor = %s", (result_servidor[0],))
+componentes_servidor = cursor.fetchall()
+
+if not componentes_servidor:
+    print(f"Não há componentes cadastrados para o Servidor {hostname}. Cadastre componentes para continuar.")
+    sys.exit()
+else:
+    print(f"\nComponentes cadastrados para o Servidor {hostname}:")
+    for componente in componentes_servidor:
+        print(f"ID: {componente[0]}, Nome: {componente[1]}")
+
 
     connection.commit()
     cursor.close()

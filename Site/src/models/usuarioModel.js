@@ -22,14 +22,14 @@ function validarFuncionario(idFuncionario) {
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-       instrucaoSql = `SELECT fkNivelAcesso FROM Funcionario WHERE idFuncionario = ${idFuncionario};`;
-   } else {
-       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-       return
-   }
+        instrucaoSql = `SELECT fkNivelAcesso FROM Funcionario WHERE idFuncionario = ${idFuncionario};`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
 
-   console.log("Executando a instrução SQL: \n" + instrucaoSql);
-   return database.executar(instrucaoSql);
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 }
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
@@ -38,15 +38,19 @@ async function cadastrar(nomeEmp, cnpj, cep, estado, rua, numero, bairro, cidade
 
     // 1. Primeiro, insira os dados na tabela Empresa
     const inserirEmpresa = `
-        INSERT INTO Empresa (nome, CNPJ) VALUES ('${nomeEmp}', '${cnpj}')
+        INSERT INTO Empresa (nome, CNPJ, telefone) VALUES ('${nomeEmp}', '${cnpj}', '11012345678')
     `;
+    console.log("Executando a instrução SQL para Empresa: \n" + inserirEmpresa);
+
 
     try {
         const resultadoEmpresa = await database.executar(inserirEmpresa);
+        console.log("Resultado Insert Empresa" + resultadoEmpresa)
         
+
         if (resultadoEmpresa && resultadoEmpresa.insertId) {
             const userId = resultadoEmpresa.insertId;
-            
+
             // 2. Em seguida, insira os dados na tabela Endereco usando o ID da empresa
             const inserirEndereco = `
                 INSERT INTO Endereco (CEP, estado, rua, numero, bairro, cidade, fkEmpresa)
@@ -60,12 +64,10 @@ async function cadastrar(nomeEmp, cnpj, cep, estado, rua, numero, bairro, cidade
             console.log("Dados inseridos com sucesso.");
             return resultadoEndereco;
         } else {
-            console.error("Houve um erro ao inserir na tabela Empresa.");
-            throw new Error("Erro ao cadastrar.");
+            console.error("Houve um erro ao inserir na tabela Empresa.");            
         }
     } catch (erro) {
-        console.error("Erro ao realizar o cadastro:", erro);
-        throw erro;
+        console.error("Erro ao realizar o cadastro:", erro);        
     }
 }
 
@@ -105,8 +107,8 @@ async function cadastrarADM(nome, cpf, email, telefone, senha, fkempresa) {
             const userId = resultadoEmpresa[0].idEmpresa;
 
             var instrucao = `
-                INSERT INTO Funcionario (nome, cpf, email, telefone, senha, fkEmpresa, fkNivelAcesso) 
-                VALUES ('${nome}', '${cpf}', '${email}', '${telefone}', '${senha}', ${userId},1);
+                INSERT INTO Funcionario (nome, cpf, email, telefone, senha, fkEmpresa, fkNivelAcesso, imagem) 
+                VALUES ('${nome}', '${cpf}', '${email}', '${telefone}', '${senha}', ${userId},1, 'https://as2.ftcdn.net/v2/jpg/05/89/93/27/1000_F_589932782_vQAEAZhHnq1QCGu5ikwrYaQD0Mmurm0N.jpg');
             `;
             console.log("Executando a instrução SQL: \n" + instrucao);
 
@@ -122,17 +124,17 @@ async function cadastrarADM(nome, cpf, email, telefone, senha, fkempresa) {
 }
 
 async function cadastrarUser(nome, cpf, email, nivelPermissao, telefone, senha, fkempresa) {
-    console.log("ACESSEI O USUARIO MODEL - function cadastrarUser():", nome, cpf, email, nivelPermissao, telefone, senha, fkempresa); 
+    console.log("ACESSEI O USUARIO MODEL - function cadastrarUser():", nome, cpf, email, nivelPermissao, telefone, senha, fkempresa);
 
     try {
-            var instrucao = `
+        var instrucao = `
                 INSERT INTO Funcionario (nome, cpf, email, telefone, senha, fkEmpresa, fkNivelAcesso)
                  VALUES ('${nome}', '${cpf}', '${email}', '${telefone}', '${senha}', ${fkempresa}, ${nivelPermissao});
             `;
-            console.log("Executando a instrução SQL: \n" + instrucao);
+        console.log("Executando a instrução SQL: \n" + instrucao);
 
-            return database.executar(instrucao);
-       
+        return database.executar(instrucao);
+
     } catch (erro) {
         console.error("Erro ao realizar o cadastro:", erro);
         throw erro;
@@ -145,11 +147,11 @@ async function cadastrarUser(nome, cpf, email, nivelPermissao, telefone, senha, 
 
 
 module.exports = {
-            entrar,
-            cadastrar,            
-            cadastrarADM,
-            cadastrarUser,
-            buscaridEmpresa,
-            validarFuncionario,
-            listar,
-        };
+    entrar,
+    cadastrar,
+    cadastrarADM,
+    cadastrarUser,
+    buscaridEmpresa,
+    validarFuncionario,
+    listar,
+};

@@ -1,0 +1,72 @@
+.cor-alerta {
+    width: 13%;
+    height: 30%;
+    border-radius: 50px;
+    margin-top: 6%;
+}
+
+.perigo-quente {
+    background-color: #ff7043;
+} 
+
+.alerta-frio {
+    background-color: #42a5f5;
+}
+  
+.alerta-quente {
+    background-color: #ffee58;
+}
+
+.alarme-sino {
+    width: 48px;
+    height: 48px;
+    animation-name: bell;
+    animation-duration: 4s;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/1157/1157000.png');
+    background-size: cover;
+    animation-iteration-count: infinite;
+}
+
+@keyframes bell {
+    0%   {transform: rotate(25deg)}
+    25%  {transform: rotate(-25deg)}
+    50%  {transform: rotate(25deg)}
+    75%  {transform: rotate(-25deg)}
+    100% {transform: rotate(25deg)}
+}
+
+.card {
+    margin: 2%;
+    width: 40%;
+    flex-wrap: wrap;
+    display: flex;
+    text-align: center;
+    height: 180px;
+    justify-content: right;
+    /* background-color: #009EA3; */
+    border-color: #009EA3;
+    font-size: 20px;
+}
+
+.card p {
+    margin: 0;
+    font-size: 50px;
+    font-weight: lighter;
+    text-align: left;
+}
+
+.cards h1 {
+    font-size: 22px;
+    width: 100%;
+    border-bottom: solid white 1px;
+    text-align: left;
+    font-weight: lighter;
+    margin: 20px;
+}
+
+.temperatura,
+.umidade {
+  margin: 5px;
+  margin-left: 20px;
+  width: 75%;
+}

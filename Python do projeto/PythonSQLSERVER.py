@@ -88,8 +88,8 @@ def registrar_dados_disco(connection, disco, horarioFormatado):
         for i in range(len(ins)):
             valorRegistro = ins[i]
             componente = componentes[i]
-            query = "INSERT INTO Registro (valorRegistro, dataRegistro, fkComponente) VALUES (?, ?, ?)"
-            cursor.execute(query, (valorRegistro, horarioFormatado, componente))
+            query = "INSERT INTO Registro (valorRegistro, fkComponente) VALUES (?, ?)"
+            cursor.execute(query, (valorRegistro, componente))
 
         connection.commit()
     except pyodbc.Error as ex:
@@ -115,8 +115,9 @@ def registrar_dados_cpu_memoria(connection, cpuPorcentagem, cpuVelocidadeEmGhz, 
         for i in range(len(ins)):
             valorRegistro = ins[i]
             componente = componentes[i]
-            query = "INSERT INTO Registro (valorRegistro, dataRegistro, fkComponente) VALUES (?, ?, ?)"
-            cursor.execute(query, (valorRegistro, horarioFormatado, componente))
+            query = "INSERT INTO Registro (valorRegistro, fkComponente) VALUES (?, ?)"
+            cursor.execute(query, (valorRegistro, componente))
+            print("Valores a serem inseridos:", ins, horarioFormatado)
 
         connection.commit()
     except pyodbc.Error as ex:
@@ -156,7 +157,7 @@ if __name__ == "__main__":
 
             disco = psutil.disk_usage(nome_disco)
             horarioAtual = datetime.now()
-            horarioFormatado = horarioAtual.strftime('%Y-%m-%d %H:%M:%S')
+            horarioFormatado = horarioAtual.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]  # Formato compatível com o SQL Server
 
             registrar_dados_disco(connection, disco, horarioFormatado)
 
@@ -169,8 +170,8 @@ if __name__ == "__main__":
             for i in range(len(ins)):
                 valorRegistro = ins[i]
                 componente = componentes[i]
-                query = "INSERT INTO Registro (valorRegistro, dataRegistro, fkComponente) VALUES (?, ?, ?)"
-                cursor.execute(query, (valorRegistro, horarioFormatado, componente))
+                query = "INSERT INTO Registro (valorRegistro, fkComponente) VALUES (?, ?)"
+                cursor.execute(query, (valorRegistro, componente))
 
             connection.commit()
 
@@ -198,11 +199,11 @@ if __name__ == "__main__":
                    psutil.swap_memory().percent, "{:.2f}".format(bytes_para_gb(psutil.swap_memory().used))]
             componentes = [1, 2, 4, 5, 6, 7, 8, 9]
 
-            for i in range(len(ins)):
+            for i in range(min(len(ins), len(componentes))):
                 valorRegistro = ins[i]
                 componente = componentes[i]
-                query = "INSERT INTO Registro (valorRegistro, dataRegistro, fkComponente) VALUES (?, ?, ?)"
-                cursor.execute(query, (valorRegistro, horarioFormatado, componente))
+                query = "INSERT INTO Registro (valorRegistro, fkComponente) VALUES (?, ?)"
+                cursor.execute(query, (valorRegistro, componente))
 
             connection.commit()
 
