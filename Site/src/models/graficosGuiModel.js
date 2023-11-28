@@ -116,24 +116,26 @@ ORDER BY
 function obterDadosDesempenhoMaxCPU(idSalas){
        instrucaoSql = `
        SELECT
-    MAX(valorRegistro) AS maximo_valor,
-    TipoComponente.tipoComponente AS nome_tipo,
-    fkTipoComponente,
-    MAX(FORMAT(dataRegistro, 'HH\h:mm')) AS intervalo_tempo
-FROM
-    Registro
-JOIN
-    Componente ON fkComponente = idComponente
-JOIN
-    TipoComponente ON fkTipoComponente = idTipoComponente
-JOIN
-    Servidor ON fkServidor = idServidor
-JOIN
-    Salas ON fkSalas = idSalas
-WHERE
-    idSalas = ${idSalas}
-GROUP BY
-    fkTipoComponente, nome_tipo;
+       MAX(valorRegistro) AS maximo_valor,
+       tipoComponente AS nomeTipo,
+       fkTipoComponente,
+       MAX(FORMAT(dataRegistro, 'HH\h:mm')) AS intervalo_tempo
+   FROM
+       Registro
+   JOIN
+       Componente ON fkComponente = idComponente
+   JOIN
+       TipoComponente ON fkTipoComponente = idTipoComponente
+   JOIN
+       Servidor ON fkServidor = idServidor
+   JOIN
+       Salas ON fkSalas = idSalas
+   WHERE
+       idSalas = ${idSalas}
+   GROUP BY
+       fkTipoComponente, tipoComponente, FORMAT(dataRegistro, 'HH\h:mm')
+   ORDER BY
+       fkTipoComponente, tipoComponente, FORMAT(dataRegistro, 'HH\h:mm') DESC;   
 
    `
    

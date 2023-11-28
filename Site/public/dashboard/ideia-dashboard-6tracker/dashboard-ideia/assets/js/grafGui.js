@@ -287,11 +287,11 @@ function obterDadosDesempenhoMax(idSala) {
 function plotarKpiDesempenhoMax(resposta, idSala) {
   for (i = 0; i < resposta.length; i++) {
       var registro = resposta[i];
-      if (registro.nome_tipo === "CPU") {
+      if (registro.nomeTipo === "CPU") {
           valores_kpi_desempenho[0].innerHTML = (registro.maximo_valor) + "%";
           valores_kpi_desempenho[2].innerHTML = "Data de Captura: " + (registro.intervalo_tempo);
       }
-      if (registro.nome_tipo === "RAM") {
+      if (registro.nomeTipo === "RAM") {
           valores_kpi_desempenho[1].innerHTML = (registro.maximo_valor) + "%";
           valores_kpi_desempenho[3].innerHTML = "Data de Captura: " + (registro.intervalo_tempo);
       }
@@ -311,10 +311,10 @@ function atualizarKpiDesempenhoMax(idSala) {
 
               for (i = 0; i < resposta.length; i++) {
                 var registro = resposta[i];
-                if (registro.nome_tipo === "CPU") {
+                if (registro.nomeTipo === "CPU") {
                     valores_kpi_desempenho[0].innerHTML = (registro.maximo_valor) + "%";
                 }
-                if (registro.nome_tipo === "RAM") {
+                if (registro.nomeTipo === "RAM") {
                     valores_kpi_desempenho[1].innerHTML = (registro.maximo_valor) + "%";
                 }               
             }
