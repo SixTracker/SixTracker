@@ -53,20 +53,17 @@ function plotarGraficoRAM(resposta, idSalas) {
         labels.push(registro.intervalo_tempo);
 
         // Definindo a cor com base nas condições
-        if (registro.RAM <= 80) {
-            dados.datasets[0].pointBackgroundColor.push('#00FF00');
+        if (registro.RAM <= 80) {            
             dados.datasets[0].backgroundColor.push('#00FF00');
-        } else if (registro.RAM <= 90) {
-            dados.datasets[0].pointBackgroundColor.push('#f6ff00');
+        } else if (registro.RAM <= 90) {            
             dados.datasets[0].backgroundColor.push('#f6ff00');
-        } else {
-            dados.datasets[0].pointBackgroundColor.push('#FF0000');
+        } else {            
             dados.datasets[0].backgroundColor.push('#FF0000');
         }
     };
 
     const config = {
-        type: 'line',
+        type: 'bar',
         data: dados,
         fill: false
     }
