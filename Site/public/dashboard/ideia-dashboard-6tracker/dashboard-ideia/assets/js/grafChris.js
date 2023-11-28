@@ -149,8 +149,8 @@ function obterDadosDesempenhoMedio(idSala) {
 function plotarKpiDesempenhoMedio(resposta, idSala) {
     for (i = 0; i < resposta.length; i++) {
         var registro = resposta[i];
-        valores_kpi_desempenho[0].innerHTML = (registro.media_valor) + "%";
-        valores_kpi_desempenho[1].innerHTML = "Data de Captura: " + (registro.intervalo_tempo);
+        valores_kpi_desempenho[0].innerHTML =  (registro.media_valor) + "%";
+        valores_kpi_desempenho[1].innerHTML = "Hora de Captura: " + (registro.intervalo_tempo) + "h";
     }
     setTimeout(() => atualizarKpiDesempenhoMedio(idSala), 2000);
 }
