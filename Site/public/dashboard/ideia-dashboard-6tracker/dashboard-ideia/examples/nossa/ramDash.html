@@ -38,7 +38,7 @@ Coded by www.creative-tim.com
 </head>
 
 <body class="">
-  <div class="wrapper ">
+  <div class="wrapper">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
         <a href="https://www.creative-tim.com" class="simple-text logo-mini">
@@ -200,6 +200,11 @@ Coded by www.creative-tim.com
                       </div>
                     </div>
                   </div>
+
+
+
+                  <!-- Iniciando as KPI's
+                  Primeira KPI -->
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Média das RAM</p>
@@ -217,6 +222,12 @@ Coded by www.creative-tim.com
               </div>
             </div>
           </div>
+
+
+
+
+
+          <!-- Segunda KPI -->
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card-stats">
               <div class="card-body ">
@@ -234,6 +245,7 @@ Coded by www.creative-tim.com
                       </div>
                     </div>
                   </div>
+
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Quantidade de memória RAM</p>
@@ -252,6 +264,9 @@ Coded by www.creative-tim.com
               </div>
             </div>
           </div>
+
+
+          <!-- Terceira KPI -->
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card-stats">
               <div class="card-body ">
@@ -285,44 +300,14 @@ Coded by www.creative-tim.com
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning text-cpi">
-                      <div class="text-cpi">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="50" fill="currentColor"
-                          class="bi bi-folder2-open" viewBox="0 0 16 16">
-                          <path
-                            d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v.64c.57.265.94.876.856 1.546l-.64 5.124A2.5 2.5 0 0 1 12.733 15H3.266a2.5 2.5 0 0 1-2.481-2.19l-.64-5.124A1.5 1.5 0 0 1 1 6.14V3.5zM2 6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5a.5.5 0 0 0-.5.5V6zm-.367 1a.5.5 0 0 0-.496.562l.64 5.124A1.5 1.5 0 0 0 3.266 14h9.468a1.5 1.5 0 0 0 1.489-1.314l.64-5.124A.5.5 0 0 0 14.367 7H1.633z" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Livre</p>
-                      <p class="card-title">14,2 GB
-                      <p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Atualizar agora
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <h3 class="description" style="color: aliceblue;text-align: center;">Gráficos</h3>
+          
+
+
+
+
 
         <!--Inicio dos gráficos-->
-        <div class="dashChris">
+        <div id="grafico1" class="dashChris">
           <div class="graficoChris">
             <h4 class="card-title">Dados da RAM</h4>
             <h6 class="card-title">Servidor 1</h6>
@@ -330,15 +315,20 @@ Coded by www.creative-tim.com
             <h6 class="card-title2">Atualizado agora</h6>
           </div>
 
-          <div class="graficoChris">
+          <div id="grafico2" class="graficoChris">
             <h4 class="card-title">Dados da RAM</h4>
             <h6 class="card-title">Servidor 2</h6>
             <canvas id="sistemaRAM2"></canvas>
             <h6 class="card-title2">Atualizado agora</h6>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 
 
-          <!-- <div class="row">
+  <!-- <div class="row">
           <div id= "DashChris" class="col-md-12">
             <div id="cardRAM" class="card ">
               <div class="card-header ">
@@ -419,28 +409,28 @@ Coded by www.creative-tim.com
         </footer>
       </div>
     </div> -->
-          <!--   Core JS Files   -->
-          <script src="../../assets/js/core/jquery.min.js"></script>
-          <script src="../../assets/js/core/popper.min.js"></script>
-          <script src="../../assets/js/core/bootstrap.min.js"></script>
-          <script src="../../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-          <!--  Google Maps Plugin    -->
-          <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-          <!-- Chart JS -->
-          <script src="../../assets/js/plugins/chartjs.min.js"></script>
-          <!--  Notifications Plugin    -->
-          <script src="../../assets/js/plugins/bootstrap-notify.js"></script>
-          <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-          <script src="../../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>
-          <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-          <!-- <script src="../../assets/demo/demo.js"></script> -->
-          <script src="../../assets/js/graficoCPU/graRAM.js"></script>
-          <script>
-            $(document).ready(function () {
-              // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-              demo.initChartsPages();
-            });
-          </script>
+  <!--   Core JS Files   -->
+  <script src="../../assets/js/core/jquery.min.js"></script>
+  <script src="../../assets/js/core/popper.min.js"></script>
+  <script src="../../assets/js/core/bootstrap.min.js"></script>
+  <script src="../../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="../../assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../../assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>
+  <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <!-- <script src="../../assets/demo/demo.js"></script> -->
+  <script src="../../assets/js/graficoCPU/graRAM.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+      demo.initChartsPages();
+    });
+  </script>
 </body>
 
 </html>

@@ -5,17 +5,37 @@
 
 .graficoChris {
   background-color: rgb(255, 255, 255);
-  height: 300px;
-  width: 600px;
-  margin-bottom: 5%;
+  height: 45vh;
+  width: 35vw;
   border-radius: 5%;
+  
+  
 }
 
 .card-title {
   position: relative;
-  margin-left: 5%;
+  left: 1.7vw;
+  top: 1vh;
 }
 
 .card-title2 {
-  margin-left: 5%;
+  position: relative;
+  left: 1.7vw;
+top: 13vh;
+
 }
+
+ #grafico1{
+position: relative;
+left: 1vw;
+}
+
+#grafico2{
+  position: relative;
+  left: 45vw;
+  bottom: 47.8vh;
+}
+
+
+
+
