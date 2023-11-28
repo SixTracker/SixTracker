@@ -396,6 +396,7 @@ fetch(`/sala/buscar`, {
             var idSala = selectSala.value;            
             await obterDadosMediaRAM(idSala);
             await atualizarGraficoRAM(idSala);  
+            await obterDadosDesempenhoMedio(idSala);  
             console.log("----------------------------------------------")         
         } catch (error) {
             console.error("Erro no carregamento da página: " + error.message);
