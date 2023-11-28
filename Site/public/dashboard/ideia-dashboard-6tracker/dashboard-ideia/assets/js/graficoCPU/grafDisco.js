@@ -169,42 +169,42 @@ demo = {
           },
         };
 
-        //let graficoTodos;
-        // $(document).ready(function () {
+        let graficoTodos;
+        $(document).ready(function () {
         // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
 
-        //   fetch("/medidas/disco/29", {
-        //     method: "GET",
-        //     headers: {
-        //       "Content-Type": "application/json"
-        //     }
-        //   })
-        //     .then(function (resposta) {
-        //       return resposta.json();
-        //     })
-        //     .then(data => {
-        //       console.log(data);
+          fetch("/medidas/disco/29", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
+            .then(function (resposta) {
+              return resposta.json();
+            })
+            .then(data => {
+              console.log(data);
 
-        //       // Verifica se data é uma array e tem comprimento antes de continuar
-        //       if (Array.isArray(data) && data.length > 0) {
-        //         const data_reverse = data.reverse();
-        //         graficoTodos = demo.initChartsPages(data_reverse);
-        //         graficoCpu = demo.ChartsCPU(data_reverse);
-        //         graficoRam = demo.ChartsRAM(data_reverse);
-        //         graficoDisco = demo.ChartsDisco(data_reverse);
-        //         graficoNet = demo.ChartsNET(data_reverse);
+              // Verifica se data é uma array e tem comprimento antes de continuar
+              if (Array.isArray(data) && data.length > 0) {
+                const data_reverse = data.reverse();
+                graficoTodos = demo.initChartsPages(data_reverse);
+                graficoCpu = demo.ChartsCPU(data_reverse);
+                graficoRam = demo.ChartsRAM(data_reverse);
+                graficoDisco = demo.ChartsDisco(data_reverse);
+                graficoNet = demo.ChartsNET(data_reverse);
 
-        //         setInterval(() => {
-        //           atualizarGraficos();
-        //         }, 3000);
-        //       } else {
-        //         console.error("Os dados não são uma array válida ou estão vazios:", data);
-        //       }
-        //     })
-        //     .catch(error => {
-        //       console.error("Erro na requisição:", error);
-        //     });
-        // });
+                setInterval(() => {
+                  atualizarGraficos();
+                }, 3000);
+              } else {
+                console.error("Os dados não são uma array válida ou estão vazios:", data);
+              }
+            })
+            .catch(error => {
+              console.error("Erro na requisição:", error);
+            });
+        });
 
 
         /* 

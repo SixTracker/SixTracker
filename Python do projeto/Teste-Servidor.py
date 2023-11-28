@@ -40,7 +40,7 @@ if __name__ == "__main__":
     hostname = socket.gethostname()
     print("Nome do host da máquina:", hostname)
 
-    connection = mysql_connection('localhost', 'root', 'Isabeol0609!', 'sixtracker')
+    connection = mysql_connection('localhost', 'root', '271815', 'sixtracker')
     cursor = connection.cursor()
 
     # Verificar se o servidor já está cadastrado

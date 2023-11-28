@@ -31,7 +31,7 @@ var database = require("../database/config");
 //     return database.executar(instrucaoSql);
 // }
 
-function buscarMedidasDisco(idServidor) {
+async function buscarMedidasDisco(idServidor) {
     var instrucaoSql = `
     
     select * from 
@@ -46,7 +46,9 @@ function buscarMedidasDisco(idServidor) {
     `
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    var executavel = await database.executar(instrucaoSql);
+    console.log(executavel)
+    return executavel
 }
 
 function buscarMetricas(idServidor) {
