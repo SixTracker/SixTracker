@@ -86,27 +86,12 @@ function deletar(idSala) {
 };
 
 
-function buscarSalas(fkempresa){
-    instrucaoSql = ''
+function buscarSalas(fkempresa) {
 
-    if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `SELECT * FROM Salas WHERE fkEmpresa = ${fkempresa};`;
-    } else {
-        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-        return
-    }
-
-    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-       instrucaoSql = `SELECT * FROM Salas WHERE fkEmpresa = ${fkempresa};`;
-   } else {
-       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-       return
-   }
+    instrucaoSql = `SELECT * FROM Salas WHERE fkEmpresa = ${fkempresa};`;
     
-   
-
-   console.log("Executando a instrução SQL: \n" + instrucaoSql);
-   return database.executar(instrucaoSql);
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
 }
 
 
