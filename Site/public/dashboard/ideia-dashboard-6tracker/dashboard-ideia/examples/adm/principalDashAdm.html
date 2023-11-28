@@ -248,7 +248,7 @@ Coded by www.creative-tim.com
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Seguro</p>
+                      <p class="card-category">CPU</p>
                       <p class="card-title">85%
                       <p>
                     </div>
@@ -257,10 +257,6 @@ Coded by www.creative-tim.com
               </div>
               <div class="card-footer ">
                 <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update Now
-                </div>
               </div>
             </div>
           </div>
@@ -281,8 +277,8 @@ Coded by www.creative-tim.com
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Alerta</p>
-                      <p class="card-title">10%
+                      <p class="card-category">RAM</p>
+                      <p class="card-title" id="kpi-RAM">10%
                       <p>
                     </div>
                   </div>
@@ -290,10 +286,7 @@ Coded by www.creative-tim.com
               </div>
               <div class="card-footer ">
                 <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update Now
-                </div>
+                
               </div>
             </div>
           </div>
@@ -315,49 +308,18 @@ Coded by www.creative-tim.com
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Risco</p>
-                      <p class="card-title">5%
-                      <p>
+                      <p class="card-category">Disco</p>
+                      <p class="card-title" id="kpi-disco">5%<p>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-footer ">
                 <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update Now
-                </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning text-cpi">
-                      <i class="nc-icon nc-sound-wave"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Status total</p>
-                      <p class="card-title">Positivo
-                      <p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update now
-                </div>
-              </div>
-            </div>
-          </div>
+        
         </div>
         <h3 class="description" style="color: aliceblue;text-align: center;">Gráficos</h3>
         <!--Inicio dos gráficos-->
@@ -371,7 +333,7 @@ Coded by www.creative-tim.com
               <p class="card-category">Resumo de produtividade do sistema</p>
             </div>
             <div class="card-body ">
-              <canvas id=analiseSistema width="400" height="100"></canvas>
+              <canvas id="chartCPU" width="400" height="100"></canvas>
             </div>
             <div class="card-footer ">
               <hr>
@@ -458,7 +420,12 @@ Coded by www.creative-tim.com
   <script 
   src="../../assets/js/graficoCPU/grafDisco.js">
   </script>
-  <script src="../../assets/js/graficoCPU/testeRAM.js">
+  <script 
+  src="../../assets/js/graficoCPU/testeRAM.js">
+  </script>
+  <script 
+  src="../../assets/js/graficoCPU/testeCPU.js">
+
   </script>
 
   <!-- <script>
@@ -551,4 +518,5 @@ Coded by www.creative-tim.com
 <script>
   obterDadosDisco();
   obterDadosRAM();
+  obterDadosCPU();
   </script>

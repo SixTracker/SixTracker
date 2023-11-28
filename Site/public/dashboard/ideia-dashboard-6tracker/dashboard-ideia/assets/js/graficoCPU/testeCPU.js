@@ -1,15 +1,15 @@
-function obterDadosRAM(idServidor) {
+function obterDadosCPU(idServidor) {
     console.log("tempxcpu")
   // if (proximaAtualizacao != undefined) {
   //     clearTimeout(proximaAtualizacao);
   // }
-  fetch(`/medidas/ultimasRAM/${idServidor}`, { cache: 'no-store' }).then(function (response) {
+  fetch(`/medidas/ultimasCPU/${idServidor}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
           response.json().then(function (resposta) {
-              console.log(`Dados recebidos DE RAM: ${JSON.stringify(resposta)}`);
+              console.log(`Dados recebidos DE CPU: ${JSON.stringify(resposta)}`);
               resposta.reverse();
 
-              plotarGraficoRAM(resposta, idServidor);
+              plotarGraficoCPU(resposta, idServidor);
 
           });
       } else {
@@ -21,7 +21,7 @@ function obterDadosRAM(idServidor) {
       });
 }
 
-function plotarGraficoRAM(resposta, idServidor) {
+function plotarGraficoCPU(resposta, idServidor) {
 
   console.log('iniciando plotagem do gráfico...');
 
@@ -83,16 +83,16 @@ if (registro.valorRegistro <= 15) {
   }
   
   // Adicionando gráfico criado em div na tela
-  let chartRAM = new Chart(
-      document.getElementById(`chartRAM`),
+  let chartCPU = new Chart(
+      document.getElementById(`chartCPU`),
       config
   );
 
-  setTimeout(() => atualizarGraficoRAM(idServidor, dados, chartRAM ), 5000);
+  setTimeout(() => atualizarGraficoRAM(idServidor, dados, chartCPU ), 5000);
 }
 
 
-function atualizarGraficoRAM(idServidor, dados, chartRAM) {
+function atualizarGraficoRAM(idServidor, dados, chartCPU) {
 
   fetch(`/medidas/tempoRealRAM/${idServidor}`, { cache: 'no-store' }).then(function (response) {
     if (response.ok) {
@@ -121,16 +121,16 @@ function atualizarGraficoRAM(idServidor, dados, chartRAM) {
               dados.datasets[0].data.shift();  // apagar o primeira medida
               dados.datasets[0].data.push(novoRegistro[0].valorRegistro); // incluir uma nova medida
 
-              chartRAM.update();
+              chartCPU.update();
           }
 
           // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-          proximaAtualizacao = setTimeout(() => atualizarGraficoRAM(idServidor, dados, chartRAM), 5000);
+          proximaAtualizacao = setTimeout(() => atualizarGraficoRAM(idServidor, dados, chartCPU), 5000);
       });
   } else {
       console.error('Nenhum dado encontrado ou erro na API');
       // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-      proximaAtualizacao = setTimeout(() => atualizarGraficoRAM(idServidor, dados, chartRAM), 5000);
+      proximaAtualizacao = setTimeout(() => atualizarGraficoRAM(idServidor, dados, chartCPU), 5000);
   }
 })
   .catch(function (error) {

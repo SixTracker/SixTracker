@@ -1,3 +1,5 @@
+
+
 function obterDadosRAM(idServidor) {
     console.log("tempxcpu")
   // if (proximaAtualizacao != undefined) {
