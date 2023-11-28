@@ -14,6 +14,7 @@ var avisosRouter = require("./src/routes/avisos");
 var medidasRouter = require("./src/routes/medidas");
 var graficosGuiRouter = require("./src/routes/graficosGui");
 var graficosChrisRouter = require("./src/routes/graficosChris");
+var graficosLiviaRouter = require("./src/routes/graficosLivia");
 var servidorRouter = require("./src/routes/servidor");
 var salaRouter = require("./src/routes/sala");
 var componenteRouter = require("./src/routes/componente");
@@ -35,6 +36,7 @@ app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter)
 app.use("/graficosGui", graficosGuiRouter)
 app.use("/graficosChris", graficosChrisRouter)
+app.use("/graficosLivia", graficosLiviaRouter);
 app.use("/servidor", servidorRouter)
 app.use("/sala", salaRouter)
 app.use("/componente", componenteRouter)
