@@ -5,11 +5,9 @@
 
 .graficoChris {
   background-color: rgb(255, 255, 255);
-  height: 45vh;
+  height: 55vh;
   width: 35vw;
   border-radius: 5%;
-
-
 }
 
 .graficoChris .card-title {
