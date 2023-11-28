@@ -34,14 +34,14 @@ var database = require("../database/config");
 function buscarMedidasDisco(idServidor) {
     var instrucaoSql = `
     
-        select * from 
-        registro 
-        where 
-        fkComponente = 
-        (select idComponente from 
-            componente 
-            where fkServidor = ${idServidor} 
-            and nome = "Disco Total" order by idComponente desc limit 1);
+    select * from 
+    registro 
+    where 
+    fkComponente = 
+    (select idComponente from 
+        componente 
+        where fkServidor = ${idServidor} 
+        and nome = "Total do Disco" order by idComponente desc limit 1);  
     
     `
 

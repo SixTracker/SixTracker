@@ -84,8 +84,8 @@ function buscarServidores(fkempresa){
 
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
        instrucaoSql = `SELECT
-       Servidor.idServidor,
-       Servidor.nome,
+       Servidor.idServidor as idServidor,
+       Servidor.nome as Nome,
        Salas.nomeSala as nomeSala,
        Servidor.codigo as cod,
        Servidor.sistemaOperacional as so,
