@@ -1,5 +1,5 @@
-//process.env.AMBIENTE_PROCESSO = "desenvolvimento";
-process.env.AMBIENTE_PROCESSO = "producao";
+process.env.AMBIENTE_PROCESSO = "desenvolvimento";
+// process.env.AMBIENTE_PROCESSO = "producao";
 
 var express = require("express");
 var cors = require("cors");
@@ -21,6 +21,7 @@ var perfilRouter = require("./src/routes/perfil");
 var dashAnalistaRouter = require("./src/routes/dashAnalista");
 var cpuRouter = require("./src/routes/dadosCpu");
 var isabelRouter = require("./src/routes/isabel");
+var graficosLiviaRouter = require("./src/routes/graficosLivia");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -41,6 +42,7 @@ app.use("/perfil", perfilRouter)
 app.use("/dashAnalista", dashAnalistaRouter)
 app.use("/dadosCpu",cpuRouter);
 app.use("/isabel", isabelRouter)
+app.use("/graficosLivia", graficosLiviaRouter);
 
 
 
