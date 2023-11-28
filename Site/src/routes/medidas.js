@@ -14,6 +14,22 @@ router.get("/metricas/:idServidor", function (req, res) {
 router.get("/disco/:idServidor", function (req, res) {
     medidaController.buscarMedidasDisco(req, res);
 })
+router.get("/ultimasDisco/:idServidor", function (req, res) {
+    medidaController.buscarMedidasDisco(req, res);
+});
+
+router.get("/tempoRealDisco/:idServidor", function (req, res) {
+    medidaController.tempoRealDisco(req, res);
+});
+
+router.get("/ultimasRAM/:idServidor", function (req, res) {
+    medidaController.buscarMedidasRAM(req, res);
+});
+
+router.get("/tempoRealRAM/:idServidor", function (req, res) {
+    medidaController.tempoRealRAM(req, res);
+});
+
 
 
 module.exports = router;

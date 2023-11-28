@@ -375,9 +375,6 @@ Coded by www.creative-tim.com
             </div>
             <div class="card-footer ">
               <hr>
-              <div class="stats">
-                <i class="fa fa-history"></i> Atualizado 1 minuto atrás.
-              </div>
             </div>
           </div>
         </div>
@@ -386,8 +383,8 @@ Coded by www.creative-tim.com
         <div class="col-md-4">
           <div class="card ">
             <div class="card-header ">
-              <h5 class="card-title">Estatísticas dos servidores</h5>
-              <p class="card-category">Estado de velocidade rede</p>
+              <h5 class="card-title">Estado do Disco</h5>
+              <p class="card-category">Estado da velocidade do Disco</p>
             </div>
             <div class="card-body ">
               <canvas id="chartEstado"></canvas>
@@ -395,9 +392,7 @@ Coded by www.creative-tim.com
             <div class="card-footer ">
 
               <hr>
-              <div class="stats">
-                <i class="fa fa-history"></i> Atualizado 1 minuto atrás.
-              </div>
+              
             </div>
           </div>
         </div>
@@ -408,13 +403,10 @@ Coded by www.creative-tim.com
               <p class="card-category">Em uso contínuo</p>
             </div>
             <div class="card-body">
-              <canvas id="chartVelocidade" width="400" height="100"></canvas>
+              <canvas id="chartRAM" width="400" height="100"></canvas>
             </div>
             <div class="card-footer">
               <hr />
-              <div class="card-stats">
-                <i class="fa fa-history"></i> Atualizado 1 minuto atrás.
-              </div>
             </div>
           </div>
         </div>
@@ -461,6 +453,12 @@ Coded by www.creative-tim.com
       // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
       demo.initChartsPages();
     });
+  </script>
+
+  <script 
+  src="../../assets/js/graficoCPU/grafDisco.js">
+  </script>
+  <script src="../../assets/js/graficoCPU/testeRAM.js">
   </script>
 
   <!-- <script>
@@ -548,5 +546,9 @@ Coded by www.creative-tim.com
     }
   </script> -->
 </body>
-
 </html>
+
+<script>
+  obterDadosDisco();
+  obterDadosRAM();
+  </script>

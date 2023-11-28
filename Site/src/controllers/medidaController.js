@@ -42,25 +42,96 @@ function buscarMetricas(req, res) {
 }
 
 function buscarMedidasDisco(req, res) {
+    var limite_linhas = 4;
+
     var idServidor = req.params.idServidor;
 
-    medidaModel.buscarMedidasDisco(idServidor)
-        .then((resultado) => {
+    medidaModel.buscarMedidasDisco(idServidor, limite_linhas).then(function(resultado)
+        
+    {
             
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
             res.status(204).send("Nenhum resultado encontrado!")
         }   
-    }).catch(() => {
+    }).catch(function(erro) {
         console.log(erro);
         console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
-    })
+    });
 }
+
+function tempoRealDisco(req, res) {
+    var limite_linhas = 1;
+
+    var idServidor = req.params.idServidor;
+
+    medidaModel.tempoRealDisco(idServidor, limite_linhas).then(function(resultado)
+        
+    {
+            
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }   
+    }).catch(function(erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+
+function buscarMedidasRAM(req, res) {
+    var limite_linhas = 4;
+
+    var idServidor = req.params.idServidor;
+
+    medidaModel.buscarMedidasRAM(idServidor, limite_linhas).then(function(resultado)
+        
+    {
+            
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }   
+    }).catch(function(erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function tempoRealRAM(req, res) {
+    var limite_linhas = 1;
+
+    var idServidor = req.params.idServidor;
+
+    medidaModel.tempoRealRAM(idServidor, limite_linhas).then(function(resultado)
+        
+    {
+            
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }   
+    }).catch(function(erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 
 module.exports = {
     buscarUltimasMedidas,
     buscarMetricas,
-    buscarMedidasDisco
+    buscarMedidasDisco,
+    tempoRealDisco,
+    tempoRealRAM,
+    buscarMedidasRAM
 }

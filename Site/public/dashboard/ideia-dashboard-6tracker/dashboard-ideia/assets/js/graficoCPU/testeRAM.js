@@ -1,15 +1,15 @@
-function obterDadosDisco(idServidor) {
+function obterDadosRAM(idServidor) {
     console.log("tempxcpu")
   // if (proximaAtualizacao != undefined) {
   //     clearTimeout(proximaAtualizacao);
   // }
-  fetch(`/medidas/ultimasDisco/${idServidor}`, { cache: 'no-store' }).then(function (response) {
+  fetch(`/medidas/ultimasRAM/${idServidor}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
           response.json().then(function (resposta) {
-              console.log(`Dados recebidos DE Disco: ${JSON.stringify(resposta)}`);
+              console.log(`Dados recebidos DE RAM: ${JSON.stringify(resposta)}`);
               resposta.reverse();
 
-              plotarGraficoDisco(resposta, idServidor);
+              plotarGraficoRAM(resposta, idServidor);
 
           });
       } else {
@@ -21,7 +21,7 @@ function obterDadosDisco(idServidor) {
       });
 }
 
-function plotarGraficoDisco(resposta, idServidor) {
+function plotarGraficoRAM(resposta, idServidor) {
 
   console.log('iniciando plotagem do gráfico...');
 
@@ -83,18 +83,18 @@ if (registro.valorRegistro <= 15) {
   }
   
   // Adicionando gráfico criado em div na tela
-  let ChartDisco= new Chart(
-      document.getElementById(`chartEstado`),
+  let chartRAM = new Chart(
+      document.getElementById(`chartRAM`),
       config
   );
 
-  setTimeout(() => atualizarGraficoDisco(idServidor, dados, ChartDisco), 5000);
+  setTimeout(() => atualizarGraficoRAM(idServidor, dados, chartRAM ), 5000);
 }
 
 
-function atualizarGraficoDisco(idServidor, dados, ChartDisco) {
+function atualizarGraficoRAM(idServidor, dados, chartRAM) {
 
-  fetch(`/medidas/tempoRealDisco/${idServidor}`, { cache: 'no-store' }).then(function (response) {
+  fetch(`/medidas/tempoRealRAM/${idServidor}`, { cache: 'no-store' }).then(function (response) {
     if (response.ok) {
       response.json().then(function (novoRegistro) {
 
@@ -121,16 +121,16 @@ function atualizarGraficoDisco(idServidor, dados, ChartDisco) {
               dados.datasets[0].data.shift();  // apagar o primeira medida
               dados.datasets[0].data.push(novoRegistro[0].valorRegistro); // incluir uma nova medida
 
-              ChartDisco.update();
+              chartRAM.update();
           }
 
           // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-          proximaAtualizacao = setTimeout(() => atualizarGraficoDisco(idServidor, dados, ChartDisco), 5000);
+          proximaAtualizacao = setTimeout(() => atualizarGraficoRAM(idServidor, dados, chartRAM), 5000);
       });
   } else {
       console.error('Nenhum dado encontrado ou erro na API');
       // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-      proximaAtualizacao = setTimeout(() => atualizarGraficoDisco(idServidor, dados, ChartDisco), 5000);
+      proximaAtualizacao = setTimeout(() => atualizarGraficoRAM(idServidor, dados, chartRAM), 5000);
   }
 })
   .catch(function (error) {

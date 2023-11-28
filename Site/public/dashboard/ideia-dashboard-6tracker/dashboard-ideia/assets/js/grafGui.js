@@ -557,7 +557,6 @@ function limparplotarKpiDesempenhoMax() {
 //       options: chartOptions,
 //     });
 
-//     ctx = document.getElementById("chartEstado").getContext("2d");
 
 //     myChart = new Chart(ctx, {
 //       type: "doughnut",

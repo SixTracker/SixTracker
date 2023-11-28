@@ -31,25 +31,6 @@ var database = require("../database/config");
 //     return database.executar(instrucaoSql);
 // }
 
-async function buscarMedidasDisco(idServidor) {
-    var instrucaoSql = `
-    
-    select * from 
-    registro 
-    where 
-    fkComponente = 
-    (select idComponente from 
-        componente 
-        where fkServidor = ${idServidor} 
-        and nome = "Total do Disco" order by idComponente desc limit 1);  
-    
-    `
-
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    var executavel = await database.executar(instrucaoSql);
-    console.log(executavel)
-    return executavel
-}
 
 function buscarMetricas(idServidor) {
 
@@ -91,11 +72,78 @@ function buscarMetricas(idServidor) {
     return database.executar(instrucaoSql);
 }
 
+function buscarMedidasDisco(idServidor) {
+    var instrucaoSql = `
+    
+    select valorRegistro, DATE_FORMAT(dataRegistro, '%H:%i') AS dataRegistro
+from registro 
+    where 
+    fkComponente = 
+    (select idComponente from 
+        componente 
+        where fkServidor = 29
+        and nome = "Disco total" order by idComponente desc limit 4);  `
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    console.log(instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+function tempoRealDisco(idServidor){
+    instrucaoSql = `
+
+    SELECT 
+    valorRegistro,
+    DATE_FORMAT(dataRegistro, '%H:%i') AS dataRegistro
+FROM registro
+ORDER BY dataRegistro DESC
+LIMIT 1;
+    `
+    console.log("Executando instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarMedidasRAM(idServidor) {
+    var instrucaoSql = `
+    select valorRegistro, DATE_FORMAT(dataRegistro, '%H:%i') AS dataRegistro
+from registro 
+    where 
+    fkComponente = 
+    (select idComponente from 
+        componente 
+        where fkServidor = 29
+        and nome = "Porcentagem de Memória" order by idComponente desc limit 4); `
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    console.log(instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+function tempoRealRAM(idServidor){
+    instrucaoSql = `
+    select valorRegistro, DATE_FORMAT(dataRegistro, '%H:%i') AS dataRegistro
+    from registro 
+        where 
+        fkComponente = 
+        (select idComponente from 
+            componente 
+            where fkServidor = 29
+            and nome = "Porcentagem de CPU" order by idComponente desc limit 4);
+    `
+    console.log("Executando instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     buscarMedidasDisco,
     // buscarUltimasMedidas,
     buscarMetricas,
+    tempoRealDisco,
+    buscarMedidasRAM,
+    tempoRealRAM
 }
 
 /*
