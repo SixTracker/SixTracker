@@ -329,7 +329,7 @@ Coded by www.creative-tim.com
   <script src="../../assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>
-  <script src="../../assets/js/grafGui.js"></script>
+  <script src="../../assets/js/grafChris.js"></script>
   <script>
 var fkEmpresa = sessionStorage.FK_EMPRESA;
 
@@ -378,18 +378,16 @@ fetch(`/sala/buscar`, {
     mensagem_erro.innerHTML = "O Login está inválido";
   })  
 
- 
-    window.onload = async function () {
-        try {
-            var selectSala = document.getElementById('salaSelect');
-            var idSala = selectSala.value;
-            await obterDadosMediaRAM(idSala)
-            await atualizarGraficoRAM(idSala);            
-       } catch (error) {
-            console.error("Erro no carregamento da página: " + error.message);
-        }
-    };
+  document.getElementById('salaSelect').addEventListener('change', function() {
+    var idSalas = this.value; // Obtém o valor selecionado
 
+    console.log(idSalas);
+
+    if (idSalas) {
+        obterDadosMediaRAM(idSalas);        
+    }
+}); 
+    
     var seletor = document.getElementById("salaSelect");
 
     seletor.addEventListener("change", function () {
@@ -401,10 +399,10 @@ fetch(`/sala/buscar`, {
         try {            
             limparRAM()
             var selectSala = document.getElementById('salaSelect');
-            var idSala = selectSala.value;
-            console.log(idSala)
+            var idSala = selectSala.value;            
             await obterDadosMediaRAM(idSala);
-            await atualizarGraficoRAM(idSala);           
+            await atualizarGraficoRAM(idSala);  
+            console.log("----------------------------------------------")         
         } catch (error) {
             console.error("Erro no carregamento da página: " + error.message);
         }
