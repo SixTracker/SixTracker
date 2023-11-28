@@ -6,7 +6,7 @@ function buscarMedidasCPU(idSalas){
        instrucaoSql = `
        SELECT
     AVG(valorRegistro) as CPU,
-    FORMAT(dataRegistro, 'HH\h:mm') AS intervalo_tempo,
+    FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
     MAX(Servidor.nome) as nome_servidor
 FROM
     Registro
@@ -19,9 +19,9 @@ JOIN
 WHERE
     fkTipoComponente = 1 AND idSalas = ${idSalas}
 GROUP BY
-    FORMAT(dataRegistro, 'HH\h:mm')
+    FORMAT(dataRegistro, 'HH:mm')
 ORDER BY
-    FORMAT(dataRegistro, 'HH\h:mm') DESC
+    FORMAT(dataRegistro, 'HH:mm') DESC
 OFFSET 0 ROWS
 FETCH NEXT 4 ROWS ONLY;
 
@@ -35,7 +35,7 @@ function buscarMedidasRAM(idSalas){
        instrucaoSql = `
        SELECT
     AVG(valorRegistro) as RAM,
-    FORMAT(dataRegistro, 'HH\h:mm') AS intervalo_tempo,
+    FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
     MAX(Servidor.nome) as nome_servidor
 FROM
     Registro
@@ -48,11 +48,12 @@ JOIN
 WHERE
     fkTipoComponente = 2 AND idSalas = ${idSalas}
 GROUP BY
-    FORMAT(dataRegistro, 'HH\h:mm')
+    FORMAT(dataRegistro, 'HH:mm')
 ORDER BY
-    FORMAT(dataRegistro, 'HH\h:mm') DESC
+    FORMAT(dataRegistro, 'HH:mm') DESC
 OFFSET 0 ROWS
 FETCH NEXT 4 ROWS ONLY;
+
    `
   
    console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -64,7 +65,7 @@ function buscarMedidasAtualizadaCPU(idSalas){
        instrucaoSql = `
        SELECT
     AVG(valorRegistro) as CPU,
-    FORMAT(dataRegistro, 'HH\h:mm') AS intervalo_tempo,
+    FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
     MAX(Servidor.nome) as nome_servidor
 FROM
     Registro
@@ -77,9 +78,9 @@ JOIN
 WHERE
     fkTipoComponente = 1 AND idSalas = ${idSalas}
 GROUP BY
-    FORMAT(dataRegistro, 'HH\h:mm')
+    FORMAT(dataRegistro, 'HH:mm')
 ORDER BY
-    FORMAT(dataRegistro, 'HH\h:mm') DESC;
+    FORMAT(dataRegistro, 'HH:mm') DESC;
    `
    
    console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -90,7 +91,7 @@ function buscarMedidasAtualizadaRAM(idSalas){
        instrucaoSql = `
        SELECT
     AVG(valorRegistro) as RAM,
-    FORMAT(dataRegistro, 'HH\h:mm') AS intervalo_tempo,
+    FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
     MAX(Servidor.nome) as nome_servidor
 FROM
     Registro
@@ -103,9 +104,9 @@ JOIN
 WHERE
     fkTipoComponente = 2 AND idSalas = ${idSalas}
 GROUP BY
-    FORMAT(dataRegistro, 'HH\h:mm')
+    FORMAT(dataRegistro, 'HH:mm')
 ORDER BY
-    FORMAT(dataRegistro, 'HH\h:mm') DESC;
+    FORMAT(dataRegistro, 'HH:mm') DESC;
    `
    
    console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -119,7 +120,7 @@ function obterDadosDesempenhoMaxCPU(idSalas){
        MAX(valorRegistro) AS maximo_valor,
        tipoComponente AS nomeTipo,
        fkTipoComponente,
-       MAX(FORMAT(dataRegistro, 'HH\h:mm')) AS intervalo_tempo
+       MAX(FORMAT(dataRegistro, 'HH:mm')) AS intervalo_tempo
    FROM
        Registro
    JOIN
@@ -133,9 +134,9 @@ function obterDadosDesempenhoMaxCPU(idSalas){
    WHERE
        idSalas = ${idSalas}
    GROUP BY
-       fkTipoComponente, tipoComponente, FORMAT(dataRegistro, 'HH\h:mm')
+       fkTipoComponente, tipoComponente, FORMAT(dataRegistro, 'HH:mm')
    ORDER BY
-       fkTipoComponente, tipoComponente, FORMAT(dataRegistro, 'HH\h:mm') DESC;   
+       fkTipoComponente, tipoComponente, FORMAT(dataRegistro, 'HH:mm') DESC;   
 
    `
    
