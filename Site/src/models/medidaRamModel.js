@@ -1,58 +1,63 @@
 var database = require("../database/config");
 
-function buscarMedidasRAM(idSalas) {
+function buscarMedidasRAM(idSalas){
+    instrucaoSql = `
+    SELECT
+ AVG(valorRegistro) as RAM,
+ FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
+ MAX(Servidor.nome) as nome_servidor
+FROM
+ Registro
+JOIN
+ Componente ON fkComponente = idComponente
+JOIN
+ Servidor ON fkServidor = idServidor
+JOIN
+ Salas ON fkSalas = idSalas
+WHERE
+ fkTipoComponente = 2 AND idSalas = ${idSalas}
+GROUP BY
+ FORMAT(dataRegistro, 'HH:mm')
+ORDER BY
+ FORMAT(dataRegistro, 'HH:mm') DESC
+OFFSET 0 ROWS
+FETCH NEXT 4 ROWS ONLY;
 
-    instrucaoSql = `SELECT
-        AVG(valorRegistro) as RAM,
-        DATE_FORMAT(dataRegistro, '%Hh:%i') AS intervalo_tempo,
-        MAX(Servidor.nome) as nome_servidor
-    FROM
-        Registro
-    JOIN
-        Componente ON fkComponente = idComponente
-    JOIN
-        Servidor ON fkServidor = idServidor
-    JOIN
-        Salas ON fkSalas = idSalas
-    WHERE
-        fkTipoComponente = 1 AND idSalas = ${idSalas}
-    GROUP BY
-        intervalo_tempo
-    ORDER BY
-        intervalo_tempo DESC
-    LIMIT 4;`;
+`
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+console.log("Executando a instrução SQL: \n" + instrucaoSql);
+return database.executar(instrucaoSql);
 }
 
-function buscarMedidasEmTempoRealRAM(idSalas) {
 
-    instrucaoSql = `SELECT
-        AVG(valorRegistro) as RAM,
-        DATE_FORMAT(dataRegistro, '%Hh:%i') AS intervalo_tempo,
-        MAX(Servidor.nome) as nome_servidor
-    FROM
-        Registro
-    JOIN
-        Componente ON fkComponente = idComponente
-    JOIN
-        Servidor ON fkServidor = idServidor
-    JOIN
-        Salas ON fkSalas = idSalas
-    WHERE
-        fkTipoComponente = 1 AND idSalas = ${idSalas}
-    GROUP BY
-        intervalo_tempo
-    ORDER BY
-        intervalo_tempo DESC;`
+function buscarMedidasAtualizadaRAM(idSalas){
+    instrucaoSql = `
+    SELECT
+ AVG(valorRegistro) as RAM,
+ FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
+ MAX(Servidor.nome) as nome_servidor
+FROM
+ Registro
+JOIN
+ Componente ON fkComponente = idComponente
+JOIN
+ Servidor ON fkServidor = idServidor
+JOIN
+ Salas ON fkSalas = idSalas
+WHERE
+ fkTipoComponente = 2 AND idSalas = ${idSalas}
+GROUP BY
+ FORMAT(dataRegistro, 'HH:mm')
+ORDER BY
+ FORMAT(dataRegistro, 'HH:mm') DESC;
+`
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+console.log("Executando a instrução SQL: \n" + instrucaoSql);
+return database.executar(instrucaoSql);
 }
 
 
 module.exports = {
     buscarMedidasRAM,
-    buscarMedidasEmTempoRealRAM
+    buscarMedidasAtualizadaRAM
 };
