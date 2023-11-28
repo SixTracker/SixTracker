@@ -64,12 +64,10 @@ async function cadastrar(nomeEmp, cnpj, cep, estado, rua, numero, bairro, cidade
             console.log("Dados inseridos com sucesso.");
             return resultadoEndereco;
         } else {
-            console.error("Houve um erro ao inserir na tabela Empresa.");
-            throw new Error("Erro ao cadastrar.");
+            console.error("Houve um erro ao inserir na tabela Empresa.");            
         }
     } catch (erro) {
-        console.error("Erro ao realizar o cadastro:", erro);
-        throw erro;
+        console.error("Erro ao realizar o cadastro:", erro);        
     }
 }
 
