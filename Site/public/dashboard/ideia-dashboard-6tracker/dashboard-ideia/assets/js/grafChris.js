@@ -1,9 +1,9 @@
 function obterDadosMediaRAM(idSalas) {
-    console.log("RAM")   
+    console.log("RAM")
 
     fetch(`/graficosChris/medidasRAM/${idSalas}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
-        console.log("--------------------------Entrando na Função Obter dados Ram -------------------------------------")
+            console.log("--------------------------Entrando na Função Obter dados Ram -------------------------------------")
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos DE RAM: ${JSON.stringify(resposta)}`);
                 resposta.reverse();
@@ -53,11 +53,11 @@ function plotarGraficoRAM(resposta, idSalas) {
         labels.push(registro.intervalo_tempo);
 
         // Definindo a cor com base nas condições
-        if (registro.RAM <= 80) {            
+        if (registro.RAM <= 80) {
             dados.datasets[0].backgroundColor.push('#00FF00');
-        } else if (registro.RAM <= 90) {            
+        } else if (registro.RAM <= 90) {
             dados.datasets[0].backgroundColor.push('#f6ff00');
-        } else {            
+        } else {
             dados.datasets[0].backgroundColor.push('#FF0000');
         }
     };
@@ -125,3 +125,66 @@ function limparRAM() {
 
     chartMediaRAM.clear()
 }
+
+var kpiRam = document.getElementById("KpiRAM");
+var kpiHoraRam = document.getElementById("kpiHoraRam");
+valores_kpi_desempenho = [kpiRam, kpiHoraRam]
+
+function obterDadosDesempenhoMedio(idSala) {
+    fetch(`/graficosGui/obterDadosDesempenhoMedio/${idSala}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos DE RAM Media: ${JSON.stringify(resposta)}`);
+                plotarKpiDesempenhoMedio(resposta, idSala);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarKpiDesempenhoMedio(resposta, idSala) {
+    for (i = 0; i < resposta.length; i++) {
+        var registro = resposta[i];
+        valores_kpi_desempenho[0].innerHTML = (registro.media_valor) + "%";
+        valores_kpi_desempenho[1].innerHTML = "Data de Captura: " + (registro.intervalo_tempo);
+    }
+    setTimeout(() => atualizarKpiDesempenhoMedio(idSala), 2000);
+}
+
+function atualizarKpiDesempenhoMedio(idSala) {
+
+    fetch(`/graficosGui/obterDadosDesempenhoMedio/${idSala}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (novoRegistro) {
+                console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                valores_kpi_desempenho = [kpiRam, kpiHoraRam]
+  
+                for (i = 0; i < resposta.length; i++) {
+                  var registro = resposta[i];                  
+                      valores_kpi_desempenho[0].innerHTML = (registro.media_valor) + "%";                                 
+              }
+               
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacaoKpiDesempenhoMedio = setTimeout(() => atualizarKpiDesempenhoMedio(idSala), 5000);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+            proximaAtualizacaoKpiDesempenhoMedio = setTimeout(() => atualizarKpiDesempenhoMedio(idSala), 5000);
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+  
+  }
+  
+  function limparplotarKpiDesempenhoMax() {
+    for (i = 0; i <= valores.length; i++) {
+        valores_kpi_desempenho[i].innerHTML = "";
+    }
+  }

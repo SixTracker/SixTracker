@@ -29,7 +29,6 @@ console.log("Executando a instrução SQL: \n" + instrucaoSql);
 return database.executar(instrucaoSql);
 }
 
-
 function buscarMedidasAtualizadaRAM(idSalas){
     instrucaoSql = `
     SELECT
@@ -56,8 +55,36 @@ console.log("Executando a instrução SQL: \n" + instrucaoSql);
 return database.executar(instrucaoSql);
 }
 
+function obterDadosDesempenhoMedio(idSalas){
+    instrucaoSql = `
+    SELECT
+    AVG(valorRegistro) AS media_valor,
+    fkTipoComponente,
+    FORMAT(MIN(dataRegistro), 'HH') AS intervalo_tempo
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    TipoComponente ON fkTipoComponente = idTipoComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas
+WHERE
+    idSalas = ${idSalas} AND fkTipoComponente = 2
+GROUP BY
+    fkTipoComponente,
+    DATEPART(HOUR, dataRegistro);
+`
+
+console.log("Executando a instrução SQL: \n" + instrucaoSql);
+return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     buscarMedidasRAM,
-    buscarMedidasAtualizadaRAM
+    buscarMedidasAtualizadaRAM,
+    obterDadosDesempenhoMedio
 };

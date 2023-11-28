@@ -11,4 +11,8 @@ router.get("/medidasAtualizadaRAM/:idSalas", function (req, res) {
     graficoChrisController.buscarMedidasAtualizadaRAM(req, res);
 });
 
+router.get("/obterDadosDesempenhoMedio/:idSalas", function (req, res) {
+    graficoChrisController.obterDadosDesempenhoMedio(req, res);
+});
+
 module.exports = router;
