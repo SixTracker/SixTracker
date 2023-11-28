@@ -30,6 +30,14 @@ router.get("/tempoRealRAM/:idServidor", function (req, res) {
     medidaController.tempoRealRAM(req, res);
 });
 
+router.get("/ultimasCPU/:idServidor", function (req, res) {
+    medidaController.buscarMedidasCPU(req, res);
+});
+
+router.get("/tempoRealCPU/:idServidor", function (req, res) {
+    medidaController.tempoRealCPU(req, res);
+});
+
 
 
 module.exports = router;

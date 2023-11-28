@@ -130,6 +130,38 @@ function tempoRealRAM(idServidor){
         (select idComponente from 
             componente 
             where fkServidor = 29
+            and nome = "Porcentagem de Memória" order by idComponente desc limit 4);
+    `
+    console.log("Executando instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarMedidasCPU(idServidor) {
+    var instrucaoSql = `
+    select valorRegistro, DATE_FORMAT(dataRegistro, '%H:%i') AS dataRegistro
+from registro 
+    where 
+    fkComponente = 
+    (select idComponente from 
+        componente 
+        where fkServidor = 29
+        and nome = "Porcentagem de Memória" order by idComponente desc limit 4); `
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    console.log(instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+function tempoRealCPU(idServidor){
+    instrucaoSql = `
+    select valorRegistro, DATE_FORMAT(dataRegistro, '%H:%i') AS dataRegistro
+    from registro 
+        where 
+        fkComponente = 
+        (select idComponente from 
+            componente 
+            where fkServidor = 29
             and nome = "Porcentagem de CPU" order by idComponente desc limit 4);
     `
     console.log("Executando instrução SQL: \n" + instrucaoSql);
@@ -143,7 +175,9 @@ module.exports = {
     buscarMetricas,
     tempoRealDisco,
     buscarMedidasRAM,
-    tempoRealRAM
+    tempoRealRAM,
+    buscarMedidasCPU,
+    tempoRealCPU
 }
 
 /*
