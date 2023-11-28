@@ -14,7 +14,7 @@ def iniciar():
     requests.post(webhook, data=json.dumps(mensagem))
 
 def sql_server_connection(server, database, username, password):
-    connection_string = f'DRIVER={{SQL Server}};SERVER={54.146.1.25};DATABASE={sixtracker};UID={sa};PWD={Sixtracker@}'
+    connection_string = f'DRIVER={{SQL Server}};SERVER={'54.146.1.25'};DATABASE={'sixtracker'};UID={'sa'};PWD={'Sixtracker@'}'
     try:
         connection = pyodbc.connect(connection_string)
         return connection
@@ -135,7 +135,7 @@ if __name__ == "__main__":
     print("Nome do host da máquina:", hostname)
 
     # Substitua 'seu_servidor', 'seu_usuario', 'sua_senha' e 'sixtracker' pelos seus valores
-    connection = sql_server_connection('seu_servidor', 'sixtracker', 'seu_usuario', 'sua_senha')
+    connection = sql_server_connection('54.146.1.25', 'sixtracker', 'sa', 'Sixtracker@')
     cursor = connection.cursor()
 
     try:
