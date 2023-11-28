@@ -155,14 +155,14 @@ from registro
 
 function tempoRealCPU(idServidor){
     instrucaoSql = `
-    select valorRegistro, DATE_FORMAT(dataRegistro, '%H:%i') AS dataRegistro
-from registro 
-    where 
-    fkComponente = 
-    (select idComponente from 
-        componente 
-        where fkServidor = 29
-        and nome = "Porcentagem de CPU" order by idComponente desc limit 1);
+   SELECT valorRegistro, FORMAT(dataRegistro, 'HH:mm') AS dataRegistro
+FROM registro 
+WHERE fkComponente = 
+    (SELECT TOP 1 idComponente 
+     FROM componente 
+     WHERE fkServidor = 29 AND nome = 'Porcentagem de CPU' 
+     ORDER BY idComponente DESC);
+
     `
     console.log("Executando instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

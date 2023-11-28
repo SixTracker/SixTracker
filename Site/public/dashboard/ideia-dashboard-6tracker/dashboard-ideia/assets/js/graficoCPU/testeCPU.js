@@ -1,3 +1,5 @@
+var kpiCPU = document.getElementById("kpi-CPU")
+
 function obterDadosCPU(idServidor) {
     console.log("tempxcpu")
   // if (proximaAtualizacao != undefined) {
@@ -46,26 +48,35 @@ function plotarGraficoCPU(resposta, idServidor) {
   console.log('-------------------PLOT Disco---------------------')
   console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
   console.log(resposta)
+// ...
 
-  // Inserindo valores recebidos em estrutura para plotar o gráfico
-  for (i = resposta.length - 1; i >= 0; i--) {
+// Dentro do seu loop for na função plotarGraficoDisco
+for (i = resposta.length - 1; i >= 0; i--) {
     var registro = resposta[i];
     dados.datasets[0].data.push(registro.valorRegistro);
     labels.push(registro.dataRegistro);
-
-// Definindo a cor com base nas condições
-if (registro.valorRegistro <= 15) {
-  dados.datasets[0].backgroundColor.push('#00FF00');
-  // dados.datasets[0].borderColor.push('#00FF00');
-} else if (registro.valorRegistro <= 39) {
-  dados.datasets[0].backgroundColor.push('#f6ff00');
-  // dados.datasets[0].borderColor.push('#f6ff00');
-} else {
-  dados.datasets[0].backgroundColor.push('#FF0000');
-  // dados.datasets[0].borderColor.push('#FF0000');
-}
-    
+  
+    if (registro.valorRegistro != null) {
+        // Atualize kpiDisco.textContent em vez de atribuir diretamente ao elemento
+        kpiCPU.textContent = registro.valorRegistro + '%';
+    } else {
+        kpiCPU.textContent = "Erro";
+    }
+  
+    // Definindo a cor com base nas condições
+    if (registro.valorRegistro <= 15) {
+        dados.datasets[0].backgroundColor.push('#00FF00');
+        // dados.datasets[0].borderColor.push('#00FF00');
+    } else if (registro.valorRegistro <= 39) {
+        dados.datasets[0].backgroundColor.push('#f6ff00');
+        // dados.datasets[0].borderColor.push('#f6ff00');
+    } else {
+        dados.datasets[0].backgroundColor.push('#FF0000');
+        // dados.datasets[0].borderColor.push('#FF0000');
+    }
   }
+  
+  // ...
 
   console.log('----------------------------------------------')
   console.log('O gráfico será plotado com os respectivos valores:')
@@ -120,6 +131,14 @@ function atualizarGraficoRAM(idServidor, dados, chartCPU) {
 
               dados.datasets[0].data.shift();  // apagar o primeira medida
               dados.datasets[0].data.push(novoRegistro[0].valorRegistro); // incluir uma nova medida
+
+
+              if(novoRegistro.valorRegistro != null){
+                kpiCPU = novoRegistro.valorRegistro;
+            } else {
+                kpiCPU = "Erro"
+              }
+
 
               chartCPU.update();
           }
