@@ -131,7 +131,7 @@ var kpiHoraRam = document.getElementById("kpiHoraRam");
 valores_kpi_desempenho = [kpiRam, kpiHoraRam]
 
 function obterDadosDesempenhoMedio(idSala) {
-    fetch(`/graficosGui/obterDadosDesempenhoMedio/${idSala}`, { cache: 'no-store' }).then(function (response) {
+    fetch(`/graficosChris/obterDadosDesempenhoMedio/${idSala}`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos DE RAM Media: ${JSON.stringify(resposta)}`);
