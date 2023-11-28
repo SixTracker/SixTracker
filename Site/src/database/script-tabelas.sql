@@ -301,8 +301,8 @@ CREATE USER [sa]
  DEFAULT_SCHEMA = sixtracker;
 
 -- Criação do banco 
---DROP DATABASE teste2;
-CREATE DATABASE sixtracker;
+--DROP DATABASE sixtracker;
+--CREATE DATABASE sixtracker;
 Use sixtracker;
 
 -- Tabela Permissao
@@ -363,8 +363,8 @@ CREATE TABLE Endereco(
 );
 
 INSERT INTO Permissao (visualizar, editar, cadastrar, deletar) VALUES (1, 1, 1, 1);
-
-INSERT INTO NivelAcesso (nomeCargo, fkPermissao) VALUES ('Admin', 1);
+SELECT * FROM Endereco;
+INSERT INTO NivelAcesso (nomeCargo, fkPermissao) VALUES ('Admin', 1)
 
 INSERT INTO Empresa (nome, CNPJ, telefone) VALUES ('Nubank', '123456789012345678', '12345678901');
 
@@ -496,7 +496,10 @@ CREATE TABLE Registro(
     CONSTRAINT FkComponenteRegistro FOREIGN KEY (fkComponente) 
         REFERENCES Componente (idComponente)    
 );
-
+SELECT * FROM Registro;
+ALTER TABLE Registro
+DROP COLUMN dataRegistro;
+TRUNCATE TABLE Registro;
 -- Consulta na tabela Registro
 SELECT * FROM Registro;
 
@@ -747,9 +750,33 @@ JOIN
     Empresa ON Salas.fkEmpresa = Empresa.idEmpresa 
 WHERE 
     Salas.fkEmpresa = 7;
+	
+	SELECT * FROM Servidor;
+	INSERT INTO Servidor VALUES(
+ 'EC2AMAZ-O9RIFPU', '55757', 'Windows', '54.146.1.25', 1
+ );
+ 
+ INSERT INTO Componente (nome, fkServidor, fkUnidadeMedida, fkTipoComponente) 
+VALUES 
+('Porcentagem da CPU', 9, 1, 1),
+('Velocidade da CPU', 9,  5, 1),
+('Tempo no sistema da CPU', 9, 4, 1),
+('Processos da CPU', 9, 9, 1);
 
--- EXEC sys.sp_addrolemember @rolename = N'db_datawriter',
--- @membername = N'usuarioParaAPIWebDataViz_datawriter_datareader';
+-- Inserir Memória RAM
+INSERT INTO Componente (nome, fkServidor, fkUnidadeMedida, fkTipoComponente) 
+VALUES 
+('Porcentagem da Memoria',9, 1, 2),
+('Total da Memoria',9, 2, 2),
+('Uso da Memoria',9, 2, 2),
+('Porcentagem da Memoria Swap',9, 1,2),
+('Uso da Memoria Swap',9, 2, 2);
 
--- EXEC sys.sp_addrolemember @rolename = N'db_datareader',
--- @membername = N'usuarioParaAPIWebDataViz_datawriter_datareader';
+-- Inserir Disco
+INSERT INTO Componente (nome, fkServidor, fkUnidadeMedida, fkTipoComponente) 
+VALUES 
+('Porcentagem do Disco', 9, 1, 3),
+('Total do Disco',9,2, 3),
+('Uso do Disco',9, 2, 3),
+('Tempo de Leitura do Disco',9, 4, 3),
+('Tempo de Escrita do Disco',9, 4, 3);
