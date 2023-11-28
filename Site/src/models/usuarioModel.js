@@ -45,11 +45,8 @@ async function cadastrar(nomeEmp, cnpj, cep, estado, rua, numero, bairro, cidade
 
     try {
         const resultadoEmpresa = await database.executar(inserirEmpresa);
-
-        if (resultadoEmpresa.error) {
-            console.error("Erro ao inserir na tabela Empresa:", resultadoEmpresa.error);
-            throw new Error("Erro ao cadastrar.");
-        }
+        console.log("Resultado Insert Empresa" + resultadoEmpresa)
+        
 
         if (resultadoEmpresa && resultadoEmpresa.insertId) {
             const userId = resultadoEmpresa.insertId;
