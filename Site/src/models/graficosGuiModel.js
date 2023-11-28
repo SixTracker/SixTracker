@@ -2,9 +2,7 @@ const database = require("../database/config");
 
 
 function buscarMedidasCPU(idSalas){
-    instrucaoSql = ''
-
-    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+     
        instrucaoSql = `
        SELECT
        AVG(valorRegistro) as CPU,
@@ -26,19 +24,12 @@ function buscarMedidasCPU(idSalas){
        intervalo_tempo DESC
    LIMIT 4;
    `
-   } else {
-       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-       return
-   }
-
+  
    console.log("Executando a instrução SQL: \n" + instrucaoSql);
    return database.executar(instrucaoSql);
 }
 
 function buscarMedidasRAM(idSalas){
-    instrucaoSql = ''
-
-    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
        instrucaoSql = `
        SELECT
        AVG(valorRegistro) as RAM,
@@ -60,20 +51,13 @@ function buscarMedidasRAM(idSalas){
        intervalo_tempo DESC
    LIMIT 4;
    `
-   } else {
-       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-       return
-   }
-
+  
    console.log("Executando a instrução SQL: \n" + instrucaoSql);
    return database.executar(instrucaoSql);
 }
 
 
 function buscarMedidasAtualizadaCPU(idSalas){
-    instrucaoSql = ''
-
-    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
        instrucaoSql = `
        SELECT
        AVG(valorRegistro) as CPU,
@@ -94,19 +78,12 @@ function buscarMedidasAtualizadaCPU(idSalas){
    ORDER BY
        intervalo_tempo DESC;
    `
-   } else {
-       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-       return
-   }
-
+   
    console.log("Executando a instrução SQL: \n" + instrucaoSql);
    return database.executar(instrucaoSql);
 }
 
 function buscarMedidasAtualizadaRAM(idSalas){
-    instrucaoSql = ''
-
-    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
        instrucaoSql = `
        SELECT
        AVG(valorRegistro) as RAM,
@@ -127,20 +104,13 @@ function buscarMedidasAtualizadaRAM(idSalas){
    ORDER BY
        intervalo_tempo DESC;
    `
-   } else {
-       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-       return
-   }
-
+   
    console.log("Executando a instrução SQL: \n" + instrucaoSql);
    return database.executar(instrucaoSql);
 }
 
 
 function obterDadosDesempenhoMaxCPU(idSalas){
-    instrucaoSql = ''
-
-    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
        instrucaoSql = `
        SELECT MAX(valorRegistro) AS maximo_valor, TipoComponente.tipoComponente AS nome_tipo, fkTipoComponente, MAX(DATE_FORMAT(dataRegistro, '%Hh:%i')) AS intervalo_tempo
 FROM Registro
@@ -151,11 +121,7 @@ JOIN Salas ON fkSalas = idSalas
 WHERE idSalas = ${idSalas}
 GROUP BY fkTipoComponente, nome_tipo;
    `
-   } else {
-       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-       return
-   }
-
+   
    console.log("Executando a instrução SQL: \n" + instrucaoSql);
    return database.executar(instrucaoSql);
 }

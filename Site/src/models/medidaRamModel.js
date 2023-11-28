@@ -2,10 +2,7 @@ var database = require("../database/config");
 
 function buscarMedidasRAM(idSalas) {
 
-    instrucaoSql = ''
-
-     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `SELECT
+    instrucaoSql = `SELECT
         AVG(valorRegistro) as RAM,
         DATE_FORMAT(dataRegistro, '%Hh:%i') AS intervalo_tempo,
         MAX(Servidor.nome) as nome_servidor
@@ -24,11 +21,6 @@ function buscarMedidasRAM(idSalas) {
     ORDER BY
         intervalo_tempo DESC
     LIMIT 4;`;
-       
-    } else {
-        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-        return
-    }
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -36,10 +28,7 @@ function buscarMedidasRAM(idSalas) {
 
 function buscarMedidasEmTempoRealRAM(idSalas) {
 
-    instrucaoSql = ''
-
-     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `SELECT
+    instrucaoSql = `SELECT
         AVG(valorRegistro) as RAM,
         DATE_FORMAT(dataRegistro, '%Hh:%i') AS intervalo_tempo,
         MAX(Servidor.nome) as nome_servidor
@@ -57,10 +46,6 @@ function buscarMedidasEmTempoRealRAM(idSalas) {
         intervalo_tempo
     ORDER BY
         intervalo_tempo DESC;`
-    } else {
-        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-        return
-    }
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

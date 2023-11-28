@@ -46,7 +46,7 @@ var database = require("../database/config");
 
 function capturar() {
 
-    instrucaoSql = ''
+
 
     // if (process.env.AMBIENTE_PROCESSO == "producao") {
     //     instrucaoSql = `select top 1
@@ -58,15 +58,11 @@ function capturar() {
     //                 order by id desc`;
 
     // } 
-    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+    
         instrucaoSql = `
         SELECT * FROM Registro JOIN Componente ON fkComponente = idComponente WHERE tipo = "Processador" AND fkServidor = 1;
 `
-    } else {
-        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-        return
-    }
-
+    
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
