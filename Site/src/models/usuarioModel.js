@@ -38,7 +38,7 @@ async function cadastrar(nomeEmp, cnpj, cep, estado, rua, numero, bairro, cidade
 
     // 1. Primeiro, insira os dados na tabela Empresa
     const inserirEmpresa = `
-        INSERT INTO Empresa (nome, CNPJ) VALUES ('${nomeEmp}', '${cnpj}')
+        INSERT INTO Empresa (nome, CNPJ, telefone) VALUES ('${nomeEmp}', '${cnpj}', '11012345678')
     `;
 
     try {
@@ -105,8 +105,8 @@ async function cadastrarADM(nome, cpf, email, telefone, senha, fkempresa) {
             const userId = resultadoEmpresa[0].idEmpresa;
 
             var instrucao = `
-                INSERT INTO Funcionario (nome, cpf, email, telefone, senha, fkEmpresa, fkNivelAcesso) 
-                VALUES ('${nome}', '${cpf}', '${email}', '${telefone}', '${senha}', ${userId},1);
+                INSERT INTO Funcionario (nome, cpf, email, telefone, senha, fkEmpresa, fkNivelAcesso, imagem) 
+                VALUES ('${nome}', '${cpf}', '${email}', '${telefone}', '${senha}', ${userId},1, 'https://as2.ftcdn.net/v2/jpg/05/89/93/27/1000_F_589932782_vQAEAZhHnq1QCGu5ikwrYaQD0Mmurm0N.jpg');
             `;
             console.log("Executando a instrução SQL: \n" + instrucao);
 
