@@ -8,11 +8,11 @@
   height: 45vh;
   width: 35vw;
   border-radius: 5%;
-  
-  
+
+
 }
 
-.card-title {
+.graficoChris .card-title {
   position: relative;
   left: 1.7vw;
   top: 1vh;
@@ -21,21 +21,24 @@
 .card-title2 {
   position: relative;
   left: 1.7vw;
-top: 13vh;
+  top: 7vh;
 
 }
 
- #grafico1{
-position: relative;
-left: 1vw;
-}
-
-#grafico2{
+#grafico1 {
   position: relative;
-  left: 45vw;
-  bottom: 47.8vh;
+  bottom: 9vh;
+  left: 1vw;
 }
 
+#grafico2 {
+  position: relative;
+  left: 40vw;
+  bottom: 48.8vh;
+}
 
-
-
+#rowKPIs {
+  gap: 9vw;
+  position: relative;
+  top: 5vh;
+}
