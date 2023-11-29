@@ -189,8 +189,6 @@ function limparplotarKpiDesempenhoMedio() {
     }
 }
 
-
-
 var kpiqtd = document.getElementById("kpiqtd");
 
 function obterDadosqtdRAM(idSala) {
@@ -247,6 +245,64 @@ function atualizarKpiDadosqtdRAM(idSala) {
 
 function limparplotarKpiDadosqtdRAM() {
     kpiqtd.innerHTML = "";
+}
+
+var kpiHrs = document.getElementById("kpiHrs");
+
+function obterDadosHoras(idSala) {
+    fetch(`/graficosChris/obterDadosHoras/${idSala}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos DE RAM Horas: ${JSON.stringify(resposta)}`);
+                plotarKpiDadosHoras(resposta, idSala);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarKpiDadosHoras(resposta, idSala) {
+    for (i = 0; i < resposta.length; i++) {
+        var registro = resposta[i];
+        kpiHrs.innerHTML = (registro.ultima_data_registro_formatada);
+    }
+    setTimeout(() => atualizarKpiDadosHoras(idSala), 2000);
+}
+
+function atualizarKpiDadosHoras(idSala) {
+
+    fetch(`/graficosChris/obterDadosHoras/${idSala}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (novoRegistro) {
+                console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                var kpiHrs = document.getElementById("kpiHrs");
+
+                for (i = 0; i < resposta.length; i++) {
+                    var registro = resposta[i];
+                    kpiHrs.innerHTML = (registro.ultima_data_registro_formatada);
+                }
+
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizarKpiDadosHoras = setTimeout(() => atualizarKpiDadosHoras(idSala), 5000);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+            proximaAtualizarKpiDadosHoras = setTimeout(() => atualizarKpiDadosHoras(idSala), 5000);
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
+}
+
+function limparplotarKpiDadosHoras() {
+    kpiHrs.innerHTML = "";
 }
 
 // var kpiHoraqtd = document.getElementById("kpiHoraqtd");

@@ -19,4 +19,8 @@ router.get("/obterDadosqtdRAM/:idSalas", function (req, res) {
     graficoChrisController.obterDadosqtdRAM(req, res);
 });
 
+router.get("/obterDadosHoras/:idSalas", function (req, res) {
+    graficoChrisController.obterDadosHoras(req, res);
+});
+
 module.exports = router;

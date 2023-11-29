@@ -235,7 +235,7 @@ Coded by www.creative-tim.com
 
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Quantidade de memória RAM</p>
+                      <p class="card-category">Quantidade de Memórias RAM</p>
                       <p id="kpiqtd" class="card-title"><p>
                     </div>
                   </div>
@@ -243,9 +243,7 @@ Coded by www.creative-tim.com
               </div>
               <div class="card-footer ">
                 <hr>
-                <div id="kpiHoraqtd" class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Atualizar agora
+                <div id="kpiHoraqtd" class="stats">                  
                 </div>
               </div>
             </div>
@@ -273,16 +271,14 @@ Coded by www.creative-tim.com
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Último horário atualizado</p>
-                      <p class="card-title">13:20h<p>
+                      <p id="kpiHrs" class="card-title"><p>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-footer ">
                 <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Atualizar agora
+                <div class="stats">     
                 </div>
               </div>
             </div>
@@ -381,7 +377,8 @@ fetch(`/sala/buscar`, {
         obterDadosMediaRAM(idSalas);    
         atualizarGraficoRAM(idSalas);  
         obterDadosDesempenhoMedio(idSalas);
-        obterDadosqtdRAM(idSalas);     
+        obterDadosqtdRAM(idSalas);  
+        obterDadosHoras(idSalas)   
     }
 }); 
     
@@ -401,6 +398,7 @@ fetch(`/sala/buscar`, {
             await atualizarGraficoRAM(idSala);  
             await obterDadosDesempenhoMedio(idSala); 
             await obterDadosqtdRAM(idSala);
+            await obterDadosHoras(idSala);
 
             console.log("----------------------------------------------")         
         } catch (error) {

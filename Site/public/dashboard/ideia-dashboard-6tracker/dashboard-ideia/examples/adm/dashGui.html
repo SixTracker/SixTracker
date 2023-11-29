@@ -427,28 +427,15 @@ Coded by www.creative-tim.com fdp chris
 
     if (idSalas) {
         obterDadosMediaCPU(idSalas);
-        obterDadosMediaRAM(idSalas);
+        obterDadosMediaRAM(idSalas);        
+        atualizarGraficoRAM(idSalas);        
+        atualizarGraficoCPU(idSalas);
+        obterDadosDesempenhoMax(idSalas);            
+        limparplotarKpiDesempenhoMax();
         cardRam.style.bottom = '52.5vh';
     }
 });
 
-
-
-window.onload = async function () {
-        try {
-            var selectSala = document.getElementById('salaSelect');
-            var idSala = selectSala.value;
-            await obterDadosMediaRAM(idSala);
-            await atualizarGraficoRAM(idSala);
-            await obterDadosMediaCPU(idSala);
-            await atualizarGraficoCPU(idSala);
-            await obterDadosDesempenhoMax(idSala);
-            // await atualizarListaServidores(idSala);
-            await limparplotarKpiDesempenhoMax();
-       } catch (error) {
-            console.error("Erro no carregamento da página: " + error.message);
-        }
-    };
 
     var seletor = document.getElementById("salaSelect");
 

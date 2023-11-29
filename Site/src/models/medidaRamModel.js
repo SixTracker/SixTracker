@@ -99,10 +99,33 @@ console.log("Executando a instrução SQL: \n" + instrucaoSql);
 return database.executar(instrucaoSql);
 }
 
+function obterDadosHoras(idSalas){
+    instrucaoSql = `
+    SELECT
+    FORMAT(MAX(dataRegistro), 'HH:mm:ss') AS ultima_data_registro_formatada
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    TipoComponente ON fkTipoComponente = idTipoComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas
+WHERE
+    idSalas = ${idSalas} AND fkTipoComponente = 2;
+`
+
+console.log("Executando a instrução SQL: \n" + instrucaoSql);
+return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     buscarMedidasRAM,
     buscarMedidasAtualizadaRAM,
     obterDadosDesempenhoMedio,
-    obterDadosqtdRAM
+    obterDadosqtdRAM,
+    obterDadosHoras
 };
