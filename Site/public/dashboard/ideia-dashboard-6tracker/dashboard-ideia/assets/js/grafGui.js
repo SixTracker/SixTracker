@@ -145,6 +145,8 @@ function obterDadosMediaRAM(idSalas) {
 
 function plotarGraficoRAM(resposta, idSalas) {
   ctx2 = document.getElementById("analiseSistema2").getContext("2d");
+  var cardRam = document.getElementById('CardRAM')
+  cardRam.style.bottom = '52.4vh';
 
   console.log("INICIANDO PLOTAGEM DE GRÁFICOS")
 
