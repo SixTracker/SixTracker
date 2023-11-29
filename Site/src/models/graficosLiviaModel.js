@@ -8,7 +8,7 @@ function buscarConectado(){
        instrucaoSql = `
        SELECT 
     valorRegistro,
-    COUNT(*) * 100 / (SELECT COUNT(*) FROM registro WHERE fkComponente = 16) AS porcentagem
+    CAST(COUNT(*) * 100 / (SELECT COUNT(*) FROM registro WHERE fkComponente = 16) AS DECIMAL(10, 4)) AS porcentagem
 FROM 
     registro
 WHERE 
@@ -32,7 +32,7 @@ function buscarDesconectado(){
        instrucaoSql = `
        SELECT 
     valorRegistro,
-    COUNT(*) * 100 / (SELECT COUNT(*) FROM registro WHERE fkComponente = 16) AS porcentagem
+    CAST(COUNT(*) * 100 / (SELECT COUNT(*) FROM registro WHERE fkComponente = 16) AS DECIMAL(10, 4)) AS porcentagem
 FROM 
     registro
 WHERE 
@@ -48,8 +48,20 @@ GROUP BY
    console.log("Executando a instrução SQL: \n" + instrucaoSql);
    return database.executar(instrucaoSql);
 }
+function buscarUSB(fkServidor) {
+
+    instrucaoSql = `SELECT DATE_FORMAT(usb.dataInicio, '%d/%m/%Y às %H:%i:%s') AS dataInicio, DATE_FORMAT(usb.dataFinal, '%d/%m/%Y às %H:%i:%s') AS dataFinal, servidor.nome
+    FROM usb JOIN servidor ON usb.fkServidor = servidor.idServidor
+    WHERE usb.fkServidor = ${fkServidor}
+    ORDER BY usb.dataFinal DESC;`;
+
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {        
     buscarDesconectado,
-    buscarConectado
+    buscarConectado,
+    buscarUSB
 };

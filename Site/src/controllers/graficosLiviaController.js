@@ -40,8 +40,38 @@ function buscarDesconectado(req, res) {
     });
 }
 
+function buscarUSB(req, res) {
+
+    var fkServidor = req.body.fkServidorServer;
+
+
+    // Faça as validações dos valores
+    if (fkServidor == undefined) {
+        res.status(400).send("O id do servidor está undefined!");
+    } else {
+
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        graficosLiviaModel.buscarUSB(fkServidor)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro do ADM, pois a empresa não existe! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {    
     testar,
     buscarConectado,
-    buscarDesconectado
+    buscarDesconectado,
+    buscarUSB
 }

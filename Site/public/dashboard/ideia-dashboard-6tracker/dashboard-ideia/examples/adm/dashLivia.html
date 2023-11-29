@@ -25,6 +25,8 @@ Coded by www.creative-tim.com fdp chris
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
     name='viewport' />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -35,7 +37,7 @@ Coded by www.creative-tim.com fdp chris
   <link href="../../assets/demo/demo.css" rel="stylesheet" />
 </head>
 
-<body class="">
+<body onload="plotarGraficoConexao()">
 
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
@@ -229,23 +231,23 @@ Coded by www.creative-tim.com fdp chris
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Lista de Fucionários</h4>
+                <h4 class="card-title">Conexões de USB passadas</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
                     </thead>
-                    <tbody id="tabelaUsuarios">
+                    <tbody id="tabelaUSB">
                       <tr>
                         <th>
-                          Tempo
+                          Horário de Conexão
                         </th>
                         <th>
-                          Email
+                          Horário de Desconexão
                         </th>
                         <th>
-                          Telefone
+                          Servidor
                         </th>
                       </tr>
                     </tbody>
@@ -362,11 +364,257 @@ Coded by www.creative-tim.com fdp chris
 
 </html>
 <script>
-  
+
+
+function obterDadosConectado() {
+  var existingChart = Chart.getChart('myChart')
+  if (existingChart) {
+    existingChart.destroy()
+    console.log('o grafico existente foi destruído')
+  }
+  return fetch(`/graficosLivia/medidasConectado/`, { cache: 'no-store' })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+    .then(resposta => {
+      console.log(`Dados recebidos DE USB: ${JSON.stringify(resposta)}`);
+      resposta.reverse();
+      console.log(resposta);
+      return resposta
+    })
+    .catch(error => {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      throw error;
+    });
+}
+
+function obterDadosDesconectado() {
+  var existingChart = Chart.getChart('myChart')
+  if (existingChart) {
+    existingChart.destroy()
+    console.log('o grafico existente foi destruído')
+  }
+  return fetch(`/graficosLivia/medidasDesconectado/`, { cache: 'no-store' })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+    .then(resposta => {
+      console.log(`Dados recebidos DE USB: ${JSON.stringify(resposta)}`);
+      resposta.reverse();
+      console.log(resposta);
+      return resposta
+    })
+    .catch(error => {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      throw error;
+    });
+}
+
+function obterDadosParaGrafico() {
+  var existingChart = Chart.getChart('myChart')
+  if (existingChart) {
+    existingChart.destroy()
+    console.log('o grafico existente foi destruído')
+  }
+  Promise.all([obterDadosConectado(), obterDadosDesconectado()])
+    .then(resultados => {
+      const [conectado, desconectado] = resultados;
+      plotarGraficoConexao(conectado, desconectado);
+    })
+    .catch(error => {
+      console.error(`Erro ao obter dados para o gráfico: ${error.message}`);
+    });
+}
+
+function plotarGraficoConexao(conectado, desconectado) {
+  var ctx = document.getElementById('meuGrafico').getContext('2d');
+  var data = {
+    labels: ['Conectado', 'Desconectado'],
+    datasets: [
+      {
+        label: 'Estado das Conexões',
+        data: [conectado, desconectado],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.8)',
+          'rgba(54, 162, 235, 0.8)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)'
+        ],
+        borderWidth: 1
+      }
+    ]
+  };
+
+  var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: data,
+    options: {
+      cutout: '70%',
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        position: 'bottom'
+      },
+      title: {
+        display: true,
+        text: 'Estado das Conexões USB'
+      }
+    }
+  });
+}
+
+
+// Chamando a função para obter os dados e plotar o gráfico
+obterDadosParaGrafico();
 
 
 
 
-  
+  // var conectado = ""
+  // var desconectado = ""
+  // function obterDadosConectado() {
+  //   console.log("Conectado")
+
+  //   fetch(`/graficosLivia/medidasConectado/`, { cache: 'no-store' }).then(function (response) {
+  //     if (response.ok) {
+  //       response.json().then(function (resposta) {
+  //         console.log(`Dados recebidos DE USB: ${JSON.stringify(resposta)}`);
+  //         resposta1.reverse();
+  //         for (var i = 0; i < json.length; i++) {
+  //           conectado.push(json[i].valorRegistro)
+  //         }
+  //         console.log(resposta)
+  //         plotarGraficoConexao(resposta);
+
+  //       });
+  //     } else {
+  //       console.error('Nenhum dado encontrado ou erro na API');
+  //     }
+  //   })
+  //     .catch(function (error) {
+  //       console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+  //     });
+  // }
+
+  // function obterDadosDesconectado() {
+  //   console.log("Desconectado")
+
+  //   fetch(`/graficosLivia/medidasDesconectado/`, { cache: 'no-store' }).then(function (response) {
+  //     if (response.ok) {
+  //       response.json().then(function (resposta) {
+  //         console.log(`Dados recebidos DE USB: ${JSON.stringify(resposta)}`);
+  //         resposta2.reverse();
+  //         for (var i = 0; i < json.length; i++) {
+  //           desconectado.push(json[i].valorRegistro)
+  //         }
+
+  //         console.log(resposta)
+  //         plotarGraficoConexao(resposta);
+
+  //       });
+  //     } else {
+  //       console.error('Nenhum dado encontrado ou erro na API');
+  //     }
+  //   })
+  //     .catch(function (error) {
+  //       console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+  //     });
+  // }
+
+
+
+  // function plotarGraficoConexao(conectada , desconectada) {
+
+  //   var ctx = document.getElementById('meuGrafico').getContext('2d');
+
+  //   var data = {
+  //     labels: ['Conectado', 'Desconectado'],
+  //     datasets: [{
+  //       label: 'Estado das conexões',
+  //       data: [conectada , desconectada], // Substitua esses valores pelos seus dados
+  //       backgroundColor: [
+  //         'rgba(255, 99, 135, 1)',
+  //         'rgb(69, 7, 156)',
+  //       ],
+  //       borderColor: [
+  //         'rgba(255, 99, 135, 0.5)',
+  //         'rgba(69, 7, 156, 0.5)',
+  //       ],
+  //       borderWidth: 1
+  //     }]
+  //   };
+
+  //   var meuGrafico = new Chart(ctx, {
+  //     type: 'doughnut',
+  //     data: data,
+  //     options: {
+  //       cutout: '90%'
+
+  //     }
+  //   });
+  // }
+
+
+  // function atualizarGrafico() {
+  //       setInterval(() => {
+  //         obterDadosConectado()
+  //         obterDadosDesconectado()
+
+  //         meuGrafico.data.datasets[0] = conectado
+  //         meuGrafico.data.datasets[1] = desconectado
+
+  //         liviaGrafico.update()
+  //       },5000)
+  //     }
+      
+
+
+  var fkServidor = 2
+
+// Função para buscar usuários do banco de dados  
+fetch("/graficosLivia/buscarUSB/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      // crie um atributo que recebe o valor recuperado aqui
+      // Agora vá para o arquivo routes/usuario.js
+      fkServidorServer: fkServidor,
+    })
+  })
+    .then(response => response.json())
+    .then(data => {
+      // Limpa o conteúdo atual da tabela
+      const tabelaUSB = document.getElementById('tabelaUSB');
+      
+
+      // Itera sobre os dados do banco de dados e adiciona ao tbody
+      data.forEach(usb => {
+        const row = tabelaUSB.insertRow();
+        const cellInicial = row.insertCell(0);
+        const cellFinal = row.insertCell(1);
+        const cellServidor = row.insertCell(2);
+
+        cellInicial.textContent = usb.dataInicio;
+        cellFinal.textContent = usb.dataFinal;
+        cellServidor.textContent = usb.nome;
+      });
+    })
+    .catch(error => console.error('Erro ao buscar usb:', error));
+
+
+// Chama a função ao carregar a página
+document.addEventListener('DOMContentLoaded', buscarUSB);
 
 </script>

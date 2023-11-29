@@ -10,6 +10,9 @@ router.get("/medidasConectado/", function (req, res) {
 router.get("/medidasDesconectado/", function (req, res) {
     graficosLiviaController.buscarDesconectado(req, res);
 });
+router.post("/buscarUSB/", function (req, res) {
+    graficosLiviaController.buscarUSB(req, res);
+});
 
 
 module.exports = router;
