@@ -9,6 +9,7 @@ import Redes
 import USB
 import Conexao
 import UsuarioLogin
+import java.util.*
 import javax.swing.JOptionPane
 
 
@@ -29,22 +30,27 @@ open class Main {
             // chamando o método iniciar criado na classe DadosRepositorios para iniciar a conexão com o banco de dados
             repositorio.iniciar()
 
-            login.email = JOptionPane.showInputDialog("Digite o seu email:").toString()
-            login.senha = JOptionPane.showInputDialog("Digite a sua senha:").toString()
+            val scanner = Scanner(System.`in`)
+
+            print("Digite o seu email: ")
+            login.email = scanner.nextLine()
+
+            print("Digite a sua senha: ")
+            login.senha = scanner.nextLine()
 
             // chamando função para fazer o Login para a captura de dados
             if (login.validarLogin(login)) {
-                JOptionPane.showMessageDialog(null,login.comprimentar(login))
+                print(login.comprimentar(login))
                 var fkEmpresa = login.verificarEmpresa(login)
                 var listaDeServidor = fkEmpresa?.let { login.mostrarServidor(it) }
-                var idServidor =
-                    JOptionPane.showInputDialog("Digite o ID da máquina que você deseja monitorar:\n\r $listaDeServidor").toInt()
+                println("Digite o ID da máquina que você deseja monitorar:\n\r $listaDeServidor")
+                val idServidor = scanner.nextInt()
 
 
                 val repositorio = DadosRepositorios()
                 repositorio.iniciar()
 
-                JOptionPane.showConfirmDialog(null, "O monitoramento irá inicializar agora!")
+                print("O monitoramento irá inicializar agora!")
 
                 while (true) { // loop infinito
                     // chamando a função capturarDadosJ(looca) para obter dados sobre janelas
