@@ -5,7 +5,6 @@ import time
 import mysql.connector
 from datetime import datetime
 import requests
-import random
 import json
 import string
 import socket
@@ -14,7 +13,16 @@ import sys
 def iniciar():
     mensagem = {"text": "Olá, bem-vindo. O sistema da 6TRACKER foi iniciado!"}
     webhook = "https://hooks.slack.com/services/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"
-    requests.post(webhook, data=json.dumps(mensagem))
+    
+    try:
+        requests.post(webhook, data=json.dumps(mensagem))
+        print("Mensagem enviada com sucesso para o Slack!")
+    except requests.exceptions.ConnectionError as e:
+        print(f"Erro de conexão ao enviar mensagem para o Slack: {e}")
+        # Adicione qualquer manipulação de erro adicional aqui, se necessário.
+
+# Restante do seu código...
+
 
 def mysql_connection(host, user, passwd, database=None):
     connection = connect(
@@ -30,7 +38,15 @@ def get_ip():
     ip = socket.gethostbyname(hostname)
     return ip
 
+def bytes_para_gb(bytes_value):
+    return bytes_value / (1024 ** 3)
+
+def milissegundos_para_segundos(ms_value):
+    return ms_value / 1000
+
 if __name__ == "__main__":
+    iniciar()
+
     ip = get_ip()
     print("O ip da máquina é:", ip)
 
@@ -46,8 +62,6 @@ if __name__ == "__main__":
     # Verificar se o servidor já está cadastrado
     cursor.execute("SELECT idServidor FROM Servidor WHERE nome = %s", (hostname,))
     result_servidor = cursor.fetchone()
-
-    _ = cursor.fetchall()
 
     if not result_servidor:
         print(f"O Servidor {hostname} não foi cadastrado no site. Cadastre-o para fazer a captura!")
@@ -70,203 +84,75 @@ if __name__ == "__main__":
         9: "Memória Swap Usada"
     }
 
-# Buscar os componentes cadastrados para o servidor
-cursor.execute("SELECT idComponente, nome FROM Componente WHERE fkServidor = %s", (result_servidor[0],))
-componentes_servidor = cursor.fetchall()
+    # Buscar os componentes cadastrados para o servidor
+    cursor.execute("SELECT idComponente, nome FROM Componente WHERE fkServidor = %s", (result_servidor[0],))
+    componentes_servidor = cursor.fetchall()
 
-# Verificar e adicionar/atualizar os componentes de 1 a 14
-for componente_id, componente_nome in componentes.items():
-    # Verificar se o componente já está cadastrado para o servidor
-    componente_existente = next((comp for comp in componentes_servidor if comp[1] == componente_nome), None)
-    
-    if componente_existente:
-        # Componente encontrado, atualizar os valores (ou fazer o que for necessário)
-        print(f"Componente {componente_nome} já cadastrado. Atualizando valores se necessário.")
-        # Aqui você pode realizar a lógica de atualização, por exemplo, atualizar o timestamp de última atualização
-    else:
-        # Componente não encontrado, adicionar à tabela Componente
-        cursor.execute("INSERT INTO Componente (nome, fkServidor) VALUES (%s, %s)", (componente_nome, result_servidor[0]))
+    while True:
+        time.sleep(5)
+        # Coleta de dados do Disco
+        meu_so = platform.system()
+        if meu_so == "Linux":
+            nome_disco = '/'
+            disco = psutil.disk_usage(nome_disco)
+        elif meu_so == "Windows":
+            nome_disco = 'C:\\'
+            disco = psutil.disk_usage(nome_disco)
 
-# Recarregar os componentes cadastrados para o servidor
-cursor.execute("SELECT idComponente, nome FROM Componente WHERE fkServidor = %s", (result_servidor[0],))
-componentes_servidor = cursor.fetchall()
+        discoPorcentagem = disco.percent
+        discoTotal = "{:.2f}".format(bytes_para_gb(disco.total))
+        discoUsado = "{:.2f}".format(bytes_para_gb(disco.used))
+        discoTempoLeitura = milissegundos_para_segundos(psutil.disk_io_counters(perdisk=False, nowrap=True)[4])
+        discoTempoEscrita = milissegundos_para_segundos(psutil.disk_io_counters(perdisk=False, nowrap=True)[5])
 
-if not componentes_servidor:
-    print(f"Não há componentes cadastrados para o Servidor {hostname}. Cadastre componentes para continuar.")
-    sys.exit()
-else:
-    print(f"\nComponentes cadastrados para o Servidor {hostname}:")
-    for componente in componentes_servidor:
-        print(f"ID: {componente[0]}, Nome: {componente[1]}")
+        ins = [discoPorcentagem, discoTotal, discoUsado, discoTempoLeitura, discoTempoEscrita]
+        componentes = [10, 11, 12, 13, 14]
 
+        horarioAtual = datetime.now()
+        horarioFormatado = horarioAtual.strftime('%Y-%m-%d %H:%M:%S')
 
-    connection.commit()
-    cursor.close()
+        # Inserir dados do Disco
+        for i in range(len(ins)):
+            valorRegistro = ins[i]
+            componente = componentes[i]
 
-# Disco
+            # Verificar se o componente já está cadastrado na tabela Componente
+            cursor.execute("SELECT idComponente FROM Componente WHERE fkServidor = %s AND idComponente = %s", (result_servidor[0], componente))
+            result_componente = cursor.fetchone()
 
-def bytes_para_gb(bytes_value):
-    return bytes_value / (1024 ** 3)
+            if not result_componente:
+                # Componente não encontrado, adicione à tabela Componente
+                cursor.execute("INSERT INTO Componente (idComponente, fkServidor) VALUES (%s, %s)", (componente, result_servidor[0]))
 
-def milissegundos_para_segundos(ms_value):
-    return ms_value / 1000
+            # Continue com a lógica de inserção na tabela Registro
+            query = "INSERT INTO Registro (valorRegistro, dataRegistro, fkComponente) VALUES (%s, %s, %s)"
+            cursor.execute(query, (valorRegistro, horarioFormatado, componente))
+            connection.commit()
 
-meu_so = platform.system()
-if(meu_so == "Linux"):
-    nome_disco = '/'
-    disco = psutil.disk_usage(nome_disco)
-elif(meu_so == "Windows"):
-    nome_disco = 'C:\\'
-disco = psutil.disk_usage(nome_disco)
-discoPorcentagem = disco.percent
-discoTotal = "{:.2f}".format(bytes_para_gb(disco.total))
-discoUsado = "{:.2f}".format(bytes_para_gb(disco.used)) 
-discoTempoLeitura = milissegundos_para_segundos(psutil.disk_io_counters(perdisk=False, nowrap=True)[4])
-discoTempoEscrita = milissegundos_para_segundos(psutil.disk_io_counters(perdisk=False, nowrap=True)[5])
+        print("\n----INFORMAÇÕES DO DISCO: -----")
+        print(f'\nDisco porcentagem: {discoPorcentagem}%',
+              f'\nDisco total: {discoTotal} GB',
+              f'\nTempo de leitura do disco em segundos: {discoTempoLeitura} s',
+              f'\nTempo de escrita do disco em segundos: {discoTempoEscrita} s')
 
-ins = [discoPorcentagem, discoTotal, discoUsado, discoTempoLeitura, discoTempoEscrita]
-componentes = [10,11,12,13,14]
+        # Coleta de dados da CPU e Memória
+        cpuPorcentagem = psutil.cpu_percent(None)
+        frequenciaCpuMhz = psutil.cpu_freq(percpu=False)
+        cpuVelocidadeEmGhz = "{:.2f}".format(frequenciaCpuMhz.current / 1000)
+        tempoSistema = psutil.cpu_times()[1]
+        processos = len(psutil.pids())
 
-horarioAtual = datetime.now()
-horarioFormatado = horarioAtual.strftime('%Y-%m-%d %H:%M:%S')
+        # Memoria
+        memoriaPorcentagem = psutil.virtual_memory()[2]
+        memoriaTotal = "{:.2f}".format(bytes_para_gb(psutil.virtual_memory().total))
+        memoriaUsada = "{:.2f}".format(bytes_para_gb(psutil.virtual_memory().used))
+        memoriaSwapPorcentagem = psutil.swap_memory().percent
+        memoriaSwapUso = "{:.2f}".format(bytes_para_gb(psutil.swap_memory().used))
 
-cursor = connection.cursor()
-for i in range(len(ins)):
-        
-    valorRegistro = ins[i]
-        
-    componente = componentes[i]
+        ins = [cpuPorcentagem, cpuVelocidadeEmGhz, tempoSistema, processos, memoriaPorcentagem,
+               memoriaTotal, memoriaUsada, memoriaSwapPorcentagem, memoriaSwapUso]
+        componentes = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-    
-    query = "INSERT INTO Registro (valorRegistro, dataRegistro, fkComponente) VALUES (%s, %s, %s)"
-
-    
-    cursor.execute(query, (valorRegistro, horarioFormatado, componente))
-
-
-    connection.commit()
-
-print("\n----INFORMAÇÕES DO DISCO: -----")
-print(f'\nDisco porcentagem: {discoPorcentagem}%',
-      f'\nDisco total: {discoTotal} GB',
-      f'\nTempo de leitura do disco em segundos: {discoTempoLeitura} s',
-      f'\nTempo de escrita do disco em segundos: {discoTempoEscrita} s')
-
-
-while True:
-
-    # CPU
-    cpuPorcentagem = psutil.cpu_percent(None)
-    frequenciaCpuMhz = psutil.cpu_freq(percpu=False)
-    cpuVelocidadeEmGhz = "{:.2f}".format(frequenciaCpuMhz.current / 1000)
-    tempoSistema = psutil.cpu_times()[1] 
-    processos = len(psutil.pids())
-
-    
-    # Memoria
-    memoriaPorcentagem = psutil.virtual_memory()[2]
-    memoriaTotal = "{:.2f}".format(bytes_para_gb(psutil.virtual_memory().total))
-    memoriaUsada = "{:.2f}".format(bytes_para_gb(psutil.virtual_memory().used))
-    memoriaSwapPorcentagem = psutil.swap_memory().percent
-    memoriaSwapUso = "{:.2f}".format(bytes_para_gb(psutil.swap_memory().used))
-    
-    """
-    Por enquanto não será usado
-    for particao in particoes:
-        try:
-            info_dispositivo = psutil.disk_usage(particao.mountpoint)
-            print("Ponto de Montagem:", particao.mountpoint)
-            print("Sistema de Arquivos:", particao.fstype)
-            print("Dispositivo:", particao.device)
-            print("Espaço Total: {0:.2f} GB".format(info_dispositivo.total / (1024 ** 3)) )
-            print("Espaço Usado: {0:.2f} GB".format(info_dispositivo.used / (1024 ** 3)) )
-            print("Espaço Livre: {0:.2f} GB".format(info_dispositivo.free / (1024 ** 3)) )
-            print("Porcentagem de Uso: {0:.2f}%".format(info_dispositivo.percent))
-            print()
-        except PermissionError as e:
-            print(f"Erro de permissão ao acessar {particao.mountpoint}: {e}")
-        except Exception as e:
-            print(f"Erro ao acessar {particao.mountpoint}: {e}")
-            """
-
-    # Outros
-    boot_time = datetime.fromtimestamp(psutil.boot_time()).strftime("%Y-%m-%d %H:%M:%S")
-
-    horarioAtual = datetime.now()
-    horarioFormatado = horarioAtual.strftime('%Y-%m-%d %H:%M:%S')
-    
-    ins = [cpuPorcentagem, cpuVelocidadeEmGhz, tempoSistema, processos, memoriaPorcentagem,
-           memoriaTotal, memoriaUsada, memoriaSwapPorcentagem, memoriaSwapUso]
-    componentes = [1,2,3,4,5,6,7,8,9]
-    
-    cursor = connection.cursor()
-
-   # if (cpuPorcentagem >= 70):
-   #         uso_da_cpu_formatado = "{:.2f}".format(cpuPorcentagem)
-    #        mensagem = {"text": f"O uso da CPU está em {uso_da_cpu_formatado}% (CRÍTICO)"}
-    #        requests.post(webhook, data=json.dumps(mensagem))
-
-   # if (discoPorcentagem >= 70):
-      #      mensagem = {"text": f"O uso do DISCO está em {discoPorcentagem}% (CRÍTICO)"}
-      #      requests.post(webhook, data=json.dumps(mensagem))
-
-   # if (memoriaPorcentagem >= 70):
-#        memoria_formatado = "{:.2f}".format(memoriaPorcentagem)
-#        mensagem = {"text": f"O uso da MEMÓRIA RAM está em {memoria_formatado}% (CRÍTICO)"}
-#        requests.post(webhook, data=json.dumps(mensagem))
-    
-    for i in range(len(ins)):
-        
-        valorRegistro = ins[i]
-        
-        componente = componentes[i]
-
-    
-        query = "INSERT INTO Registro (valorRegistro, dataRegistro, fkComponente) VALUES (%s, %s, %s)"
-
-    
-        cursor.execute(query, (valorRegistro, horarioFormatado, componente))
-
-        #query = "INSERT INTO Servidor (sistemaOperacional, fkSalas, ip, nome, codigo) VALUES (%s, %s, %s, %s, %s)"
-        #data = [(SO, 1, ip, hostname, unique_code)]
-
-        #for record in data:
-            #cursor.execute(query, record)
-
-
-        connection.commit()
-
-    print("\n----INFORMAÇÕES DA CPU: -----")
-    print(f'\nPorcentagem da CPU: {cpuPorcentagem}%',
-          f'\nVelocidade da CPU: {cpuVelocidadeEmGhz} GHz',
-          f'\nNumero de processos: {processos}')
-
-    print("\n----INFORMAÇÕES DA MEMORIA: -----")
-    print(f'\nPorcentagem utilizada de memoria: {memoriaPorcentagem}%',
-          f'\nQuantidade total de memoria: {memoriaTotal} GB',
-          f'\nQuantidade usada de memoria: {memoriaUsada} GB',
-          f'\nPorcentagem usada de memoria Swap: {memoriaSwapPorcentagem}%',
-          f'\nQuantidade usada de memoria Swap: {memoriaSwapUso} GB')
-
-    print("\n------- INFORMAÇÕES SOBRE PROCESSAMENTO GERAL ---------: ")
-    print(f'\nPorcentagem utilizada da CPU: {cpuPorcentagem}%',
-          f'\nVelocidade da CPU: {cpuVelocidadeEmGhz} GHz',
-          f'\nNumero de processos: {processos}',
-          f'\nPorcentagem utilizada de memoria: {memoriaPorcentagem}%',
-          f'\nQuantidade Total de memoria: {memoriaTotal} GB',
-          f'\nQuantidade usada de memoria: {memoriaUsada} GB',
-          f'\nPorcentagem usada de memoria Swap: {memoriaSwapPorcentagem}%',
-          f'\nQuantidade usada de memoria Swap: {memoriaSwapUso} GB',
-          f'\nDisco porcentagem: {discoPorcentagem}%',
-          f'\nDisco total: {discoTotal} GB',
-          f'\nTempo de leitura do disco em segundos: {discoTempoLeitura} s',
-          f'\nTempo de escrita do disco em segundos: {discoTempoEscrita} s',
-          '\n ',
-          '\nHorario Atual dos dados: ', horarioFormatado)
-          
-
-    time.sleep(10)
-
-cursor.close()
-connection.close()
-
+        # Inserir dados da CPU e Memória
+        for i in range(len(ins)):
+            valorRegistro
