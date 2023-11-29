@@ -1,4 +1,4 @@
-var kpiCPU = document.getElementById("kpi-CPU")
+var kpiCPU = document.getElementById("kpi-CPU");
 
 
 function obterDadosCPU(idServidor) {
@@ -22,7 +22,7 @@ function obterDadosCPU(idServidor) {
       .catch(function (error) {
           console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
       });
-}
+};
 
 function plotarGraficoCPU(resposta, idServidor) {
 
@@ -101,7 +101,7 @@ for (i = resposta.length - 1; i >= 0; i--) {
   );
 
   setTimeout(() => atualizarGraficoRAM(idServidor, dados, chartCPU ), 5000);
-}
+};
 
 
 function atualizarGraficoRAM(idServidor, dados, chartCPU) {
@@ -140,8 +140,6 @@ function atualizarGraficoRAM(idServidor, dados, chartCPU) {
                 kpiCPU = "Erro"
               }
               
-
-
               chartCPU.update();
           }
 
@@ -158,4 +156,4 @@ function atualizarGraficoRAM(idServidor, dados, chartCPU) {
       console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
   });
 
-}
+};
