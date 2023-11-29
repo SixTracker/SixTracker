@@ -22,7 +22,7 @@ var perfilRouter = require("./src/routes/perfil");
 var dashAnalistaRouter = require("./src/routes/dashAnalista");
 var cpuRouter = require("./src/routes/dadosCpu");
 var isabelRouter = require("./src/routes/isabel");
-var graficosLiviaRouter = require("./src/routes/graficosLivia");
+var tiagoRouter = require("./src/routes/tiago");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,18 +33,18 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/avisos", avisosRouter);
-app.use("/medidas", medidasRouter)
-app.use("/graficosGui", graficosGuiRouter)
-app.use("/graficosChris", graficosChrisRouter)
+app.use("/medidas", medidasRouter);
+app.use("/graficosGui", graficosGuiRouter);
+app.use("/graficosChris", graficosChrisRouter);
 app.use("/graficosLivia", graficosLiviaRouter);
-app.use("/servidor", servidorRouter)
-app.use("/sala", salaRouter)
-app.use("/componente", componenteRouter)
-app.use("/perfil", perfilRouter)
-app.use("/dashAnalista", dashAnalistaRouter)
+app.use("/servidor", servidorRouter);
+app.use("/sala", salaRouter);
+app.use("/componente", componenteRouter);
+app.use("/perfil", perfilRouter);
+app.use("/dashAnalista", dashAnalistaRouter);
 app.use("/dadosCpu",cpuRouter);
-app.use("/isabel", isabelRouter)
-app.use("/graficosLivia", graficosLiviaRouter);
+app.use("/isabel", isabelRouter);
+app.use("/tiago", tiagoRouter);
 
 
 

@@ -1,5 +1,6 @@
 var kpiCPU = document.getElementById("kpi-CPU")
 
+
 function obterDadosCPU(idServidor) {
     console.log("tempxcpu")
   // if (proximaAtualizacao != undefined) {
@@ -62,7 +63,7 @@ for (i = resposta.length - 1; i >= 0; i--) {
     } else {
         kpiCPU.textContent = "Erro";
     }
-  
+   
     // Definindo a cor com base nas condições
     if (registro.valorRegistro <= 15) {
         dados.datasets[0].backgroundColor.push('#00FF00');
@@ -138,6 +139,7 @@ function atualizarGraficoRAM(idServidor, dados, chartCPU) {
             } else {
                 kpiCPU = "Erro"
               }
+              
 
 
               chartCPU.update();

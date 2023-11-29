@@ -157,7 +157,7 @@ Coded by www.creative-tim.com fdp chris
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:;">Dashboard Administrador</a>
+            <a class="navbar-brand" href="javascript:;">Temperatura CPU</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -228,17 +228,13 @@ Coded by www.creative-tim.com fdp chris
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Cpu</p>
-                      <p class="card-title">85%<p>
+                      <p class="card-title" id="kpi-temp-CPU">85%<p>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-footer ">
                 <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update Now
-                </div>
               </div>
             </div>
           </div>
@@ -289,18 +285,14 @@ Coded by www.creative-tim.com fdp chris
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Disco</p>
-                      <p class="card-title">65%<p>  
+                      <p class="card-category">Estado CPU</p>
+                      <p class="card-title" id="kpi-porcentagem">65%<p>  
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-footer ">
                 <hr>
-                <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Update Now
-                </div> 
               </div>
             </div>
           </div>
@@ -341,13 +333,10 @@ Coded by www.creative-tim.com fdp chris
                   <p class="card-category">Resumo da Temperatura da CPU</p>
                 </div>
                 <div class="card-body ">
-                  <canvas id="analiseSistema" width="400" height="100"></canvas>
+                  <canvas id="chart_tempCPU" width="400" height="100"></canvas>
                 </div>
                 <div class="card-footer ">
                   <hr>
-                  <div class="stats">
-                    <i class="fa fa-history"></i> Atualizado 1 hora atrás.
-                  </div>
                 </div>
               </div>
             </div>
@@ -436,6 +425,13 @@ Coded by www.creative-tim.com fdp chris
 
     
   </script>
-</body>
 
+<script 
+src="../../assets/js/graficoCPU/tiago.js">
+</script>
+
+</body>
 </html>
+<script>
+  obterDadosTempCPU();
+</script>
