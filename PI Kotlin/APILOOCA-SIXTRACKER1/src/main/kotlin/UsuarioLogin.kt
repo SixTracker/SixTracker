@@ -1,4 +1,5 @@
 import Conexao.jdbcTemplate
+import Conexao.jdbcTemplateServer
 import org.springframework.dao.EmptyResultDataAccessException
 import org.springframework.jdbc.core.BeanPropertyRowMapper
 
@@ -10,7 +11,7 @@ class UsuarioLogin {
 
     fun validarLogin(login: UsuarioLogin): Boolean {
         try {
-            val usuario = jdbcTemplate?.queryForObject(
+            val usuario = jdbcTemplateServer?.queryForObject(
                 """
             SELECT nome, email, senha, fkEmpresa FROM Funcionario WHERE (email = '${login.email}' AND senha = '${login.senha}')
             """, BeanPropertyRowMapper(UsuarioLogin::class.java)
@@ -23,7 +24,7 @@ class UsuarioLogin {
     }
 
     fun comprimentar(login: UsuarioLogin): String {
-        val usuario = jdbcTemplate?.queryForObject(
+        val usuario = jdbcTemplateServer?.queryForObject(
             """
             SELECT nome FROM Funcionario WHERE (email = '${login.email}' AND senha = '${login.senha}')
             """, BeanPropertyRowMapper(UsuarioLogin::class.java)
@@ -37,7 +38,7 @@ class UsuarioLogin {
     }
 
     fun verificarEmpresa(login: UsuarioLogin): Int? {
-        val usuario = jdbcTemplate?.queryForObject(
+        val usuario = jdbcTemplateServer?.queryForObject(
             """
             SELECT fkEmpresa FROM Funcionario WHERE (email = '${login.email}' AND senha = '${login.senha}')  
             """, BeanPropertyRowMapper(UsuarioLogin::class.java)
@@ -51,7 +52,7 @@ class UsuarioLogin {
 
 
 
-        val listaServidores: List<Servidor> = jdbcTemplate!!.query(
+        val listaServidores: List<Servidor> = jdbcTemplateServer!!.query(
             "SELECT Servidor.idServidor, Servidor.nome \n" +
                     "\tFROM Servidor JOIN Salas \n" +
                     "\t\tON Servidor.fkSalas = Salas.idSalas\n" +

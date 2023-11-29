@@ -17,18 +17,21 @@ open class Main {
     companion object {
         @JvmStatic fun main(args: Array<String>) {
 
+            // chamando o método iniciar criado na classe DadosRepositorios para iniciar a conexão com o banco de dados
+
+            //criando instância da classe DadosRepositorios
+            val repositorio = DadosRepositorios()
+            repositorio.iniciar()
+
             // chamando a função criarTabelas() da classe Conexao, a qual é responsável por criar tabelas no banco de dados.
-            Conexao.criarTabelas()
+
 
             // criando instância da api de captura
             val looca = Looca()
-            //criando instância da classe DadosRepositorios
-            val repositorio = DadosRepositorios()
             //criando instância da classe UsuarioLogin
             val login = UsuarioLogin()
 
-            // chamando o método iniciar criado na classe DadosRepositorios para iniciar a conexão com o banco de dados
-            repositorio.iniciar()
+
 
             val scanner = Scanner(System.`in`)
 

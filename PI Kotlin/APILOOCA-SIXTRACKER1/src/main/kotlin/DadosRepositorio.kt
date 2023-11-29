@@ -10,12 +10,12 @@ val looca: Looca = Looca()
 class DadosRepositorios {
 
     // objeto JdbcTemplate usado para interagir com o banco de dados
-    lateinit var jdbcTemplate: JdbcTemplate
+//    lateinit var jdbcTemplate: JdbcTemplate
     lateinit var jdbcTemplateServer: JdbcTemplate
 
     // método para iniciar o repositório, geralmente chamado no início para configurar a conexão com o banco de dados
     fun iniciar() {
-        jdbcTemplate = Conexao.jdbcTemplate!!
+//        jdbcTemplate = Conexao.jdbcTemplate!!
         jdbcTemplateServer = Conexao.jdbcTemplateServer!!
     }
 
@@ -29,7 +29,7 @@ class DadosRepositorios {
         // as interrogações (?) são espaços reservados para os parâmetros que serão fornecidos dinamicamente
         // nomesJanelasJson, novaJanela.quantidade e novaJanela.dataHora são os valores reais que serão substituídos nos espaços reservados (?) da instrução SQL.
 
-        jdbcTemplate.update(
+        jdbcTemplateServer.update(
             """
                 insert into janelas (nomeJanelaJson, quantidade, dataHora, fkServidor) values
                 (?,?,?,?)
@@ -52,7 +52,7 @@ class DadosRepositorios {
 
     fun cadastrarRede(novaRede: Redes, idServidor: Int) {
 
-        jdbcTemplate.update(
+        jdbcTemplateServer.update(
             """
                 insert into rede (nomeRede, bytesEnviados, bytesRecebidos, dataHora, fkServidor) values
                 (?,?,?,?,?)
@@ -93,12 +93,11 @@ class DadosRepositorios {
 //            var nomeUSB = grupoUsb.dispositivosUsb[i].nome
 //        }
 
-        jdbcTemplate.update(
+        jdbcTemplateServer.update(
             """
-                insert into USB (idExclusivo, nomeUSB, dataHora, fkServidor) values
-                (?,?,?,?)
+                insert into USB (nomeUSB, dataHora, fkServidor) values
+                (?,?,?)
             """,
-            novoUSB.idExclusivo,
             novoUSB.nomeUSB,
             novoUSB.dataHora,
             idServidor,
@@ -106,10 +105,9 @@ class DadosRepositorios {
 
         jdbcTemplateServer.update(
             """
-                insert into USB (idExclusivo, nomeUSB, dataHora, fkServidor) values
-                (?,?,?,?)
+                insert into USB (nomeUSB, dataHora, fkServidor) values
+                (?,?,?)
             """,
-            novoUSB.idExclusivo,
             novoUSB.nomeUSB,
             novoUSB.dataHora,
             idServidor,
