@@ -1,5 +1,8 @@
 var database = require("../database/config");
 
+
+
+
 function tempoRealTempCPU(idServidor) {
     var instrucaoSql = `
     SELECT 
@@ -10,7 +13,7 @@ ORDER BY dataRegistro DESC
 LIMIT 1;
     `;
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    console.log("Executando a instrução SQL no tiagoModel: \n" + instrucaoSql);
     return database.executar(instrucaoSql, [idServidor]);
 }
 
