@@ -318,8 +318,6 @@ function obterDadosMediaDISCO(idSalas) {
     if (response.ok) {
       response.json().then(function (resposta) {
         console.log(`Dados recebidos DE DISCO: ${JSON.stringify(resposta)}`);
-        resposta.reverse();
-
         plotarGraficoDISCO(resposta, idSalas);
 
       });
@@ -335,7 +333,7 @@ function obterDadosMediaDISCO(idSalas) {
 function plotarGraficoDISCO(resposta, idSalas) {
   ctx3 = document.getElementById("analiseSistema3").getContext("2d");
 
-  console.log("INICIANDO PLOTAGEM DE GRÁFICOS")
+  console.log("INICIANDO PLOTAGEM DE GRÁFICOS DISCO")
 
   let labels = [];
 
