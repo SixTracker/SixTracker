@@ -115,13 +115,36 @@ const database = require("../database/config");
 function tempoRealEdu(idServidor) {
     var instrucaoSql = `
     SELECT 
-    valorRegistro,
-    DATE_FORMAT(dataRegistro, '%H:%i') AS horaRegistro
-FROM registro
-ORDER BY dataRegistro DESC
-LIMIT 1;
-
-    `;
+    s.idServidor,
+    s.nome AS NomeServidor,
+    r_disco.valorRegistro AS ValorRegistro_DISCO,
+    r_cpu.valorRegistro AS ValorRegistro_CPU,
+    r_memoria.valorRegistro AS ValorRegistro_Memoria
+FROM Servidor AS s
+    JOIN Componente AS c_disco 
+        ON s.idServidor = c_disco.fkServidor
+            JOIN Registro AS r_disco 
+                ON c_disco.idComponente = r_disco.fkComponente
+                    JOIN TipoComponente AS tc_disco 
+                        ON c_disco.fkTipoComponente = tc_disco.idTipoComponente
+                            AND tc_disco.tipoComponente = 'DISCO'
+    JOIN Componente AS c_cpu 
+        ON s.idServidor = c_cpu.fkServidor
+            JOIN Registro AS r_cpu 
+                ON c_cpu.idComponente = r_cpu.fkComponente
+                    JOIN TipoComponente AS tc_cpu 
+                        ON c_cpu.fkTipoComponente = tc_cpu.idTipoComponente
+                            AND tc_cpu.tipoComponente = 'CPU'
+    JOIN Componente AS c_memoria 
+        ON s.idServidor = c_memoria.fkServidor
+            JOIN Registro AS r_memoria 
+                ON c_memoria.idComponente = r_memoria.fkComponente
+                    JOIN TipoComponente AS tc_memoria 
+                        ON c_memoria.fkTipoComponente = tc_memoria.idTipoComponente
+                            AND tc_memoria.tipoComponente = 'RAM'
+WHERE s.nome = 'Servidor Principal' 
+AND c_disco.fkServidor = ${idServidor}
+order by r_disco.idRegistro DESC LIMIT 1;`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql, [idServidor]);

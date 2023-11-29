@@ -2,7 +2,7 @@ var kpi_temp_CPU = document.getElementById("kpi-temp-CPU")
 var kpi_porcentagem = document.getElementById("kpi-porcentagem")
 
 function obterDadosEdu(idServidor) {
-    console.log("tempxcpu")
+    // console.log("tempxcpu")
   // if (proximaAtualizacao != undefined) {
   //     clearTimeout(proximaAtualizacao);
   // }
@@ -10,7 +10,6 @@ function obterDadosEdu(idServidor) {
       if (response.ok) {
           response.json().then(function (resposta) {
               console.log(`Dados recebidos DE CPU: ${JSON.stringify(resposta)}`);
-              resposta.reverse();
 
               plotarGraficoEdu(resposta, idServidor);
 
@@ -35,12 +34,12 @@ function plotarGraficoEdu(resposta, idServidor) {
   let dados = {
     labels: labels,
     datasets: [{
-        label: 'Porcentagem',
+        label: 'Dados',
         data: [],
-        backgroundColor: [],
-        borderColor: ['#393d42'],
+        backgroundColor: '#00FF00',
+        borderColor: '#393d42',
         tension: 0.3,
-        fill: false, 
+        fill: true, 
         pointRadius: 6
     }]
 };
@@ -52,10 +51,17 @@ function plotarGraficoEdu(resposta, idServidor) {
 // ...
 
 // Dentro do seu loop for na função plotarGraficoDisco
-for (i = resposta.length - 1; i >= 0; i--) {
+for (i = 0; i <= resposta.length - 1; i++) {
     var registro = resposta[i];
-    dados.datasets[0].data.push(registro.valorRegistro);
-    labels.push(registro.dataRegistro);
+    var dado = [
+        registro.ValorRegistro_DISCO,
+        registro.ValorRegistro_CPU, 
+        registro.ValorRegistro_Memoria
+    ]
+    for(j=0;j<3;j++){
+    labels.push(registro.NomeServidor);
+    dados.datasets[0].data.push({x:"teste", y:dado[j]});
+    }    
   
     // if (registro.valorRegistro != null) {
     //     // Atualize kpiDisco.textContent em vez de atribuir diretamente ao elemento
@@ -73,13 +79,13 @@ for (i = resposta.length - 1; i >= 0; i--) {
   
     // Definindo a cor com base nas condições
     if (registro.valorRegistro <= 15) {
-        dados.datasets[0].backgroundColor.push('#00FF00');
+        dados.datasets[0].backgroundColor = '#00FF00';
         // dados.datasets[0].borderColor.push('#00FF00');
     } else if (registro.valorRegistro <= 39) {
-        dados.datasets[0].backgroundColor.push('#f6ff00');
+        dados.datasets[0].backgroundColor = '#f6ff00';
         // dados.datasets[0].borderColor.push('#f6ff00');
     } else {
-        dados.datasets[0].backgroundColor.push('#FF0000');
+        dados.datasets[0].backgroundColor = '#FF0000';
         // dados.datasets[0].borderColor.push('#FF0000');
     }
   }
@@ -98,8 +104,8 @@ for (i = resposta.length - 1; i >= 0; i--) {
   const config = {
     type: 'bar',
     data: dados,
-    fill: false,
-  }
+    fill: true
+}
   // Adicionando gráfico criado em div na tela
   let chartGeral = new Chart(
     document.getElementById(`chartGeral`),
@@ -112,59 +118,8 @@ setTimeout(() => atualizarGraficoEdu(idServidor, dados, chartGeral ), 5000);
 
 function atualizarGraficoEdu(idServidor, dados, chartGeral) {
 
-fetch(`/edu/tempoRealEdu/${idServidor}`, { cache: 'no-store' }).then(function (response) {
-  if (response.ok) {
-    response.json().then(function (novoRegistro) {
+    chartGeral.destroy();
 
-        // obterDadosCPU(idMaquina);
-        // // alertar(novoRegistro, idMaquina);
-        // console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-        // console.log(`Dados atuais do gráfico:`);
-        // console.log(dados);
-
-        if (novoRegistro[0].dataRegistro == dados.datasets[0].data.dataRegistro) {
-            console.log("---------------------------------------------------------------")
-            console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-            // avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-            console.log("Horário do novo dado capturado:")
-            console.log(novoRegistro[0].dataRegistro)
-            console.log("Horário do último dado capturado:")
-            console.log(dados.labels[dados.labels.length - 1])
-            console.log("---------------------------------------------------------------")
-        } else {
-            // tirando e colocando valores no gráfico
-            dados.labels.shift(); // apagar o primeiro
-            dados.labels.push(novoRegistro[0].dataRegistro); // incluir um novo momento
-
-            dados.datasets[0].data.shift();  // apagar o primeira medida
-            dados.datasets[0].data.push(novoRegistro[0].valorRegistro); // incluir uma nova medida
-
-
-        //     if(novoRegistro.valorRegistro != null){
-        //         kpi_temp_CPU = novoRegistro.valorRegistro;
-        //   } else {
-        //     kpi_temp_CPU = "Erro"
-        //     }
-        //     if(novoRegistro.valorRegistro != null){
-        //         kpi_porcentagem = novoRegistro.valorRegistro;
-        //     } else {
-        //         kpi_porcentagem = "Erro"
-        //       }
-
-            chartGeral.update();
-        }
-
-        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-        proximaAtualizacao = setTimeout(() => atualizarGraficoEdu(idServidor, dados, chartGeral), 5000);
-    });
-} else {
-    console.error('Nenhum dado encontrado ou erro na API');
-    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-    proximaAtualizacao = setTimeout(() => atualizarGraficoEdu(idServidor, dados, chartGeral), 5000);
-}
-})
-.catch(function (error) {
-    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-});
+    obterDadosEdu(idServidor)
 
 }
