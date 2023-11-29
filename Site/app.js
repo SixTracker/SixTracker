@@ -23,6 +23,7 @@ var dashAnalistaRouter = require("./src/routes/dashAnalista");
 var cpuRouter = require("./src/routes/dadosCpu");
 var isabelRouter = require("./src/routes/isabel");
 var tiagoRouter = require("./src/routes/tiago");
+var eduRouter = require("./src/routes/edu");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -45,7 +46,7 @@ app.use("/dashAnalista", dashAnalistaRouter);
 app.use("/dadosCpu",cpuRouter);
 app.use("/isabel", isabelRouter);
 app.use("/tiago", tiagoRouter);
-
+app.use("/edu", eduRouter);
 
 
 app.listen(PORTA, function () {
