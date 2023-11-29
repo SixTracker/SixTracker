@@ -362,7 +362,7 @@ function plotarGraficoDISCO(resposta, idSalas) {
   for (i = 0; i < resposta.length; i++) {
     var registro = resposta[i];
     dados.datasets[0].data.push(registro.DISCO);
-    labels.push(registro.intervalo_tempo);
+    
 
     // Definindo a cor com base nas condições
     if (registro.DISCO <= 80) {

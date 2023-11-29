@@ -86,7 +86,7 @@ function buscarMedidasAtualizadaCPU(idSalas){
 
 function buscarMedidasDISCO(idSalas){
        instrucaoSql = `
-       SELECT r.valorRegistro
+       SELECT r.valorRegistro AS DISCO
 FROM registro r
 JOIN Componente c ON r.fkComponente = c.idComponente
 WHERE c.nome = 'Porcentagem do Disco';
@@ -99,7 +99,7 @@ WHERE c.nome = 'Porcentagem do Disco';
 
 function buscarMedidasAtualizadaDISCO(idSalas){
        instrucaoSql = `
-       SELECT r.valorRegistro
+       SELECT r.valorRegistro AS DISCO
 FROM registro r
 JOIN Componente c ON r.fkComponente = c.idComponente
 WHERE c.nome = 'Porcentagem do Disco';
