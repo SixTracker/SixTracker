@@ -21,6 +21,11 @@ Licensed under the MIT license - http://opensource.org/licenses/MIT
 Copyright (c) 2015 Daniel Eden
 */
 
+#KpiDISCOCss{
+  position: relative;
+  left: 5vw;
+}
+
 #SelectidSalasDash{
   position: relative;
   bottom: 2.5vh;
