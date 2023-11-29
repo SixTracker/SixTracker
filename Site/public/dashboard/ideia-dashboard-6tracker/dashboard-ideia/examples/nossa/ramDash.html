@@ -236,14 +236,14 @@ Coded by www.creative-tim.com
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Quantidade de memória RAM</p>
-                      <p class="card-title">3<p>
+                      <p id="kpiqtd" class="card-title"><p>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-footer ">
                 <hr>
-                <div class="stats">
+                <div id="kpiHoraqtd" class="stats">
                   <i class="fa fa-refresh"></i>
                   Atualizar agora
                 </div>
@@ -295,8 +295,8 @@ Coded by www.creative-tim.com
         <!--Inicio dos gráficos-->
         <div id="grafico1" class="dashChris">
           <div class="graficoChris">
-            <h4 class="card-title">Dados da RAM</h4>
-            <h6 class="card-title">Servidor</h6>
+            <h4 class="card-title">Média de RAM</h4>
+            <h6 class="card-title">Por Sala</h6>
             <canvas id="sistemaRAM"></canvas>
           </div>
           
@@ -380,7 +380,8 @@ fetch(`/sala/buscar`, {
     if (idSalas) {
         obterDadosMediaRAM(idSalas);    
         atualizarGraficoRAM(idSalas);  
-        obterDadosDesempenhoMedio(idSalas);     
+        obterDadosDesempenhoMedio(idSalas);
+        obterDadosqtdRAM(idSalas);     
     }
 }); 
     
@@ -398,7 +399,9 @@ fetch(`/sala/buscar`, {
             var idSala = selectSala.value;            
             await obterDadosMediaRAM(idSala);
             await atualizarGraficoRAM(idSala);  
-            await obterDadosDesempenhoMedio(idSala);  
+            await obterDadosDesempenhoMedio(idSala); 
+            await obterDadosqtdRAM(idSala);
+
             console.log("----------------------------------------------")         
         } catch (error) {
             console.error("Erro no carregamento da página: " + error.message);

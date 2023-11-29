@@ -149,7 +149,7 @@ function obterDadosDesempenhoMedio(idSala) {
 function plotarKpiDesempenhoMedio(resposta, idSala) {
     for (i = 0; i < resposta.length; i++) {
         var registro = resposta[i];
-        valores_kpi_desempenho[0].innerHTML =  (registro.media_valor) + "%";
+        valores_kpi_desempenho[0].innerHTML = (registro.media_valor) + "%";
         valores_kpi_desempenho[1].innerHTML = "Hora de Captura: " + (registro.intervalo_tempo) + "h";
     }
     setTimeout(() => atualizarKpiDesempenhoMedio(idSala), 2000);
@@ -162,12 +162,12 @@ function atualizarKpiDesempenhoMedio(idSala) {
             response.json().then(function (novoRegistro) {
                 console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                 valores_kpi_desempenho = [kpiRam, kpiHoraRam]
-  
+
                 for (i = 0; i < resposta.length; i++) {
-                  var registro = resposta[i];                  
-                      valores_kpi_desempenho[0].innerHTML = (registro.media_valor) + "%";                                 
-              }
-               
+                    var registro = resposta[i];
+                    valores_kpi_desempenho[0].innerHTML = (registro.media_valor) + "%";
+                }
+
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                 proximaAtualizacaoKpiDesempenhoMedio = setTimeout(() => atualizarKpiDesempenhoMedio(idSala), 5000);
             });
@@ -180,11 +180,74 @@ function atualizarKpiDesempenhoMedio(idSala) {
         .catch(function (error) {
             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         });
-  
-  }
-  
-  function limparplotarKpiDesempenhoMax() {
+
+}
+
+function limparplotarKpiDesempenhoMedio() {
     for (i = 0; i <= valores.length; i++) {
         valores_kpi_desempenho[i].innerHTML = "";
     }
-  }
+}
+
+
+
+var kpiqtd = document.getElementById("kpiqtd");
+
+function obterDadosqtdRAM(idSala) {
+    fetch(`/graficosChris/obterDadosqtdRAM/${idSala}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos DE RAM QTD: ${JSON.stringify(resposta)}`);
+                plotarKpiDadosqtdRAM(resposta, idSala);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function plotarKpiDadosqtdRAM(resposta, idSala) {
+    for (i = 0; i < resposta.length; i++) {
+        var registro = resposta[i];
+        kpiqtd.innerHTML = (registro.total_componentes);
+    }
+    setTimeout(() => atualizarKpiDadosqtdRAM(idSala), 2000);
+}
+
+function atualizarKpiDadosqtdRAM(idSala) {
+
+    fetch(`/graficosChris/obterDadosqtdRAM/${idSala}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (novoRegistro) {
+                console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                var kpiqtd = document.getElementById("kpiqtd");
+
+                for (i = 0; i < resposta.length; i++) {
+                    var registro = resposta[i];
+                    kpiqtd.innerHTML = (registro.total_componentes);
+                }
+
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtulizarKpiDadosqtdRAM = setTimeout(() => atualizarKpiDadosqtdRAM(idSala), 5000);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+            proximaAtualizarKpiDadosqtdRAM = setTimeout(() => atualizarKpiDadosqtdRAM(idSala), 5000);
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
+}
+
+function limparplotarKpiDadosqtdRAM() {
+    kpiqtd.innerHTML = "";
+}
+
+// var kpiHoraqtd = document.getElementById("kpiHoraqtd");
+// valores_kpi_qtd = [kpiqtd, kpiHoraqtd]

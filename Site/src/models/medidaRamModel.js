@@ -60,7 +60,7 @@ function obterDadosDesempenhoMedio(idSalas){
     SELECT
     ROUND(AVG(valorRegistro), 2) AS media_valor,
     fkTipoComponente,
-    FORMAT(MIN(dataRegistro), 'HH\h') AS intervalo_tempo
+    FORMAT(MIN(dataRegistro), 'HH') AS intervalo_tempo
 FROM
     Registro
 JOIN
@@ -82,9 +82,27 @@ console.log("Executando a instrução SQL: \n" + instrucaoSql);
 return database.executar(instrucaoSql);
 }
 
+function obterDadosqtdRAM(idSalas){
+    instrucaoSql = `
+    SELECT
+    COUNT(*) AS total_componentes
+FROM
+    Componente JOIN TipoComponente ON fkTipoComponente = idTipoComponente
+JOIN Servidor ON fkServidor = idServidor
+JOIN Salas ON fkSalas = idSalas
+WHERE
+    fkTipoComponente = 2
+    AND fkSalas = ${idSalas};
+`
+
+console.log("Executando a instrução SQL: \n" + instrucaoSql);
+return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     buscarMedidasRAM,
     buscarMedidasAtualizadaRAM,
-    obterDadosDesempenhoMedio
+    obterDadosDesempenhoMedio,
+    obterDadosqtdRAM
 };
