@@ -120,6 +120,7 @@ function tempoRealEdu(idServidor) {
 FROM registro
 ORDER BY dataRegistro DESC
 LIMIT 1;
+
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
