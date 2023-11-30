@@ -1,5 +1,5 @@
 var kpi_temp_CPU = document.getElementById("kpi-temp-CPU")
-var kpi_porcentagem = document.getElementById("kpi-porcentagem")
+var kpi_porcentagem = document.getElementById("kpi-porcentagem") + 1;
 
 function obterDadosTempCPU(idServidor) {
     console.log("tempxcpu")

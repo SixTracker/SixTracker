@@ -331,7 +331,7 @@ CREATE TABLE Empresa (
     CNPJ CHAR(18),
     telefone CHAR(11)
 );
-
+SELECT * FROM Empresa;
 -- Tabela Funcionario
 CREATE TABLE Funcionario (
     idFuncionario INT PRIMARY KEY IDENTITY(1,1),
@@ -407,6 +407,7 @@ CREATE TABLE UnidadeMedida(
     idUnidadeMedida INT PRIMARY KEY IDENTITY(1,1),
     unidadeMedida VARCHAR(45)
 );
+SELECT * FROM UnidadeMedida;
 
 INSERT INTO UnidadeMedida (unidadeMedida)
 VALUES ('%'), ('GB'), ('MB'), ('s'), ('GHz');
@@ -497,11 +498,17 @@ CREATE TABLE Registro(
         REFERENCES Componente (idComponente)    
 );
 SELECT * FROM Registro;
+TRUNCATE TABLE Registro;
+
 ALTER TABLE Registro
-DROP COLUMN dataRegistro;
+ADD dataRegistro datetime;
+
 TRUNCATE TABLE Registro;
 -- Consulta na tabela Registro
 SELECT * FROM Registro;
+SELECT * FROM Componente;
+SELECT bytesEnviados FROM rede WHERE fkServidor = 11;
+SELECT valorRegistro FROM Registro WHERE fkComponente = 10;
 
 -- Tabela Janelas
 CREATE TABLE Janelas (
@@ -531,6 +538,7 @@ CREATE TABLE Rede(
 
 -- Consulta na tabela Rede
 SELECT * FROM Rede;
+SELECT * FROM Servidor;
 
 -- Tabela USB
 CREATE TABLE USB(
@@ -674,6 +682,8 @@ FROM
     Servidor;
 
 -- Outras seleções
+
+SELECT * FROM Registro;
 SELECT 
     C.nome AS NomeDoComponente, 
     TC.tipoComponente AS TipoDeComponente
@@ -780,3 +790,176 @@ VALUES
 ('Uso do Disco',9, 2, 3),
 ('Tempo de Leitura do Disco',9, 4, 3),
 ('Tempo de Escrita do Disco',9, 4, 3);
+
+SELECT
+    MAX(valorRegistro) AS maximo_valor,
+    tipoComponente AS nomeTipo,
+    fkTipoComponente,
+    MAX(FORMAT(dataRegistro, 'HH\h:mm')) AS intervalo_tempo
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    TipoComponente ON fkTipoComponente = idTipoComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas
+WHERE
+    idSalas = 7
+GROUP BY
+    fkTipoComponente, tipoComponente, FORMAT(dataRegistro, 'HH\h:mm')
+ORDER BY
+    fkTipoComponente, tipoComponente, FORMAT(dataRegistro, 'HH\h:mm') DESC;
+
+	SELECT * FROM TipoComponente;
+
+	SELECT
+    AVG(valorRegistro) AS media_valor,
+    fkTipoComponente,
+    FORMAT(MIN(dataRegistro), 'HH\h') AS intervalo_tempo
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    TipoComponente ON fkTipoComponente = idTipoComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas
+WHERE
+    idSalas = 7 AND fkTipoComponente = 2
+GROUP BY
+    fkTipoComponente,
+    DATEPART(HOUR, dataRegistro);
+
+
+SELECT
+    COUNT(*) AS total_componentes
+FROM
+    Componente JOIN TipoComponente ON fkTipoComponente = idTipoComponente
+JOIN Servidor ON fkServidor = idServidor
+JOIN Salas ON fkSalas = idSalas
+WHERE
+    fkTipoComponente = 2
+    AND fkSalas = 7;
+
+
+	SELECT
+    COUNT(*) AS total_componentes
+FROM
+    Componente JOIN TipoComponente ON fkTipoComponente = idTipoComponente
+JOIN Servidor ON fkServidor = idServidor
+JOIN Salas ON fkSalas = idSalas
+WHERE
+    fkTipoComponente = 2
+    AND fkSalas =  7;
+
+
+	SELECT
+    FORMAT(MAX(dataRegistro), 'HH:mm') AS ultima_data_registro_formatada
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    TipoComponente ON fkTipoComponente = idTipoComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas
+WHERE
+    idSalas = 7 AND fkTipoComponente = 2;
+
+	SELECT
+    AVG(valorRegistro) as RAM,
+    FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
+    MAX(Servidor.nome) as nome_servidor
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas
+WHERE
+    fkTipoComponente = 2 AND idSalas = 7
+GROUP BY
+    FORMAT(dataRegistro, 'HH:mm')
+ORDER BY
+    FORMAT(dataRegistro, 'HH:mm') DESC
+OFFSET 0 ROWS
+FETCH NEXT 4 ROWS ONLY;
+
+SELECT r.valorRegistro
+FROM registro r
+JOIN Componente c ON r.fkComponente = c.idComponente
+WHERE c.nome = 'Porcentagem do Disco';
+
+
+SELECT
+       AVG(valorRegistro) as RAM,
+       FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
+       MAX(Servidor.nome) as nome_servidor
+   FROM
+       Registro
+   JOIN
+       Componente ON fkComponente = idComponente
+   JOIN
+       Servidor ON fkServidor = idServidor
+   JOIN
+       Salas ON fkSalas = idSalas
+   WHERE
+       Componente.nome  =  'Porcentagem do Disco' 
+   GROUP BY
+       FORMAT(dataRegistro, 'HH:mm')
+   ORDER BY
+       FORMAT(dataRegistro, 'HH:mm') DESC
+   OFFSET 0 ROWS
+   FETCH NEXT 4 ROWS ONLY; 
+
+   SELECT * FROM Registro;
+   SELECT r.valorRegistro FROM registro r
+JOIN Componente c ON r.fkComponente = c.idComponente
+WHERE c.nome = 'Porcentagem do Disco';
+
+SELECT * FROM Servidor;
+buscarMedidasTempCPU:
+
+buscarMedidasTempCPU:
+
+SELECT valorRegistro, FORMAT(dataRegistro, 'HH:mm') AS dataRegistro
+FROM registro
+WHERE
+    fkComponente = (
+        SELECT TOP 4 idComponente
+        FROM componente
+        WHERE fkServidor = 29 AND nome = 'Temperatura CPU'
+        ORDER BY idComponente DESC
+    );
+
+tempoReal:
+
+SELECT TOP 1
+    valorRegistro,
+    FORMAT(dataRegistro, 'HH:mm') AS horaRegistro
+FROM registro
+ORDER BY dataRegistro DESC;
+
+SELECT     s.idServidor,     s.nome AS NomeServidor,     r_disco.valorRegistro AS ValorRegistro_DISCO,     r_cpu.valorRegistro AS ValorRegistro_CPU,     r_memoria.valorRegistro AS ValorRegistro_Memoria FROM Servidor AS s INNER JOIN Componente AS c_disco ON s.idServidor = c_disco.fkServidor INNER JOIN Registro AS r_disco ON c_disco.idComponente = r_disco.fkComponente INNER JOIN TipoComponente AS tc_disco ON c_disco.fkTipoComponente = tc_disco.idTipoComponente     AND tc_disco.tipoComponente = 'DISCO' INNER JOIN Componente AS c_cpu ON s.idServidor = c_cpu.fkServidor INNER JOIN Registro AS r_cpu ON c_cpu.idComponente = r_cpu.fkComponente INNER JOIN TipoComponente AS tc_cpu ON c_cpu.fkTipoComponente = tc_cpu.idTipoComponente     AND tc_cpu.tipoComponente = 'CPU' INNER JOIN Componente AS c_memoria ON s.idServidor = c_memoria.fkServidor INNER JOIN Registro AS r_memoria ON c_memoria.idComponente = r_memoria.fkComponente INNER JOIN TipoComponente AS tc_memoria ON c_memoria.fkTipoComponente = tc_memoria.idTipoComponente     AND tc_memoria.tipoComponente = 'RAM' WHERE s.nome = 'Servidor Principal'     AND c_disco.fkServidor = idServidor ORDER BY r_disco.idRegistro OFFSET 0 ROWS FETCH FIRST 1 ROW ONLY;
+
+
+SELECT valorRegistro, FORMAT(dataRegistro, 'HH:mm') AS dataRegistro
+FROM registro
+WHERE
+    fkComponente IN (
+        SELECT TOP 4 idComponente
+        FROM componente
+        WHERE fkServidor = 29 AND nome = 'Temperatura CPU'
+        ORDER BY idComponente DESC
+    )
+ORDER BY dataRegistro DESC;
+
