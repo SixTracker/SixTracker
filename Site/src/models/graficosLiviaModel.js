@@ -32,11 +32,11 @@ function buscarDesconectado(){
        instrucaoSql = `
        SELECT 
     valorRegistro,
-    CAST(COUNT(*) * 100 / (SELECT COUNT(*) FROM registro WHERE fkComponente = 16) AS DECIMAL(10, 4)) AS porcentagem
+    COUNT(*) * 100 / (SELECT COUNT(*) FROM registro WHERE fkComponente = 16) AS porcentagem
 FROM 
     registro
 WHERE 
-    fkComponente = 16 and valorRegistro = 0
+    fkComponente = 16 and valorRegistro = 0 or valorRegistro = 1
 GROUP BY 
     valorRegistro;
    `
