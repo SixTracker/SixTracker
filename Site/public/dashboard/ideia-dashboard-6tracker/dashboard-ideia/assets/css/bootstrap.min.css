@@ -1391,7 +1391,16 @@ pre code {
     .col-md-12 {
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
-        max-width: 100%;
+        max-width: 65%;
+    }
+    .linha{
+        display: flex;
+        justify-content: space-evenly; 
+        height: 80vh;
+    }
+    .grafico1{
+        width: 30%;
+        height: 50vh;
     }
 
     .col-md-12-1 {

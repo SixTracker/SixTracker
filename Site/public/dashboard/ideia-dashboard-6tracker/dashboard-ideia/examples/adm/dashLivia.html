@@ -37,7 +37,7 @@ Coded by www.creative-tim.com fdp chris
   <link href="../../assets/demo/demo.css" rel="stylesheet" />
 </head>
 
-<body onload="plotarGraficoConexao()">
+<body onload="obterDadosDesconectado()">
 
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
@@ -72,7 +72,7 @@ Coded by www.creative-tim.com fdp chris
           <li class="active ">
             <a href="./dashLivia.html">
               <i class="nc-icon nc-layout-11"></i>
-              <p>Dashboard - Lívia</p>
+              <p>Dashboard USB</p>
             </a>
           </li>
           <li>
@@ -227,7 +227,7 @@ Coded by www.creative-tim.com fdp chris
       </nav>
       <!-- End Navbar -->
       <div class="content">
-        <div class="row" id="card-list">
+        <div class="linha" id="card-list">
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
@@ -256,8 +256,10 @@ Coded by www.creative-tim.com fdp chris
               </div>
             </div>
           </div>
+          <div class="grafico1">
+            <canvas id="meuGrafico"></canvas>
+          </div>
 
-          <canvas id="meuGrafico" width="400" height="150"></canvas>
           <!-- <div class="col-md-12">
             <div class="card">
               <div class="card-header">
@@ -313,7 +315,18 @@ Coded by www.creative-tim.com fdp chris
             </div>
           </div>-->
         </div>
-
+        <!-- <div class="linha">
+          <div class="numbers">
+            <p class="card-category">Conexões hoje</p>
+            <p id="KpiCPU" class="card-title">
+            <p>
+          </div>
+          <div class="numbers">
+            <p class="card-category">Conexões nos ultimos 7 dias</p>
+            <p id="KpiCPU" class="card-title">
+            <p>
+          </div>
+        </div> -->
         <footer class="footer footer-black  footer-white ">
           <div class="container-fluid">
             <div class="row">
@@ -364,118 +377,145 @@ Coded by www.creative-tim.com fdp chris
 
 </html>
 <script>
+      var ctx = document.getElementById('meuGrafico').getContext('2d');
+    var data = {
+      labels: ['Conectado', 'Desconectado'],
+      datasets: [
+        {
+          label: 'Estado das Conexões',
+          data: [77.43, 100-77.43],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.8)',
+            'rgba(54, 162, 235, 0.8)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)'
+          ],
+          borderWidth: 1
+        }
+      ]
+    };
 
-
-function obterDadosConectado() {
-  var existingChart = Chart.getChart('myChart')
-  if (existingChart) {
-    existingChart.destroy()
-    console.log('o grafico existente foi destruído')
-  }
-  return fetch(`/graficosLivia/medidasConectado/`, { cache: 'no-store' })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error('Nenhum dado encontrado ou erro na API');
+    var myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: data,
+      options: {
+        cutout: '70%',
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          position: 'bottom'
+        },
+        title: {
+          display: true,
+          text: 'Estado das Conexões USB'
+        }
       }
-    })
-    .then(resposta => {
-      console.log(`Dados recebidos DE USB: ${JSON.stringify(resposta)}`);
-      resposta.reverse();
-      console.log(resposta);
-      return resposta
-    })
-    .catch(error => {
-      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-      throw error;
     });
-}
+  
 
-function obterDadosDesconectado() {
-  var existingChart = Chart.getChart('myChart')
-  if (existingChart) {
-    existingChart.destroy()
-    console.log('o grafico existente foi destruído')
+  function obterDadosConectado() {
+    return fetch(`/graficosLivia/medidasConectado/`, { cache: 'no-store' })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+      .then(resposta => {
+        console.log(`Dados recebidos DE USB: ${JSON.stringify(resposta)}`);
+        resposta.reverse();
+        console.log(resposta);
+        return resposta
+      })
+      .catch(error => {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        throw error;
+      });
   }
-  return fetch(`/graficosLivia/medidasDesconectado/`, { cache: 'no-store' })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error('Nenhum dado encontrado ou erro na API');
-      }
-    })
-    .then(resposta => {
-      console.log(`Dados recebidos DE USB: ${JSON.stringify(resposta)}`);
-      resposta.reverse();
-      console.log(resposta);
-      return resposta
-    })
-    .catch(error => {
-      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-      throw error;
-    });
-}
 
-function obterDadosParaGrafico() {
-  var existingChart = Chart.getChart('myChart')
-  if (existingChart) {
-    existingChart.destroy()
-    console.log('o grafico existente foi destruído')
+  function obterDadosDesconectado() {
+    return fetch(`/graficosLivia/medidasDesconectado/`, { cache: 'no-store' })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+      .then(resposta => {
+        console.log(`Dados recebidos DE USB: ${JSON.stringify(resposta)}`);
+        resposta.reverse();
+        console.log(resposta);
+       // plotarGraficoConexao(resposta)
+      })
+      .catch(error => {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        throw error;
+      });
   }
-  Promise.all([obterDadosConectado(), obterDadosDesconectado()])
-    .then(resultados => {
-      const [conectado, desconectado] = resultados;
-      plotarGraficoConexao(conectado, desconectado);
-    })
-    .catch(error => {
-      console.error(`Erro ao obter dados para o gráfico: ${error.message}`);
+
+  function obterDadosParaGrafico() {
+    // var existingChart = Chart.getChart('meuGrafico')
+    // if (existingChart) {
+    //   existingChart.destroy()
+    //   console.log('o grafico existente foi destruído')
+    // }
+    // Promise.all([obterDadosConectado(), obterDadosDesconectado()])
+    //   .then(resultados => {
+    //     const [conectado, desconectado] = resultados;
+    //     plotarGraficoConexao(conectado, desconectado);
+    //   })
+    //   .catch(error => {
+    //     console.error(`Erro ao obter dados para o gráfico: ${error.message}`);
+    //   });
+  }
+
+  function plotarGraficoConexao() {
+    // var conectado = 100 - desconectado
+    var ctx = document.getElementById('meuGrafico').getContext('2d');
+    var data = {
+      labels: ['Conectado', 'Desconectado'],
+      datasets: [
+        {
+          label: 'Estado das Conexões',
+          data: [66.77, conectado],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.8)',
+            'rgba(54, 162, 235, 0.8)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)'
+          ],
+          borderWidth: 1
+        }
+      ]
+    };
+
+    var myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: data,
+      options: {
+        cutout: '70%',
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          position: 'bottom'
+        },
+        title: {
+          display: true,
+          text: 'Estado das Conexões USB'
+        }
+      }
     });
-}
-
-function plotarGraficoConexao(conectado, desconectado) {
-  var ctx = document.getElementById('meuGrafico').getContext('2d');
-  var data = {
-    labels: ['Conectado', 'Desconectado'],
-    datasets: [
-      {
-        label: 'Estado das Conexões',
-        data: [conectado, desconectado],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.8)',
-          'rgba(54, 162, 235, 0.8)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)'
-        ],
-        borderWidth: 1
-      }
-    ]
-  };
-
-  var myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: data,
-    options: {
-      cutout: '70%',
-      responsive: true,
-      maintainAspectRatio: false,
-      legend: {
-        position: 'bottom'
-      },
-      title: {
-        display: true,
-        text: 'Estado das Conexões USB'
-      }
-    }
-  });
-}
+  }
 
 
-// Chamando a função para obter os dados e plotar o gráfico
-obterDadosParaGrafico();
+  // Chamando a função para obter os dados e plotar o gráfico
+  // obterDadosParaGrafico();
 
 
 
@@ -576,13 +616,14 @@ obterDadosParaGrafico();
   //         liviaGrafico.update()
   //       },5000)
   //     }
-      
+
 
 
   var fkServidor = 2
 
-// Função para buscar usuários do banco de dados  
-fetch("/graficosLivia/buscarUSB/", {
+  // Função para buscar usuários do banco de dados 
+  function buscarUSB(){
+    fetch("/graficosLivia/buscarUSB/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -597,7 +638,7 @@ fetch("/graficosLivia/buscarUSB/", {
     .then(data => {
       // Limpa o conteúdo atual da tabela
       const tabelaUSB = document.getElementById('tabelaUSB');
-      
+
 
       // Itera sobre os dados do banco de dados e adiciona ao tbody
       data.forEach(usb => {
@@ -613,8 +654,10 @@ fetch("/graficosLivia/buscarUSB/", {
     })
     .catch(error => console.error('Erro ao buscar usb:', error));
 
+  } 
+  
 
-// Chama a função ao carregar a página
-document.addEventListener('DOMContentLoaded', buscarUSB);
+  // Chama a função ao carregar a página
+  document.addEventListener('DOMContentLoaded', buscarUSB);
 
 </script>
