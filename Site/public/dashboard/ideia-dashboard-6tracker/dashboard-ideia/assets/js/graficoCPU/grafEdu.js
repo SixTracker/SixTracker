@@ -32,12 +32,12 @@ function plotarGraficoEdu(resposta, idServidor) {
 
   // Criando estrutura para plotar gráfico - dados
   let dados = {
-    labels: labels,
+    labels: ['DISCO','CPU','RAM'],
     datasets: [{
-        label: 'Dados',
+        label: 'Servidor Principal',
         data: [],
         backgroundColor: '#00FF00',
-        borderColor: '#393d42',
+        borderColor: '#c211a1',
         tension: 0.3,
         fill: true, 
         pointRadius: 6
@@ -85,7 +85,7 @@ for (i = 0; i <= resposta.length - 1; i++) {
         dados.datasets[0].backgroundColor = '#f6ff00';
         // dados.datasets[0].borderColor.push('#f6ff00');
     } else {
-        dados.datasets[0].backgroundColor = '#FF0000';
+        dados.datasets[0].backgroundColor = '#c211a1';
         // dados.datasets[0].borderColor.push('#FF0000');
     }
   }

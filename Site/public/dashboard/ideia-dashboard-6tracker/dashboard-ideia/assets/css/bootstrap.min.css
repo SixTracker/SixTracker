@@ -661,6 +661,7 @@ pre code {
     margin-right: 0vw;
     margin-left: 0vh;
     margin-top: 1vw;
+    justify-content: center;
 }
 
 .row_KPI_Tiago{
@@ -1391,16 +1392,7 @@ pre code {
     .col-md-12 {
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
-        max-width: 65%;
-    }
-    .linha{
-        display: flex;
-        justify-content: space-evenly; 
-        height: 80vh;
-    }
-    .grafico1{
-        width: 30%;
-        height: 50vh;
+        max-width: 100%;
     }
 
     .col-md-12-1 {

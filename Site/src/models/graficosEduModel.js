@@ -144,7 +144,7 @@ FROM Servidor AS s
                             AND tc_memoria.tipoComponente = 'RAM'
 WHERE s.nome = 'Servidor Principal' 
 AND c_disco.fkServidor = ${idServidor}
-order by r_disco.idRegistro DESC LIMIT 1;`;
+order by r_disco.idRegistro LIMIT 1;`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql, [idServidor]);
