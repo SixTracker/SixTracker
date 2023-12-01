@@ -72,7 +72,7 @@ function buscarMetricas(idServidor) {
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasDisco(idServidor) {
+function buscarMedidasDisco() {
     var instrucaoSql = `
     SELECT
     AVG(valorRegistro) as Disco,
@@ -100,7 +100,7 @@ ORDER BY
 }
 
 
-function tempoRealDisco(idServidor){
+function tempoRealDisco(){
     instrucaoSql = `
     SELECT
     AVG(valorRegistro) as Disco,
@@ -125,7 +125,7 @@ ORDER BY
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasRAM(idServidor) {
+function buscarMedidasRAM() {
     var instrucaoSql = `
     SELECT
     AVG(valorRegistro) as RAM,
@@ -154,7 +154,7 @@ ORDER BY
 }
 
 
-function tempoRealRAM(idServidor){
+function tempoRealRAM(){
     instrucaoSql = `
     SELECT
     AVG(valorRegistro) as RAM,
@@ -179,7 +179,7 @@ ORDER BY
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasCPU(idServidor) {
+function buscarMedidasCPU() {
     var instrucaoSql = `
     SELECT
     AVG(valorRegistro) as CPU,
@@ -208,7 +208,7 @@ ORDER BY
 }
 
 
-function tempoRealCPU(idServidor){
+function tempoRealCPU(){
     instrucaoSql = `
     SELECT
     AVG(valorRegistro) as CPU,

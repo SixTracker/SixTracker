@@ -14,6 +14,7 @@ router.get("/metricas/:idServidor", function (req, res) {
 router.get("/disco/:idServidor", function (req, res) {
     medidaController.buscarMedidasDisco(req, res);
 })
+
 router.get("/ultimasDisco/", function (req, res) {
     medidaController.buscarMedidasDisco(req, res);
 });
@@ -22,19 +23,20 @@ router.get("/tempoRealDisco/", function (req, res) {
     medidaController.tempoRealDisco(req, res);
 });
 
-router.get("/ultimasRAM/:idServidor", function (req, res) {
+router.get("/ultimasRAM/", function (req, res) {
     medidaController.buscarMedidasRAM(req, res);
 });
 
-router.get("/tempoRealRAM/:idServidor", function (req, res) {
+router.get("/tempoRealRAM/", function (req, res) {
     medidaController.tempoRealRAM(req, res);
 });
 
-router.get("/ultimasCPU/:idServidor", function (req, res) {
+
+router.get("/ultimasCPU/", function (req, res) {
     medidaController.buscarMedidasCPU(req, res);
 });
 
-router.get("/tempoRealCPU/:idServidor", function (req, res) {
+router.get("/tempoRealCPU/", function (req, res) {
     medidaController.tempoRealCPU(req, res);
 });
 

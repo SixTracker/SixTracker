@@ -42,12 +42,8 @@ function buscarMetricas(req, res) {
 }
 
 function buscarMedidasDisco(req, res) {
-    var limite_linhas = 4;
 
-    var idServidor = req.params.idServidor;
-
-    medidaModel.buscarMedidasDisco(idServidor, limite_linhas).then(function(resultado)
-        
+    medidaModel.buscarMedidasDisco().then(function(resultado)        
     {
             
         if (resultado.length > 0) {
@@ -63,12 +59,8 @@ function buscarMedidasDisco(req, res) {
 }
 
 function tempoRealDisco(req, res) {
-    var limite_linhas = 1;
 
-    var idServidor = req.params.idServidor;
-
-    medidaModel.tempoRealDisco(idServidor, limite_linhas).then(function(resultado)
-        
+    medidaModel.tempoRealDisco().then(function(resultado)        
     {
             
         if (resultado.length > 0) {
@@ -85,11 +77,8 @@ function tempoRealDisco(req, res) {
 
 
 function buscarMedidasRAM(req, res) {
-    var limite_linhas = 4;
 
-    var idServidor = req.params.idServidor;
-
-    medidaModel.buscarMedidasRAM(idServidor, limite_linhas).then(function(resultado)
+    medidaModel.buscarMedidasRAM().then(function(resultado)
         
     {
             
@@ -106,12 +95,8 @@ function buscarMedidasRAM(req, res) {
 }
 
 function tempoRealRAM(req, res) {
-    var limite_linhas = 1;
 
-    var idServidor = req.params.idServidor;
-
-    medidaModel.tempoRealRAM(idServidor, limite_linhas).then(function(resultado)
-        
+    medidaModel.tempoRealRAM().then(function(resultado)        
     {
             
         if (resultado.length > 0) {
@@ -127,11 +112,8 @@ function tempoRealRAM(req, res) {
 }
 
 function buscarMedidasCPU(req, res) {
-    var limite_linhas = 4;
 
-    var idServidor = req.params.idServidor;
-
-    medidaModel.buscarMedidasCPU(idServidor, limite_linhas).then(function(resultado)
+    medidaModel.buscarMedidasCPU().then(function(resultado)
         
     {
             
@@ -148,11 +130,8 @@ function buscarMedidasCPU(req, res) {
 }
 
 function tempoRealCPU(req, res) {
-    var limite_linhas = 1;
 
-    var idServidor = req.params.idServidor;
-
-    medidaModel.tempoRealCPU(idServidor, limite_linhas).then(function(resultado)
+    medidaModel.tempoRealCPU().then(function(resultado)
         
     {
             
