@@ -661,7 +661,7 @@ pre code {
     margin-right: 0vw;
     margin-left: 0vh;
     margin-top: 1vw;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 .row_KPI_Tiago{
