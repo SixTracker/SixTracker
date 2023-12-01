@@ -74,15 +74,25 @@ function buscarMetricas(idServidor) {
 
 function buscarMedidasDisco(idServidor) {
     var instrucaoSql = `
-    
-    select valorRegistro, DATE_FORMAT(dataRegistro, '%H:%i') AS dataRegistro
-from registro 
-    where 
-    fkComponente = 
-    (select idComponente from 
-        componente 
-        where fkServidor = 29
-        and nome = "Disco total" order by idComponente desc limit 4);  `
+    SELECT
+    AVG(valorRegistro) as Disco,
+    FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
+    MAX(Servidor.nome) as nome_servidor
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas 
+WHERE
+    fkTipoComponente = 3 AND idServidor = 12
+GROUP BY
+    FORMAT(dataRegistro, 'HH:mm')
+ORDER BY
+    FORMAT(dataRegistro, 'HH:mm') DESC
+	OFFSET 0 ROWS FETCH NEXT 4 ROWS ONLY; `
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     console.log(instrucaoSql);
@@ -92,13 +102,24 @@ from registro
 
 function tempoRealDisco(idServidor){
     instrucaoSql = `
-
-    SELECT 
-    valorRegistro,
-    DATE_FORMAT(dataRegistro, '%H:%i') AS dataRegistro
-FROM registro
-ORDER BY dataRegistro DESC
-LIMIT 1;
+    SELECT
+    AVG(valorRegistro) as Disco,
+    FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
+    MAX(Servidor.nome) as nome_servidor
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas 
+WHERE
+    fkTipoComponente = 3 AND idServidor = 12
+GROUP BY
+    FORMAT(dataRegistro, 'HH:mm')
+ORDER BY
+    FORMAT(dataRegistro, 'HH:mm') DESC;
     `
     console.log("Executando instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -106,14 +127,26 @@ LIMIT 1;
 
 function buscarMedidasRAM(idServidor) {
     var instrucaoSql = `
-    select valorRegistro, DATE_FORMAT(dataRegistro, '%H:%i') AS dataRegistro
-from registro 
-    where 
-    fkComponente = 
-    (select idComponente from 
-        componente 
-        where fkServidor = 29
-        and nome = "Porcentagem de Memória" order by idComponente desc limit 4); `
+    SELECT
+    AVG(valorRegistro) as RAM,
+    FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
+    MAX(Servidor.nome) as nome_servidor
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas 
+WHERE
+    fkTipoComponente = 2 AND idServidor = 12
+GROUP BY
+    FORMAT(dataRegistro, 'HH:mm')
+ORDER BY
+    FORMAT(dataRegistro, 'HH:mm') DESC
+	OFFSET 0 ROWS FETCH NEXT 4 ROWS ONLY;
+    `
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     console.log(instrucaoSql);
@@ -123,14 +156,24 @@ from registro
 
 function tempoRealRAM(idServidor){
     instrucaoSql = `
-    select valorRegistro, DATE_FORMAT(dataRegistro, '%H:%i') AS dataRegistro
-    from registro 
-        where 
-        fkComponente = 
-        (select idComponente from 
-            componente 
-            where fkServidor = 29
-            and nome = "Porcentagem de Memória" order by idComponente desc limit 1);
+    SELECT
+    AVG(valorRegistro) as RAM,
+    FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
+    MAX(Servidor.nome) as nome_servidor
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas 
+WHERE
+    fkTipoComponente = 2 AND idServidor = 12
+GROUP BY
+    FORMAT(dataRegistro, 'HH:mm')
+ORDER BY
+    FORMAT(dataRegistro, 'HH:mm') DESC;
     `
     console.log("Executando instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -138,14 +181,26 @@ function tempoRealRAM(idServidor){
 
 function buscarMedidasCPU(idServidor) {
     var instrucaoSql = `
-    select valorRegistro, DATE_FORMAT(dataRegistro, '%H:%i') AS dataRegistro
-from registro 
-    where 
-    fkComponente = 
-    (select idComponente from 
-        componente 
-        where fkServidor = 29
-        and nome = "Porcentagem de CPU" order by idComponente desc limit 4); `
+    SELECT
+    AVG(valorRegistro) as CPU,
+    FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
+    MAX(Servidor.nome) as nome_servidor
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas 
+WHERE
+    fkTipoComponente = 1 AND idServidor = 12
+GROUP BY
+    FORMAT(dataRegistro, 'HH:mm')
+ORDER BY
+    FORMAT(dataRegistro, 'HH:mm') DESC
+	OFFSET 0 ROWS FETCH NEXT 4 ROWS ONLY;
+`
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     console.log(instrucaoSql);
@@ -155,14 +210,24 @@ from registro
 
 function tempoRealCPU(idServidor){
     instrucaoSql = `
-   SELECT valorRegistro, FORMAT(dataRegistro, 'HH:mm') AS dataRegistro
-FROM registro 
-WHERE fkComponente = 
-    (SELECT TOP 1 idComponente 
-     FROM componente 
-     WHERE fkServidor = 29 AND nome = 'Porcentagem de CPU' 
-     ORDER BY idComponente DESC);
-
+    SELECT
+    AVG(valorRegistro) as CPU,
+    FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
+    MAX(Servidor.nome) as nome_servidor
+FROM
+    Registro
+JOIN
+    Componente ON fkComponente = idComponente
+JOIN
+    Servidor ON fkServidor = idServidor
+JOIN
+    Salas ON fkSalas = idSalas 
+WHERE
+    fkTipoComponente = 1 AND idServidor = 12
+GROUP BY
+    FORMAT(dataRegistro, 'HH:mm')
+ORDER BY
+    FORMAT(dataRegistro, 'HH:mm') DESC;
     `
     console.log("Executando instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
