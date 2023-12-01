@@ -5,7 +5,7 @@ function obterDadosDisco(idServidor) {
   // if (proximaAtualizacao != undefined) {
   //     clearTimeout(proximaAtualizacao);
   // }
-  fetch(`/medidas/ultimasDisco/12`, { cache: 'no-store' }).then(function (response) {
+  fetch(`/medidas/ultimasDisco/${idServidor}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
           response.json().then(function (resposta) {
               console.log(`Dados recebidos DE Disco: ${JSON.stringify(resposta)}`);
@@ -107,7 +107,7 @@ for (i = resposta.length - 1; i >= 0; i--) {
 
 function atualizarGraficoDisco(idServidor, dados, ChartDisco) {
 
-  fetch(`/medidas/tempoRealDisco/12`, { cache: 'no-store' }).then(function (response) {
+  fetch(`/medidas/tempoRealDisco/${idServidor}`, { cache: 'no-store' }).then(function (response) {
     if (response.ok) {
       response.json().then(function (novoRegistro) {
 
