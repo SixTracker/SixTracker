@@ -958,7 +958,7 @@ WHERE
     fkComponente IN (
         SELECT TOP 4 idComponente
         FROM componente
-        WHERE fkServidor = 29 AND nome = 'Temperatura CPU'
+        WHERE fkServidor = 12 AND nome = 'Temperatura CPU'
         ORDER BY idComponente DESC
     )
 ORDER BY dataRegistro DESC;
