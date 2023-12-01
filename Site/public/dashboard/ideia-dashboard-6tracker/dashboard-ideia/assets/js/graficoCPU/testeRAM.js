@@ -5,7 +5,7 @@ function obterDadosRAM(idServidor) {
   // if (proximaAtualizacao != undefined) {
   //     clearTimeout(proximaAtualizacao);
   // }
-  fetch(`/medidas/ultimasRAM/${idServidor}`, { cache: 'no-store' }).then(function (response) {
+  fetch(`/medidas/ultimasRAM/12`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
           response.json().then(function (resposta) {
               console.log(`Dados recebidos DE RAM: ${JSON.stringify(resposta)}`);
@@ -106,7 +106,7 @@ for (i = resposta.length - 1; i >= 0; i--) {
 
 function atualizarGraficoRAM(idServidor, dados, chartRAM) {
 
-  fetch(`/medidas/tempoRealRAM/${idServidor}`, { cache: 'no-store' }).then(function (response) {
+  fetch(`/medidas/tempoRealRAM/12`, { cache: 'no-store' }).then(function (response) {
     if (response.ok) {
       response.json().then(function (novoRegistro) {
 
