@@ -14,11 +14,11 @@ router.get("/metricas/:idServidor", function (req, res) {
 router.get("/disco/:idServidor", function (req, res) {
     medidaController.buscarMedidasDisco(req, res);
 })
-router.get("/ultimasDisco/:idServidor", function (req, res) {
+router.get("/ultimasDisco/", function (req, res) {
     medidaController.buscarMedidasDisco(req, res);
 });
 
-router.get("/tempoRealDisco/:idServidor", function (req, res) {
+router.get("/tempoRealDisco/", function (req, res) {
     medidaController.tempoRealDisco(req, res);
 });
 

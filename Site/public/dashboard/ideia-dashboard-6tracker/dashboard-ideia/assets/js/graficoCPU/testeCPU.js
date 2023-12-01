@@ -1,18 +1,14 @@
 var kpiCPU = document.getElementById("kpi-CPU");
 
 
-function obterDadosCPU(idServidor) {
-    console.log("tempxcpu")
-  // if (proximaAtualizacao != undefined) {
-  //     clearTimeout(proximaAtualizacao);
-  // }
-  fetch(`/medidas/ultimasCPU/${idServidor}`, { cache: 'no-store' }).then(function (response) {
+function obterDadosCPU() {
+  fetch(`/medidas/ultimasCPU/`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
           response.json().then(function (resposta) {
               console.log(`Dados recebidos DE CPU: ${JSON.stringify(resposta)}`);
               resposta.reverse();
 
-              plotarGraficoCPU(resposta, idServidor);
+              plotarGraficoCPU(resposta);
 
           });
       } else {
@@ -24,7 +20,7 @@ function obterDadosCPU(idServidor) {
       });
 };
 
-function plotarGraficoCPU(resposta, idServidor) {
+function plotarGraficoCPU(resposta) {
 
   console.log('iniciando plotagem do gráfico...');
 
@@ -54,21 +50,21 @@ function plotarGraficoCPU(resposta, idServidor) {
 // Dentro do seu loop for na função plotarGraficoDisco
 for (i = resposta.length - 1; i >= 0; i--) {
     var registro = resposta[i];
-    dados.datasets[0].data.push(registro.valorRegistro);
-    labels.push(registro.dataRegistro);
+    dados.datasets[0].data.push(registro.CPU);
+    labels.push(registro.intervalo_tempo);
   
-    if (registro.valorRegistro != null) {
+    if (registro.CPU != null) {
         // Atualize kpiDisco.textContent em vez de atribuir diretamente ao elemento
-        kpiCPU.textContent = registro.valorRegistro + '%';
+        kpiCPU.textContent = registro.CPU + '%';
     } else {
         kpiCPU.textContent = "Erro";
     }
    
     // Definindo a cor com base nas condições
-    if (registro.valorRegistro <= 15) {
+    if (registro.CPU <= 15) {
         dados.datasets[0].backgroundColor.push('#00FF00');
         // dados.datasets[0].borderColor.push('#00FF00');
-    } else if (registro.valorRegistro <= 39) {
+    } else if (registro.CPU <= 39) {
         dados.datasets[0].backgroundColor.push('#f6ff00');
         // dados.datasets[0].borderColor.push('#f6ff00');
     } else {
@@ -100,60 +96,54 @@ for (i = resposta.length - 1; i >= 0; i--) {
       config
   );
 
-  setTimeout(() => atualizarGraficoRAM(idServidor, dados, chartCPU ), 5000);
+  setTimeout(() => atualizarGraficoRAM(dados, chartCPU ), 5000);
 };
 
 
-function atualizarGraficoRAM(idServidor, dados, chartCPU) {
+// function atualizarGraficoRAM(dados, chartCPU) {
 
-  fetch(`/medidas/tempoRealRAM/${idServidor}`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-      response.json().then(function (novoRegistro) {
+//   fetch(`/medidas/tempoRealRAM/`, { cache: 'no-store' }).then(function (response) {
+//     if (response.ok) {
+//       response.json().then(function (novoRegistro) {
 
-          // obterDadosCPU(idMaquina);
-          // // alertar(novoRegistro, idMaquina);
-          // console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-          // console.log(`Dados atuais do gráfico:`);
-          // console.log(dados);
+//           if (novoRegistro[0].dataRegistro == dados.datasets[0].data.dataRegistro) {
+//               console.log("---------------------------------------------------------------")
+//               console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+//               // avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+//               console.log("Horário do novo dado capturado:")
+//               console.log(novoRegistro[0].dataRegistro)
+//               console.log("Horário do último dado capturado:")
+//               console.log(dados.labels[dados.labels.length - 1])
+//               console.log("---------------------------------------------------------------")
+//           } else {
+//               // tirando e colocando valores no gráfico
+//               dados.labels.shift(); // apagar o primeiro
+//               dados.labels.push(novoRegistro[0].dataRegistro); // incluir um novo momento
 
-          if (novoRegistro[0].dataRegistro == dados.datasets[0].data.dataRegistro) {
-              console.log("---------------------------------------------------------------")
-              console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-              // avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-              console.log("Horário do novo dado capturado:")
-              console.log(novoRegistro[0].dataRegistro)
-              console.log("Horário do último dado capturado:")
-              console.log(dados.labels[dados.labels.length - 1])
-              console.log("---------------------------------------------------------------")
-          } else {
-              // tirando e colocando valores no gráfico
-              dados.labels.shift(); // apagar o primeiro
-              dados.labels.push(novoRegistro[0].dataRegistro); // incluir um novo momento
-
-              dados.datasets[0].data.shift();  // apagar o primeira medida
-              dados.datasets[0].data.push(novoRegistro[0].valorRegistro); // incluir uma nova medida
+//               dados.datasets[0].data.shift();  // apagar o primeira medida
+//               dados.datasets[0].data.push(novoRegistro[0].valorRegistro); // incluir uma nova medida
 
 
-              if(novoRegistro.valorRegistro != null){
-                kpiCPU = novoRegistro.valorRegistro;
-            } else {
-                kpiCPU = "Erro"
-              }
+//               if(novoRegistro.valorRegistro != null){
+//                 kpiCPU = novoRegistro.valorRegistro;
+//             } else {
+//                 kpiCPU = "Erro"
+//               }
               
-              chartCPU.update();
-          }
+//               chartCPU.update();
+//           }
 
-          // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-          proximaAtualizacao = setTimeout(() => atualizarGraficoRAM(idServidor, dados, chartCPU), 5000);
-      });
-  } else {
-      console.error('Nenhum dado encontrado ou erro na API');
-      // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-      proximaAtualizacao = setTimeout(() => atualizarGraficoRAM(idServidor, dados, chartCPU), 5000);
-  }
-})
-  .catch(function (error) {
-      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-  });
+//           // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+//           proximaAtualizacao = setTimeout(() => atualizarGraficoRAM(idServidor, dados, chartCPU), 5000);
+//       });
+//   } else {
+//       console.error('Nenhum dado encontrado ou erro na API');
+//       // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+//       proximaAtualizacao = setTimeout(() => atualizarGraficoRAM(idServidor, dados, chartCPU), 5000);
+//   }
+// })
+//   .catch(function (error) {
+//       console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+//   });
 
-};
+// };
