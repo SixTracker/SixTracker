@@ -23,14 +23,16 @@ ORDER BY dataRegistro DESC;
 
 function buscarMedidasTempCPU(idServidor) {
     var instrucaoSql = `
-    select valorRegistro, DATE_FORMAT(dataRegistro, '%H:%i') AS dataRegistro
-    from registro 
-        where 
-        fkComponente = 
-        (select idComponente from 
-            componente 
-            where fkServidor = 29
-            and nome = "Temperatura CPU" order by idComponente desc limit 4);
+    SELECT TOP 4 valorRegistro, FORMAT(dataRegistro, 'HH:mm') AS dataRegistro
+    FROM Registro
+    WHERE
+        fkComponente IN (
+            SELECT idComponente
+            FROM componente
+            WHERE fkServidor = 12 AND nome = 'Temperatura CPU'
+        )
+    ORDER BY dataRegistro DESC;
+    
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
