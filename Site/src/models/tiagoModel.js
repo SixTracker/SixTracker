@@ -5,15 +5,15 @@ var database = require("../database/config");
 
 function tempoRealTempCPU(idServidor) {
     var instrucaoSql = `
-	SELECT TOP 1 valorRegistro, FORMAT(dataRegistro, 'HH:mm') AS dataRegistro
+	SELECT TOP 1 idRegistro, valorRegistro, FORMAT(dataRegistro, 'HH:mm:ss') AS dataRegistro
 FROM Registro
 WHERE
     fkComponente IN (
         SELECT idComponente
-        FROM componente
+        FROM Componente
         WHERE fkServidor = 12 AND nome = 'Temperatura CPU'
     )
-ORDER BY dataRegistro DESC;
+ORDER BY idRegistro DESC;
 
     `;
 
@@ -23,15 +23,16 @@ ORDER BY dataRegistro DESC;
 
 function buscarMedidasTempCPU(idServidor) {
     var instrucaoSql = `
-    SELECT TOP 4 valorRegistro, FORMAT(dataRegistro, 'HH:mm') AS dataRegistro
+    SELECT TOP 4 idRegistro, valorRegistro, FORMAT(dataRegistro, 'HH:mm:ss') AS dataRegistro
     FROM Registro
     WHERE
         fkComponente IN (
             SELECT idComponente
-            FROM componente
+            FROM Componente
             WHERE fkServidor = 12 AND nome = 'Temperatura CPU'
         )
-    ORDER BY dataRegistro DESC;
+    ORDER BY idRegistro DESC;
+
     
     `;
 
