@@ -36,7 +36,7 @@ function buscarDesconectado(){
 FROM 
     registro
 WHERE 
-    fkComponente = 16 and valorRegistro = 0 or valorRegistro = 1
+    fkComponente = 16 and valorRegistro = 0
 GROUP BY 
     valorRegistro;
    `

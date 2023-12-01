@@ -145,7 +145,7 @@ Coded by www.creative-tim.com fdp chris
             </a>
           </li>
           <li>
-            <a href="../inicioAdm/user2.html">
+            <a href="../inicioAdm/sininho.html">
               <i class="nc-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                   class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
@@ -315,7 +315,7 @@ Coded by www.creative-tim.com fdp chris
             </div>
           </div>-->
         </div>
-        <!-- <div class="linha">
+        <div class="linha">
           <div class="numbers">
             <p class="card-category">Conexões hoje</p>
             <p id="KpiCPU" class="card-title">
@@ -326,7 +326,7 @@ Coded by www.creative-tim.com fdp chris
             <p id="KpiCPU" class="card-title">
             <p>
           </div>
-        </div> -->
+        </div>
         <footer class="footer footer-black  footer-white ">
           <div class="container-fluid">
             <div class="row">
@@ -377,43 +377,6 @@ Coded by www.creative-tim.com fdp chris
 
 </html>
 <script>
-      var ctx = document.getElementById('meuGrafico').getContext('2d');
-    var data = {
-      labels: ['Conectado', 'Desconectado'],
-      datasets: [
-        {
-          label: 'Estado das Conexões',
-          data: [77.43, 100-77.43],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.8)',
-            'rgba(54, 162, 235, 0.8)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)'
-          ],
-          borderWidth: 1
-        }
-      ]
-    };
-
-    var myChart = new Chart(ctx, {
-      type: 'doughnut',
-      data: data,
-      options: {
-        cutout: '70%',
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          position: 'bottom'
-        },
-        title: {
-          display: true,
-          text: 'Estado das Conexões USB'
-        }
-      }
-    });
-  
 
   function obterDadosConectado() {
     return fetch(`/graficosLivia/medidasConectado/`, { cache: 'no-store' })
@@ -449,7 +412,7 @@ Coded by www.creative-tim.com fdp chris
         console.log(`Dados recebidos DE USB: ${JSON.stringify(resposta)}`);
         resposta.reverse();
         console.log(resposta);
-       // plotarGraficoConexao(resposta)
+        plotarGraficoConexao(resposta)
       })
       .catch(error => {
         console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
@@ -473,44 +436,52 @@ Coded by www.creative-tim.com fdp chris
     //   });
   }
 
-  function plotarGraficoConexao() {
-    // var conectado = 100 - desconectado
-    var ctx = document.getElementById('meuGrafico').getContext('2d');
-    var data = {
-      labels: ['Conectado', 'Desconectado'],
-      datasets: [
-        {
-          label: 'Estado das Conexões',
-          data: [66.77, conectado],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.8)',
-            'rgba(54, 162, 235, 0.8)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)'
-          ],
-          borderWidth: 1
-        }
-      ]
-    };
+  function plotarGraficoConexao(resposta) {
+    console.log("ghjkhhjjjjjjjjjjjjjjj", resposta[0].porcentagem, "kkkkkkkkkkkkkkkkk", resposta)
 
-    var myChart = new Chart(ctx, {
-      type: 'doughnut',
-      data: data,
-      options: {
-        cutout: '70%',
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          position: 'bottom'
-        },
-        title: {
-          display: true,
-          text: 'Estado das Conexões USB'
-        }
-      }
-    });
+    var conectado = 100 - resposta[0].porcentagem
+    var ctx = document.getElementById('meuGrafico').getContext('2d');
+
+var data = {
+  labels: ['Conectado', 'Desconectado'],
+  datasets: [
+    {
+      label: 'Estado das Conexões',
+      data: [resposta[0].porcentagem, conectado],
+      backgroundColor: [
+        'rgba(194, 17, 161)',
+        'rgba(0, 74, 173)'
+      ],
+      borderColor: [
+        'rgba(194, 17, 161)',
+        'rgba(0, 74, 173)'
+      ],
+      borderWidth: 1,
+      pointStyle: 'circle', // Altera o ponto para círculo
+      pointRadius: 10, // Define o tamanho do círculo
+      pointHoverRadius: 10, // Define o tamanho do círculo ao passar o mouse
+    }
+  ]
+}; 
+
+var myChart = new Chart(ctx, {
+  type: 'doughnut',
+  data: data,
+  options: {
+    cutout: '60%',
+    responsive: true,
+    maintainAspectRatio: false,
+    legend: {
+      display: true,
+      position: 'bottom' // Posiciona a legenda abaixo do gráfico
+    },
+    title: {
+      display: true,
+      text: 'Estado das Conexões USB'
+    }
+  }
+});
+
   }
 
 
