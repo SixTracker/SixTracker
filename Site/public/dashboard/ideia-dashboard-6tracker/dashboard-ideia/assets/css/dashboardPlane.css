@@ -21,6 +21,10 @@ Licensed under the MIT license - http://opensource.org/licenses/MIT
 Copyright (c) 2015 Daniel Eden
 */
 
+#rowAdm{
+  gap: 10vw;
+}
+
 #KpiDISCOCss{
   position: relative;
   left: 8.5vw;

@@ -87,7 +87,7 @@ JOIN
 JOIN
     Salas ON fkSalas = idSalas 
 WHERE
-    fkTipoComponente = 3 AND idServidor = 12
+    fkTipoComponente = 3 
 GROUP BY
     FORMAT(dataRegistro, 'HH:mm')
 ORDER BY
@@ -115,7 +115,7 @@ JOIN
 JOIN
     Salas ON fkSalas = idSalas 
 WHERE
-    fkTipoComponente = 3 AND idServidor = 12
+    fkTipoComponente = 3
 GROUP BY
     FORMAT(dataRegistro, 'HH:mm')
 ORDER BY
@@ -140,7 +140,7 @@ JOIN
 JOIN
     Salas ON fkSalas = idSalas 
 WHERE
-    fkTipoComponente = 2 AND idServidor = 12
+    fkTipoComponente = 2
 GROUP BY
     FORMAT(dataRegistro, 'HH:mm')
 ORDER BY
@@ -169,7 +169,7 @@ JOIN
 JOIN
     Salas ON fkSalas = idSalas 
 WHERE
-    fkTipoComponente = 2 AND idServidor = 12
+    fkTipoComponente = 2 
 GROUP BY
     FORMAT(dataRegistro, 'HH:mm')
 ORDER BY
