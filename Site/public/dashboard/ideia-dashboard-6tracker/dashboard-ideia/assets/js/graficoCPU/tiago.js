@@ -6,7 +6,7 @@ function obterDadosTempCPU(idServidor) {
   // if (proximaAtualizacao != undefined) {
   //     clearTimeout(proximaAtualizacao);
   // }
-  fetch(`/tiago/ultimasTempCPU/${idServidor}`, { cache: 'no-store' }).then(function (response) {
+  fetch(`/tiago/ultimasTempCPU/12`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
           response.json().then(function (resposta) {
               console.log(`Dados recebidos DE CPU: ${JSON.stringify(resposta)}`);
@@ -112,7 +112,7 @@ setTimeout(() => atualizarGraficoTempRAM(idServidor, dados, chart_tempCPU ), 500
 
 function atualizarGraficoTempRAM(idServidor, dados, chart_tempCPU) {
 
-fetch(`/tiago/tempoRealTempCPU/${idServidor}`, { cache: 'no-store' }).then(function (response) {
+fetch(`/tiago/tempoRealTempCPU/12`, { cache: 'no-store' }).then(function (response) {
   if (response.ok) {
     response.json().then(function (novoRegistro) {
 
