@@ -2,7 +2,7 @@ const database = require("../database/config");
 
 
 // function buscarMedidasCPU(idServidor){
-     
+
 //        instrucaoSql = `
 //        SELECT
 //     AVG(valorRegistro) as CPU,
@@ -26,7 +26,7 @@ const database = require("../database/config");
 // FETCH NEXT 4 ROWS ONLY;
 
 //    `
-  
+
 //    console.log("Executando a instrução SQL: \n" + instrucaoSql);
 //    return database.executar(instrucaoSql);
 // }
@@ -55,7 +55,7 @@ const database = require("../database/config");
 // FETCH NEXT 4 ROWS ONLY;
 
 //    `
-  
+
 //    console.log("Executando a instrução SQL: \n" + instrucaoSql);
 //    return database.executar(instrucaoSql);
 // }
@@ -81,7 +81,7 @@ const database = require("../database/config");
 // ORDER BY
 //     FORMAT(dataRegistro, 'HH:mm') DESC;
 //    `
-   
+
 //    console.log("Executando a instrução SQL: \n" + instrucaoSql);
 //    return database.executar(instrucaoSql);
 // }
@@ -107,50 +107,34 @@ const database = require("../database/config");
 // ORDER BY
 //     FORMAT(dataRegistro, 'HH:mm') DESC;
 //    `
-   
+
 //    console.log("Executando a instrução SQL: \n" + instrucaoSql);
 //    return database.executar(instrucaoSql);
 // }
 
 function tempoRealEdu(idServidor) {
     var instrucaoSql = `
-    SELECT 
-    s.idServidor,
-    s.nome AS NomeServidor,
-    r_disco.valorRegistro AS ValorRegistro_DISCO,
-    r_cpu.valorRegistro AS ValorRegistro_CPU,
-    r_memoria.valorRegistro AS ValorRegistro_Memoria
-FROM Servidor AS s
-    JOIN Componente AS c_disco 
-        ON s.idServidor = c_disco.fkServidor
-            JOIN Registro AS r_disco 
-                ON c_disco.idComponente = r_disco.fkComponente
-                    JOIN TipoComponente AS tc_disco 
-                        ON c_disco.fkTipoComponente = tc_disco.idTipoComponente
-                            AND tc_disco.tipoComponente = 'DISCO'
-    JOIN Componente AS c_cpu 
-        ON s.idServidor = c_cpu.fkServidor
-            JOIN Registro AS r_cpu 
-                ON c_cpu.idComponente = r_cpu.fkComponente
-                    JOIN TipoComponente AS tc_cpu 
-                        ON c_cpu.fkTipoComponente = tc_cpu.idTipoComponente
-                            AND tc_cpu.tipoComponente = 'CPU'
-    JOIN Componente AS c_memoria 
-        ON s.idServidor = c_memoria.fkServidor
-            JOIN Registro AS r_memoria 
-                ON c_memoria.idComponente = r_memoria.fkComponente
-                    JOIN TipoComponente AS tc_memoria 
-                        ON c_memoria.fkTipoComponente = tc_memoria.idTipoComponente
-                            AND tc_memoria.tipoComponente = 'RAM'
-WHERE s.nome = 'Servidor Principal' 
-AND c_disco.fkServidor = ${idServidor}
-order by r_disco.idRegistro LIMIT 1;`;
+    SELECT s.idServidor, s.nome AS NomeServidor,
+r_disco.valorRegistro AS ValorRegistro_DISCO,
+r_cpu.valorRegistro AS ValorRegistro_CPU,
+r_memoria.valorRegistro AS ValorRegistro_Memoria FROM Servidor AS s INNER JOIN Componente 
+AS c_disco ON s.idServidor = c_disco.fkServidor INNER JOIN Registro AS r_disco ON
+c_disco.idComponente = r_disco.fkComponente INNER JOIN TipoComponente 
+AS tc_disco ON c_disco.fkTipoComponente = tc_disco.idTipoComponente
+AND tc_disco.tipoComponente = 'DISCO' INNER JOIN Componente AS c_cpu 
+ON s.idServidor = c_cpu.fkServidor INNER JOIN Registro AS r_cpu ON c_cpu.idComponente = r_cpu.fkComponente 
+INNER JOIN TipoComponente AS tc_cpu ON c_cpu.fkTipoComponente = tc_cpu.idTipoComponente
+AND tc_cpu.tipoComponente = 'CPU' INNER JOIN Componente AS c_memoria ON s.idServidor = c_memoria.fkServidor
+INNER JOIN Registro AS r_memoria ON c_memoria.idComponente = r_memoria.fkComponente INNER JOIN TipoComponente 
+AS tc_memoria ON c_memoria.fkTipoComponente = tc_memoria.idTipoComponente
+AND tc_memoria.tipoComponente = 'RAM' WHERE s.nome = 'Chris Server'
+AND c_disco.fkServidor = idServidor ORDER BY r_disco.idRegistro OFFSET 0 ROWS FETCH FIRST 1 ROW ONLY;`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql, [idServidor]);
 }
 
-function buscarMedidas(idServidor) {
+function buscarMedidas() {
     var instrucaoSql = `
     SELECT 
     s.idServidor,

@@ -1,11 +1,8 @@
 var eduModel = require("../models/graficosEduModel");
 
 function buscarMedidas(req, res) {
-    var limite_linhas = 4;
-
-    var idServidor = req.params.idServidor;
-
-    eduModel.buscarMedidasTempCPU(idServidor, limite_linhas).then(function(resultado)
+    
+    eduModel.buscarMedidas().then(function(resultado)
         
     {
             
