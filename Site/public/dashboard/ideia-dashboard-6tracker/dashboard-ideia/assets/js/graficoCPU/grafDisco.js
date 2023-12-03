@@ -87,7 +87,7 @@ for (i = resposta.length - 1; i >= 0; i--) {
 
   // Criando estrutura para plotar gráfico - config
   const config = {
-    type: 'line',
+    type: 'bar',
     data: dados,
     fill: false,
   }
