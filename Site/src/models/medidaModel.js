@@ -75,7 +75,7 @@ function buscarMetricas(idServidor) {
 function buscarMedidasDisco() {
     var instrucaoSql = `
     SELECT
-    AVG(valorRegistro) as Disco,
+    MAX(valorRegistro) as Disco,
     FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
     MAX(Servidor.nome) as nome_servidor
 FROM
@@ -87,7 +87,7 @@ JOIN
 JOIN
     Salas ON fkSalas = idSalas 
 WHERE
-    fkTipoComponente = 3 
+    idComponente = 403
 GROUP BY
     FORMAT(dataRegistro, 'HH:mm')
 ORDER BY
@@ -103,7 +103,7 @@ ORDER BY
 function tempoRealDisco(){
     instrucaoSql = `
     SELECT
-    AVG(valorRegistro) as Disco,
+    MAX(valorRegistro) as Disco,
     FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
     MAX(Servidor.nome) as nome_servidor
 FROM
@@ -115,11 +115,11 @@ JOIN
 JOIN
     Salas ON fkSalas = idSalas 
 WHERE
-    fkTipoComponente = 3
+    idComponente = 403
 GROUP BY
     FORMAT(dataRegistro, 'HH:mm')
 ORDER BY
-    FORMAT(dataRegistro, 'HH:mm') DESC;
+    FORMAT(dataRegistro, 'HH:mm') DESC
     `
     console.log("Executando instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

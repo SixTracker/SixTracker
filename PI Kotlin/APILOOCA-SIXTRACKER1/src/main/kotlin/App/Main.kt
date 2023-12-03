@@ -154,7 +154,13 @@ open class Main {
             // nomesRede -> eth15
             // listaBytesEnviados -> pega o número máximo da lista, já que haverá só um por captura
             // listaBytesRecebidos -> pega o número máximo da lista, já que haverá só um por captura
-            return Redes(0, LocalDateTime.now(), nomeRede, listaBytesEnviados.max(), listaBytesRecebidos.max())
+            val bytesEnviadosMB = listaBytesEnviados.max().let{it.toLong()/(1024 * 1024)}
+            val bytesRecebidosMB = listaBytesRecebidos.max().let{it.toLong()/(1024 * 1024)}
+
+            println("Bytes enviados: $bytesEnviadosMB MB de $nomeRede")
+            println("Bytes recebidos: $bytesRecebidosMB MB de $nomeRede")
+
+            return Redes(0, LocalDateTime.now(), nomeRede, bytesEnviadosMB, bytesRecebidosMB)
         }
 
         fun capturarDadosU(looca: Looca) : List<USB> {
