@@ -7,10 +7,9 @@ import DadosRepositorios
 import Janelas
 import Redes
 import USB
-import Conexao
 import UsuarioLogin
+import java.time.format.DateTimeFormatter
 import java.util.*
-import javax.swing.JOptionPane
 
 
 open class Main {
@@ -160,7 +159,15 @@ open class Main {
             println("Bytes enviados: $bytesEnviadosMB MB de $nomeRede")
             println("Bytes recebidos: $bytesRecebidosMB MB de $nomeRede")
 
-            return Redes(0, LocalDateTime.now(), nomeRede, bytesEnviadosMB, bytesRecebidosMB)
+            val dataHoraAtual = LocalDateTime.now()
+
+            // Definir o formato desejado (por exemplo, "yyyy-MM-dd HH:mm:ss")
+            val formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+
+            // Formatando a data e hora
+            val dataHoraFormatada = dataHoraAtual.format(formato)
+
+            return Redes(0, dataHoraFormatada, nomeRede, bytesEnviadosMB, bytesRecebidosMB)
         }
 
         fun capturarDadosU(looca: Looca) : List<USB> {

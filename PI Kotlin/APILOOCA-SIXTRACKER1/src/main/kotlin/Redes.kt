@@ -1,8 +1,6 @@
-import java.time.LocalDateTime
-
-data class Redes (
+data class Redes(
     var id: Int,
-    var dataHora: LocalDateTime,
+    var dataHora: String,
     var nomeRede: String,
     var bytesEnviados: Long,
     var bytesRecebidos: Long,
