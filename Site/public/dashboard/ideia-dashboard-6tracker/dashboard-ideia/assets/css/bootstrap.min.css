@@ -369,6 +369,50 @@ template {
     display: none !important
 }
 
+
+
+/* css pag livia */
+.linha{
+    display: flex;
+    justify-content: space-evenly;
+}
+.coluna12{
+    -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 65%;
+        min-height: 100vh;
+        max-height: 150vh;
+}
+.numbersl{
+    width: 35vh;
+    height: 15vh;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+    box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);
+}
+.titulocard{
+    text-transform: capitalize;
+  font-weight: 400;
+  color: #9A9A9A;
+  font-size: 15px;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+.row1{
+    display: flex;
+    flex-direction: row;
+}
+.card-titlel{
+    font-size: 25px;
+}
+
+
+
+
+
+
+
+
 .h1,
 .h2,
 .h3,

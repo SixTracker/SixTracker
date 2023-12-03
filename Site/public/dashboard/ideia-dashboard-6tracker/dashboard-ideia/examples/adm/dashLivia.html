@@ -37,7 +37,7 @@ Coded by www.creative-tim.com fdp chris
   <link href="../../assets/demo/demo.css" rel="stylesheet" />
 </head>
 
-<body onload="obterDadosDesconectado()">
+<body onload="obterDadosDesconectado()" onload="obterDadosConectado()">
 
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
@@ -227,8 +227,127 @@ Coded by www.creative-tim.com fdp chris
       </nav>
       <!-- End Navbar -->
       <div class="content">
+        <div class="linha">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-5 col-md-4">
+                    <div class="icon-big text-center icon-warning">
+                      <div class="text-cpi">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="60" fill="currentColor"
+                          class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd"
+                            d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-7 col-md-8">
+                    <div class="numbers">
+                      <p class="titulocard">Estado</p>
+                      <div class="card-titlel" id="kpiestado">85%
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer ">
+                <hr>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-5 col-md-4">
+                    <div class="icon-big text-center icon-warning">
+                      <div class="text-cpi">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="50" fill="currentColor"
+                          class="bi bi-dash-circle" viewBox="0 0 16 16">
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                          <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-7 col-md-8">
+                    <div class="numbers">
+                      <p class="titulocard">Conexão Atual</p>
+                      <p class="card-titlel" id="kpiatual">10%
+                      <p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer ">
+                <hr>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-5 col-md-4">
+                    <div class="icon-big text-center icon-warning">
+                      <div class="text-cpi">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="50" fill="currentColor"
+                          class="bi bi-x-circle" viewBox="0 0 16 16">
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                          <path
+                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-7 col-md-8">
+                    <div class="numbers">
+                      <p class="titulocard">Conexões hoje</p>
+                      <p class="card-titlel" id="kpihoje">5%<p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer ">
+                <hr>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-5 col-md-4">
+                    <div class="icon-big text-center icon-warning">
+                      <div class="text-cpi">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="50" fill="currentColor"
+                          class="bi bi-x-circle" viewBox="0 0 16 16">
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                          <path
+                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-7 col-md-8">
+                    <div class="numbers">
+                      <p class="titulocard">Conexões semana</p>
+                      <p class="card-titlel" id="kpisemana">5%<p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer ">
+                <hr>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="linha" id="card-list">
-          <div class="col-md-12">
+          <div class="coluna12">
             <div class="card">
               <div class="card-header">
                 <h4 class="card-title">Conexões de USB passadas</h4>
@@ -315,18 +434,29 @@ Coded by www.creative-tim.com fdp chris
             </div>
           </div>-->
         </div>
-        <div class="linha">
-          <div class="numbers">
+        
+        <!-- <div class="linha">
+          <div class="numbersl">
+            <span class="card-category">Estado</span>
+            <p id="Kpirisco" class="card-title">
+            <p>
+          </div>
+          <div class="numbersl">
+            <span class="card-category">Conexão atual</span>
+            <p id="Kpiatual" class="card-title">
+            <p>
+          </div>
+          <div class="numbersl">
             <p class="card-category">Conexões hoje</p>
-            <p id="KpiCPU" class="card-title">
+            <p id="Kpione" class="card-title">
             <p>
           </div>
-          <div class="numbers">
-            <p class="card-category">Conexões nos ultimos 7 dias</p>
-            <p id="KpiCPU" class="card-title">
+          <div class="numbersl">
+            <span class="card-category">Conexões nos ultimos 7 dias</span>
+            <p id="Kpiseven" class="card-title">
             <p>
           </div>
-        </div>
+        </div> -->
         <footer class="footer footer-black  footer-white ">
           <div class="container-fluid">
             <div class="row">
@@ -392,6 +522,7 @@ Coded by www.creative-tim.com fdp chris
         resposta.reverse();
         console.log(resposta);
         return resposta
+        
       })
       .catch(error => {
         console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
@@ -413,6 +544,24 @@ Coded by www.creative-tim.com fdp chris
         resposta.reverse();
         console.log(resposta);
         plotarGraficoConexao(resposta)
+        var elemento1 = document.getElementById("kpiestado");
+        var resposta1 = Number(resposta[0].porcentagem)
+        if(resposta1 < 60){
+          elemento1.innerHTML = "Grave"
+        } else if (resposta1 < 80){
+          elemento1.innerHTML = "Alerta"
+        } else if(resposta1 > 80){
+          elemento1.innerHTML = "Normal"
+        }
+        var elemento2 = document.getElementById("kpiatual");
+        var resposta2 = Number(resposta[0].ultimovalor)
+        elemento2.innerHTML = `${resposta2} ativas`
+        var elemento3 = document.getElementById("kpihoje");
+        var resposta3 = Number(resposta[0].ultimodia)
+        elemento3.innerHTML = `${resposta3} conexões`
+        var elemento4 = document.getElementById("kpisemana");
+        var resposta4 = Number(resposta[0].ultimasemana)
+        elemento4.innerHTML = `${resposta4} conexões`
       })
       .catch(error => {
         console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
@@ -447,7 +596,7 @@ var data = {
   datasets: [
     {
       label: 'Estado das Conexões',
-      data: [resposta[0].porcentagem, conectado],
+      data: [conectado, resposta[0].porcentagem],
       backgroundColor: [
         'rgba(194, 17, 161)',
         'rgba(0, 74, 173)'
