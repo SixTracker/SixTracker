@@ -428,6 +428,7 @@ Coded by www.creative-tim.com
 
               for (var i = 0; i < json.length; i++) {
                 disco.push(json[0].valorRegistro)
+                console.log("-----------------------------",json[0].valorRegistro)
               }
 
             }
@@ -468,7 +469,9 @@ Coded by www.creative-tim.com
 
               for (var i = 0; i < json.length; i++) {
                 rede.push(json[0].bytesEnviados)
+                console.log("-----------------------------",json[0].bytesEnviados)
                 dataHora.push(json[1].dataHora)
+                console.log("-----------------------------",json[1].dataHora)
               }
 
             }
@@ -631,7 +634,7 @@ Coded by www.creative-tim.com
           } else {
             KpiAlertaDisco.innerHTML = 'Sem Alertas'
           }
-          KpiDisco.innerHTML = (novoRegistro[0].DISCO).toFixed(2) + "%" 
+          // KpiDisco.innerHTML = (novoRegistro[0].DISCO).toFixed(2) + "%" 
 
           myChart.data.datasets[0].data = disco
           myChart.data.datasets[1].data = rede
