@@ -407,6 +407,7 @@ Coded by www.creative-tim.com
     <script>
 
       var rede = []
+      var dataHora = []
       var disco = []
 
       function pegarDisco() {
@@ -426,7 +427,7 @@ Coded by www.creative-tim.com
               console.log(JSON.stringify(json));
 
               for (var i = 0; i < json.length; i++) {
-                disco.push(json[i].valorRegistro)
+                disco.push(json[0].valorRegistro)
               }
 
             }
@@ -466,7 +467,8 @@ Coded by www.creative-tim.com
               console.log(JSON.stringify(json));
 
               for (var i = 0; i < json.length; i++) {
-                rede.push(json[i].bytesEnviados)
+                rede.push(json[0].bytesEnviados)
+                dataHora.push(json[1].dataHora)
               }
 
             }
@@ -492,21 +494,7 @@ Coded by www.creative-tim.com
           type: "line",
 
           data: {
-            labels: [
-              "12:00",
-              "12:05",
-              "12:10",
-              "12:15",
-              "12:20",
-              "12:25",
-              "12:30",
-              "12:35",
-              "12:40",
-              "12:45",
-              "12:50",
-              "12:55",
-              "13:00",
-            ],
+            labels: dataHora,
             datasets: [
               {
                 label: "Disco",
