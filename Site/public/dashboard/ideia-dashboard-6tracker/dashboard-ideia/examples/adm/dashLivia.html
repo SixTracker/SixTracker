@@ -562,10 +562,6 @@ Coded by www.creative-tim.com fdp chris
         var elemento4 = document.getElementById("kpisemana");
         var resposta4 = Number(resposta[0].ultimasemana)
         elemento4.innerHTML = `${resposta4} conexões`
-      })
-      .catch(error => {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        throw error;
       });
   }
 
