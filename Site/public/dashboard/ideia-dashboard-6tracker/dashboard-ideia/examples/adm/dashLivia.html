@@ -737,22 +737,17 @@ var myChart = new Chart(ctx, {
 
   // Função para buscar usuários do banco de dados 
   function buscarUSB(){
-    fetch("/graficosLivia/buscarUSB/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-    })
-  })
-    .then(response => response.json())
-    .then(data => {
-      // Limpa o conteúdo atual da tabela
-      const tabelaUSB = document.getElementById('tabelaUSB');
+
+    fetch(`/graficosLivia/buscarUSB/`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        console.log(`Dados recebidos DE CPU: ${JSON.stringify(resposta)}`);        
+
+        const tabelaUSB = document.getElementById('tabelaUSB');
 
 
       // Itera sobre os dados do banco de dados e adiciona ao tbody
-      data.forEach(usb => {
+      resposta.forEach(usb => {
         const row = tabelaUSB.insertRow();
         const cellInicial = row.insertCell(0);
         const cellFinal = row.insertCell(1);
@@ -762,8 +757,15 @@ var myChart = new Chart(ctx, {
         cellFinal.textContent = usb.dataFinal;
         cellServidor.textContent = usb.nome;
       });
-    })
-    .catch(error => console.error('Erro ao buscar usb:', error));
+
+      });
+    } else {
+      console.error('Nenhum dado encontrado ou erro na API');
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
 
   } 
   
