@@ -535,9 +535,7 @@ Coded by www.creative-tim.com fdp chris
       .then(response => {
         if (response.ok) {
           return response.json();
-        } else {
-          throw new Error('Nenhum dado encontrado ou erro na API');
-        }
+        } 
       })
       .then(resposta => {
         console.log(`Dados recebidos DE USB: ${JSON.stringify(resposta)}`);
