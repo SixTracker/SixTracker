@@ -16,7 +16,20 @@ WHERE
 GROUP BY 
     valorRegistro;
    `
-    } else {
+    } else if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+        SELECT 
+    valorRegistro,
+    CAST(COUNT(*) * 100 / (SELECT COUNT(*) FROM registro WHERE fkComponente = 485) AS DECIMAL(10, 4)) AS porcentagem
+FROM 
+    registro
+WHERE 
+    fkComponente = 485 and valorRegistro = 1
+GROUP BY 
+    valorRegistro;
+        `
+    }
+    else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
     }
@@ -54,8 +67,7 @@ WHERE
     fkComponente = 16;
    `
     } else if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `
-    
+        instrucaoSql = `    
 SELECT
 CONVERT(VARCHAR, USBconectado.dataInicio, 103) + ' às ' + CONVERT(VARCHAR, USBconectado.dataInicio, 108) AS dataInicio,
 CONVERT(VARCHAR, USBconectado.dataFinal, 103) + ' às ' + CONVERT(VARCHAR, USBconectado.dataFinal, 108) AS dataFinal,
