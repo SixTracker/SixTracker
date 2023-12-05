@@ -69,17 +69,16 @@ WHERE
     } else if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `    
         SELECT (COUNT(CASE WHEN valorRegistro = 0 THEN 1 END) * 100.0 / COUNT()) AS porcentagem,
-        (SELECT TOP 1 valorRegistro
-        FROM registro WHERE fkComponente = 485
-        ORDER BY dataRegistro DESC) AS ultimovalor,
-        (SELECT COUNT() FROM registro
-        WHERE fkComponente = 485
-        AND valorRegistro = 2 AND CONVERT(DATE, dataRegistro) = DATEADD(DAY, -1, GETDATE())) AS ultimoDia,
-        (SELECT COUNT(*) FROM registro WHERE fkComponente = 485
-        AND valorRegistro = 2 AND CONVERT(DATE, dataRegistro) >= DATEADD(DAY, -7, GETDATE())
-        AND CONVERT(DATE, dataRegistro) <= GETDATE()) AS ultimaSemana FROM
-        registro WHERE fkComponente = 485;
-`
+(SELECT TOP 1 valorRegistro
+FROM registro WHERE fkComponente = 485
+ORDER BY dataRegistro DESC) AS ultimovalor,
+(SELECT COUNT() FROM registro
+WHERE fkComponente = 485
+AND valorRegistro = 2 AND CONVERT(DATE, dataRegistro) = DATEADD(DAY, -1, GETDATE())) AS ultimoDia,
+(SELECT COUNT(*) FROM registro WHERE fkComponente = 485
+AND valorRegistro = 2 AND CONVERT(DATE, dataRegistro) >= DATEADD(DAY, -7, GETDATE())
+AND CONVERT(DATE, dataRegistro) <= GETDATE()) AS ultimaSemana FROM
+registro WHERE fkComponente = 485;`
     }
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
