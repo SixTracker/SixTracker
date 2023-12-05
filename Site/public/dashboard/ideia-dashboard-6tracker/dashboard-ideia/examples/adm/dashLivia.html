@@ -32,9 +32,7 @@ Coded by www.creative-tim.com fdp chris
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
   <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../../assets/demo/demo.css" rel="stylesheet" />
+  <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />  
 </head>
 
 <body onload="obterDadosDesconectado()" onload="obterDadosConectado()">
@@ -580,7 +578,7 @@ Coded by www.creative-tim.com fdp chris
   }
 
   function plotarGraficoConexao(resposta) {
-    console.log("ghjkhhjjjjjjjjjjjjjjj", resposta[0].porcentagem, "kkkkkkkkkkkkkkkkk", resposta)
+    console.log("---------------------------Teste Plotar Gráfico Conexao/Porcentagem/Resposta--------------------------", resposta[0].porcentagem, resposta)
 
     var conectado = 100 - resposta[0].porcentagem
     var ctx = document.getElementById('meuGrafico').getContext('2d');
