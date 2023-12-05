@@ -53,10 +53,32 @@ FROM
 WHERE 
     fkComponente = 16;
    `
-   } else {
-       console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-       return
-   }
+   } else if (process.env.AMBIENTE_PROCESSO == "producao") {
+    instrucaoSql = `
+    SELECT 
+ (COUNT(CASE WHEN valorRegistro = 0 THEN 1 END) * 100 / COUNT(*)) AS porcentagem,
+ (SELECT valorRegistro 
+  FROM registro 
+  WHERE fkComponente = 485 
+  ORDER BY dataRegistro DESC 
+  LIMIT 1) AS ultimovalor,
+ (SELECT COUNT(*) 
+  FROM registro 
+  WHERE fkComponente = 485
+    AND valorRegistro = 2 
+    AND DATE(dataRegistro) = CURDATE() - INTERVAL 1 DAY) AS ultimodia,
+ (SELECT COUNT(*) 
+  FROM registro 
+  WHERE fkComponente = 485 
+    AND valorRegistro = 2 
+    AND dataRegistro >= CURDATE() - INTERVAL 7 DAY 
+    AND dataRegistro <= CURDATE()) AS ultimasemana
+FROM 
+ registro
+WHERE 
+ fkComponente = 485;
+`
+}
 
    console.log("Executando a instrução SQL: \n" + instrucaoSql);
    return database.executar(instrucaoSql);
