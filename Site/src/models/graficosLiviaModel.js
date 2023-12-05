@@ -85,10 +85,10 @@ WHERE
 }
 function buscarUSB(fkServidor) {
 
-    instrucaoSql = `SELECT DATE_FORMAT(usb.dataInicio, '%d/%m/%Y às %H:%i:%s') AS dataInicio, DATE_FORMAT(usb.dataFinal, '%d/%m/%Y às %H:%i:%s') AS dataFinal, servidor.nome
-    FROM usb JOIN servidor ON usb.fkServidor = servidor.idServidor
-    WHERE usb.fkServidor = ${fkServidor}
-    ORDER BY usb.dataFinal DESC;`;
+    instrucaoSql = `SELECT DATE_FORMAT(USBconectado.dataInicio, '%d/%m/%Y às %H:%i:%s') AS dataInicio, DATE_FORMAT(usb.dataFinal, '%d/%m/%Y às %H:%i:%s') AS dataFinal, servidor.nome
+    FROM USBconectado JOIN servidor ON USBconectado.fkServidor = servidor.idServidor
+    WHERE USBconectado.fkServidor = ${fkServidor}
+    ORDER BY USBconectado.dataFinal DESC;`;
 
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
