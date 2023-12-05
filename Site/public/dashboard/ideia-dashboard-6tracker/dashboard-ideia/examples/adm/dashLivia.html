@@ -544,10 +544,12 @@ Coded by www.creative-tim.com fdp chris
         var resposta1 = Number(resposta[0].porcentagem)
         if(resposta1 < 60){
           elemento1.innerHTML = "Grave"
-        } else if (resposta1 < 80){
+        } else if (resposta1 < 80 && resposta1 > 60){
           elemento1.innerHTML = "Alerta"
-        } else if(resposta1 > 80){
+        } else if(resposta1 > 80 && resposta1 < 90){
           elemento1.innerHTML = "Normal"
+        }else if(resposta1 > 90){
+          elemento1.innerHTML = "Otimo"
         }
         var elemento2 = document.getElementById("kpiatual");
         var resposta2 = Number(resposta[0].ultimovalor)
@@ -741,9 +743,6 @@ var myChart = new Chart(ctx, {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      // crie um atributo que recebe o valor recuperado aqui
-      // Agora vá para o arquivo routes/usuario.js
-      fkServidorServer: fkServidor,
     })
   })
     .then(response => response.json())
