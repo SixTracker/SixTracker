@@ -68,14 +68,17 @@ WHERE
    `
     } else if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `    
-SELECT
-CONVERT(VARCHAR, USBconectado.dataInicio, 103) + ' às ' + CONVERT(VARCHAR, USBconectado.dataInicio, 108) AS dataInicio,
-CONVERT(VARCHAR, USBconectado.dataFinal, 103) + ' às ' + CONVERT(VARCHAR, USBconectado.dataFinal, 108) AS dataFinal,
-servidor.nome
-FROM USBconectado
-INNER JOIN servidor ON USBconectado.fkServidor = servidor.idServidor
-WHERE USBconectado.fkServidor = 2
-ORDER BY USBconectado.dataFinal DESC;
+        SELECT (COUNT(CASE WHEN valorRegistro = 0 THEN 1 END) * 100.0 / COUNT()) AS porcentagem,
+        (SELECT TOP 1 valorRegistro
+        FROM registro WHERE fkComponente = 485
+        ORDER BY dataRegistro DESC) AS ultimovalor,
+        (SELECT COUNT() FROM registro
+        WHERE fkComponente = 485
+        AND valorRegistro = 2 AND CONVERT(DATE, dataRegistro) = DATEADD(DAY, -1, GETDATE())) AS ultimoDia,
+        (SELECT COUNT(*) FROM registro WHERE fkComponente = 485
+        AND valorRegistro = 2 AND CONVERT(DATE, dataRegistro) >= DATEADD(DAY, -7, GETDATE())
+        AND CONVERT(DATE, dataRegistro) <= GETDATE()) AS ultimaSemana FROM
+        registro WHERE fkComponente = 485;
 `
     }
 

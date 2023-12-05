@@ -537,8 +537,8 @@ Coded by www.creative-tim.com fdp chris
       })
       .then(resposta => {
         console.log(`Dados recebidos DE USB: ${JSON.stringify(resposta)}`);
-        resposta.reverse();
-        console.log(resposta);
+        
+        console.log("----------------------------",resposta);
         plotarGraficoConexao(resposta)
         var elemento1 = document.getElementById("kpiestado");
         var resposta1 = Number(resposta[0].porcentagem)
