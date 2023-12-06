@@ -68,7 +68,7 @@ WHERE
    `
     } else if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `    
-SELECT (COUNT(CASE WHEN valorRegistro = 0 THEN 1 END) * 100.0 / COUNT()) AS porcentagem,
+SELECT (COUNT(CASE WHEN valorRegistro = 0 THEN 1 END) * 100.0 / COUNT(*)) AS porcentagem,
 (SELECT TOP 1 valorRegistro
 FROM registro WHERE fkComponente = 485
 ORDER BY dataRegistro DESC) AS ultimovalor,
