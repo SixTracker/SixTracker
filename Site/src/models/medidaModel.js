@@ -128,7 +128,7 @@ ORDER BY
 function buscarMedidasRAM() {
     var instrucaoSql = `
     SELECT
-    AVG(valorRegistro) as RAM,
+    ROUND(AVG(valorRegistro),2) as RAM,
     FORMAT(dataRegistro, 'HH:mm') AS intervalo_tempo,
     MAX(Servidor.nome) as nome_servidor
 FROM

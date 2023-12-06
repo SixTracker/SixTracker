@@ -305,7 +305,7 @@ function plotarKpiDesempenhoMax(resposta, idSala) {
 
 function atualizarKpiDesempenhoMax(idSala) {
 
-  fetch(`/medidas/tempo-realDesempenhoMedia/${idSala}`, { cache: 'no-store' }).then(function (response) {
+  fetch(`/graficosGui/atualizarKpiDesempenhoMax/${idSalas}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
           response.json().then(function (novoRegistro) {
               console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);

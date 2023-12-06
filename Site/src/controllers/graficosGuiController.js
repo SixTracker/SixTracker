@@ -101,6 +101,25 @@ function obterDadosDesempenhoMaxCPU(req, res) {
     });
 }
 
+function atualizarKpiDesempenhoMax(req, res) {
+
+    var idSalas = req.params.idSalas;
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    graficosGuiModel.atualizarKpiDesempenhoMax(idSalas).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 // function atualizarListaServidores(req, res) {
 
 //     var idSalas = req.params.idSalas;
@@ -129,6 +148,7 @@ module.exports = {
     buscarMedidasRAM,
     buscarMedidasAtualizadaRAM,
     buscarMedidasAtualizadaCPU,    
-    obterDadosDesempenhoMaxCPU,    
+    obterDadosDesempenhoMaxCPU, 
+    atualizarKpiDesempenhoMax   
     // atualizarListaServidores
 }
