@@ -57,7 +57,7 @@ function plotarGraficoRAM(resposta) {
             // Atualize kpiDisco.textContent em vez de atribuir diretamente ao elemento
             kpiRAM.textContent = registro.RAM + '%';
         } else {
-            kpiRAM.textContent = "Erro";
+            kpiRAM.textContent = "Vai tomar no cu Chris";
         }
 
         // Definindo a cor com base nas condições
@@ -121,7 +121,7 @@ function atualizarGraficoRAM(dados, chartRAM) {
                     if (novoRegistro.RAM!= null) {
                         kpiRAM = novoRegistro.RAM;
                     } else {
-                        kpiRAM = "Erro"
+                        kpiRAM = "VAi tomar no cu Isa"
                     }
 
                     chartRAM.update();
