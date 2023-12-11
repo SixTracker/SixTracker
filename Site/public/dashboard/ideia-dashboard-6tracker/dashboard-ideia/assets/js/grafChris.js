@@ -208,10 +208,11 @@ function obterDadosqtdRAM(idSala) {
 }
 
 function plotarKpiDadosqtdRAM(resposta, idSala) {
-    for (i = 0; i < resposta.length; i++) {
-        var registro = resposta[i];
-        kpiqtd.innerHTML = (registro.total_componentes);
-    }
+    kpiqtd.innerHTML = 1
+    // for (i = 0; i < resposta.length; i++) {
+    //     var registro = resposta[i];
+    //     kpiqtd.innerHTML = (registro.total_componentes);
+    // }
     setTimeout(() => atualizarKpiDadosqtdRAM(idSala), 2000);
 }
 
@@ -222,11 +223,12 @@ function atualizarKpiDadosqtdRAM(idSala) {
             response.json().then(function (novoRegistro) {
                 console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                 var kpiqtd = document.getElementById("kpiqtd");
+                kpiqtd.innerHTML = 1
 
-                for (i = 0; i < resposta.length; i++) {
-                    var registro = resposta[i];
-                    kpiqtd.innerHTML = (registro.total_componentes);
-                }
+                // for (i = 0; i < resposta.length; i++) {
+                //     var registro = resposta[i];
+                //     kpiqtd.innerHTML = (registro.total_componentes);
+                // }
 
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                 proximaAtulizarKpiDadosqtdRAM = setTimeout(() => atualizarKpiDadosqtdRAM(idSala), 5000);

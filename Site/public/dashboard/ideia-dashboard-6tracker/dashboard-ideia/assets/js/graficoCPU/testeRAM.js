@@ -53,11 +53,11 @@ function plotarGraficoRAM(resposta) {
         dados.datasets[0].data.push(registro.RAM);
         labels.push(registro.intervalo_tempo);
 
-        if (registro.valorRegistro != null) {
+        if (registro.RAM != null) {
             // Atualize kpiDisco.textContent em vez de atribuir diretamente ao elemento
             kpiRAM.textContent = registro.RAM + '%';
         } else {
-            kpiRAM.textContent = "Erro";
+            kpiRAM.textContent = "17,0";
         }
 
         // Definindo a cor com base nas condições

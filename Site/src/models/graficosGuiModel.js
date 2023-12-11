@@ -144,6 +144,36 @@ function obterDadosDesempenhoMaxCPU(idSalas){
    return database.executar(instrucaoSql);
 }
 
+function atualizarKpiDesempenhoMax(idSalas){
+       instrucaoSql = `
+       SELECT
+       MAX(valorRegistro) AS maximo_valor,
+       tipoComponente AS nomeTipo,
+       fkTipoComponente,
+       MAX(FORMAT(dataRegistro, 'HH:mm')) AS intervalo_tempo
+   FROM
+       Registro
+   JOIN
+       Componente ON fkComponente = idComponente
+   JOIN
+       TipoComponente ON fkTipoComponente = idTipoComponente
+   JOIN
+       Servidor ON fkServidor = idServidor
+   JOIN
+       Salas ON fkSalas = idSalas
+   WHERE
+       idSalas = ${idSalas}
+   GROUP BY
+       fkTipoComponente, tipoComponente, FORMAT(dataRegistro, 'HH:mm')
+   ORDER BY
+       fkTipoComponente, tipoComponente, FORMAT(dataRegistro, 'HH:mm') DESC;   
+
+   `
+   
+   console.log("Executando a instrução SQL: \n" + instrucaoSql);
+   return database.executar(instrucaoSql);
+}
+
 
 // function atualizarListaServidores(idSalas){
 //     instrucaoSql = ''
@@ -168,5 +198,6 @@ module.exports = {
     buscarMedidasAtualizadaRAM,
     buscarMedidasAtualizadaCPU,
     obterDadosDesempenhoMaxCPU,
+    atualizarKpiDesempenhoMax
     // atualizarListaServidores
 };

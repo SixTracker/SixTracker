@@ -23,6 +23,10 @@ router.get("/obterDadosDesempenhoMaxCPU/:idSalas", function (req, res) {
     graficosGuiController.obterDadosDesempenhoMaxCPU(req, res);
 });
 
+router.get("/atualizarKpiDesempenhoMax/:idSalas", function (req, res) {
+    graficosGuiController.atualizarKpiDesempenhoMax(req, res);
+});
+
 // router.get("/atualizarListaServidores/:idSalas", function (req, res) {
 //     graficosGuiController.atualizarListaServidores(req, res);
 // });

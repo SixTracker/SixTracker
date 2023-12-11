@@ -32,9 +32,7 @@ Coded by www.creative-tim.com fdp chris
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
   <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../../assets/demo/demo.css" rel="stylesheet" />
+  <link href="../../assets/css/dashboardPlane.css" rel="stylesheet" />  
 </head>
 
 <body onload="obterDadosDesconectado()" onload="obterDadosConectado()">
@@ -540,27 +538,29 @@ Coded by www.creative-tim.com fdp chris
         } 
       })
       .then(resposta => {
-        console.log(`Dados recebidos DE USB: ${JSON.stringify(resposta)}`);
-        resposta.reverse();
-        console.log(resposta);
+        console.log(`Dados recebidos DE USB KPI & Gráfico: ${JSON.stringify(resposta)}`);
+        
+        console.log("----------------------------",resposta);
         plotarGraficoConexao(resposta)
         var elemento1 = document.getElementById("kpiestado");
         var resposta1 = Number(resposta[0].porcentagem)
         if(resposta1 < 60){
           elemento1.innerHTML = "Grave"
-        } else if (resposta1 < 80){
+        } else if (resposta1 < 80 && resposta1 > 60){
           elemento1.innerHTML = "Alerta"
-        } else if(resposta1 > 80){
+        } else if(resposta1 > 80 && resposta1 < 90){
           elemento1.innerHTML = "Normal"
+        }else if(resposta1 > 90){
+          elemento1.innerHTML = "Otimo"
         }
         var elemento2 = document.getElementById("kpiatual");
         var resposta2 = Number(resposta[0].ultimovalor)
         elemento2.innerHTML = `${resposta2} ativas`
         var elemento3 = document.getElementById("kpihoje");
-        var resposta3 = Number(resposta[0].ultimodia)
+        var resposta3 = Number(resposta[0].ultimoDia)
         elemento3.innerHTML = `${resposta3} conexões`
         var elemento4 = document.getElementById("kpisemana");
-        var resposta4 = Number(resposta[0].ultimasemana)
+        var resposta4 = Number(resposta[0].ultimaSemana)
         elemento4.innerHTML = `${resposta4} conexões`
       });
   }
@@ -582,7 +582,7 @@ Coded by www.creative-tim.com fdp chris
   }
 
   function plotarGraficoConexao(resposta) {
-    console.log("ghjkhhjjjjjjjjjjjjjjj", resposta[0].porcentagem, "kkkkkkkkkkkkkkkkk", resposta)
+    console.log("---------------------------Teste Plotar Gráfico Conexao/Porcentagem/Resposta--------------------------", resposta[0].porcentagem, resposta)
 
     var conectado = 100 - resposta[0].porcentagem
     var ctx = document.getElementById('meuGrafico').getContext('2d');
@@ -738,16 +738,13 @@ var myChart = new Chart(ctx, {
   var fkServidor = 2
 
   // Função para buscar usuários do banco de dados 
-  function buscarUSB(){
+  function buscarUSB(){    
     fetch("/graficosLivia/buscarUSB/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      // crie um atributo que recebe o valor recuperado aqui
-      // Agora vá para o arquivo routes/usuario.js
-      fkServidorServer: fkServidor,
     })
   })
     .then(response => response.json())

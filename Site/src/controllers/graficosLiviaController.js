@@ -42,16 +42,16 @@ function buscarDesconectado(req, res) {
 
 function buscarUSB(req, res) {
 
-    var fkServidor = req.body.fkServidorServer;
+    // var fkServidor = req.body.fkServidorServer;
 
 
-    // Faça as validações dos valores
-    if (fkServidor == undefined) {
-        res.status(400).send("O id do servidor está undefined!");
-    } else {
+    // // Faça as validações dos valores
+    // if (fkServidor == undefined) {
+    //     res.status(400).send("O id do servidor está undefined!");
+    // } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        graficosLiviaModel.buscarUSB(fkServidor)
+        graficosLiviaModel.buscarUSB()
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -67,7 +67,7 @@ function buscarUSB(req, res) {
                 }
             );
     }
-}
+
 
 module.exports = {    
     testar,

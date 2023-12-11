@@ -300,14 +300,9 @@ Coded by www.creative-tim.com fdp chris
                 <div class="card-body ">
                   <canvas id="analiseSistema" width="400" height="150"></canvas>
                 </div>
-                <div class="card-footer ">
-                  <!-- <hr> -->
-                  <!-- <div class="stats">
-                    <i class="fa fa-history"></i> Atualizado 1 minuto atrás.
-                  </div> -->
+                <div class="card-footer ">                  
                 </div>
-              </div>
-            
+              </div>            
               <div id="CardRAM" class="card ">
                 <div class="card-header ">
                   <h5 class="card-title">RAM</h5>
@@ -316,11 +311,7 @@ Coded by www.creative-tim.com fdp chris
                 <div class="card-body ">
                   <canvas id="analiseSistema2" width="400" height="150"></canvas>
                 </div>
-                <div class="card-footer ">
-                  <!-- <hr>
-                  <div class="stats">
-                    <i class="fa fa-history"></i> Atualizado 1 minuto atrás.
-                  </div> -->
+                <div class="card-footer ">                  
                 </div>
               </div>
             </div>
@@ -432,6 +423,7 @@ Coded by www.creative-tim.com fdp chris
         atualizarGraficoCPU(idSalas);
         obterDadosDesempenhoMax(idSalas);            
         limparplotarKpiDesempenhoMax();
+        var cardRam = document.getElementById('CardRAM')
         cardRam.style.bottom = '52.4vh';
     }
 });
